@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
-import { ArrowRight, Cpu, Radio, Server, Wifi } from "lucide-react";
+import { ArrowRight, Code2, Radio, Server, Smartphone } from "lucide-react";
 
 export const Route = createFileRoute("/products")({
   head: () => ({
