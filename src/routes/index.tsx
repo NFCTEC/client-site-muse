@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
-import { ArrowRight, Cpu, Radio, Server, Shield, Wifi, Zap, CheckCircle2 } from "lucide-react";
+import { ArrowRight, Code2, Cpu, Radio, Server, Shield, Smartphone, Zap, CheckCircle2 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -17,8 +17,8 @@ function Home() {
 
   const products = [
     { tag: tr("prod.1.tag"), title: tr("prod.1.title"), desc: tr("prod.1.desc"), icon: Radio },
-    { tag: tr("prod.2.tag"), title: tr("prod.2.title"), desc: tr("prod.2.desc"), icon: Wifi },
-    { tag: tr("prod.3.tag"), title: tr("prod.3.title"), desc: tr("prod.3.desc"), icon: Cpu },
+    { tag: tr("prod.2.tag"), title: tr("prod.2.title"), desc: tr("prod.2.desc"), icon: Smartphone },
+    { tag: tr("prod.3.tag"), title: tr("prod.3.title"), desc: tr("prod.3.desc"), icon: Code2 },
     { tag: tr("prod.4.tag"), title: tr("prod.4.title"), desc: tr("prod.4.desc"), icon: Server },
   ];
 
