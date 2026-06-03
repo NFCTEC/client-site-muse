@@ -22,29 +22,29 @@ function Products() {
       key: "1", icon: Radio,
       tag: tr("prod.1.tag"), title: tr("prod.1.title"), desc: tr("prod.1.desc"),
       specs: lang === "zh"
-        ? [["芯片", "NXP NTAG 213 / 215 / 216"], ["读取距离", "0 – 4 cm"], ["存储", "144 / 504 / 888 B"], ["温度", "-40 ~ 85°C"]]
-        : [["Chip", "NXP NTAG 213 / 215 / 216"], ["Read range", "0 – 4 cm"], ["Memory", "144 / 504 / 888 B"], ["Temp", "-40 ~ 85°C"]],
+        ? [["频段", "13.56 MHz"], ["芯片", "NTAG 213/215/216 · Mifare · DESFire"], ["读取距离", "0 – 10 cm"], ["温度", "-40 ~ 85°C"]]
+        : [["Frequency", "13.56 MHz"], ["Chip", "NTAG 213/215/216 · Mifare · DESFire"], ["Read range", "0 – 10 cm"], ["Temp", "-40 ~ 85°C"]],
     },
     {
-      key: "2", icon: Wifi,
+      key: "2", icon: Smartphone,
       tag: tr("prod.2.tag"), title: tr("prod.2.title"), desc: tr("prod.2.desc"),
       specs: lang === "zh"
-        ? [["协议", "ISO 18000-6C / EPC Gen2"], ["频段", "860 – 960 MHz"], ["读取距离", "0 – 10 m"], ["EPC", "96 / 128 bit"]]
-        : [["Protocol", "ISO 18000-6C / EPC Gen2"], ["Band", "860 – 960 MHz"], ["Read range", "0 – 10 m"], ["EPC", "96 / 128 bit"]],
+        ? [["标准", "ISO 14443 A/B · ISO 15693"], ["形态", "桌面 / 嵌入式 / 手持"], ["接口", "USB · UART · BT · Ethernet"], ["模组", "PN532 / PN5180"]]
+        : [["Standards", "ISO 14443 A/B · ISO 15693"], ["Form", "Desktop / Embedded / Handheld"], ["Interface", "USB · UART · BT · Ethernet"], ["Module", "PN532 / PN5180"]],
     },
     {
-      key: "3", icon: Cpu,
+      key: "3", icon: Code2,
       tag: tr("prod.3.tag"), title: tr("prod.3.title"), desc: tr("prod.3.desc"),
       specs: lang === "zh"
-        ? [["类型", "固定式 / 手持式"], ["接口", "Ethernet · 4G · BT5.0"], ["防护", "IP65"], ["天线", "8 端口可扩展"]]
-        : [["Type", "Fixed / Handheld"], ["Interface", "Ethernet · 4G · BT5.0"], ["Rating", "IP65"], ["Antenna", "8 ports"]],
+        ? [["平台", "Android · iOS · Windows · Linux"], ["能力", "读写 · 加密认证 · HCE"], ["安全", "AES-128 · 3DES · SUN"], ["语言", "Java · Kotlin · Swift · C/C++"]]
+        : [["Platform", "Android · iOS · Windows · Linux"], ["Features", "R/W · Mutual auth · HCE"], ["Security", "AES-128 · 3DES · SUN"], ["Lang", "Java · Kotlin · Swift · C/C++"]],
     },
     {
       key: "4", icon: Server,
       tag: tr("prod.4.tag"), title: tr("prod.4.title"), desc: tr("prod.4.desc"),
       specs: lang === "zh"
-        ? [["架构", "Kubernetes 弹性集群"], ["设备并发", "1000 万 +"], ["数据接口", "REST · MQTT · Webhook"], ["可用性", "99.99% SLA"]]
-        : [["Architecture", "Kubernetes cluster"], ["Devices", "10M+ concurrent"], ["APIs", "REST · MQTT · Webhook"], ["SLA", "99.99%"]],
+        ? [["架构", "Kubernetes 弹性集群"], ["标签管理", "千万级一物一码"], ["接口", "REST · Webhook · MQTT"], ["可用性", "99.99% SLA"]]
+        : [["Architecture", "Kubernetes cluster"], ["Tag mgmt", "10M+ unique IDs"], ["APIs", "REST · Webhook · MQTT"], ["SLA", "99.99%"]],
     },
   ];
 
