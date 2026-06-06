@@ -56,11 +56,11 @@ export function Header() {
                   {prodOpen && (
                     <div className="absolute top-full left-0 pt-3">
                       <div className="rounded-xl border border-border bg-popover shadow-float p-2 min-w-[180px]">
-                        <Link to="/products" search={{ tab: "sw" } as never}
+                        <Link to="/products"
                           className="block px-3 py-2 text-sm rounded-lg hover:bg-surface-elevated hover:text-primary">
                           {tr("nav.products.sw")}
                         </Link>
-                        <Link to="/products" search={{ tab: "hw" } as never}
+                        <Link to="/products"
                           className="block px-3 py-2 text-sm rounded-lg hover:bg-surface-elevated hover:text-primary">
                           {tr("nav.products.hw")}
                         </Link>
