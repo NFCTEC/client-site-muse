@@ -5,10 +5,10 @@ import { Target, Heart } from "lucide-react";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "关于我们 — NFCTec" },
-      { name: "description", content: "凌芯科技成立于 2014 年，专注 NFC/RFID 智能连接技术，年产能超 30 亿枚。" },
-      { property: "og:title", content: "About — NFCTec" },
-      { property: "og:description", content: "Founded in 2014. 12 years perfecting NFC/RFID." },
+      { title: "About — NFCTEC" },
+      { name: "description", content: "Founded in 2010, NFCTEC delivers full-stack NFC and Smart Card solutions to 500+ projects in 60+ countries." },
+      { property: "og:title", content: "About NFCTEC" },
+      { property: "og:description", content: "15 years at the edge of NFC." },
     ],
   }),
   component: About,
@@ -18,17 +18,18 @@ function About() {
   const { tr } = useI18n();
 
   const milestones = [
-    { year: "2014", text: tr("about.m1") },
-    { year: "2017", text: tr("about.m2") },
-    { year: "2019", text: tr("about.m3") },
-    { year: "2022", text: tr("about.m4") },
-    { year: "2025", text: tr("about.m5") },
+    { year: "2010", text: tr("about.m1") },
+    { year: "2014", text: tr("about.m2") },
+    { year: "2017", text: tr("about.m3") },
+    { year: "2021", text: tr("about.m4") },
+    { year: "2026", text: tr("about.m5") },
   ];
 
   return (
     <>
-      <section className="pt-24 lg:pt-32 pb-20">
-        <div className="mx-auto max-w-7xl px-6 lg:px-10">
+      <section className="relative pt-24 lg:pt-32 pb-20">
+        <div className="absolute inset-0 bg-hero-glow pointer-events-none" />
+        <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
           <div className="text-xs font-mono text-primary uppercase tracking-widest mb-4">
             / {tr("about.eyebrow")}
           </div>
@@ -41,15 +42,15 @@ function About() {
         </div>
       </section>
 
-      <section className="py-20 bg-surface border-y border-border">
-        <div className="mx-auto max-w-7xl px-6 lg:px-10 grid md:grid-cols-2 gap-6">
+      <section className="py-20 bg-surface/40 border-y border-border">
+        <div className="mx-auto max-w-7xl px-6 lg:px-10 grid md:grid-cols-2 gap-5">
           {[
-            { icon: Target, t: tr("about.mission.title"), d: tr("about.mission.desc") },
-            { icon: Heart, t: tr("about.values.title"), d: tr("about.values.desc") },
+            { icon: Target, t: tr("about.mission.t"), d: tr("about.mission.d") },
+            { icon: Heart, t: tr("about.values.t"), d: tr("about.values.d") },
           ].map((b) => {
             const Icon = b.icon;
             return (
-              <div key={b.t} className="rounded-3xl bg-background border border-border p-10 lg:p-12">
+              <div key={b.t} className="card-glow rounded-3xl bg-card-gradient border border-border p-10 lg:p-12">
                 <Icon size={22} className="text-primary mb-6" />
                 <h3 className="font-display text-2xl mb-3">{b.t}</h3>
                 <p className="text-muted-foreground leading-relaxed">{b.d}</p>
@@ -62,15 +63,15 @@ function About() {
       <section className="py-24 lg:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
           <div className="text-xs font-mono text-primary uppercase tracking-widest mb-3">
-            / {tr("about.milestone.title")}
+            / {tr("about.milestone")}
           </div>
           <h2 className="font-display text-4xl lg:text-5xl tracking-tight mb-14">
-            {tr("about.milestone.title")}
+            {tr("about.milestone")}
           </h2>
-          <ol className="relative border-l border-border ml-3">
+          <ol className="relative border-l border-border-strong ml-3">
             {milestones.map((m) => (
               <li key={m.year} className="pl-10 pb-12 last:pb-0 relative">
-                <span className="absolute -left-[7px] top-1.5 w-3.5 h-3.5 rounded-full bg-foreground ring-4 ring-background" />
+                <span className="absolute -left-[7px] top-1.5 w-3.5 h-3.5 rounded-full bg-primary ring-4 ring-background shadow-glow" />
                 <div className="font-mono text-sm text-primary mb-2">{m.year}</div>
                 <p className="font-display text-xl lg:text-2xl tracking-tight max-w-2xl">{m.text}</p>
               </li>

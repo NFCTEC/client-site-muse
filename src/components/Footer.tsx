@@ -3,45 +3,77 @@ import { useI18n } from "@/lib/i18n";
 
 export function Footer() {
   const { tr } = useI18n();
+
+  const cols: { title: string; links: { to: string; label: string }[] }[] = [
+    {
+      title: tr("foot.product"),
+      links: [
+        { to: "/products", label: tr("nav.products.sw") },
+        { to: "/products", label: tr("nav.products.hw") },
+        { to: "/platform", label: tr("nav.platform") },
+      ],
+    },
+    {
+      title: tr("foot.solution"),
+      links: [
+        { to: "/solutions", label: tr("ind.banking.t") },
+        { to: "/solutions", label: tr("ind.transit.t") },
+        { to: "/solutions", label: tr("ind.gov.t") },
+        { to: "/solutions", label: tr("ind.access.t") },
+      ],
+    },
+    {
+      title: tr("foot.resource"),
+      links: [
+        { to: "/downloads", label: tr("nav.downloads") },
+        { to: "/blog", label: tr("nav.blog") },
+        { to: "/platform", label: tr("tools.emv.t") },
+        { to: "/platform", label: tr("tools.apdu.t") },
+      ],
+    },
+    {
+      title: tr("foot.company"),
+      links: [
+        { to: "/about", label: tr("nav.about") },
+        { to: "/contact", label: tr("nav.contact") },
+      ],
+    },
+  ];
+
   return (
-    <footer className="border-t border-border bg-surface">
+    <footer className="border-t border-border bg-surface/40">
       <div className="mx-auto max-w-7xl px-6 lg:px-10 py-16">
-        <div className="grid gap-12 md:grid-cols-4">
-          <div className="md:col-span-2">
-            <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-foreground text-background grid place-items-center font-display font-bold text-sm">
-                N
-              </div>
-              <span className="font-display font-semibold tracking-tight">{tr("brand.name")}</span>
+        <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-5">
+          <div className="lg:col-span-1">
+            <div className="font-display font-bold text-xl tracking-tight">
+              <span className="text-foreground">nfc</span>
+              <span className="text-cyan-gradient">tec</span>
             </div>
-            <p className="mt-4 text-sm text-muted-foreground max-w-sm leading-relaxed">
+            <p className="mt-4 text-sm text-muted-foreground max-w-xs leading-relaxed">
               {tr("brand.tagline")}
             </p>
+            <p className="mt-6 text-xs font-mono text-muted-foreground">{tr("foot.addr")}</p>
           </div>
 
-          <div>
-            <h4 className="font-display text-sm font-medium mb-4">{tr("nav.products")}</h4>
-            <ul className="space-y-3 text-sm text-muted-foreground">
-              <li><Link to="/products" className="hover:text-foreground">{tr("prod.1.tag")}</Link></li>
-              <li><Link to="/products" className="hover:text-foreground">{tr("prod.2.tag")}</Link></li>
-              <li><Link to="/products" className="hover:text-foreground">{tr("prod.3.tag")}</Link></li>
-              <li><Link to="/products" className="hover:text-foreground">{tr("prod.4.tag")}</Link></li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="font-display text-sm font-medium mb-4">{tr("nav.contact")}</h4>
-            <ul className="space-y-3 text-sm text-muted-foreground">
-              <li>hello@nfctec.com</li>
-              <li>+86 755 8888 1234</li>
-              <li className="text-xs leading-relaxed">{tr("footer.addr")}</li>
-            </ul>
-          </div>
+          {cols.map((c) => (
+            <div key={c.title}>
+              <h4 className="font-display text-sm font-semibold mb-4 text-foreground">{c.title}</h4>
+              <ul className="space-y-2.5 text-sm text-muted-foreground">
+                {c.links.map((l) => (
+                  <li key={l.label}>
+                    <Link to={l.to} className="hover:text-primary transition-colors">{l.label}</Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
 
         <div className="mt-12 pt-6 border-t border-border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-          <p className="text-xs text-muted-foreground font-mono">{tr("footer.rights")}</p>
-          <p className="text-xs text-muted-foreground font-mono">ISO 9001 · ISO 14001 · NXP Authorized Partner</p>
+          <p className="text-xs text-muted-foreground font-mono">{tr("foot.rights")}</p>
+          <p className="text-xs text-muted-foreground font-mono">
+            ISO 9001 · PCI-PTS · EMV L1/L2 · NXP Partner
+          </p>
         </div>
       </div>
     </footer>
