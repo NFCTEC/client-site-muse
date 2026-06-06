@@ -1,51 +1,84 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
-import { ArrowRight, Code2, Cpu, Radio, Server, Shield, Smartphone, Zap, CheckCircle2 } from "lucide-react";
+import {
+  ArrowRight, Code2, Cpu, Layers, Wrench, Radio,
+  Wallet, Train, Landmark, KeyRound, HeartPulse, Boxes,
+  ShieldCheck, ShoppingBag, Car, GraduationCap, Sparkles,
+} from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "NFCTec — 下一代 NFC / RFID 智能连接" },
-      { name: "description", content: "端到端的 NFC/RFID 智能连接方案：标签、读写设备、云平台一体化交付。" },
+      { title: "NFCTEC — Full-Stack NFC & Smart Card Solutions" },
+      { name: "description", content: "Software SDKs, reader hardware, JavaCard applets and free developer tools — 15+ years, 50+ protocols, 500+ projects worldwide." },
+      { property: "og:title", content: "NFCTEC — Full-Stack NFC & Smart Card Solutions" },
+      { property: "og:description", content: "From silicon to cloud — NFC SDKs, readers, applets and dev tools." },
     ],
   }),
   component: Home,
 });
 
+const protocolGroups: Record<string, string[]> = {
+  "proto.g1": ["EMV Contact", "EMV Contactless", "Visa payWave", "Mastercard PayPass", "UnionPay QuickPass", "JCB J/Speedy", "AmEx ExpressPay"],
+  "proto.g2": ["ISO 14443 A/B", "ISO 15693", "ISO 18092", "FeliCa", "MIFARE Classic", "MIFARE DESFire", "MIFARE Plus"],
+  "proto.g3": ["ISO 7816", "GlobalPlatform 2.3", "JavaCard 3.1", "JCOP", "MULTOS", "CALYPSO", "SEOS"],
+  "proto.g4": ["NDEF", "NFC Forum Type 2", "Type 3", "Type 4", "Type 5", "SNEP", "LLCP"],
+  "proto.g5": ["AES-128/256", "3DES", "RSA-2048", "ECC P-256", "SHA-256", "SUN Dynamic URL", "PKCS#11"],
+};
+
 function Home() {
   const { tr } = useI18n();
 
-  const products = [
-    { tag: tr("prod.1.tag"), title: tr("prod.1.title"), desc: tr("prod.1.desc"), icon: Radio },
-    { tag: tr("prod.2.tag"), title: tr("prod.2.title"), desc: tr("prod.2.desc"), icon: Smartphone },
-    { tag: tr("prod.3.tag"), title: tr("prod.3.title"), desc: tr("prod.3.desc"), icon: Code2 },
-    { tag: tr("prod.4.tag"), title: tr("prod.4.title"), desc: tr("prod.4.desc"), icon: Server },
-  ];
-
-  const techs = [
-    { title: tr("tech.1.title"), desc: tr("tech.1.desc"), icon: Cpu },
-    { title: tr("tech.2.title"), desc: tr("tech.2.desc"), icon: Radio },
-    { title: tr("tech.3.title"), desc: tr("tech.3.desc"), icon: Shield },
-    { title: tr("tech.4.title"), desc: tr("tech.4.desc"), icon: Server },
+  const pillars = [
+    { icon: Code2, t: tr("pillar.sw.title"), d: tr("pillar.sw.desc"), to: "/products" },
+    { icon: Cpu, t: tr("pillar.hw.title"), d: tr("pillar.hw.desc"), to: "/products" },
+    { icon: Layers, t: tr("pillar.sol.title"), d: tr("pillar.sol.desc"), to: "/solutions" },
+    { icon: Wrench, t: tr("pillar.dev.title"), d: tr("pillar.dev.desc"), to: "/platform" },
   ];
 
   const industries = [
-    tr("ind.1"), tr("ind.2"), tr("ind.3"),
-    tr("ind.4"), tr("ind.5"), tr("ind.6"),
-  ];
+    { icon: Wallet, k: "ind.banking" },
+    { icon: Train, k: "ind.transit" },
+    { icon: Landmark, k: "ind.gov" },
+    { icon: KeyRound, k: "ind.access" },
+    { icon: HeartPulse, k: "ind.health" },
+    { icon: Boxes, k: "ind.iot" },
+    { icon: ShieldCheck, k: "ind.brand" },
+    { icon: ShoppingBag, k: "ind.retail" },
+    { icon: Car, k: "ind.auto" },
+    { icon: GraduationCap, k: "ind.edu" },
+  ] as const;
+
+  const tools = [
+    { k: "tools.emv" },
+    { k: "tools.apdu" },
+    { k: "tools.ndef" },
+    { k: "tools.mifare" },
+  ] as const;
+
+  const allProtocols = Object.values(protocolGroups).flat();
 
   return (
     <>
-      {/* HERO */}
+      {/* 1. HERO */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-hero-glow pointer-events-none" />
-        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-border-strong to-transparent" />
-        <div className="relative mx-auto max-w-7xl px-6 lg:px-10 pt-24 pb-28 lg:pt-32 lg:pb-40 text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-border bg-background/60 backdrop-blur px-3.5 py-1.5 text-xs font-mono text-muted-foreground">
+        <div className="absolute inset-0 bg-grid opacity-40 pointer-events-none [mask-image:radial-gradient(ellipse_at_top,black_30%,transparent_70%)]" />
+        <div className="relative mx-auto max-w-7xl px-6 lg:px-10 pt-24 pb-20 lg:pt-32 lg:pb-28 text-center">
+          <div className="inline-flex items-center gap-2 rounded-full border border-border-strong bg-surface/60 backdrop-blur px-3.5 py-1.5 text-xs font-mono text-primary">
             <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
             {tr("hero.eyebrow")}
           </div>
-          <h1 className="mt-7 font-display font-semibold text-5xl sm:text-6xl lg:text-7xl tracking-tight leading-[1.05] text-balance whitespace-pre-line">
+
+          {/* NFC ripple icon */}
+          <div className="mt-10 mx-auto w-20 h-20 relative">
+            <div className="absolute inset-0 nfc-ripple" />
+            <div className="absolute inset-2 rounded-full bg-cyan-gradient grid place-items-center shadow-glow-strong">
+              <Radio size={28} className="text-primary-foreground" />
+            </div>
+          </div>
+
+          <h1 className="mt-10 font-display font-bold text-5xl sm:text-6xl lg:text-7xl tracking-tight leading-[1.05] text-balance whitespace-pre-line">
             {tr("hero.title")}
           </h1>
           <p className="mt-7 mx-auto max-w-2xl text-lg text-muted-foreground leading-relaxed">
@@ -54,76 +87,60 @@ function Home() {
           <div className="mt-10 flex flex-wrap gap-3 justify-center">
             <Link
               to="/products"
-              className="inline-flex items-center gap-2 rounded-full bg-foreground text-background px-6 py-3 text-sm font-medium hover:bg-foreground/85 transition-all hover:-translate-y-0.5"
+              className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3 text-sm font-semibold hover:shadow-glow-strong transition-all hover:-translate-y-0.5"
             >
-              {tr("hero.cta1")}
-              <ArrowRight size={16} />
+              {tr("hero.cta1")} <ArrowRight size={16} />
             </Link>
             <Link
               to="/contact"
-              className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-6 py-3 text-sm font-medium hover:border-foreground transition-colors"
+              className="inline-flex items-center gap-2 rounded-full border border-border-strong bg-surface/60 backdrop-blur px-6 py-3 text-sm font-medium hover:border-primary hover:text-primary transition-colors"
             >
               {tr("hero.cta2")}
             </Link>
           </div>
 
-          {/* Stats */}
-          <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-px bg-border border border-border rounded-2xl overflow-hidden max-w-4xl mx-auto">
-            {[
-              { n: "3.2", u: tr("hero.stat1") },
-              { n: "800+", u: tr("hero.stat2") },
-              { n: "42", u: tr("hero.stat3") },
-              { n: "120+", u: tr("hero.stat4") },
-            ].map((s) => (
-              <div key={s.u} className="bg-background py-7 px-4">
-                <div className="font-display text-3xl lg:text-4xl font-semibold tracking-tight">{s.n}</div>
-                <div className="mt-1 text-xs text-muted-foreground">{s.u}</div>
-              </div>
-            ))}
+          {/* Protocol marquee */}
+          <div className="relative mt-16 overflow-hidden [mask-image:linear-gradient(90deg,transparent,black_15%,black_85%,transparent)]">
+            <div className="flex gap-3 animate-marquee w-max">
+              {[...allProtocols, ...allProtocols].map((p, i) => (
+                <span
+                  key={i}
+                  className="shrink-0 rounded-full border border-border bg-surface/50 px-4 py-1.5 text-xs font-mono text-muted-foreground whitespace-nowrap"
+                >
+                  {p}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* PRODUCTS GRID */}
-      <section className="py-24 lg:py-32 bg-surface">
+      {/* 2. FOUR PILLARS */}
+      <section className="py-24 lg:py-28">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-14">
-            <div>
-              <div className="text-xs font-mono text-primary uppercase tracking-widest mb-3">
-                / {tr("prod.eyebrow")}
-              </div>
-              <h2 className="font-display text-4xl lg:text-5xl tracking-tight whitespace-pre-line text-balance">
-                {tr("prod.title")}
-              </h2>
+          <div className="mb-12 max-w-2xl">
+            <div className="text-xs font-mono text-primary uppercase tracking-widest mb-3">
+              / {tr("pillar.eyebrow")}
             </div>
-            <Link to="/products" className="text-sm font-medium hover:text-primary inline-flex items-center gap-1.5 group">
-              {tr("prod.viewAll")}
-            </Link>
+            <h2 className="font-display text-4xl lg:text-5xl tracking-tight text-balance">
+              {tr("pillar.title")}
+            </h2>
           </div>
-
-          <div className="grid sm:grid-cols-2 gap-4 lg:gap-6">
-            {products.map((p) => {
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {pillars.map((p) => {
               const Icon = p.icon;
               return (
                 <Link
-                  key={p.title}
-                  to="/products"
-                  className="group relative rounded-3xl border border-border bg-card p-8 lg:p-10 transition-all hover:border-foreground/30 hover:shadow-soft overflow-hidden"
+                  key={p.t}
+                  to={p.to}
+                  className="card-glow group relative rounded-2xl border border-border bg-card-gradient p-7 overflow-hidden"
                 >
-                  <div className="flex items-start justify-between mb-10">
-                    <div className="text-xs font-mono text-muted-foreground uppercase tracking-wider">
-                      {p.tag}
-                    </div>
-                    <div className="w-11 h-11 rounded-xl bg-foreground text-background grid place-items-center group-hover:bg-primary transition-colors">
-                      <Icon size={18} />
-                    </div>
+                  <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/30 grid place-items-center mb-6 group-hover:bg-primary/20 transition-colors">
+                    <Icon size={20} className="text-primary" />
                   </div>
-                  <h3 className="font-display text-2xl lg:text-3xl tracking-tight mb-3">{p.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed max-w-md">{p.desc}</p>
-                  <ArrowRight
-                    className="absolute bottom-8 right-8 text-muted-foreground group-hover:text-foreground group-hover:translate-x-1 transition-all"
-                    size={18}
-                  />
+                  <h3 className="font-display text-xl font-semibold mb-2">{p.t}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{p.d}</p>
+                  <ArrowRight size={16} className="absolute bottom-6 right-6 text-muted-foreground opacity-0 group-hover:opacity-100 group-hover:text-primary group-hover:translate-x-1 transition-all" />
                 </Link>
               );
             })}
@@ -131,59 +148,33 @@ function Home() {
         </div>
       </section>
 
-      {/* TECH */}
-      <section className="py-24 lg:py-32">
+      {/* 3. PROTOCOL COVERAGE */}
+      <section className="py-24 lg:py-28 bg-surface/40 border-y border-border">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
-          <div className="max-w-3xl">
+          <div className="mb-12 max-w-2xl">
             <div className="text-xs font-mono text-primary uppercase tracking-widest mb-3">
-              / {tr("tech.eyebrow")}
+              / {tr("proto.eyebrow")}
             </div>
-            <h2 className="font-display text-4xl lg:text-5xl tracking-tight whitespace-pre-line text-balance">
-              {tr("tech.title")}
+            <h2 className="font-display text-4xl lg:text-5xl tracking-tight text-balance">
+              {tr("proto.title")}
             </h2>
+            <p className="mt-4 text-muted-foreground">{tr("proto.sub")}</p>
           </div>
-
-          <div className="mt-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
-            {techs.map((t, i) => {
-              const Icon = t.icon;
-              return (
-                <div key={t.title} className="relative">
-                  <div className="text-xs font-mono text-muted-foreground mb-6">
-                    0{i + 1}
-                  </div>
-                  <div className="w-12 h-12 rounded-2xl bg-surface border border-border grid place-items-center mb-5">
-                    <Icon size={20} className="text-foreground" />
-                  </div>
-                  <h3 className="font-display text-lg font-semibold mb-2">{t.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{t.desc}</p>
+          <div className="space-y-6">
+            {Object.entries(protocolGroups).map(([gk, items]) => (
+              <div key={gk} className="rounded-2xl border border-border bg-card-gradient p-6 lg:p-8">
+                <div className="text-xs font-mono text-primary uppercase tracking-widest mb-4">
+                  {tr(gk as never)}
                 </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* INDUSTRIES */}
-      <section className="py-24 lg:py-32 bg-surface border-y border-border">
-        <div className="mx-auto max-w-7xl px-6 lg:px-10">
-          <div className="text-xs font-mono text-primary uppercase tracking-widest mb-3">
-            / {tr("ind.eyebrow")}
-          </div>
-          <h2 className="font-display text-4xl lg:text-5xl tracking-tight mb-14 text-balance">
-            {tr("ind.title")}
-          </h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-px bg-border border border-border rounded-2xl overflow-hidden">
-            {industries.map((ind, i) => (
-              <div
-                key={ind}
-                className="bg-background p-8 lg:p-10 hover:bg-surface-elevated transition-colors group"
-              >
-                <div className="flex items-center gap-3 text-xs font-mono text-muted-foreground mb-6">
-                  <span>0{i + 1}</span>
-                  <span className="h-px flex-1 bg-border" />
-                </div>
-                <div className="font-display text-xl lg:text-2xl font-medium group-hover:text-primary transition-colors">
-                  {ind}
+                <div className="flex flex-wrap gap-2">
+                  {items.map((it) => (
+                    <span
+                      key={it}
+                      className="rounded-lg border border-border bg-background/60 px-3 py-1.5 text-xs font-mono text-foreground/80 hover:border-primary hover:text-primary transition-colors"
+                    >
+                      {it}
+                    </span>
+                  ))}
                 </div>
               </div>
             ))}
@@ -191,31 +182,127 @@ function Home() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-24 lg:py-32">
-        <div className="mx-auto max-w-5xl px-6 lg:px-10">
-          <div className="relative rounded-3xl bg-foreground text-background p-12 lg:p-20 text-center overflow-hidden">
-            <div className="absolute inset-0 opacity-20 [background-image:radial-gradient(circle_at_30%_20%,oklch(0.7_0.2_256/0.6),transparent_50%),radial-gradient(circle_at_70%_80%,oklch(0.7_0.2_256/0.4),transparent_50%)]" />
+      {/* 4. STATS */}
+      <section className="py-20 lg:py-24">
+        <div className="mx-auto max-w-7xl px-6 lg:px-10">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {[
+              { n: "15+", u: tr("stat.years") },
+              { n: "50+", u: tr("stat.protocols") },
+              { n: "500+", u: tr("stat.projects") },
+            ].map((s) => (
+              <div
+                key={s.u}
+                className="card-glow rounded-2xl border border-border bg-card-gradient p-10 text-center"
+              >
+                <div className="font-display text-6xl lg:text-7xl font-bold text-cyan-gradient tracking-tight">
+                  {s.n}
+                </div>
+                <div className="mt-3 text-sm text-muted-foreground">{s.u}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 5. INDUSTRIES (10 cards) */}
+      <section className="py-24 lg:py-28 bg-surface/40 border-y border-border">
+        <div className="mx-auto max-w-7xl px-6 lg:px-10">
+          <div className="mb-12 flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+            <div className="max-w-2xl">
+              <div className="text-xs font-mono text-primary uppercase tracking-widest mb-3">
+                / {tr("ind.eyebrow")}
+              </div>
+              <h2 className="font-display text-4xl lg:text-5xl tracking-tight whitespace-pre-line text-balance">
+                {tr("ind.title")}
+              </h2>
+            </div>
+            <Link to="/solutions" className="text-sm font-medium text-primary inline-flex items-center gap-1.5">
+              All solutions <ArrowRight size={14} />
+            </Link>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            {industries.map((ind) => {
+              const Icon = ind.icon;
+              return (
+                <Link
+                  key={ind.k}
+                  to="/solutions"
+                  hash={ind.k}
+                  className="card-glow group rounded-2xl border border-border bg-card-gradient p-6"
+                >
+                  <Icon size={22} className="text-primary mb-4" />
+                  <h3 className="font-display text-sm font-semibold mb-1.5 group-hover:text-primary transition-colors">
+                    {tr(`${ind.k}.t` as never)}
+                  </h3>
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    {tr(`${ind.k}.d` as never)}
+                  </p>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* 6. FREE TOOLS */}
+      <section className="py-24 lg:py-28">
+        <div className="mx-auto max-w-7xl px-6 lg:px-10">
+          <div className="mb-12 max-w-2xl">
+            <div className="text-xs font-mono text-primary uppercase tracking-widest mb-3">
+              / {tr("tools.eyebrow")}
+            </div>
+            <h2 className="font-display text-4xl lg:text-5xl tracking-tight text-balance">
+              {tr("tools.title")}
+            </h2>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {tools.map((t) => (
+              <Link
+                key={t.k}
+                to="/platform"
+                className="card-glow group rounded-2xl border border-border bg-card-gradient p-7"
+              >
+                <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 border border-primary/30 px-2.5 py-1 text-[10px] font-mono text-primary mb-5">
+                  <Sparkles size={10} /> FREE
+                </div>
+                <h3 className="font-display text-lg font-semibold mb-2">{tr(`${t.k}.t` as never)}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-6">
+                  {tr(`${t.k}.d` as never)}
+                </p>
+                <span className="text-xs font-mono text-primary inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+                  {tr("tools.open")}
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 7. CTA BANNER */}
+      <section className="pb-24 lg:pb-32">
+        <div className="mx-auto max-w-6xl px-6 lg:px-10">
+          <div className="relative rounded-3xl border border-primary/30 bg-card-gradient p-12 lg:p-16 text-center overflow-hidden shadow-glow">
+            <div className="absolute inset-0 bg-grid opacity-30 pointer-events-none" />
+            <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-72 h-72 bg-primary/20 rounded-full blur-3xl pointer-events-none" />
             <div className="relative">
-              <Zap size={32} className="mx-auto mb-6 text-primary" />
               <h2 className="font-display text-3xl lg:text-5xl tracking-tight text-balance">
                 {tr("cta.title")}
               </h2>
-              <p className="mt-5 text-background/70 max-w-xl mx-auto">{tr("cta.sub")}</p>
-              <Link
-                to="/contact"
-                className="mt-9 inline-flex items-center gap-2 rounded-full bg-background text-foreground px-7 py-3.5 text-sm font-medium hover:bg-primary hover:text-primary-foreground transition-colors"
-              >
-                {tr("cta.btn")}
-                <ArrowRight size={16} />
-              </Link>
-              <div className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-xs font-mono text-background/50">
-                {["NXP Authorized", "ISO 9001", "ISO 14001", "RoHS"].map((c) => (
-                  <span key={c} className="inline-flex items-center gap-1.5">
-                    <CheckCircle2 size={12} />
-                    {c}
-                  </span>
-                ))}
+              <p className="mt-5 text-muted-foreground max-w-xl mx-auto">{tr("cta.sub")}</p>
+              <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
+                <Link
+                  to="/contact"
+                  className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-7 py-3.5 text-sm font-semibold hover:shadow-glow-strong transition-all"
+                >
+                  {tr("cta.btn")} <ArrowRight size={16} />
+                </Link>
+                <Link
+                  to="/downloads"
+                  className="inline-flex items-center gap-2 rounded-full border border-border-strong bg-background/60 backdrop-blur px-7 py-3.5 text-sm font-medium hover:border-primary hover:text-primary transition-colors"
+                >
+                  {tr("cta.btn2")}
+                </Link>
               </div>
             </div>
           </div>
