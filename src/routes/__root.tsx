@@ -80,11 +80,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "NFCTec — 下一代 NFC / RFID 智能连接方案" },
-      { name: "description", content: "凌芯科技 (NFCTec) — 端到端的 NFC/RFID 标签、读写设备与云平台，服务全球品牌、零售、物流和工业客户。" },
-      { name: "author", content: "NFCTec" },
-      { property: "og:title", content: "NFCTec — Next-gen NFC / RFID connectivity" },
-      { property: "og:description", content: "End-to-end NFC/RFID tags, readers and cloud platform." },
+      { title: "NFCTEC — Full-Stack NFC & Smart Card Solutions" },
+      { name: "description", content: "Software SDKs, reader hardware, JavaCard applets and free developer tools. 15+ years, 50+ protocols, 500+ projects." },
+      { name: "author", content: "NFCTEC" },
+      { name: "theme-color", content: "#0A0E1A" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -106,7 +105,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="zh">
+    <html lang="en" className="dark">
       <head>
         <HeadContent />
       </head>
