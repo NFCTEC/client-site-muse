@@ -83,7 +83,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { title: "NFCTEC — Full-Stack NFC & Smart Card Solutions" },
       { name: "description", content: "Software SDKs, reader hardware, JavaCard applets and free developer tools. 15+ years, 50+ protocols, 500+ projects." },
       { name: "author", content: "NFCTEC" },
-      { name: "theme-color", content: "#0A0E1A" },
+      { name: "theme-color", content: "#ffffff" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -105,7 +105,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en">
       <head>
         <HeadContent />
       </head>

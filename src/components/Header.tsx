@@ -2,6 +2,7 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { useState } from "react";
 import { useI18n } from "@/lib/i18n";
 import { Menu, X, ChevronDown } from "lucide-react";
+import logoAsset from "@/assets/nfctec-logo.png.asset.json";
 
 const industryKeys = [
   "ind.banking", "ind.transit", "ind.gov", "ind.access", "ind.health",
@@ -25,13 +26,10 @@ export function Header() {
   ];
 
   return (
-    <header className="fixed top-0 inset-x-0 z-50 backdrop-blur-xl bg-background/70 border-b border-border">
+    <header className="fixed top-0 inset-x-0 z-50 backdrop-blur-xl bg-background/80 border-b border-border">
       <div className="mx-auto max-w-7xl px-6 lg:px-10 h-16 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-2">
-          <span className="font-display font-bold text-xl tracking-tight">
-            <span className="text-foreground">nfc</span>
-            <span className="text-cyan-gradient">tec</span>
-          </span>
+        <Link to="/" className="flex items-center" aria-label="NFCTEC home">
+          <img src={logoAsset.url} alt="NFCTEC" className="h-9 w-auto" />
         </Link>
 
         <nav className="hidden lg:flex items-center gap-7">

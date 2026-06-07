@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
+import logoAsset from "@/assets/nfctec-logo.png.asset.json";
 
 export function Footer() {
   const { tr } = useI18n();
@@ -45,10 +46,7 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-6 lg:px-10 py-16">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-5">
           <div className="lg:col-span-1">
-            <div className="font-display font-bold text-xl tracking-tight">
-              <span className="text-foreground">nfc</span>
-              <span className="text-cyan-gradient">tec</span>
-            </div>
+            <img src={logoAsset.url} alt="NFCTEC" className="h-9 w-auto" />
             <p className="mt-4 text-sm text-muted-foreground max-w-xs leading-relaxed">
               {tr("brand.tagline")}
             </p>
