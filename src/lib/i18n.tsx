@@ -19,45 +19,45 @@ export const t: Dict = {
 
   // Brand
   "brand.tagline": {
-    en: "Full-Stack NFC & Smart Card Solutions",
-    zh: "全栈式 NFC 与智能卡解决方案",
+    en: "NFC Hardware · Issuance & Verification API",
+    zh: "NFC 硬件 · 发卡与验证 API",
   },
 
   // Hero
-  "hero.eyebrow": { en: "NFC · Smart Card · Secure Element", zh: "NFC · 智能卡 · 安全芯片" },
+  "hero.eyebrow": { en: "NFC Readers · Cards · Cloud API", zh: "NFC 读卡器 · 卡片 · 云端 API" },
   "hero.title": {
-    en: "Full-Stack NFC &\nSmart Card Solutions",
-    zh: "全栈式 NFC 与\n智能卡解决方案",
+    en: "NFC Hardware, plus\nIssuance & Verification API.",
+    zh: "NFC 硬件，加上\n发卡与验证 API。",
   },
   "hero.sub": {
-    en: "From silicon to cloud — NFC software SDKs, reader hardware, JavaCard applets and developer tools, trusted by 500+ projects worldwide.",
-    zh: "从芯片到云端 — NFC 软件 SDK、读写硬件、JavaCard 小程序与开发者工具，已服务全球 500+ 项目。",
+    en: "We design NFC readers and modules, and run a cloud platform that issues and verifies NTAG 424 DNA, DESFire and NTAG tags through a simple API — no crypto knowledge required.",
+    zh: "我们自主设计 NFC 读卡器与模组，并提供云端发卡与验证平台。一行 API 即可发行或验证 NTAG 424 DNA、DESFire、NTAG 标签，无需了解复杂的加解密过程。",
   },
   "hero.cta1": { en: "Explore Products", zh: "查看产品" },
   "hero.cta2": { en: "Talk to Engineer", zh: "联系工程师" },
 
   // Business pillars
-  "pillar.eyebrow": { en: "Our Business", zh: "核心业务" },
-  "pillar.title": { en: "Four pillars, one NFC stack.", zh: "四大业务，一站式 NFC 栈。" },
-  "pillar.sw.title": { en: "Software", zh: "软件" },
+  "pillar.eyebrow": { en: "What We Do", zh: "我们做什么" },
+  "pillar.title": { en: "Hardware, software, API — one NFC partner.", zh: "硬件、软件、API — 一站式 NFC 合作伙伴。" },
+  "pillar.sw.title": { en: "Issuance Software", zh: "发卡软件" },
   "pillar.sw.desc": {
-    en: "NFC/Smart Card SDKs, JavaCard applets, EMV kernels, HCE & secure middleware.",
-    zh: "NFC/智能卡 SDK、JavaCard 小程序、EMV 内核、HCE 与安全中间件。",
+    en: "Desktop & server tools to personalize NTAG 424 DNA, DESFire EV2/EV3 and NTAG21x in batches.",
+    zh: "桌面与服务端工具，批量个人化 NTAG 424 DNA、DESFire EV2/EV3、NTAG21x。",
   },
-  "pillar.hw.title": { en: "Hardware", zh: "硬件" },
+  "pillar.hw.title": { en: "NFC Hardware", zh: "NFC 硬件" },
   "pillar.hw.desc": {
-    en: "PC/SC readers, embedded modules, contact + contactless terminals, antennas.",
-    zh: "PC/SC 读写器、嵌入式模组、接触/非接触终端、天线。",
+    en: "USB / Serial / USB CCID readers, embedded modules and NFC signal detection cards.",
+    zh: "USB / 串口 / USB CCID 读卡器、嵌入式模组、NFC 信号检测卡。",
   },
-  "pillar.sol.title": { en: "Solutions", zh: "行业方案" },
+  "pillar.sol.title": { en: "Cloud API", zh: "云端 API" },
   "pillar.sol.desc": {
-    en: "End-to-end deployments for banking, transit, government, IoT and brand protection.",
-    zh: "面向银行、交通、政务、物联与品牌保护的端到端交付。",
+    en: "Issue and verify NFC tags with a single REST call — keys & crypto handled by us.",
+    zh: "一个 REST 接口完成发卡与验证 — 密钥与加密由我们托管。",
   },
-  "pillar.dev.title": { en: "Dev Platform", zh: "开发平台" },
+  "pillar.dev.title": { en: "Industry Solutions", zh: "行业方案" },
   "pillar.dev.desc": {
-    en: "Free tools — EMV Parser, APDU Debugger, NDEF Editor, MIFARE Toolkit.",
-    zh: "免费工具 — EMV 解析、APDU 调试、NDEF 编辑、MIFARE 工具集。",
+    en: "Anti-counterfeit, access control, payment, identity, IoT, retail engagement and more.",
+    zh: "防伪溯源、门禁访问、支付、身份识别、物联网、零售互动等。",
   },
 
   // Protocols
