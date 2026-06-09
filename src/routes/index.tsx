@@ -3,7 +3,7 @@ import { useI18n } from "@/lib/i18n";
 import {
   ArrowRight, Code2, Cpu, Layers, Wrench, Radio,
   Wallet, Train, Landmark, KeyRound, HeartPulse, Boxes,
-  ShieldCheck, ShoppingBag, Car, GraduationCap, Sparkles,
+  ShieldCheck, ShoppingBag, Car, Smartphone, Sparkles,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
@@ -46,7 +46,7 @@ function Home() {
     { icon: ShieldCheck, k: "ind.brand" },
     { icon: ShoppingBag, k: "ind.retail" },
     { icon: Car, k: "ind.auto" },
-    { icon: GraduationCap, k: "ind.edu" },
+    { icon: Smartphone, k: "ind.wallet" },
   ] as const;
 
   const tools = [

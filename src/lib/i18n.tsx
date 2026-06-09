@@ -30,8 +30,8 @@ export const t: Dict = {
     zh: "一切与 NFC 相关，\n一个合作伙伴搞定。",
   },
   "hero.sub": {
-    en: "ePassports, bank cards, transit, access, anti-counterfeit, IoT — we cover every NFC chip, reader and protocol. Hardware we build, software we ship, and a cloud API that issues or verifies any tag without you touching crypto.",
-    zh: "电子护照、银行卡、公交、门禁、防伪、物联网 — 覆盖所有 NFC 芯片、读卡器与协议。硬件自主研发，软件持续交付，云端 API 让发卡与验证零密码学门槛。",
+    en: "Mobile wallets, ePassports, bank cards, transit, access, anti-counterfeit, IoT — we cover every NFC chip, reader and protocol. Hardware we build, software we ship, and a cloud API that issues or verifies any tag without you touching crypto.",
+    zh: "手机钱包、电子护照、银行卡、公交、门禁、防伪、物联网 — 覆盖所有 NFC 芯片、读卡器与协议。硬件自主研发，软件持续交付，云端 API 让发卡与验证零密码学门槛。",
   },
   "hero.cta1": { en: "Explore Products", zh: "查看产品" },
   "hero.cta2": { en: "Talk to Engineer", zh: "联系工程师" },
@@ -41,8 +41,8 @@ export const t: Dict = {
   "pillar.title": { en: "If it's NFC, we do it.", zh: "只要是 NFC，我们都做。" },
   "pillar.sw.title": { en: "Software", zh: "软件" },
   "pillar.sw.desc": {
-    en: "Issuance & reading software for ePassports, bank cards (EMV), NTAG 424 DNA, DESFire, MIFARE, FeliCa, JavaCard and more.",
-    zh: "面向电子护照、银行卡 (EMV)、NTAG 424 DNA、DESFire、MIFARE、FeliCa、JavaCard 等的发卡与读卡软件。",
+    en: "Mobile wallet SDKs, issuance & reading software for ePassports, bank cards (EMV), NTAG 424 DNA, DESFire, MIFARE, FeliCa, JavaCard and more.",
+    zh: "手机钱包 SDK、面向电子护照、银行卡 (EMV)、NTAG 424 DNA、DESFire、MIFARE、FeliCa、JavaCard 等的发卡与读卡软件。",
   },
   "pillar.hw.title": { en: "Hardware", zh: "硬件" },
   "pillar.hw.desc": {
@@ -101,6 +101,8 @@ export const t: Dict = {
   "ind.auto.d": { en: "Digital key (CCC), NFC unlock, in-cabin pairing.", zh: "数字车钥匙 (CCC)、NFC 解锁、车内配对。" },
   "ind.edu.t": { en: "Education & Campus", zh: "教育与校园" },
   "ind.edu.d": { en: "Student ID, library, canteen, attendance.", zh: "学生证、图书馆、食堂、考勤。" },
+  "ind.wallet.t": { en: "Mobile Wallet & Digital Credentials", zh: "手机钱包与数字凭证" },
+  "ind.wallet.d": { en: "HCE, SE applets, tokenization, digital keys for payment, access and transit.", zh: "HCE、SE 小程序、令牌化、支付/门禁/公交数字钥匙。" },
 
   // Dev tools
   "tools.eyebrow": { en: "Free Developer Tools", zh: "免费开发者工具" },
@@ -154,6 +156,8 @@ export const t: Dict = {
   "sw.5.d": { en: "Verify SUN URLs, CMAC, MAC counters — one REST call, JSON result.", zh: "校验 SUN URL、CMAC、计数器 — 一个 REST 接口，返回 JSON。" },
   "sw.6.t": { en: "Issuance Platform (SaaS)", zh: "发卡平台 (SaaS)" },
   "sw.6.d": { en: "Web console for tag projects, key profiles, batch jobs and audit logs.", zh: "Web 控制台管理标签项目、密钥配置、批量任务与审计日志。" },
+  "sw.7.t": { en: "Mobile Wallet SDK", zh: "手机钱包 SDK" },
+  "sw.7.d": { en: "HCE card emulation, Secure Element applets, tokenization, Apple Pay / Google Pay integration, digital car keys and mobile credentials.", zh: "HCE 卡模拟、安全元件小程序、令牌化、Apple Pay / Google Pay 集成、数字车钥匙与手机凭证。" },
 
   // Hardware items
   "hw.1.t": { en: "USB NFC Readers", zh: "USB NFC 读卡器" },

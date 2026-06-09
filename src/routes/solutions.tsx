@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
 import {
   Wallet, Train, Landmark, KeyRound, HeartPulse, Boxes,
-  ShieldCheck, ShoppingBag, Car, GraduationCap, ArrowRight,
+  ShieldCheck, ShoppingBag, Car, Smartphone, ArrowRight,
 } from "lucide-react";
 
 export const Route = createFileRoute("/solutions")({
@@ -27,7 +27,7 @@ const industries = [
   { icon: ShieldCheck, k: "ind.brand", features: ["SUN dynamic URL", "Tamper-evident tags", "Track & trace", "Consumer engagement"] },
   { icon: ShoppingBag, k: "ind.retail", features: ["Tap-to-engage packaging", "Loyalty cards", "Inventory & EAS", "Smart shelves"] },
   { icon: Car, k: "ind.auto", features: ["CCC Digital Key", "NFC unlock & start", "Driver profile sync", "Aftermarket retrofit"] },
-  { icon: GraduationCap, k: "ind.edu", features: ["Student ID + library", "Cashless canteen", "Attendance & gate", "Dorm access"] },
+  { icon: Smartphone, k: "ind.wallet", features: ["HCE card emulation", "Secure Element applets", "Tokenization & provisioning", "Digital keys & credentials"] },
 ] as const;
 
 function Solutions() {
