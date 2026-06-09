@@ -148,6 +148,57 @@ function Home() {
         </div>
       </section>
 
+      {/* 2b. API SECTION */}
+      <section className="py-24 lg:py-28 border-t border-border">
+        <div className="mx-auto max-w-7xl px-6 lg:px-10 grid lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <div className="text-xs font-mono text-primary uppercase tracking-widest mb-3">
+              / {tr("api.eyebrow")}
+            </div>
+            <h2 className="font-display text-4xl lg:text-5xl tracking-tight whitespace-pre-line text-balance">
+              {tr("api.title")}
+            </h2>
+            <p className="mt-5 text-muted-foreground max-w-lg leading-relaxed">
+              {tr("api.sub")}
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link to="/platform" className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3 text-sm font-semibold hover:shadow-glow-strong transition-all">
+                {tr("plat.title")} <ArrowRight size={16} />
+              </Link>
+              <Link to="/contact" className="inline-flex items-center gap-2 rounded-full border border-border-strong px-6 py-3 text-sm font-medium hover:border-primary hover:text-primary transition-colors">
+                {tr("hero.cta2")}
+              </Link>
+            </div>
+          </div>
+          <div className="grid gap-4">
+            <div className="rounded-2xl border border-border bg-card-gradient overflow-hidden">
+              <div className="flex items-center justify-between px-5 py-3 border-b border-border bg-surface/50">
+                <span className="text-xs font-mono text-primary">POST /v1/tags/issue</span>
+                <span className="text-[10px] font-mono text-muted-foreground">{tr("api.issue")}</span>
+              </div>
+              <pre className="p-5 text-xs font-mono leading-relaxed text-foreground/80 overflow-x-auto"><code>{`{
+  "chip": "NTAG424_DNA",
+  "uid":  "04A1B2C3D4E580",
+  "url":  "https://brand.com/x"
+}
+→ 200 OK
+{ "personalization": "...", "sun_url": "..." }`}</code></pre>
+            </div>
+            <div className="rounded-2xl border border-border bg-card-gradient overflow-hidden">
+              <div className="flex items-center justify-between px-5 py-3 border-b border-border bg-surface/50">
+                <span className="text-xs font-mono text-primary">POST /v1/tags/verify</span>
+                <span className="text-[10px] font-mono text-muted-foreground">{tr("api.verify")}</span>
+              </div>
+              <pre className="p-5 text-xs font-mono leading-relaxed text-foreground/80 overflow-x-auto"><code>{`{
+  "scan_url": "https://brand.com/x?e=...&c=..."
+}
+→ 200 OK
+{ "valid": true, "uid": "04A1B2...", "counter": 42 }`}</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* 3. PROTOCOL COVERAGE */}
       <section className="py-24 lg:py-28 bg-surface/40 border-y border-border">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">

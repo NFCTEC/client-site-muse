@@ -19,45 +19,45 @@ export const t: Dict = {
 
   // Brand
   "brand.tagline": {
-    en: "Full-Stack NFC & Smart Card Solutions",
-    zh: "全栈式 NFC 与智能卡解决方案",
+    en: "NFC Hardware · Issuance & Verification API",
+    zh: "NFC 硬件 · 发卡与验证 API",
   },
 
   // Hero
-  "hero.eyebrow": { en: "NFC · Smart Card · Secure Element", zh: "NFC · 智能卡 · 安全芯片" },
+  "hero.eyebrow": { en: "NFC Readers · Cards · Cloud API", zh: "NFC 读卡器 · 卡片 · 云端 API" },
   "hero.title": {
-    en: "Full-Stack NFC &\nSmart Card Solutions",
-    zh: "全栈式 NFC 与\n智能卡解决方案",
+    en: "NFC Hardware, plus\nIssuance & Verification API.",
+    zh: "NFC 硬件，加上\n发卡与验证 API。",
   },
   "hero.sub": {
-    en: "From silicon to cloud — NFC software SDKs, reader hardware, JavaCard applets and developer tools, trusted by 500+ projects worldwide.",
-    zh: "从芯片到云端 — NFC 软件 SDK、读写硬件、JavaCard 小程序与开发者工具，已服务全球 500+ 项目。",
+    en: "We design NFC readers and modules, and run a cloud platform that issues and verifies NTAG 424 DNA, DESFire and NTAG tags through a simple API — no crypto knowledge required.",
+    zh: "我们自主设计 NFC 读卡器与模组，并提供云端发卡与验证平台。一行 API 即可发行或验证 NTAG 424 DNA、DESFire、NTAG 标签，无需了解复杂的加解密过程。",
   },
   "hero.cta1": { en: "Explore Products", zh: "查看产品" },
   "hero.cta2": { en: "Talk to Engineer", zh: "联系工程师" },
 
   // Business pillars
-  "pillar.eyebrow": { en: "Our Business", zh: "核心业务" },
-  "pillar.title": { en: "Four pillars, one NFC stack.", zh: "四大业务，一站式 NFC 栈。" },
-  "pillar.sw.title": { en: "Software", zh: "软件" },
+  "pillar.eyebrow": { en: "What We Do", zh: "我们做什么" },
+  "pillar.title": { en: "Hardware, software, API — one NFC partner.", zh: "硬件、软件、API — 一站式 NFC 合作伙伴。" },
+  "pillar.sw.title": { en: "Issuance Software", zh: "发卡软件" },
   "pillar.sw.desc": {
-    en: "NFC/Smart Card SDKs, JavaCard applets, EMV kernels, HCE & secure middleware.",
-    zh: "NFC/智能卡 SDK、JavaCard 小程序、EMV 内核、HCE 与安全中间件。",
+    en: "Desktop & server tools to personalize NTAG 424 DNA, DESFire EV2/EV3 and NTAG21x in batches.",
+    zh: "桌面与服务端工具，批量个人化 NTAG 424 DNA、DESFire EV2/EV3、NTAG21x。",
   },
-  "pillar.hw.title": { en: "Hardware", zh: "硬件" },
+  "pillar.hw.title": { en: "NFC Hardware", zh: "NFC 硬件" },
   "pillar.hw.desc": {
-    en: "PC/SC readers, embedded modules, contact + contactless terminals, antennas.",
-    zh: "PC/SC 读写器、嵌入式模组、接触/非接触终端、天线。",
+    en: "USB / Serial / USB CCID readers, embedded modules and NFC signal detection cards.",
+    zh: "USB / 串口 / USB CCID 读卡器、嵌入式模组、NFC 信号检测卡。",
   },
-  "pillar.sol.title": { en: "Solutions", zh: "行业方案" },
+  "pillar.sol.title": { en: "Cloud API", zh: "云端 API" },
   "pillar.sol.desc": {
-    en: "End-to-end deployments for banking, transit, government, IoT and brand protection.",
-    zh: "面向银行、交通、政务、物联与品牌保护的端到端交付。",
+    en: "Issue and verify NFC tags with a single REST call — keys & crypto handled by us.",
+    zh: "一个 REST 接口完成发卡与验证 — 密钥与加密由我们托管。",
   },
-  "pillar.dev.title": { en: "Dev Platform", zh: "开发平台" },
+  "pillar.dev.title": { en: "Industry Solutions", zh: "行业方案" },
   "pillar.dev.desc": {
-    en: "Free tools — EMV Parser, APDU Debugger, NDEF Editor, MIFARE Toolkit.",
-    zh: "免费工具 — EMV 解析、APDU 调试、NDEF 编辑、MIFARE 工具集。",
+    en: "Anti-counterfeit, access control, payment, identity, IoT, retail engagement and more.",
+    zh: "防伪溯源、门禁访问、支付、身份识别、物联网、零售互动等。",
   },
 
   // Protocols
@@ -142,32 +142,42 @@ export const t: Dict = {
   "ppage.hw": { en: "Hardware", zh: "硬件设备" },
 
   // Software items
-  "sw.1.t": { en: "NFC SDK (Android / iOS / Win / Linux)", zh: "NFC SDK (Android / iOS / Win / Linux)" },
-  "sw.1.d": { en: "Cross-platform read/write, HCE, secure channel, signed dynamic URL.", zh: "跨平台读写、HCE、安全通道、签名动态 URL。" },
-  "sw.2.t": { en: "EMV L2 Kernel", zh: "EMV L2 内核" },
-  "sw.2.d": { en: "Contact + contactless EMV kernels, certified for Visa, Mastercard, UPI.", zh: "接触/非接触 EMV 内核，通过 Visa、Mastercard、UPI 认证。" },
-  "sw.3.t": { en: "JavaCard Applets", zh: "JavaCard 小程序" },
-  "sw.3.d": { en: "Payment, ID, transit and loyalty applets — GP 2.3, JC 3.1 ready.", zh: "支付、身份、交通与会员小程序，支持 GP 2.3、JC 3.1。" },
-  "sw.4.t": { en: "HCE & Mobile Wallet", zh: "HCE 与移动钱包" },
-  "sw.4.d": { en: "Tokenized HCE wallets with TEE/SE binding and remote provisioning.", zh: "TEE/SE 绑定、远程发卡的令牌化 HCE 钱包。" },
-  "sw.5.t": { en: "Personalization Suite", zh: "个人化套件" },
-  "sw.5.d": { en: "Bulk card issuance, key management (HSM), data prep & QC.", zh: "批量发卡、密钥管理 (HSM)、数据准备与质检。" },
-  "sw.6.t": { en: "Server SDK & APIs", zh: "服务端 SDK 与 API" },
-  "sw.6.d": { en: "REST/Webhook/MQTT APIs, tag analytics, anti-counterfeit verification.", zh: "REST/Webhook/MQTT 接口、标签分析、防伪验证。" },
+  "sw.1.t": { en: "NTAG 424 DNA Issuance Tool", zh: "NTAG 424 DNA 发卡程序" },
+  "sw.1.d": { en: "Personalize SUN dynamic URL, set keys, file settings — desktop & batch modes.", zh: "个人化 SUN 动态 URL、设置密钥与文件参数，支持桌面与批量模式。" },
+  "sw.2.t": { en: "DESFire EV2 / EV3 Issuance", zh: "DESFire EV2 / EV3 发卡" },
+  "sw.2.d": { en: "Create applications, files, AES keys; full personalization workflow.", zh: "创建应用、文件、AES 密钥，提供完整个人化流程。" },
+  "sw.3.t": { en: "NTAG 21x Programmer", zh: "NTAG 21x 写卡程序" },
+  "sw.3.d": { en: "Write NDEF, lock pages, set passwords on NTAG213/215/216 in bulk.", zh: "批量写入 NDEF、锁定页、为 NTAG213/215/216 设置密码。" },
+  "sw.4.t": { en: "Issuance API", zh: "发卡 API" },
+  "sw.4.d": { en: "POST a card UID → we return personalization data. No keys leave our HSM.", zh: "POST 卡片 UID → 返回个人化数据。密钥全程托管于 HSM。" },
+  "sw.5.t": { en: "Verification API", zh: "验证 API" },
+  "sw.5.d": { en: "Verify SUN URLs, CMAC, MAC counters — one REST call, JSON result.", zh: "校验 SUN URL、CMAC、计数器 — 一个 REST 接口，返回 JSON。" },
+  "sw.6.t": { en: "Issuance Platform (SaaS)", zh: "发卡平台 (SaaS)" },
+  "sw.6.d": { en: "Web console for tag projects, key profiles, batch jobs and audit logs.", zh: "Web 控制台管理标签项目、密钥配置、批量任务与审计日志。" },
 
   // Hardware items
-  "hw.1.t": { en: "Desktop USB Readers", zh: "桌面 USB 读写器" },
-  "hw.1.d": { en: "PC/SC class CCID readers, ISO 14443 A/B + ISO 7816 dual-interface.", zh: "PC/SC CCID 读卡器，双界面支持 ISO 14443 A/B + ISO 7816。" },
-  "hw.2.t": { en: "Embedded Modules", zh: "嵌入式模组" },
-  "hw.2.d": { en: "PN532 / PN5180 modules over UART / SPI / I²C for product integration.", zh: "PN532 / PN5180 模组，UART/SPI/I²C 接口便于集成。" },
-  "hw.3.t": { en: "Handheld Terminals", zh: "手持终端" },
-  "hw.3.d": { en: "Rugged Android terminals with NFC, 1D/2D scanner, 4G/WiFi.", zh: "三防安卓终端，NFC + 1D/2D 扫码 + 4G/WiFi。" },
-  "hw.4.t": { en: "Payment Terminals", zh: "支付终端" },
-  "hw.4.d": { en: "PCI-PTS certified contact + contactless EMV terminals.", zh: "通过 PCI-PTS 认证的接触/非接 EMV 终端。" },
-  "hw.5.t": { en: "Smart Cards & Tags", zh: "智能卡与标签" },
-  "hw.5.d": { en: "JCOP, DESFire, MIFARE, NTAG — printable, custom-shaped, on-metal.", zh: "JCOP、DESFire、MIFARE、NTAG — 可印刷、异形、抗金属。" },
-  "hw.6.t": { en: "Antennas & Inlays", zh: "天线与封装" },
-  "hw.6.d": { en: "13.56 MHz antennas tuned for metal, liquid, glass and skin contact.", zh: "针对金属、液体、玻璃、皮肤优化的 13.56 MHz 天线。" },
+  "hw.1.t": { en: "USB NFC Readers", zh: "USB NFC 读卡器" },
+  "hw.1.d": { en: "Plug-and-play USB CCID / PC/SC readers — ISO 14443 A/B, 13.56 MHz.", zh: "即插即用 USB CCID / PC/SC 读卡器,支持 ISO 14443 A/B,13.56 MHz。" },
+  "hw.2.t": { en: "Serial (UART) Readers", zh: "串口 (UART) 读卡器" },
+  "hw.2.d": { en: "RS-232 / TTL serial NFC readers for industrial PCs, kiosks and embedded hosts.", zh: "RS-232 / TTL 串口 NFC 读卡器,适配工控机、自助设备与嵌入式主机。" },
+  "hw.3.t": { en: "Embedded NFC Modules", zh: "嵌入式 NFC 模组" },
+  "hw.3.d": { en: "PN532 / PN5180 modules over UART / SPI / I²C — integrate into your product.", zh: "PN532 / PN5180 模组,UART/SPI/I²C 接口,便于集成到您的产品。" },
+  "hw.4.t": { en: "NFC Signal Detection Card", zh: "NFC 信号检测卡" },
+  "hw.4.d": { en: "Pocket card with LED — visually verify reader RF field strength on-site.", zh: "口袋大小带 LED 检测卡,现场直观检测读卡器射频信号强度。" },
+  "hw.5.t": { en: "Blank NFC Cards & Tags", zh: "空白 NFC 卡与标签" },
+  "hw.5.d": { en: "NTAG 424 DNA, DESFire EV2/EV3, NTAG213/215/216 — ready for issuance.", zh: "NTAG 424 DNA、DESFire EV2/EV3、NTAG213/215/216,即开即发。" },
+  "hw.6.t": { en: "Antennas & Custom Inlays", zh: "天线与定制封装" },
+  "hw.6.d": { en: "13.56 MHz antennas and inlays tuned for metal, liquid and custom form factors.", zh: "13.56 MHz 天线与封装,针对金属、液体与异形需求调优。" },
+
+  // API / How it works
+  "api.eyebrow": { en: "Issuance & Verification API", zh: "发卡与验证 API" },
+  "api.title": { en: "Issue or verify a tag\nin one API call.", zh: "一个 API 调用,\n完成发卡或验证。" },
+  "api.sub": {
+    en: "We handle the AES keys, CMAC, SUN URLs and HSM — you just POST and read JSON. No cryptography expertise needed.",
+    zh: "AES 密钥、CMAC、SUN URL 与 HSM 全部由我们处理。您只需 POST 调用并读取 JSON,无需任何密码学背景。",
+  },
+  "api.issue": { en: "Issue a tag", zh: "发行标签" },
+  "api.verify": { en: "Verify a scan", zh: "验证扫描" },
 
   // Platform page
   "plat.title": { en: "Dev Platform", zh: "开发者平台" },
