@@ -29,6 +29,7 @@ function Products() {
     { icon: Smartphone, k: "sw.4" },
     { icon: Key, k: "sw.5" },
     { icon: Server, k: "sw.6" },
+    { icon: Wallet, k: "sw.7" },
   ];
 
   const hardware = [
@@ -76,7 +77,7 @@ function Products() {
 
       <section className="pb-24 lg:pb-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {items.map((p, i) => {
               const Icon = p.icon;
               return (

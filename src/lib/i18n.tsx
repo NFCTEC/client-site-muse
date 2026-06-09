@@ -101,6 +101,8 @@ export const t: Dict = {
   "ind.auto.d": { en: "Digital key (CCC), NFC unlock, in-cabin pairing.", zh: "数字车钥匙 (CCC)、NFC 解锁、车内配对。" },
   "ind.edu.t": { en: "Education & Campus", zh: "教育与校园" },
   "ind.edu.d": { en: "Student ID, library, canteen, attendance.", zh: "学生证、图书馆、食堂、考勤。" },
+  "ind.wallet.t": { en: "Mobile Wallet & Digital Credentials", zh: "手机钱包与数字凭证" },
+  "ind.wallet.d": { en: "HCE, SE applets, tokenization, digital keys for payment, access and transit.", zh: "HCE、SE 小程序、令牌化、支付/门禁/公交数字钥匙。" },
 
   // Dev tools
   "tools.eyebrow": { en: "Free Developer Tools", zh: "免费开发者工具" },
@@ -154,6 +156,8 @@ export const t: Dict = {
   "sw.5.d": { en: "Verify SUN URLs, CMAC, MAC counters — one REST call, JSON result.", zh: "校验 SUN URL、CMAC、计数器 — 一个 REST 接口，返回 JSON。" },
   "sw.6.t": { en: "Issuance Platform (SaaS)", zh: "发卡平台 (SaaS)" },
   "sw.6.d": { en: "Web console for tag projects, key profiles, batch jobs and audit logs.", zh: "Web 控制台管理标签项目、密钥配置、批量任务与审计日志。" },
+  "sw.7.t": { en: "Mobile Wallet SDK", zh: "手机钱包 SDK" },
+  "sw.7.d": { en: "HCE card emulation, Secure Element applets, tokenization, Apple Pay / Google Pay integration, digital car keys and mobile credentials.", zh: "HCE 卡模拟、安全元件小程序、令牌化、Apple Pay / Google Pay 集成、数字车钥匙与手机凭证。" },
 
   // Hardware items
   "hw.1.t": { en: "USB NFC Readers", zh: "USB NFC 读卡器" },
