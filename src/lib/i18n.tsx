@@ -30,8 +30,8 @@ export const t: Dict = {
     zh: "一切与 NFC 相关，\n一个合作伙伴搞定。",
   },
   "hero.sub": {
-    en: "ePassports, bank cards, transit, access, anti-counterfeit, IoT — we cover every NFC chip, reader and protocol. Hardware we build, software we ship, and a cloud API that issues or verifies any tag without you touching crypto.",
-    zh: "电子护照、银行卡、公交、门禁、防伪、物联网 — 覆盖所有 NFC 芯片、读卡器与协议。硬件自主研发，软件持续交付，云端 API 让发卡与验证零密码学门槛。",
+    en: "Mobile wallets, ePassports, bank cards, transit, access, anti-counterfeit, IoT — we cover every NFC chip, reader and protocol. Hardware we build, software we ship, and a cloud API that issues or verifies any tag without you touching crypto.",
+    zh: "手机钱包、电子护照、银行卡、公交、门禁、防伪、物联网 — 覆盖所有 NFC 芯片、读卡器与协议。硬件自主研发，软件持续交付，云端 API 让发卡与验证零密码学门槛。",
   },
   "hero.cta1": { en: "Explore Products", zh: "查看产品" },
   "hero.cta2": { en: "Talk to Engineer", zh: "联系工程师" },
@@ -41,8 +41,8 @@ export const t: Dict = {
   "pillar.title": { en: "If it's NFC, we do it.", zh: "只要是 NFC，我们都做。" },
   "pillar.sw.title": { en: "Software", zh: "软件" },
   "pillar.sw.desc": {
-    en: "Issuance & reading software for ePassports, bank cards (EMV), NTAG 424 DNA, DESFire, MIFARE, FeliCa, JavaCard and more.",
-    zh: "面向电子护照、银行卡 (EMV)、NTAG 424 DNA、DESFire、MIFARE、FeliCa、JavaCard 等的发卡与读卡软件。",
+    en: "Mobile wallet SDKs, issuance & reading software for ePassports, bank cards (EMV), NTAG 424 DNA, DESFire, MIFARE, FeliCa, JavaCard and more.",
+    zh: "手机钱包 SDK、面向电子护照、银行卡 (EMV)、NTAG 424 DNA、DESFire、MIFARE、FeliCa、JavaCard 等的发卡与读卡软件。",
   },
   "pillar.hw.title": { en: "Hardware", zh: "硬件" },
   "pillar.hw.desc": {
