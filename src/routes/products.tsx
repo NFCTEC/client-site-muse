@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useI18n } from "@/lib/i18n";
 import {
   ArrowRight, Code2, Cpu, CreditCard, Smartphone, Server, Key,
-  Usb, Boxes, Tablet, Terminal, Layers, Radio,
+  Usb, Boxes, Tablet, Terminal, Layers, Radio, Wallet,
 } from "lucide-react";
 
 export const Route = createFileRoute("/products")({
