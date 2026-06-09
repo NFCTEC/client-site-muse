@@ -142,12 +142,12 @@ export const t: Dict = {
   "ppage.hw": { en: "Hardware", zh: "硬件设备" },
 
   // Software items
-  "sw.1.t": { en: "NTAG 424 DNA Issuance Tool", zh: "NTAG 424 DNA 发卡程序" },
-  "sw.1.d": { en: "Personalize SUN dynamic URL, set keys, file settings — desktop & batch modes.", zh: "个人化 SUN 动态 URL、设置密钥与文件参数，支持桌面与批量模式。" },
-  "sw.2.t": { en: "DESFire EV2 / EV3 Issuance", zh: "DESFire EV2 / EV3 发卡" },
-  "sw.2.d": { en: "Create applications, files, AES keys; full personalization workflow.", zh: "创建应用、文件、AES 密钥，提供完整个人化流程。" },
-  "sw.3.t": { en: "NTAG 21x Programmer", zh: "NTAG 21x 写卡程序" },
-  "sw.3.d": { en: "Write NDEF, lock pages, set passwords on NTAG213/215/216 in bulk.", zh: "批量写入 NDEF、锁定页、为 NTAG213/215/216 设置密码。" },
+  "sw.1.t": { en: "ePassport Reader Software", zh: "电子护照阅读软件" },
+  "sw.1.d": { en: "ICAO 9303 compliant — BAC/PACE/EAC, MRZ OCR, DG1–DG16 parsing & PA verification.", zh: "符合 ICAO 9303 — BAC/PACE/EAC、MRZ 识别、DG1–DG16 解析与 PA 验证。" },
+  "sw.2.t": { en: "Bank Card (EMV) Reading SDK", zh: "银行卡 (EMV) 读卡 SDK" },
+  "sw.2.d": { en: "Read PAN, expiry, track data and cardholder info from contactless EMV cards.", zh: "从非接 EMV 银行卡读取 PAN、有效期、磁道数据与持卡人信息。" },
+  "sw.3.t": { en: "NTAG / DESFire / MIFARE Issuance", zh: "NTAG / DESFire / MIFARE 发卡" },
+  "sw.3.d": { en: "Personalize NTAG 424 DNA, DESFire EV2/EV3, MIFARE Classic & Ultralight in bulk.", zh: "批量个人化 NTAG 424 DNA、DESFire EV2/EV3、MIFARE Classic 与 Ultralight。" },
   "sw.4.t": { en: "Issuance API", zh: "发卡 API" },
   "sw.4.d": { en: "POST a card UID → we return personalization data. No keys leave our HSM.", zh: "POST 卡片 UID → 返回个人化数据。密钥全程托管于 HSM。" },
   "sw.5.t": { en: "Verification API", zh: "验证 API" },
