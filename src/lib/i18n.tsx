@@ -24,40 +24,40 @@ export const t: Dict = {
   },
 
   // Hero
-  "hero.eyebrow": { en: "NFC Readers · Cards · Cloud API", zh: "NFC 读卡器 · 卡片 · 云端 API" },
+  "hero.eyebrow": { en: "Anything NFC — Hardware · Software · API", zh: "NFC 全栈 — 硬件 · 软件 · API" },
   "hero.title": {
-    en: "NFC Hardware, plus\nIssuance & Verification API.",
-    zh: "NFC 硬件，加上\n发卡与验证 API。",
+    en: "Everything NFC,\nfrom one partner.",
+    zh: "一切与 NFC 相关，\n一个合作伙伴搞定。",
   },
   "hero.sub": {
-    en: "We design NFC readers and modules, and run a cloud platform that issues and verifies NTAG 424 DNA, DESFire and NTAG tags through a simple API — no crypto knowledge required.",
-    zh: "我们自主设计 NFC 读卡器与模组，并提供云端发卡与验证平台。一行 API 即可发行或验证 NTAG 424 DNA、DESFire、NTAG 标签，无需了解复杂的加解密过程。",
+    en: "ePassports, bank cards, transit, access, anti-counterfeit, IoT — we cover every NFC chip, reader and protocol. Hardware we build, software we ship, and a cloud API that issues or verifies any tag without you touching crypto.",
+    zh: "电子护照、银行卡、公交、门禁、防伪、物联网 — 覆盖所有 NFC 芯片、读卡器与协议。硬件自主研发，软件持续交付，云端 API 让发卡与验证零密码学门槛。",
   },
   "hero.cta1": { en: "Explore Products", zh: "查看产品" },
   "hero.cta2": { en: "Talk to Engineer", zh: "联系工程师" },
 
   // Business pillars
   "pillar.eyebrow": { en: "What We Do", zh: "我们做什么" },
-  "pillar.title": { en: "Hardware, software, API — one NFC partner.", zh: "硬件、软件、API — 一站式 NFC 合作伙伴。" },
-  "pillar.sw.title": { en: "Issuance Software", zh: "发卡软件" },
+  "pillar.title": { en: "If it's NFC, we do it.", zh: "只要是 NFC，我们都做。" },
+  "pillar.sw.title": { en: "Software", zh: "软件" },
   "pillar.sw.desc": {
-    en: "Desktop & server tools to personalize NTAG 424 DNA, DESFire EV2/EV3 and NTAG21x in batches.",
-    zh: "桌面与服务端工具，批量个人化 NTAG 424 DNA、DESFire EV2/EV3、NTAG21x。",
+    en: "Issuance & reading software for ePassports, bank cards (EMV), NTAG 424 DNA, DESFire, MIFARE, FeliCa, JavaCard and more.",
+    zh: "面向电子护照、银行卡 (EMV)、NTAG 424 DNA、DESFire、MIFARE、FeliCa、JavaCard 等的发卡与读卡软件。",
   },
-  "pillar.hw.title": { en: "NFC Hardware", zh: "NFC 硬件" },
+  "pillar.hw.title": { en: "Hardware", zh: "硬件" },
   "pillar.hw.desc": {
-    en: "USB / Serial / USB CCID readers, embedded modules and NFC signal detection cards.",
-    zh: "USB / 串口 / USB CCID 读卡器、嵌入式模组、NFC 信号检测卡。",
+    en: "USB / Serial / USB CCID readers, embedded modules, NFC signal detection cards, antennas and blank cards.",
+    zh: "USB / 串口 / USB CCID 读卡器、嵌入式模组、NFC 信号检测卡、天线与空白卡。",
   },
   "pillar.sol.title": { en: "Cloud API", zh: "云端 API" },
   "pillar.sol.desc": {
-    en: "Issue and verify NFC tags with a single REST call — keys & crypto handled by us.",
-    zh: "一个 REST 接口完成发卡与验证 — 密钥与加密由我们托管。",
+    en: "Issue or verify any supported NFC chip with one REST call — keys, HSM and crypto fully managed.",
+    zh: "一个 REST 接口即可发行或验证任意 NFC 芯片 — 密钥、HSM 与加密全程托管。",
   },
-  "pillar.dev.title": { en: "Industry Solutions", zh: "行业方案" },
+  "pillar.dev.title": { en: "Solutions & Consulting", zh: "方案与咨询" },
   "pillar.dev.desc": {
-    en: "Anti-counterfeit, access control, payment, identity, IoT, retail engagement and more.",
-    zh: "防伪溯源、门禁访问、支付、身份识别、物联网、零售互动等。",
+    en: "From ePassport readers to brand protection, payment to access — turn-key designs across every NFC scenario.",
+    zh: "从电子护照阅读到品牌防伪，从支付到门禁 — 覆盖所有 NFC 场景的交钥匙方案。",
   },
 
   // Protocols
@@ -142,12 +142,12 @@ export const t: Dict = {
   "ppage.hw": { en: "Hardware", zh: "硬件设备" },
 
   // Software items
-  "sw.1.t": { en: "NTAG 424 DNA Issuance Tool", zh: "NTAG 424 DNA 发卡程序" },
-  "sw.1.d": { en: "Personalize SUN dynamic URL, set keys, file settings — desktop & batch modes.", zh: "个人化 SUN 动态 URL、设置密钥与文件参数，支持桌面与批量模式。" },
-  "sw.2.t": { en: "DESFire EV2 / EV3 Issuance", zh: "DESFire EV2 / EV3 发卡" },
-  "sw.2.d": { en: "Create applications, files, AES keys; full personalization workflow.", zh: "创建应用、文件、AES 密钥，提供完整个人化流程。" },
-  "sw.3.t": { en: "NTAG 21x Programmer", zh: "NTAG 21x 写卡程序" },
-  "sw.3.d": { en: "Write NDEF, lock pages, set passwords on NTAG213/215/216 in bulk.", zh: "批量写入 NDEF、锁定页、为 NTAG213/215/216 设置密码。" },
+  "sw.1.t": { en: "ePassport Reader Software", zh: "电子护照阅读软件" },
+  "sw.1.d": { en: "ICAO 9303 compliant — BAC/PACE/EAC, MRZ OCR, DG1–DG16 parsing & PA verification.", zh: "符合 ICAO 9303 — BAC/PACE/EAC、MRZ 识别、DG1–DG16 解析与 PA 验证。" },
+  "sw.2.t": { en: "Bank Card (EMV) Reading SDK", zh: "银行卡 (EMV) 读卡 SDK" },
+  "sw.2.d": { en: "Read PAN, expiry, track data and cardholder info from contactless EMV cards.", zh: "从非接 EMV 银行卡读取 PAN、有效期、磁道数据与持卡人信息。" },
+  "sw.3.t": { en: "NTAG / DESFire / MIFARE Issuance", zh: "NTAG / DESFire / MIFARE 发卡" },
+  "sw.3.d": { en: "Personalize NTAG 424 DNA, DESFire EV2/EV3, MIFARE Classic & Ultralight in bulk.", zh: "批量个人化 NTAG 424 DNA、DESFire EV2/EV3、MIFARE Classic 与 Ultralight。" },
   "sw.4.t": { en: "Issuance API", zh: "发卡 API" },
   "sw.4.d": { en: "POST a card UID → we return personalization data. No keys leave our HSM.", zh: "POST 卡片 UID → 返回个人化数据。密钥全程托管于 HSM。" },
   "sw.5.t": { en: "Verification API", zh: "验证 API" },
