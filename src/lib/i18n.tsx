@@ -175,13 +175,13 @@ export const t: Dict = {
 
   // API / How it works
   "api.eyebrow": { en: "Issuance & Verification API", zh: "发卡与验证 API" },
-  "api.title": { en: "Issue or verify a tag\nin one API call.", zh: "一个 API 调用,\n完成发卡或验证。" },
+  "api.title": { en: "Issue or verify any credential\nin one API call.", zh: "一个 API 调用,\n发行或验证任意凭证。" },
   "api.sub": {
-    en: "We handle the AES keys, CMAC, SUN URLs and HSM — you just POST and read JSON. No cryptography expertise needed.",
-    zh: "AES 密钥、CMAC、SUN URL 与 HSM 全部由我们处理。您只需 POST 调用并读取 JSON,无需任何密码学背景。",
+    en: "NTAG 424 DNA, DESFire EV2/EV3, MIFARE, EMV bank cards, national ID and ICAO ePassports — one platform, one REST endpoint. We handle the AES keys, CMAC, SUN URLs, PACE/BAC sessions and HSM. You just POST and read JSON.",
+    zh: "NTAG 424 DNA、DESFire EV2/EV3、MIFARE、EMV 银行卡、身份证与 ICAO 电子护照 —— 一个平台、一个 REST 接口。AES 密钥、CMAC、SUN URL、PACE/BAC 会话与 HSM 全部由我们处理,您只需 POST 调用并读取 JSON。",
   },
-  "api.issue": { en: "Issue a tag", zh: "发行标签" },
-  "api.verify": { en: "Verify a scan", zh: "验证扫描" },
+  "api.issue": { en: "Issue any chip", zh: "发行任意芯片" },
+  "api.verify": { en: "Verify any scan", zh: "验证任意扫描" },
 
   // Platform page
   "plat.title": { en: "Dev Platform", zh: "开发者平台" },
