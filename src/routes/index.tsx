@@ -10,21 +10,20 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "NFCTEC — Full-Stack NFC & Smart Card Solutions" },
-      { name: "description", content: "Software SDKs, reader hardware, JavaCard applets and free developer tools — 15+ years, 50+ protocols, 500+ projects worldwide." },
+      { name: "description", content: "NFC hardware, software SDKs and an issuance & verification API — one partner for every NFC project." },
       { property: "og:title", content: "NFCTEC — Full-Stack NFC & Smart Card Solutions" },
-      { property: "og:description", content: "From silicon to cloud — NFC SDKs, readers, applets and dev tools." },
+      { property: "og:description", content: "Hardware, software, API — everything NFC, from one partner." },
     ],
   }),
   component: Home,
 });
 
-const protocolGroups: Record<string, string[]> = {
-  "proto.g1": ["EMV Contact", "EMV Contactless", "Visa payWave", "Mastercard PayPass", "UnionPay QuickPass", "JCB J/Speedy", "AmEx ExpressPay"],
-  "proto.g2": ["ISO 14443 A/B", "ISO 15693", "ISO 18092", "FeliCa", "MIFARE Classic", "MIFARE DESFire", "MIFARE Plus"],
-  "proto.g3": ["ISO 7816", "GlobalPlatform 2.3", "JavaCard 3.1", "JCOP", "MULTOS", "CALYPSO", "SEOS"],
-  "proto.g4": ["NDEF", "NFC Forum Type 2", "Type 3", "Type 4", "Type 5", "SNEP", "LLCP"],
-  "proto.g5": ["AES-128/256", "3DES", "RSA-2048", "ECC P-256", "SHA-256", "SUN Dynamic URL", "PKCS#11"],
-};
+const protocolMarquee = [
+  "EMV Contactless", "ISO 14443 A/B", "ISO 15693", "ISO 7816", "FeliCa",
+  "NTAG 424 DNA", "MIFARE DESFire EV3", "MIFARE Plus", "JavaCard 3.1", "GlobalPlatform 2.3",
+  "ICAO 9303", "PACE / BAC / EAC", "HCE", "SUN Dynamic URL", "AES-128/256",
+  "NDEF Type 2/4/5", "ISO 18092", "Apple Pay", "Google Pay", "PKCS#11",
+];
 
 function Home() {
   const { tr } = useI18n();
@@ -56,21 +55,18 @@ function Home() {
     { k: "tools.mifare" },
   ] as const;
 
-  const allProtocols = Object.values(protocolGroups).flat();
-
   return (
     <>
       {/* 1. HERO */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-hero-glow pointer-events-none" />
         <div className="absolute inset-0 bg-grid opacity-40 pointer-events-none [mask-image:radial-gradient(ellipse_at_top,black_30%,transparent_70%)]" />
-        <div className="relative mx-auto max-w-7xl px-6 lg:px-10 pt-24 pb-20 lg:pt-32 lg:pb-28 text-center">
+        <div className="relative mx-auto max-w-7xl px-6 lg:px-10 pt-24 pb-20 lg:pt-32 lg:pb-24 text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-border-strong bg-surface/60 backdrop-blur px-3.5 py-1.5 text-xs font-mono text-primary">
             <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
             {tr("hero.eyebrow")}
           </div>
 
-          {/* NFC ripple icon */}
           <div className="mt-10 mx-auto w-20 h-20 relative">
             <div className="absolute inset-0 nfc-ripple" />
             <div className="absolute inset-2 rounded-full bg-cyan-gradient grid place-items-center shadow-glow-strong">
@@ -84,6 +80,16 @@ function Home() {
           <p className="mt-7 mx-auto max-w-2xl text-lg text-muted-foreground leading-relaxed">
             {tr("hero.sub")}
           </p>
+
+          {/* Inline stats */}
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-sm text-muted-foreground">
+            <span><span className="font-display font-semibold text-foreground">15+</span> {tr("stat.years")}</span>
+            <span className="w-px h-4 bg-border hidden sm:block" />
+            <span><span className="font-display font-semibold text-foreground">50+</span> {tr("stat.protocols")}</span>
+            <span className="w-px h-4 bg-border hidden sm:block" />
+            <span><span className="font-display font-semibold text-foreground">500+</span> {tr("stat.projects")}</span>
+          </div>
+
           <div className="mt-10 flex flex-wrap gap-3 justify-center">
             <Link
               to="/products"
@@ -102,7 +108,7 @@ function Home() {
           {/* Protocol marquee */}
           <div className="relative mt-16 overflow-hidden [mask-image:linear-gradient(90deg,transparent,black_15%,black_85%,transparent)]">
             <div className="flex gap-3 animate-marquee w-max">
-              {[...allProtocols, ...allProtocols].map((p, i) => (
+              {[...protocolMarquee, ...protocolMarquee].map((p, i) => (
                 <span
                   key={i}
                   className="shrink-0 rounded-full border border-border bg-surface/50 px-4 py-1.5 text-xs font-mono text-muted-foreground whitespace-nowrap"
@@ -115,7 +121,7 @@ function Home() {
         </div>
       </section>
 
-      {/* 2. FOUR PILLARS */}
+      {/* 2. WHAT WE DO + INDUSTRY CHIPS */}
       <section className="py-24 lg:py-28">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
           <div className="mb-12 max-w-2xl">
@@ -145,11 +151,39 @@ function Home() {
               );
             })}
           </div>
+
+          {/* Industry chips row */}
+          <div className="mt-14 pt-10 border-t border-border">
+            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5 mb-6">
+              <div className="text-sm text-muted-foreground">
+                <span className="font-mono text-primary uppercase tracking-widest text-xs mr-2">/ {tr("ind.eyebrow")}</span>
+              </div>
+              <Link to="/solutions" className="text-sm font-medium text-primary inline-flex items-center gap-1.5">
+                {tr("ind.title").replace(/\n/g, " ")} <ArrowRight size={14} />
+              </Link>
+            </div>
+            <div className="flex flex-wrap gap-2.5">
+              {industries.map((ind) => {
+                const Icon = ind.icon;
+                return (
+                  <Link
+                    key={ind.k}
+                    to="/solutions"
+                    hash={ind.k}
+                    className="group inline-flex items-center gap-2 rounded-full border border-border bg-card-gradient px-4 py-2 text-sm hover:border-primary hover:text-primary transition-colors"
+                  >
+                    <Icon size={14} className="text-primary" />
+                    <span>{tr(`${ind.k}.t` as never)}</span>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* 2b. API SECTION */}
-      <section className="py-24 lg:py-28 border-t border-border">
+      {/* 3. API SECTION */}
+      <section className="py-24 lg:py-28 bg-surface/40 border-y border-border">
         <div className="mx-auto max-w-7xl px-6 lg:px-10 grid lg:grid-cols-2 gap-12 items-center">
           <div>
             <div className="text-xs font-mono text-primary uppercase tracking-widest mb-3">
@@ -199,104 +233,7 @@ function Home() {
         </div>
       </section>
 
-      {/* 3. PROTOCOL COVERAGE */}
-      <section className="py-24 lg:py-28 bg-surface/40 border-y border-border">
-        <div className="mx-auto max-w-7xl px-6 lg:px-10">
-          <div className="mb-12 max-w-2xl">
-            <div className="text-xs font-mono text-primary uppercase tracking-widest mb-3">
-              / {tr("proto.eyebrow")}
-            </div>
-            <h2 className="font-display text-4xl lg:text-5xl tracking-tight text-balance">
-              {tr("proto.title")}
-            </h2>
-            <p className="mt-4 text-muted-foreground">{tr("proto.sub")}</p>
-          </div>
-          <div className="space-y-6">
-            {Object.entries(protocolGroups).map(([gk, items]) => (
-              <div key={gk} className="rounded-2xl border border-border bg-card-gradient p-6 lg:p-8">
-                <div className="text-xs font-mono text-primary uppercase tracking-widest mb-4">
-                  {tr(gk as never)}
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {items.map((it) => (
-                    <span
-                      key={it}
-                      className="rounded-lg border border-border bg-background/60 px-3 py-1.5 text-xs font-mono text-foreground/80 hover:border-primary hover:text-primary transition-colors"
-                    >
-                      {it}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 4. STATS */}
-      <section className="py-20 lg:py-24">
-        <div className="mx-auto max-w-7xl px-6 lg:px-10">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {[
-              { n: "15+", u: tr("stat.years") },
-              { n: "50+", u: tr("stat.protocols") },
-              { n: "500+", u: tr("stat.projects") },
-            ].map((s) => (
-              <div
-                key={s.u}
-                className="card-glow rounded-2xl border border-border bg-card-gradient p-10 text-center"
-              >
-                <div className="font-display text-6xl lg:text-7xl font-bold text-cyan-gradient tracking-tight">
-                  {s.n}
-                </div>
-                <div className="mt-3 text-sm text-muted-foreground">{s.u}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 5. INDUSTRIES (10 cards) */}
-      <section className="py-24 lg:py-28 bg-surface/40 border-y border-border">
-        <div className="mx-auto max-w-7xl px-6 lg:px-10">
-          <div className="mb-12 flex flex-col lg:flex-row lg:items-end justify-between gap-6">
-            <div className="max-w-2xl">
-              <div className="text-xs font-mono text-primary uppercase tracking-widest mb-3">
-                / {tr("ind.eyebrow")}
-              </div>
-              <h2 className="font-display text-4xl lg:text-5xl tracking-tight whitespace-pre-line text-balance">
-                {tr("ind.title")}
-              </h2>
-            </div>
-            <Link to="/solutions" className="text-sm font-medium text-primary inline-flex items-center gap-1.5">
-              All solutions <ArrowRight size={14} />
-            </Link>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-            {industries.map((ind) => {
-              const Icon = ind.icon;
-              return (
-                <Link
-                  key={ind.k}
-                  to="/solutions"
-                  hash={ind.k}
-                  className="card-glow group rounded-2xl border border-border bg-card-gradient p-6"
-                >
-                  <Icon size={22} className="text-primary mb-4" />
-                  <h3 className="font-display text-sm font-semibold mb-1.5 group-hover:text-primary transition-colors">
-                    {tr(`${ind.k}.t` as never)}
-                  </h3>
-                  <p className="text-xs text-muted-foreground leading-relaxed">
-                    {tr(`${ind.k}.d` as never)}
-                  </p>
-                </Link>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* 6. FREE TOOLS */}
+      {/* 4. FREE TOOLS */}
       <section className="py-24 lg:py-28">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
           <div className="mb-12 max-w-2xl">
@@ -330,7 +267,7 @@ function Home() {
         </div>
       </section>
 
-      {/* 7. CTA BANNER */}
+      {/* 5. CTA BANNER */}
       <section className="pb-24 lg:pb-32">
         <div className="mx-auto max-w-6xl px-6 lg:px-10">
           <div className="relative rounded-3xl border border-primary/30 bg-card-gradient p-12 lg:p-16 text-center overflow-hidden shadow-glow">
