@@ -156,9 +156,6 @@ function Home() {
       <section className="py-24 lg:py-28 bg-surface/40 border-y border-border">
         <div className="mx-auto max-w-7xl px-6 lg:px-10 grid lg:grid-cols-2 gap-12 items-center">
           <div>
-            <div className="text-xs font-mono text-primary uppercase tracking-widest mb-3">
-              / {tr("api.eyebrow")}
-            </div>
             <h2 className="font-display text-4xl lg:text-5xl tracking-tight whitespace-pre-line text-balance">
               {tr("api.title")}
             </h2>
@@ -207,9 +204,6 @@ function Home() {
       <section className="py-24 lg:py-28">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
           <div className="mb-12 max-w-2xl">
-            <div className="text-xs font-mono text-primary uppercase tracking-widest mb-3">
-              / {tr("tools.eyebrow")}
-            </div>
             <h2 className="font-display text-4xl lg:text-5xl tracking-tight text-balance">
               {tr("tools.title")}
             </h2>
