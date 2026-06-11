@@ -23,6 +23,19 @@ const protocolMarquee = [
   "NDEF Type 2/4/5", "ISO 18092", "Apple Pay", "Google Pay", "PKCS#11",
 ];
 
+const industries = [
+  { icon: Wallet, k: "ind.banking" },
+  { icon: Train, k: "ind.transit" },
+  { icon: Landmark, k: "ind.gov" },
+  { icon: KeyRound, k: "ind.access" },
+  { icon: HeartPulse, k: "ind.health" },
+  { icon: Boxes, k: "ind.iot" },
+  { icon: ShieldCheck, k: "ind.brand" },
+  { icon: ShoppingBag, k: "ind.retail" },
+  { icon: Car, k: "ind.auto" },
+  { icon: Smartphone, k: "ind.wallet" },
+] as const;
+
 function Home() {
   const { tr } = useI18n();
 
