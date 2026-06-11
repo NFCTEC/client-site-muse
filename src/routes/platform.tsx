@@ -117,6 +117,7 @@ function Platform() {
               </div>
             );
           })}
+          </div>
         </div>
       </section>
     </>
