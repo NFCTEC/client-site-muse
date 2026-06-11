@@ -30,9 +30,6 @@ function About() {
       <section className="relative pt-24 lg:pt-32 pb-20">
         <div className="absolute inset-0 bg-hero-glow pointer-events-none" />
         <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
-          <div className="text-xs font-mono text-primary uppercase tracking-widest mb-4">
-            / {tr("about.eyebrow")}
-          </div>
           <h1 className="font-display text-5xl lg:text-7xl tracking-tight whitespace-pre-line text-balance max-w-4xl">
             {tr("about.title")}
           </h1>
@@ -62,9 +59,6 @@ function About() {
 
       <section className="py-24 lg:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
-          <div className="text-xs font-mono text-primary uppercase tracking-widest mb-3">
-            / {tr("about.milestone")}
-          </div>
           <h2 className="font-display text-4xl lg:text-5xl tracking-tight mb-14">
             {tr("about.milestone")}
           </h2>
