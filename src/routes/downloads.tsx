@@ -66,9 +66,6 @@ function Downloads() {
       <section className="relative pt-24 lg:pt-32 pb-16">
         <div className="absolute inset-0 bg-hero-glow pointer-events-none" />
         <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
-          <div className="text-xs font-mono text-primary uppercase tracking-widest mb-4">
-            / {tr("nav.downloads")}
-          </div>
           <h1 className="font-display text-5xl lg:text-7xl tracking-tight max-w-4xl text-balance">
             {tr("dl.title")}
           </h1>

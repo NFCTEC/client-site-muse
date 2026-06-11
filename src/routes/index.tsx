@@ -1,10 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
-import {
-  ArrowRight, Code2, Cpu, Layers, Wrench, Radio,
-  Wallet, Train, Landmark, KeyRound, HeartPulse, Boxes,
-  ShieldCheck, ShoppingBag, Car, Smartphone, Sparkles,
-} from "lucide-react";
+import { ArrowRight, Code2, Cpu, Layers, Wrench, Sparkles } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -35,18 +31,7 @@ function Home() {
     { icon: Wrench, t: tr("pillar.dev.title"), d: tr("pillar.dev.desc"), to: "/platform" },
   ];
 
-  const industries = [
-    { icon: Wallet, k: "ind.banking" },
-    { icon: Train, k: "ind.transit" },
-    { icon: Landmark, k: "ind.gov" },
-    { icon: KeyRound, k: "ind.access" },
-    { icon: HeartPulse, k: "ind.health" },
-    { icon: Boxes, k: "ind.iot" },
-    { icon: ShieldCheck, k: "ind.brand" },
-    { icon: ShoppingBag, k: "ind.retail" },
-    { icon: Car, k: "ind.auto" },
-    { icon: Smartphone, k: "ind.wallet" },
-  ] as const;
+
 
   const tools = [
     { k: "tools.emv" },
@@ -60,21 +45,14 @@ function Home() {
       {/* 1. HERO */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-hero-glow pointer-events-none" />
-        <div className="absolute inset-0 bg-grid opacity-40 pointer-events-none [mask-image:radial-gradient(ellipse_at_top,black_30%,transparent_70%)]" />
-        <div className="relative mx-auto max-w-7xl px-6 lg:px-10 pt-24 pb-20 lg:pt-32 lg:pb-24 text-center">
+        <div className="relative mx-auto max-w-7xl px-6 lg:px-10 pt-28 pb-20 lg:pt-36 lg:pb-24 text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-border-strong bg-surface/60 backdrop-blur px-3.5 py-1.5 text-xs font-mono text-primary">
             <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
             {tr("hero.eyebrow")}
           </div>
 
-          <div className="mt-10 mx-auto w-20 h-20 relative">
-            <div className="absolute inset-0 nfc-ripple" />
-            <div className="absolute inset-2 rounded-full bg-cyan-gradient grid place-items-center shadow-glow-strong">
-              <Radio size={28} className="text-primary-foreground" />
-            </div>
-          </div>
+          <h1 className="mt-8 font-display font-bold text-5xl sm:text-6xl lg:text-7xl tracking-tight leading-[1.05] text-balance whitespace-pre-line">
 
-          <h1 className="mt-10 font-display font-bold text-5xl sm:text-6xl lg:text-7xl tracking-tight leading-[1.05] text-balance whitespace-pre-line">
             {tr("hero.title")}
           </h1>
           <p className="mt-7 mx-auto max-w-2xl text-lg text-muted-foreground leading-relaxed">
@@ -121,13 +99,10 @@ function Home() {
         </div>
       </section>
 
-      {/* 2. WHAT WE DO + INDUSTRY CHIPS */}
+      {/* 2. WHAT WE DO */}
       <section className="py-24 lg:py-28">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
           <div className="mb-12 max-w-2xl">
-            <div className="text-xs font-mono text-primary uppercase tracking-widest mb-3">
-              / {tr("pillar.eyebrow")}
-            </div>
             <h2 className="font-display text-4xl lg:text-5xl tracking-tight text-balance">
               {tr("pillar.title")}
             </h2>
@@ -152,43 +127,20 @@ function Home() {
             })}
           </div>
 
-          {/* Industry chips row */}
-          <div className="mt-14 pt-10 border-t border-border">
-            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5 mb-6">
-              <div className="text-sm text-muted-foreground">
-                <span className="font-mono text-primary uppercase tracking-widest text-xs mr-2">/ {tr("ind.eyebrow")}</span>
-              </div>
-              <Link to="/solutions" className="text-sm font-medium text-primary inline-flex items-center gap-1.5">
-                {tr("ind.title").replace(/\n/g, " ")} <ArrowRight size={14} />
-              </Link>
-            </div>
-            <div className="flex flex-wrap gap-2.5">
-              {industries.map((ind) => {
-                const Icon = ind.icon;
-                return (
-                  <Link
-                    key={ind.k}
-                    to="/solutions"
-                    hash={ind.k}
-                    className="group inline-flex items-center gap-2 rounded-full border border-border bg-card-gradient px-4 py-2 text-sm hover:border-primary hover:text-primary transition-colors"
-                  >
-                    <Icon size={14} className="text-primary" />
-                    <span>{tr(`${ind.k}.t` as never)}</span>
-                  </Link>
-                );
-              })}
-            </div>
+          {/* Industries → link only */}
+          <div className="mt-10 flex justify-center">
+            <Link to="/solutions" className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:gap-2.5 transition-all">
+              {tr("ind.title").replace(/\n/g, " ")} <ArrowRight size={14} />
+            </Link>
           </div>
         </div>
       </section>
+
 
       {/* 3. API SECTION */}
       <section className="py-24 lg:py-28 bg-surface/40 border-y border-border">
         <div className="mx-auto max-w-7xl px-6 lg:px-10 grid lg:grid-cols-2 gap-12 items-center">
           <div>
-            <div className="text-xs font-mono text-primary uppercase tracking-widest mb-3">
-              / {tr("api.eyebrow")}
-            </div>
             <h2 className="font-display text-4xl lg:text-5xl tracking-tight whitespace-pre-line text-balance">
               {tr("api.title")}
             </h2>
@@ -237,9 +189,6 @@ function Home() {
       <section className="py-24 lg:py-28">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
           <div className="mb-12 max-w-2xl">
-            <div className="text-xs font-mono text-primary uppercase tracking-widest mb-3">
-              / {tr("tools.eyebrow")}
-            </div>
             <h2 className="font-display text-4xl lg:text-5xl tracking-tight text-balance">
               {tr("tools.title")}
             </h2>
@@ -271,8 +220,8 @@ function Home() {
       <section className="pb-24 lg:pb-32">
         <div className="mx-auto max-w-6xl px-6 lg:px-10">
           <div className="relative rounded-3xl border border-primary/30 bg-card-gradient p-12 lg:p-16 text-center overflow-hidden shadow-glow">
-            <div className="absolute inset-0 bg-grid opacity-30 pointer-events-none" />
-            <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-72 h-72 bg-primary/20 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-72 h-72 bg-primary/15 rounded-full blur-3xl pointer-events-none" />
+
             <div className="relative">
               <h2 className="font-display text-3xl lg:text-5xl tracking-tight text-balance">
                 {tr("cta.title")}
