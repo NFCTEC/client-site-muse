@@ -1,10 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
-import {
-  ArrowRight, Code2, Cpu, Layers, Wrench, Radio,
-  Wallet, Train, Landmark, KeyRound, HeartPulse, Boxes,
-  ShieldCheck, ShoppingBag, Car, Smartphone, Sparkles,
-} from "lucide-react";
+import { ArrowRight, Code2, Cpu, Layers, Wrench, Sparkles } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -35,18 +31,7 @@ function Home() {
     { icon: Wrench, t: tr("pillar.dev.title"), d: tr("pillar.dev.desc"), to: "/platform" },
   ];
 
-  const industries = [
-    { icon: Wallet, k: "ind.banking" },
-    { icon: Train, k: "ind.transit" },
-    { icon: Landmark, k: "ind.gov" },
-    { icon: KeyRound, k: "ind.access" },
-    { icon: HeartPulse, k: "ind.health" },
-    { icon: Boxes, k: "ind.iot" },
-    { icon: ShieldCheck, k: "ind.brand" },
-    { icon: ShoppingBag, k: "ind.retail" },
-    { icon: Car, k: "ind.auto" },
-    { icon: Smartphone, k: "ind.wallet" },
-  ] as const;
+
 
   const tools = [
     { k: "tools.emv" },
