@@ -1,6 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
-import { ArrowRight, Code2, Cpu, Layers, Wrench, Sparkles } from "lucide-react";
+import { ArrowRight, Code2, Cpu, Layers, Wrench, Sparkles,
+  Wallet, Train, Landmark, KeyRound, HeartPulse, Boxes,
+  ShieldCheck, ShoppingBag, Car, Smartphone } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -20,6 +22,19 @@ const protocolMarquee = [
   "ICAO 9303", "PACE / BAC / EAC", "HCE", "SUN Dynamic URL", "AES-128/256",
   "NDEF Type 2/4/5", "ISO 18092", "Apple Pay", "Google Pay", "PKCS#11",
 ];
+
+const industries = [
+  { icon: Wallet, k: "ind.banking" },
+  { icon: Train, k: "ind.transit" },
+  { icon: Landmark, k: "ind.gov" },
+  { icon: KeyRound, k: "ind.access" },
+  { icon: HeartPulse, k: "ind.health" },
+  { icon: Boxes, k: "ind.iot" },
+  { icon: ShieldCheck, k: "ind.brand" },
+  { icon: ShoppingBag, k: "ind.retail" },
+  { icon: Car, k: "ind.auto" },
+  { icon: Smartphone, k: "ind.wallet" },
+] as const;
 
 function Home() {
   const { tr } = useI18n();
@@ -127,63 +142,38 @@ function Home() {
             })}
           </div>
 
-          {/* Industries → link only */}
-          <div className="mt-10 flex justify-center">
-            <Link to="/solutions" className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:gap-2.5 transition-all">
-              {tr("ind.title").replace(/\n/g, " ")} <ArrowRight size={14} />
-            </Link>
-          </div>
         </div>
       </section>
 
-
-      {/* 3. API SECTION */}
+      {/* 3. INDUSTRIES — visual grid */}
       <section className="py-24 lg:py-28 bg-surface/40 border-y border-border">
-        <div className="mx-auto max-w-7xl px-6 lg:px-10 grid lg:grid-cols-2 gap-12 items-center">
-          <div>
+        <div className="mx-auto max-w-7xl px-6 lg:px-10">
+          <div className="mb-12 max-w-2xl">
             <h2 className="font-display text-4xl lg:text-5xl tracking-tight whitespace-pre-line text-balance">
-              {tr("api.title")}
+              {tr("ind.title")}
             </h2>
-            <p className="mt-5 text-muted-foreground max-w-lg leading-relaxed">
-              {tr("api.sub")}
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link to="/platform" className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3 text-sm font-semibold hover:shadow-glow-strong transition-all">
-                {tr("plat.title")} <ArrowRight size={16} />
-              </Link>
-              <Link to="/contact" className="inline-flex items-center gap-2 rounded-full border border-border-strong px-6 py-3 text-sm font-medium hover:border-primary hover:text-primary transition-colors">
-                {tr("hero.cta2")}
-              </Link>
-            </div>
           </div>
-          <div className="grid gap-4">
-            <div className="rounded-2xl border border-border bg-card-gradient overflow-hidden">
-              <div className="flex items-center justify-between px-5 py-3 border-b border-border bg-surface/50">
-                <span className="text-xs font-mono text-primary">POST /v1/tags/issue</span>
-                <span className="text-[10px] font-mono text-muted-foreground">{tr("api.issue")}</span>
-              </div>
-              <pre className="p-5 text-xs font-mono leading-relaxed text-foreground/80 overflow-x-auto"><code>{`{
-  "chip": "NTAG424_DNA",
-  "uid":  "04A1B2C3D4E580",
-  "url":  "https://brand.com/x"
-}
-→ 200 OK
-{ "personalization": "...", "sun_url": "..." }`}</code></pre>
-            </div>
-            <div className="rounded-2xl border border-border bg-card-gradient overflow-hidden">
-              <div className="flex items-center justify-between px-5 py-3 border-b border-border bg-surface/50">
-                <span className="text-xs font-mono text-primary">POST /v1/tags/verify</span>
-                <span className="text-[10px] font-mono text-muted-foreground">{tr("api.verify")}</span>
-              </div>
-              <pre className="p-5 text-xs font-mono leading-relaxed text-foreground/80 overflow-x-auto"><code>{`{
-  "scan_url": "https://brand.com/x?e=...&c=..."
-}
-→ 200 OK
-{ "valid": true, "uid": "04A1B2...", "counter": 42 }`}</code></pre>
-            </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+            {industries.map((ind) => {
+              const Icon = ind.icon;
+              return (
+                <Link
+                  key={ind.k}
+                  to="/solutions"
+                  hash={ind.k}
+                  className="card-glow group flex flex-col items-center text-center gap-3 rounded-2xl border border-border bg-card-gradient p-5 hover:border-primary/50 transition-colors"
+                >
+                  <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/30 grid place-items-center group-hover:bg-primary/20 transition-colors">
+                    <Icon size={20} className="text-primary" />
+                  </div>
+                  <div className="text-sm font-medium leading-tight">{tr(`${ind.k}.t` as never)}</div>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>
+
 
       {/* 4. FREE TOOLS */}
       <section className="py-24 lg:py-28">

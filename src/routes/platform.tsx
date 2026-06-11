@@ -1,6 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
-import { FileCode2, Terminal, FileText, KeyRound, Sparkles, ExternalLink } from "lucide-react";
+import { FileCode2, Terminal, FileText, KeyRound, Sparkles, ExternalLink, ArrowRight } from "lucide-react";
 
 export const Route = createFileRoute("/platform")({
   head: () => ({
@@ -36,8 +36,59 @@ function Platform() {
         </div>
       </section>
 
-      <section className="pb-24 lg:pb-32">
-        <div className="mx-auto max-w-7xl px-6 lg:px-10 grid sm:grid-cols-2 gap-5">
+      <section className="py-20 lg:py-24 bg-surface/40 border-y border-border">
+        <div className="mx-auto max-w-7xl px-6 lg:px-10 grid lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <h2 className="font-display text-4xl lg:text-5xl tracking-tight whitespace-pre-line text-balance">
+              {tr("api.title")}
+            </h2>
+            <p className="mt-5 text-muted-foreground max-w-lg leading-relaxed">
+              {tr("api.sub")}
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link to="/contact" className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3 text-sm font-semibold hover:shadow-glow-strong transition-all">
+                {tr("hero.cta2")} <ArrowRight size={16} />
+              </Link>
+            </div>
+          </div>
+          <div className="grid gap-4">
+            <div className="rounded-2xl border border-border bg-card-gradient overflow-hidden">
+              <div className="flex items-center justify-between px-5 py-3 border-b border-border bg-surface/50">
+                <span className="text-xs font-mono text-primary">POST /v1/tags/issue</span>
+                <span className="text-[10px] font-mono text-muted-foreground">{tr("api.issue")}</span>
+              </div>
+              <pre className="p-5 text-xs font-mono leading-relaxed text-foreground/80 overflow-x-auto"><code>{`{
+  "chip": "NTAG424_DNA",
+  "uid":  "04A1B2C3D4E580",
+  "url":  "https://brand.com/x"
+}
+→ 200 OK
+{ "personalization": "...", "sun_url": "..." }`}</code></pre>
+            </div>
+            <div className="rounded-2xl border border-border bg-card-gradient overflow-hidden">
+              <div className="flex items-center justify-between px-5 py-3 border-b border-border bg-surface/50">
+                <span className="text-xs font-mono text-primary">POST /v1/tags/verify</span>
+                <span className="text-[10px] font-mono text-muted-foreground">{tr("api.verify")}</span>
+              </div>
+              <pre className="p-5 text-xs font-mono leading-relaxed text-foreground/80 overflow-x-auto"><code>{`{
+  "scan_url": "https://brand.com/x?e=...&c=..."
+}
+→ 200 OK
+{ "valid": true, "uid": "04A1B2...", "counter": 42 }`}</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="pb-24 lg:pb-32 pt-20 lg:pt-24">
+        <div className="mx-auto max-w-7xl px-6 lg:px-10">
+          <div className="mb-12 max-w-2xl">
+            <h2 className="font-display text-4xl lg:text-5xl tracking-tight text-balance">
+              {tr("tools.title")}
+            </h2>
+          </div>
+          <div className="grid sm:grid-cols-2 gap-5">
+
           {tools.map((t) => {
             const Icon = t.icon;
             return (
@@ -66,6 +117,7 @@ function Platform() {
               </div>
             );
           })}
+          </div>
         </div>
       </section>
     </>
