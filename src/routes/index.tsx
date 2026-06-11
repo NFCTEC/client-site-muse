@@ -114,13 +114,10 @@ function Home() {
         </div>
       </section>
 
-      {/* 2. WHAT WE DO + INDUSTRY CHIPS */}
+      {/* 2. WHAT WE DO */}
       <section className="py-24 lg:py-28">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
           <div className="mb-12 max-w-2xl">
-            <div className="text-xs font-mono text-primary uppercase tracking-widest mb-3">
-              / {tr("pillar.eyebrow")}
-            </div>
             <h2 className="font-display text-4xl lg:text-5xl tracking-tight text-balance">
               {tr("pillar.title")}
             </h2>
@@ -145,35 +142,15 @@ function Home() {
             })}
           </div>
 
-          {/* Industry chips row */}
-          <div className="mt-14 pt-10 border-t border-border">
-            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5 mb-6">
-              <div className="text-sm text-muted-foreground">
-                <span className="font-mono text-primary uppercase tracking-widest text-xs mr-2">/ {tr("ind.eyebrow")}</span>
-              </div>
-              <Link to="/solutions" className="text-sm font-medium text-primary inline-flex items-center gap-1.5">
-                {tr("ind.title").replace(/\n/g, " ")} <ArrowRight size={14} />
-              </Link>
-            </div>
-            <div className="flex flex-wrap gap-2.5">
-              {industries.map((ind) => {
-                const Icon = ind.icon;
-                return (
-                  <Link
-                    key={ind.k}
-                    to="/solutions"
-                    hash={ind.k}
-                    className="group inline-flex items-center gap-2 rounded-full border border-border bg-card-gradient px-4 py-2 text-sm hover:border-primary hover:text-primary transition-colors"
-                  >
-                    <Icon size={14} className="text-primary" />
-                    <span>{tr(`${ind.k}.t` as never)}</span>
-                  </Link>
-                );
-              })}
-            </div>
+          {/* Industries → link only */}
+          <div className="mt-10 flex justify-center">
+            <Link to="/solutions" className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:gap-2.5 transition-all">
+              {tr("ind.title").replace(/\n/g, " ")} <ArrowRight size={14} />
+            </Link>
           </div>
         </div>
       </section>
+
 
       {/* 3. API SECTION */}
       <section className="py-24 lg:py-28 bg-surface/40 border-y border-border">
