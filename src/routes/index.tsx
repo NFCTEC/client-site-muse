@@ -220,7 +220,7 @@ function Home() {
       <section className="pb-24 lg:pb-32">
         <div className="mx-auto max-w-6xl px-6 lg:px-10">
           <div className="relative rounded-3xl border border-primary/30 bg-card-gradient p-12 lg:p-16 text-center overflow-hidden shadow-glow">
-            <div className="absolute inset-0 bg-grid opacity-30 pointer-events-none" />
+            <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-72 h-72 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
             <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-72 h-72 bg-primary/20 rounded-full blur-3xl pointer-events-none" />
             <div className="relative">
               <h2 className="font-display text-3xl lg:text-5xl tracking-tight text-balance">
