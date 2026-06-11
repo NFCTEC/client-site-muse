@@ -1,6 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
-import { FileCode2, Terminal, FileText, KeyRound, Sparkles, ExternalLink } from "lucide-react";
+import { FileCode2, Terminal, FileText, KeyRound, Sparkles, ExternalLink, ArrowRight } from "lucide-react";
 
 export const Route = createFileRoute("/platform")({
   head: () => ({
