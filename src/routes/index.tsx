@@ -60,21 +60,14 @@ function Home() {
       {/* 1. HERO */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-hero-glow pointer-events-none" />
-        <div className="absolute inset-0 bg-grid opacity-40 pointer-events-none [mask-image:radial-gradient(ellipse_at_top,black_30%,transparent_70%)]" />
-        <div className="relative mx-auto max-w-7xl px-6 lg:px-10 pt-24 pb-20 lg:pt-32 lg:pb-24 text-center">
+        <div className="relative mx-auto max-w-7xl px-6 lg:px-10 pt-28 pb-20 lg:pt-36 lg:pb-24 text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-border-strong bg-surface/60 backdrop-blur px-3.5 py-1.5 text-xs font-mono text-primary">
             <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
             {tr("hero.eyebrow")}
           </div>
 
-          <div className="mt-10 mx-auto w-20 h-20 relative">
-            <div className="absolute inset-0 nfc-ripple" />
-            <div className="absolute inset-2 rounded-full bg-cyan-gradient grid place-items-center shadow-glow-strong">
-              <Radio size={28} className="text-primary-foreground" />
-            </div>
-          </div>
+          <h1 className="mt-8 font-display font-bold text-5xl sm:text-6xl lg:text-7xl tracking-tight leading-[1.05] text-balance whitespace-pre-line">
 
-          <h1 className="mt-10 font-display font-bold text-5xl sm:text-6xl lg:text-7xl tracking-tight leading-[1.05] text-balance whitespace-pre-line">
             {tr("hero.title")}
           </h1>
           <p className="mt-7 mx-auto max-w-2xl text-lg text-muted-foreground leading-relaxed">
