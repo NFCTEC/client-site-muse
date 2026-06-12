@@ -2,8 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
 import {
   Wallet, Train, Landmark, KeyRound, HeartPulse, Boxes,
-  ShieldCheck, ShoppingBag, Car, Smartphone, ArrowRight, ArrowLeft, Check,
-  Award, FileDown, Workflow,
+  ShieldCheck, ShoppingBag, Car, Smartphone, ArrowRight, ArrowLeft,
   type LucideIcon,
 } from "lucide-react";
 
@@ -453,12 +452,14 @@ function SolutionDetail() {
   const Icon = ind.icon;
   const pick = (b: Bi) => b[lang];
 
+  const topCaps = ind.capabilities.slice(0, 4);
+
   return (
     <>
       {/* HERO */}
       <section className="relative pt-24 lg:pt-32 pb-16 border-b border-border">
         <div className="absolute inset-0 bg-hero-glow pointer-events-none" />
-        <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
+        <div className="relative mx-auto max-w-6xl px-6 lg:px-10">
           <Link
             to="/solutions"
             className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors mb-8"
@@ -466,37 +467,34 @@ function SolutionDetail() {
             <ArrowLeft size={14} /> {lang === "zh" ? "全部行业方案" : "All solutions"}
           </Link>
           <div className="flex items-start gap-6">
-            <div className="hidden sm:grid w-16 h-16 rounded-2xl bg-primary/10 border border-primary/30 place-items-center shrink-0">
-              <Icon size={28} className="text-primary" />
+            <div className="hidden sm:grid w-14 h-14 rounded-2xl bg-primary/10 border border-primary/30 place-items-center shrink-0">
+              <Icon size={26} className="text-primary" />
             </div>
             <div className="flex-1">
-              <h1 className="font-display text-4xl lg:text-6xl tracking-tight text-balance">
+              <h1 className="font-display text-4xl lg:text-5xl tracking-tight text-balance">
                 {pick(ind.name)}
               </h1>
-              <p className="mt-5 text-lg lg:text-xl text-muted-foreground max-w-3xl leading-relaxed">
+              <p className="mt-4 text-base lg:text-lg text-muted-foreground max-w-2xl leading-relaxed">
                 {pick(ind.tagline)}
               </p>
             </div>
           </div>
-          <p className="mt-10 max-w-4xl text-base lg:text-lg text-foreground/80 leading-relaxed">
-            {pick(ind.intro)}
-          </p>
         </div>
       </section>
 
       {/* CAPABILITIES */}
-      <section className="py-24 lg:py-28">
-        <div className="mx-auto max-w-7xl px-6 lg:px-10">
-          <h2 className="font-display text-3xl lg:text-4xl tracking-tight mb-12">
-            {lang === "zh" ? "我们能做什么" : "What we can build"}
+      <section className="py-20">
+        <div className="mx-auto max-w-6xl px-6 lg:px-10">
+          <h2 className="font-display text-2xl lg:text-3xl tracking-tight mb-10">
+            {lang === "zh" ? "我们能做什么" : "What we build"}
           </h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {ind.capabilities.map((c) => (
+          <div className="grid sm:grid-cols-2 gap-4">
+            {topCaps.map((c) => (
               <div
                 key={c.t.en}
-                className="card-glow rounded-2xl border border-border bg-card-gradient p-7"
+                className="rounded-2xl border border-border bg-card-gradient p-6"
               >
-                <h3 className="font-display text-lg font-semibold mb-3">{pick(c.t)}</h3>
+                <h3 className="font-display text-base font-semibold mb-2">{pick(c.t)}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{pick(c.d)}</p>
               </div>
             ))}
@@ -504,154 +502,46 @@ function SolutionDetail() {
         </div>
       </section>
 
-      {/* DELIVERABLES + PROTOCOLS */}
-      <section className="py-24 lg:py-28 bg-surface/40 border-y border-border">
-        <div className="mx-auto max-w-7xl px-6 lg:px-10 grid lg:grid-cols-2 gap-12">
-          <div>
-            <h2 className="font-display text-3xl lg:text-4xl tracking-tight mb-8">
-              {lang === "zh" ? "典型交付物" : "What you get"}
-            </h2>
-            <ul className="space-y-3">
-              {ind.deliverables.map((d) => (
-                <li
-                  key={d.en}
-                  className="flex gap-3 items-start rounded-xl border border-border bg-card-gradient px-5 py-4"
-                >
-                  <Check size={18} className="text-primary shrink-0 mt-0.5" />
-                  <span className="text-sm text-foreground/90">{pick(d)}</span>
-                </li>
-              ))}
-            </ul>
+      {/* PROTOCOLS */}
+      <section className="pb-20">
+        <div className="mx-auto max-w-6xl px-6 lg:px-10">
+          <div className="text-xs font-mono text-primary uppercase tracking-widest mb-4">
+            {lang === "zh" ? "覆盖协议" : "Protocols"}
           </div>
-          <div>
-            <h2 className="font-display text-3xl lg:text-4xl tracking-tight mb-8">
-              {lang === "zh" ? "覆盖协议" : "Protocols covered"}
-            </h2>
-            <div className="flex flex-wrap gap-2">
-              {ind.protocols.map((p) => (
-                <span
-                  key={p}
-                  className="rounded-full border border-border bg-surface/60 px-4 py-1.5 text-xs font-mono text-muted-foreground"
-                >
-                  {p}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CERTIFICATIONS */}
-      <section className="py-24 lg:py-28">
-        <div className="mx-auto max-w-7xl px-6 lg:px-10">
-          <div className="flex items-center gap-3 mb-10">
-            <Award size={22} className="text-primary" />
-            <h2 className="font-display text-3xl lg:text-4xl tracking-tight">
-              {lang === "zh" ? "关键认证与合规" : "Certifications & compliance"}
-            </h2>
-          </div>
-          <div className="flex flex-wrap gap-2.5">
-            {ind.certifications.map((c) => (
+          <div className="flex flex-wrap gap-2">
+            {ind.protocols.map((p) => (
               <span
-                key={c}
-                className="inline-flex items-center gap-1.5 rounded-full border border-primary/30 bg-primary/5 px-4 py-2 text-xs font-mono text-foreground/90"
+                key={p}
+                className="rounded-full border border-border bg-surface/60 px-3.5 py-1.5 text-xs font-mono text-muted-foreground"
               >
-                <Check size={12} className="text-primary" /> {c}
+                {p}
               </span>
             ))}
           </div>
         </div>
       </section>
 
-      {/* TYPICAL WORKFLOW */}
-      <section className="py-24 lg:py-28 bg-surface/40 border-y border-border">
-        <div className="mx-auto max-w-7xl px-6 lg:px-10">
-          <div className="flex items-center gap-3 mb-12">
-            <Workflow size={22} className="text-primary" />
-            <h2 className="font-display text-3xl lg:text-4xl tracking-tight">
-              {lang === "zh" ? "典型实施流程" : "Typical engagement"}
-            </h2>
-          </div>
-          <ol className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
-            {ind.workflow.map((s, i) => (
-              <li
-                key={s.t.en}
-                className="relative rounded-2xl border border-border bg-card-gradient p-6"
-              >
-                <div className="text-xs font-mono text-primary/70 mb-2">
-                  {String(i + 1).padStart(2, "0")}
-                </div>
-                <h3 className="font-display text-base font-semibold mb-2">{pick(s.t)}</h3>
-                <p className="text-xs text-muted-foreground leading-relaxed">{pick(s.d)}</p>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
-
-      {/* RESOURCES */}
-      <section className="py-24 lg:py-28">
-        <div className="mx-auto max-w-7xl px-6 lg:px-10">
-          <div className="flex items-center justify-between flex-wrap gap-4 mb-10">
-            <div className="flex items-center gap-3">
-              <FileDown size={22} className="text-primary" />
-              <h2 className="font-display text-3xl lg:text-4xl tracking-tight">
-                {lang === "zh" ? "可下载资料" : "Resources"}
-              </h2>
-            </div>
-            <Link
-              to="/downloads"
-              className="inline-flex items-center gap-1.5 text-sm text-primary hover:underline"
-            >
-              {lang === "zh" ? "前往下载中心" : "Browse download center"} <ArrowRight size={14} />
-            </Link>
-          </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {ind.resources.map((r) => (
-              <Link
-                key={r.t.en}
-                to="/downloads"
-                className="card-glow rounded-2xl border border-border bg-card-gradient p-6 flex items-start gap-4 hover:border-primary/50 transition-colors"
-              >
-                <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/30 grid place-items-center shrink-0">
-                  <FileDown size={18} className="text-primary" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="text-xs font-mono text-muted-foreground mb-1">{pick(r.kind)}</div>
-                  <div className="font-medium text-sm leading-snug">{pick(r.t)}</div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* CTA */}
-      <section className="py-24 lg:py-28">
+      <section className="pb-24">
         <div className="mx-auto max-w-5xl px-6 lg:px-10">
-          <div className="relative rounded-3xl border border-primary/30 bg-card-gradient p-12 lg:p-14 text-center overflow-hidden shadow-glow">
+          <div className="relative rounded-3xl border border-primary/30 bg-card-gradient p-10 lg:p-12 text-center overflow-hidden shadow-glow">
             <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-72 h-72 bg-primary/15 rounded-full blur-3xl pointer-events-none" />
             <div className="relative">
-              <h2 className="font-display text-3xl lg:text-4xl tracking-tight">
+              <h2 className="font-display text-2xl lg:text-3xl tracking-tight">
                 {lang === "zh" ? "需要这套方案？" : "Need this in production?"}
               </h2>
-              <p className="mt-4 text-muted-foreground max-w-xl mx-auto">
-                {lang === "zh"
-                  ? "告诉我们规模、时间表与目标市场,我们会给出方案与报价。"
-                  : "Tell us scale, timeline and target markets — we'll come back with a proposal."}
-              </p>
-              <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+              <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
                 <Link
                   to="/contact"
-                  className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-7 py-3.5 text-sm font-semibold hover:shadow-glow-strong transition-all"
+                  className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3 text-sm font-semibold hover:shadow-glow-strong transition-all"
                 >
                   {tr("cta.btn")} <ArrowRight size={16} />
                 </Link>
                 <Link
                   to="/solutions"
-                  className="inline-flex items-center gap-2 rounded-full border border-border-strong bg-background/60 backdrop-blur px-7 py-3.5 text-sm font-medium hover:border-primary hover:text-primary transition-colors"
+                  className="inline-flex items-center gap-2 rounded-full border border-border-strong bg-background/60 backdrop-blur px-6 py-3 text-sm font-medium hover:border-primary hover:text-primary transition-colors"
                 >
-                  {lang === "zh" ? "查看其他行业" : "Browse other industries"}
+                  {lang === "zh" ? "查看其他行业" : "Other industries"}
                 </Link>
               </div>
             </div>
