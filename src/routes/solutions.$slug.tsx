@@ -25,7 +25,9 @@ type Industry = {
   resources: Resource[];
 };
 
-const industries: Industry[] = [
+type BaseIndustry = Omit<Industry, "certifications" | "workflow" | "resources">;
+
+const baseIndustries: BaseIndustry[] = [
   {
     slug: "banking",
     icon: Wallet,
