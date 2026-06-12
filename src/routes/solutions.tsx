@@ -48,11 +48,14 @@ function Solutions() {
         <div className="mx-auto max-w-7xl px-6 lg:px-10 space-y-5">
           {industries.map((ind, i) => {
             const Icon = ind.icon;
+            const slug = ind.k.replace("ind.", "");
             return (
-              <article
+              <Link
                 key={ind.k}
+                to="/solutions/$slug"
+                params={{ slug }}
                 id={ind.k}
-                className="card-glow grid lg:grid-cols-12 gap-px rounded-3xl border border-border bg-border overflow-hidden scroll-mt-20"
+                className="card-glow group grid lg:grid-cols-12 gap-px rounded-3xl border border-border bg-border overflow-hidden scroll-mt-20 hover:border-primary/50 transition-colors"
               >
                 <div className="lg:col-span-5 bg-card-gradient p-10 lg:p-12">
                   <div className="flex items-center justify-between mb-8">
@@ -69,12 +72,9 @@ function Solutions() {
                   <p className="text-muted-foreground leading-relaxed mb-8">
                     {tr(`${ind.k}.d` as never)}
                   </p>
-                  <Link
-                    to="/contact"
-                    className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:gap-3 transition-all"
-                  >
+                  <span className="inline-flex items-center gap-2 text-sm font-medium text-primary group-hover:gap-3 transition-all">
                     {tr("hero.cta2")} <ArrowRight size={14} />
-                  </Link>
+                  </span>
                 </div>
                 <div className="lg:col-span-7 bg-card-gradient p-10 lg:p-12">
                   <div className="text-xs font-mono text-primary uppercase tracking-widest mb-6">
@@ -91,7 +91,7 @@ function Solutions() {
                     ))}
                   </ul>
                 </div>
-              </article>
+              </Link>
             );
           })}
         </div>
