@@ -48,12 +48,6 @@ function Home() {
 
 
 
-  const tools = [
-    { k: "tools.emv" },
-    { k: "tools.apdu" },
-    { k: "tools.ndef" },
-    { k: "tools.mifare" },
-  ] as const;
 
   return (
     <>
