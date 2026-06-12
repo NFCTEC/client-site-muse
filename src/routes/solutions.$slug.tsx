@@ -417,12 +417,11 @@ export const Route = createFileRoute("/solutions/$slug")({
   loader: ({ params }) => {
     const ind = bySlug.get(params.slug);
     if (!ind) throw notFound();
-    return { ind };
+    return { slug: ind.slug, nameEn: ind.name.en, taglineEn: ind.tagline.en };
   },
   head: ({ loaderData }) => {
-    const ind = loaderData?.ind;
-    const title = ind ? `${ind.name.en} — NFCTEC Solutions` : "Solution — NFCTEC";
-    const desc = ind?.tagline.en ?? "Industry NFC solution by NFCTEC.";
+    const title = loaderData ? `${loaderData.nameEn} — NFCTEC Solutions` : "Solution — NFCTEC";
+    const desc = loaderData?.taglineEn ?? "Industry NFC solution by NFCTEC.";
     return {
       meta: [
         { title },
@@ -448,7 +447,8 @@ export const Route = createFileRoute("/solutions/$slug")({
 });
 
 function SolutionDetail() {
-  const { ind } = Route.useLoaderData() as { ind: Industry };
+  const { slug } = Route.useLoaderData();
+  const ind = bySlug.get(slug)!;
   const { lang, tr } = useI18n();
   const Icon = ind.icon;
   const pick = (b: Bi) => b[lang];
