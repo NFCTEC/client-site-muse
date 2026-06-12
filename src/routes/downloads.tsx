@@ -14,6 +14,13 @@ export const Route = createFileRoute("/downloads")({
   component: Downloads,
 });
 
+const tools = [
+  { k: "tools.emv" },
+  { k: "tools.apdu" },
+  { k: "tools.ndef" },
+  { k: "tools.mifare" },
+] as const;
+
 const groups = [
   {
     cat: "dl.cat.sdk", icon: Code2,
