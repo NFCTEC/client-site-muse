@@ -541,6 +541,91 @@ function SolutionDetail() {
         </div>
       </section>
 
+      {/* CERTIFICATIONS */}
+      <section className="py-24 lg:py-28">
+        <div className="mx-auto max-w-7xl px-6 lg:px-10">
+          <div className="flex items-center gap-3 mb-10">
+            <Award size={22} className="text-primary" />
+            <h2 className="font-display text-3xl lg:text-4xl tracking-tight">
+              {lang === "zh" ? "关键认证与合规" : "Certifications & compliance"}
+            </h2>
+          </div>
+          <div className="flex flex-wrap gap-2.5">
+            {ind.certifications.map((c) => (
+              <span
+                key={c}
+                className="inline-flex items-center gap-1.5 rounded-full border border-primary/30 bg-primary/5 px-4 py-2 text-xs font-mono text-foreground/90"
+              >
+                <Check size={12} className="text-primary" /> {c}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* TYPICAL WORKFLOW */}
+      <section className="py-24 lg:py-28 bg-surface/40 border-y border-border">
+        <div className="mx-auto max-w-7xl px-6 lg:px-10">
+          <div className="flex items-center gap-3 mb-12">
+            <Workflow size={22} className="text-primary" />
+            <h2 className="font-display text-3xl lg:text-4xl tracking-tight">
+              {lang === "zh" ? "典型实施流程" : "Typical engagement"}
+            </h2>
+          </div>
+          <ol className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
+            {ind.workflow.map((s, i) => (
+              <li
+                key={s.t.en}
+                className="relative rounded-2xl border border-border bg-card-gradient p-6"
+              >
+                <div className="text-xs font-mono text-primary/70 mb-2">
+                  {String(i + 1).padStart(2, "0")}
+                </div>
+                <h3 className="font-display text-base font-semibold mb-2">{pick(s.t)}</h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">{pick(s.d)}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      {/* RESOURCES */}
+      <section className="py-24 lg:py-28">
+        <div className="mx-auto max-w-7xl px-6 lg:px-10">
+          <div className="flex items-center justify-between flex-wrap gap-4 mb-10">
+            <div className="flex items-center gap-3">
+              <FileDown size={22} className="text-primary" />
+              <h2 className="font-display text-3xl lg:text-4xl tracking-tight">
+                {lang === "zh" ? "可下载资料" : "Resources"}
+              </h2>
+            </div>
+            <Link
+              to="/downloads"
+              className="inline-flex items-center gap-1.5 text-sm text-primary hover:underline"
+            >
+              {lang === "zh" ? "前往下载中心" : "Browse download center"} <ArrowRight size={14} />
+            </Link>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {ind.resources.map((r) => (
+              <Link
+                key={r.t.en}
+                to="/downloads"
+                className="card-glow rounded-2xl border border-border bg-card-gradient p-6 flex items-start gap-4 hover:border-primary/50 transition-colors"
+              >
+                <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/30 grid place-items-center shrink-0">
+                  <FileDown size={18} className="text-primary" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="text-xs font-mono text-muted-foreground mb-1">{pick(r.kind)}</div>
+                  <div className="font-medium text-sm leading-snug">{pick(r.t)}</div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* CTA */}
       <section className="py-24 lg:py-28">
         <div className="mx-auto max-w-5xl px-6 lg:px-10">
