@@ -310,6 +310,107 @@ const baseIndustries: BaseIndustry[] = [
   },
 ];
 
+// Per-industry extras: certifications, typical engagement workflow, downloadable resources
+type Extras = Pick<Industry, "certifications" | "workflow" | "resources">;
+
+const defaultWorkflow: Step[] = [
+  { t: { en: "1. Discovery", zh: "1. 需求澄清" }, d: { en: "Workshop on chips, volumes, markets, certification targets and timeline.", zh: "围绕芯片、规模、市场、认证目标与时间表的需求工作坊。" } },
+  { t: { en: "2. Architecture & PoC", zh: "2. 架构与 PoC" }, d: { en: "System design, key hierarchy, API contracts and a working proof-of-concept.", zh: "系统设计、密钥层级、API 契约,并交付可运行的概念验证。" } },
+  { t: { en: "3. Engineering", zh: "3. 工程实施" }, d: { en: "Firmware, applets, backend, mobile SDK — built and tested against your spec.", zh: "固件、Applet、后台、移动 SDK —— 依规格构建与测试。" } },
+  { t: { en: "4. Certification & Pilot", zh: "4. 认证与试点" }, d: { en: "Lab certification, field pilot, performance tuning, security review.", zh: "实验室认证、现场试点、性能调优、安全评审。" } },
+  { t: { en: "5. Rollout & Support", zh: "5. 上线与运维" }, d: { en: "Production rollout, 24×7 support SLA, key rotation and lifecycle ops.", zh: "正式上线、24×7 支持 SLA、密钥轮换与生命周期运营。" } },
+];
+
+const defaultResources: Resource[] = [
+  { t: { en: "Solution brief (PDF)", zh: "方案简报 (PDF)" }, kind: { en: "Datasheet", zh: "规格书" } },
+  { t: { en: "Reference architecture", zh: "参考架构图" }, kind: { en: "Datasheet", zh: "规格书" } },
+  { t: { en: "Sample code & SDK", zh: "示例代码与 SDK" }, kind: { en: "SDK", zh: "SDK" } },
+];
+
+const extrasMap: Record<string, Extras> = {
+  banking: {
+    certifications: ["EMV L1", "EMV L2", "EMV L3", "Visa VCPS", "Mastercard PayPass", "PCI PTS", "PCI DSS", "GlobalPlatform"],
+    workflow: defaultWorkflow,
+    resources: [
+      { t: { en: "EMV L2 kernel datasheet", zh: "EMV L2 内核规格书" }, kind: { en: "Datasheet", zh: "规格书" } },
+      { t: { en: "Issuance platform brochure", zh: "发卡平台手册" }, kind: { en: "Datasheet", zh: "规格书" } },
+      { t: { en: "ISO 8583 host API reference", zh: "ISO 8583 主机 API 参考" }, kind: { en: "SDK", zh: "SDK" } },
+      { t: { en: "Sample EMV trace logs", zh: "EMV 交易示例日志" }, kind: { en: "Sample", zh: "示例" } },
+    ],
+  },
+  transit: {
+    certifications: ["CALYPSO Certified", "EMV Transit Profile", "EN 50128", "ISO 14443"],
+    workflow: defaultWorkflow,
+    resources: [
+      { t: { en: "AFC system overview", zh: "AFC 系统总览" }, kind: { en: "Datasheet", zh: "规格书" } },
+      { t: { en: "Validator firmware notes", zh: "验票机固件说明" }, kind: { en: "Datasheet", zh: "规格书" } },
+      { t: { en: "Mobile ticket SDK", zh: "移动票务 SDK" }, kind: { en: "SDK", zh: "SDK" } },
+    ],
+  },
+  gov: {
+    certifications: ["ICAO 9303", "Common Criteria EAL5+", "FIPS 140-2", "GSMA SGP.22", "eIDAS"],
+    workflow: defaultWorkflow,
+    resources: [
+      { t: { en: "ePassport inspection SDK", zh: "电子护照核验 SDK" }, kind: { en: "SDK", zh: "SDK" } },
+      { t: { en: "PKI integration guide", zh: "PKI 集成指南" }, kind: { en: "Datasheet", zh: "规格书" } },
+      { t: { en: "eID middleware sample", zh: "电子身份证中间件示例" }, kind: { en: "Sample", zh: "示例" } },
+    ],
+  },
+  access: {
+    certifications: ["OSDP Verified", "FIPS 197 (AES)", "FIDO2 Certified", "UL 294"],
+    workflow: defaultWorkflow,
+    resources: [
+      { t: { en: "Reader hardware datasheet", zh: "读卡器硬件规格书" }, kind: { en: "Datasheet", zh: "规格书" } },
+      { t: { en: "Mobile credential SDK", zh: "手机凭证 SDK" }, kind: { en: "SDK", zh: "SDK" } },
+      { t: { en: "Controller integration guide", zh: "控制器集成指南" }, kind: { en: "Datasheet", zh: "规格书" } },
+    ],
+  },
+  health: {
+    certifications: ["HIPAA-ready", "GDPR", "GS1 Healthcare", "ISO 13485"],
+    workflow: defaultWorkflow,
+    resources: defaultResources,
+  },
+  iot: {
+    certifications: ["NFC Forum Certified", "Bluetooth SIG", "Matter-ready", "FCC / CE"],
+    workflow: defaultWorkflow,
+    resources: defaultResources,
+  },
+  brand: {
+    certifications: ["NTAG 424 DNA SUN", "GS1 Digital Link", "ISO 22376"],
+    workflow: defaultWorkflow,
+    resources: [
+      { t: { en: "SUN URL verification API", zh: "SUN URL 验证 API" }, kind: { en: "SDK", zh: "SDK" } },
+      { t: { en: "Brand pilot kit brochure", zh: "品牌试点套件手册" }, kind: { en: "Datasheet", zh: "规格书" } },
+      { t: { en: "Sample scan landing page", zh: "扫码落地页示例" }, kind: { en: "Sample", zh: "示例" } },
+    ],
+  },
+  retail: {
+    certifications: ["EPCglobal", "GS1", "Apple Wallet", "Google Wallet"],
+    workflow: defaultWorkflow,
+    resources: defaultResources,
+  },
+  auto: {
+    certifications: ["CCC Digital Key 3.0", "AEC-Q100", "ISO 21434", "Apple CarKey", "Google Digital Car Key"],
+    workflow: defaultWorkflow,
+    resources: [
+      { t: { en: "CCC 3.0 applet datasheet", zh: "CCC 3.0 Applet 规格书" }, kind: { en: "Datasheet", zh: "规格书" } },
+      { t: { en: "Owner app SDK", zh: "车主 App SDK" }, kind: { en: "SDK", zh: "SDK" } },
+      { t: { en: "Retrofit hardware spec", zh: "改装硬件规格" }, kind: { en: "Datasheet", zh: "规格书" } },
+    ],
+  },
+  wallet: {
+    certifications: ["GlobalPlatform", "EMVCo Tokenization", "Apple Wallet", "Google Wallet", "Samsung Wallet", "ISO 18013-5"],
+    workflow: defaultWorkflow,
+    resources: [
+      { t: { en: "HCE / SE applet SDK", zh: "HCE / SE Applet SDK" }, kind: { en: "SDK", zh: "SDK" } },
+      { t: { en: "Wallet provisioning guide", zh: "钱包开通集成指南" }, kind: { en: "Datasheet", zh: "规格书" } },
+      { t: { en: "mDL reference implementation", zh: "mDL 参考实现" }, kind: { en: "Sample", zh: "示例" } },
+    ],
+  },
+};
+
+const industries: Industry[] = baseIndustries.map((b) => ({ ...b, ...extrasMap[b.slug] }));
+
 const bySlug = new Map(industries.map((i) => [i.slug, i]));
 
 export const Route = createFileRoute("/solutions/$slug")({
