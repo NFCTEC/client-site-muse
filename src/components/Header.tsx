@@ -25,6 +25,7 @@ export function Header() {
   const path = useRouterState({ select: (s) => s.location.pathname });
 
   const navItems: { to: string; label: string; key: "plain" | "products" | "solutions" }[] = [
+    { to: "/", label: tr("nav.home"), key: "plain" },
     { to: "/products", label: tr("nav.products"), key: "products" },
     { to: "/solutions", label: tr("nav.solutions"), key: "solutions" },
     { to: "/platform", label: tr("nav.platform"), key: "plain" },

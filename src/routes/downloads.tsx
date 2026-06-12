@@ -1,6 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
-import { Download, FileArchive, FileText, Cpu, Code2, ShieldCheck } from "lucide-react";
+import { Download, FileArchive, FileText, Cpu, Code2, ShieldCheck, Sparkles } from "lucide-react";
 
 export const Route = createFileRoute("/downloads")({
   head: () => ({

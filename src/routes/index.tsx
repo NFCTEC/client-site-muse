@@ -170,36 +170,6 @@ function Home() {
       </section>
 
 
-      {/* 4. FREE TOOLS */}
-      <section className="py-24 lg:py-28">
-        <div className="mx-auto max-w-7xl px-6 lg:px-10">
-          <div className="mb-12 max-w-2xl">
-            <h2 className="font-display text-4xl lg:text-5xl tracking-tight text-balance">
-              {tr("tools.title")}
-            </h2>
-          </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {tools.map((t) => (
-              <Link
-                key={t.k}
-                to="/platform"
-                className="card-glow group rounded-2xl border border-border bg-card-gradient p-7"
-              >
-                <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 border border-primary/30 px-2.5 py-1 text-[10px] font-mono text-primary mb-5">
-                  <Sparkles size={10} /> FREE
-                </div>
-                <h3 className="font-display text-lg font-semibold mb-2">{tr(`${t.k}.t` as never)}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                  {tr(`${t.k}.d` as never)}
-                </p>
-                <span className="text-xs font-mono text-primary inline-flex items-center gap-1 group-hover:gap-2 transition-all">
-                  {tr("tools.open")}
-                </span>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* 5. CTA BANNER */}
       <section className="pb-24 lg:pb-32">
