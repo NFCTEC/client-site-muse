@@ -3,11 +3,14 @@ import { useI18n } from "@/lib/i18n";
 import {
   Wallet, Train, Landmark, KeyRound, HeartPulse, Boxes,
   ShieldCheck, ShoppingBag, Car, Smartphone, ArrowRight, ArrowLeft, Check,
+  Award, FileDown, Workflow,
   type LucideIcon,
 } from "lucide-react";
 
 type Bi = { en: string; zh: string };
 type Capability = { t: Bi; d: Bi };
+type Step = { t: Bi; d: Bi };
+type Resource = { t: Bi; kind: Bi };
 type Industry = {
   slug: string;
   icon: LucideIcon;
@@ -17,6 +20,9 @@ type Industry = {
   capabilities: Capability[];
   deliverables: Bi[];
   protocols: string[];
+  certifications: string[];
+  workflow: Step[];
+  resources: Resource[];
 };
 
 const industries: Industry[] = [
