@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
-import { ArrowRight, Code2, Cpu, Layers, Wrench, Sparkles,
+import { ArrowRight, Code2, Cpu, Layers, Wrench,
   Wallet, Train, Landmark, KeyRound, HeartPulse, Boxes,
   ShieldCheck, ShoppingBag, Car, Smartphone } from "lucide-react";
 
