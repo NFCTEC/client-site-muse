@@ -339,7 +339,7 @@ export const Route = createFileRoute("/solutions/$slug")({
 });
 
 function SolutionDetail() {
-  const { ind } = Route.useLoaderData();
+  const { ind } = Route.useLoaderData() as { ind: Industry };
   const { lang, tr } = useI18n();
   const Icon = ind.icon;
   const pick = (b: Bi) => b[lang];
