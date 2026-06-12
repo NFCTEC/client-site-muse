@@ -2,8 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
 import {
   Wallet, Train, Landmark, KeyRound, HeartPulse, Boxes,
-  ShieldCheck, ShoppingBag, Car, Smartphone, ArrowRight, ArrowLeft, Check,
-  Award, FileDown, Workflow,
+  ShieldCheck, ShoppingBag, Car, Smartphone, ArrowRight, ArrowLeft,
   type LucideIcon,
 } from "lucide-react";
 
