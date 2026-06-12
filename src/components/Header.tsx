@@ -4,9 +4,17 @@ import { useI18n } from "@/lib/i18n";
 import { Menu, X, ChevronDown } from "lucide-react";
 import logoAsset from "@/assets/nfctec-logo.png.asset.json";
 
-const industryKeys = [
-  "ind.banking", "ind.transit", "ind.gov", "ind.access", "ind.health",
-  "ind.iot", "ind.brand", "ind.retail", "ind.auto", "ind.edu",
+const industryLinks = [
+  { key: "ind.banking", slug: "banking" },
+  { key: "ind.transit", slug: "transit" },
+  { key: "ind.gov", slug: "gov" },
+  { key: "ind.access", slug: "access" },
+  { key: "ind.health", slug: "health" },
+  { key: "ind.iot", slug: "iot" },
+  { key: "ind.brand", slug: "brand" },
+  { key: "ind.retail", slug: "retail" },
+  { key: "ind.auto", slug: "auto" },
+  { key: "ind.wallet", slug: "wallet" },
 ] as const;
 
 export function Header() {
@@ -87,14 +95,15 @@ export function Header() {
                   {solOpen && (
                     <div className="absolute top-full left-1/2 -translate-x-1/2 pt-3">
                       <div className="rounded-xl border border-border bg-popover shadow-float p-3 grid grid-cols-2 gap-1 min-w-[420px]">
-                        {industryKeys.map((k) => (
+                        {industryLinks.map((item) => (
                           <Link
-                            key={k}
-                            to="/solutions"
-                            hash={k}
+                            key={item.key}
+                            to="/solutions/$slug"
+                            params={{ slug: item.slug }}
+                            onClick={() => setSolOpen(false)}
                             className="block px-3 py-2 text-sm rounded-lg hover:bg-surface-elevated hover:text-primary"
                           >
-                            {tr(`${k}.t` as never)}
+                            {tr(`${item.key}.t` as never)}
                           </Link>
                         ))}
                       </div>
