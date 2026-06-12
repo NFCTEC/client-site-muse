@@ -156,11 +156,12 @@ function Home() {
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
             {industries.map((ind) => {
               const Icon = ind.icon;
+              const slug = ind.k.replace("ind.", "");
               return (
                 <Link
                   key={ind.k}
-                  to="/solutions"
-                  hash={ind.k}
+                  to="/solutions/$slug"
+                  params={{ slug }}
                   className="card-glow group flex flex-col items-center text-center gap-3 rounded-2xl border border-border bg-card-gradient p-5 hover:border-primary/50 transition-colors"
                 >
                   <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/30 grid place-items-center group-hover:bg-primary/20 transition-colors">
