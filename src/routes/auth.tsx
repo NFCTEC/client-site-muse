@@ -1,171 +1,76 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
-import { lovable } from "@/integrations/lovable/index";
-import { toast } from "sonner";
-import { Loader2 } from "lucide-react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowRight, Sparkles, Shield, Zap } from "lucide-react";
 
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
-      { title: "Sign In — NFCTEC Platform" },
-      { name: "description", content: "Sign in to the NFCTEC NFC issuance platform." },
+      { title: "Platform Access — NFCTEC" },
+      { name: "description", content: "Entry to the NFCTEC NFC issuance & verification platform." },
       { name: "robots", content: "noindex" },
     ],
   }),
-  component: AuthPage,
+  component: PlatformEntry,
 });
 
-function AuthPage() {
-  const navigate = useNavigate();
-  const [mode, setMode] = useState<"signin" | "signup">("signin");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [fullName, setFullName] = useState("");
-  const [busy, setBusy] = useState(false);
-
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => {
-      if (data.session) navigate({ to: "/dashboard" });
-    });
-  }, [navigate]);
-
-  async function handleEmailSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setBusy(true);
-    try {
-      if (mode === "signup") {
-        const { error } = await supabase.auth.signUp({
-          email,
-          password,
-          options: {
-            emailRedirectTo: `${window.location.origin}/dashboard`,
-            data: { full_name: fullName },
-          },
-        });
-        if (error) throw error;
-        toast.success("Account created. Check your email to confirm.");
-        navigate({ to: "/dashboard" });
-      } else {
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
-        if (error) throw error;
-        toast.success("Signed in");
-        navigate({ to: "/dashboard" });
-      }
-    } catch (err) {
-      toast.error(err instanceof Error ? err.message : "Authentication failed");
-    } finally {
-      setBusy(false);
-    }
-  }
-
-  async function handleGoogle() {
-    setBusy(true);
-    const result = await lovable.auth.signInWithOAuth("google", {
-      redirect_uri: `${window.location.origin}/dashboard`,
-    });
-    if (result.error) {
-      toast.error(result.error.message ?? "Google sign-in failed");
-      setBusy(false);
-      return;
-    }
-    if (result.redirected) return;
-    navigate({ to: "/dashboard" });
-  }
-
+function PlatformEntry() {
   return (
-    <section className="min-h-screen pt-28 pb-20 bg-hero-glow">
-      <div className="mx-auto max-w-md px-6">
-        <div className="rounded-2xl border border-border bg-card-gradient p-8 shadow-float">
-          <h1 className="font-display text-3xl tracking-tight">
-            {mode === "signin" ? "Welcome back" : "Create your account"}
-          </h1>
-          <p className="mt-2 text-sm text-muted-foreground">
-            {mode === "signin"
-              ? "Sign in to manage your NFC issuance."
-              : "Start issuing NFC cards in minutes."}
-          </p>
-
-          <button
-            type="button"
-            onClick={handleGoogle}
-            disabled={busy}
-            className="mt-6 w-full inline-flex items-center justify-center gap-3 rounded-lg border border-border bg-surface/60 px-4 py-2.5 text-sm font-medium hover:border-primary/50 transition-colors disabled:opacity-60"
-          >
-            <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden>
-              <path fill="#4285F4" d="M17.64 9.2c0-.64-.06-1.25-.16-1.84H9v3.48h4.84a4.14 4.14 0 0 1-1.8 2.72v2.26h2.92c1.7-1.57 2.68-3.88 2.68-6.62z"/>
-              <path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.92-2.26c-.81.54-1.84.86-3.04.86-2.34 0-4.32-1.58-5.03-3.7H.96v2.33A9 9 0 0 0 9 18z"/>
-              <path fill="#FBBC05" d="M3.97 10.72A5.41 5.41 0 0 1 3.68 9c0-.6.1-1.18.29-1.72V4.95H.96A9 9 0 0 0 0 9c0 1.45.35 2.82.96 4.05l3.01-2.33z"/>
-              <path fill="#EA4335" d="M9 3.58c1.32 0 2.5.45 3.44 1.34l2.58-2.58C13.46.89 11.43 0 9 0A9 9 0 0 0 .96 4.95l3.01 2.33C4.68 5.16 6.66 3.58 9 3.58z"/>
-            </svg>
-            Continue with Google
-          </button>
-
-          <div className="my-6 flex items-center gap-3 text-xs font-mono text-muted-foreground">
-            <div className="flex-1 h-px bg-border" /> OR <div className="flex-1 h-px bg-border" />
-          </div>
-
-          <form onSubmit={handleEmailSubmit} className="space-y-4">
-            {mode === "signup" && (
-              <div>
-                <label className="text-xs font-mono text-muted-foreground">FULL NAME</label>
-                <input
-                  type="text"
-                  value={fullName}
-                  onChange={(e) => setFullName(e.target.value)}
-                  required
-                  className="mt-1 w-full rounded-lg border border-border bg-background px-3 py-2.5 text-sm focus:outline-none focus:border-primary"
-                />
-              </div>
-            )}
-            <div>
-              <label className="text-xs font-mono text-muted-foreground">EMAIL</label>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                autoComplete="email"
-                className="mt-1 w-full rounded-lg border border-border bg-background px-3 py-2.5 text-sm focus:outline-none focus:border-primary"
-              />
-            </div>
-            <div>
-              <label className="text-xs font-mono text-muted-foreground">PASSWORD</label>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                minLength={8}
-                autoComplete={mode === "signin" ? "current-password" : "new-password"}
-                className="mt-1 w-full rounded-lg border border-border bg-background px-3 py-2.5 text-sm focus:outline-none focus:border-primary"
-              />
-            </div>
-            <button
-              type="submit"
-              disabled={busy}
-              className="w-full inline-flex items-center justify-center gap-2 rounded-lg bg-primary text-primary-foreground px-4 py-2.5 text-sm font-semibold hover:shadow-glow-strong transition-all disabled:opacity-60"
-            >
-              {busy && <Loader2 size={14} className="animate-spin" />}
-              {mode === "signin" ? "Sign In" : "Create Account"}
-            </button>
-          </form>
-
-          <p className="mt-6 text-center text-sm text-muted-foreground">
-            {mode === "signin" ? "New here?" : "Have an account?"}{" "}
-            <button
-              type="button"
-              onClick={() => setMode(mode === "signin" ? "signup" : "signin")}
-              className="text-primary hover:underline font-medium"
-            >
-              {mode === "signin" ? "Create an account" : "Sign in"}
-            </button>
-          </p>
-          <p className="mt-4 text-center text-xs text-muted-foreground">
-            <a href="#pricing" className="hover:text-primary">View pricing</a>
-          </p>
-        </div>
+    <main className="relative min-h-[100vh] overflow-hidden bg-background text-foreground">
+      {/* Background glow */}
+      <div className="pointer-events-none absolute inset-0 -z-10">
+        <div className="absolute top-[-10%] left-1/2 h-[600px] w-[600px] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,theme(colors.primary/30),transparent_70%)] blur-3xl" />
+        <div className="absolute bottom-[-20%] right-[-10%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle,#7B2FFF55,transparent_70%)] blur-3xl" />
+        <div className="absolute top-1/3 left-[-10%] h-[400px] w-[400px] rounded-full bg-[radial-gradient(circle,#00D4FF44,transparent_70%)] blur-3xl" />
       </div>
-    </section>
+
+      <section className="mx-auto flex min-h-[100vh] max-w-6xl flex-col items-center justify-center px-6 py-24 text-center">
+        <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-card/60 px-4 py-1.5 text-xs font-medium uppercase tracking-widest text-muted-foreground backdrop-blur">
+          <Sparkles className="h-3.5 w-3.5 text-primary" />
+          Platform · Coming Soon
+        </div>
+
+        <h1 className="bg-gradient-to-r from-[#00D4FF] via-foreground to-[#7B2FFF] bg-clip-text text-5xl font-bold leading-tight tracking-tight text-transparent md:text-7xl">
+          NFCTEC Platform
+        </h1>
+
+        <p className="mt-6 max-w-2xl text-lg text-muted-foreground md:text-xl">
+          The dedicated portal for issuing, encrypting, and verifying NFC products via a single API.
+          This entry page is reserved for the upcoming self-hosted platform at{" "}
+          <span className="font-mono text-foreground">platform.nfctec.com</span>.
+        </p>
+
+        <div className="mt-10 flex flex-col items-center gap-3 sm:flex-row">
+          <button
+            disabled
+            className="inline-flex cursor-not-allowed items-center gap-2 rounded-full bg-primary px-8 py-3 font-semibold text-primary-foreground opacity-60"
+          >
+            Launching Soon <ArrowRight className="h-4 w-4" />
+          </button>
+          <Link
+            to="/contact"
+            className="inline-flex items-center gap-2 rounded-full border border-border bg-card/60 px-8 py-3 font-semibold backdrop-blur transition hover:bg-card"
+          >
+            Request Early Access
+          </Link>
+        </div>
+
+        <div className="mt-20 grid w-full max-w-4xl gap-6 sm:grid-cols-3">
+          {[
+            { icon: Zap, title: "Simple API", desc: "Issue & verify with a single endpoint." },
+            { icon: Shield, title: "Encrypted", desc: "Built-in key management and crypto." },
+            { icon: Sparkles, title: "Hardware Agnostic", desc: "Works with any compatible reader." },
+          ].map((f) => (
+            <div key={f.title} className="rounded-2xl border border-border bg-card/40 p-6 text-left backdrop-blur">
+              <f.icon className="mb-3 h-6 w-6 text-primary" />
+              <h3 className="font-semibold">{f.title}</h3>
+              <p className="mt-1 text-sm text-muted-foreground">{f.desc}</p>
+            </div>
+          ))}
+        </div>
+
+        <Link to="/" className="mt-16 text-sm text-muted-foreground transition hover:text-foreground">
+          ← Back to nfctec.com
+        </Link>
+      </section>
+    </main>
   );
 }
