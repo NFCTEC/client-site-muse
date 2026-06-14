@@ -29,6 +29,7 @@ export function Header() {
     { to: "/products", label: tr("nav.products"), key: "products" },
     { to: "/solutions", label: tr("nav.solutions"), key: "solutions" },
     { to: "/platform", label: tr("nav.platform"), key: "plain" },
+    { to: "/pricing", label: "Pricing", key: "plain" },
     { to: "/downloads", label: tr("nav.downloads"), key: "plain" },
     { to: "/blog", label: tr("nav.blog"), key: "plain" },
     { to: "/about", label: tr("nav.about"), key: "plain" },
@@ -135,10 +136,16 @@ export function Header() {
             {lang === "zh" ? "EN" : "中"}
           </button>
           <Link
-            to="/contact"
+            to="/auth"
+            className="hidden md:inline-flex items-center rounded-full border border-border bg-surface/50 px-4 py-2 text-sm font-semibold hover:border-primary/50 transition-colors"
+          >
+            Sign In
+          </Link>
+          <Link
+            to="/auth"
             className="hidden md:inline-flex items-center rounded-full bg-primary text-primary-foreground px-4 py-2 text-sm font-semibold hover:shadow-glow transition-all"
           >
-            {tr("nav.contact")}
+            Get Started
           </Link>
           <button
             onClick={() => setOpen(!open)}
