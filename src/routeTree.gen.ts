@@ -12,14 +12,18 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SolutionsRouteImport } from './routes/solutions'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ProductsRouteImport } from './routes/products'
+import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as PlatformRouteImport } from './routes/platform'
 import { Route as DownloadsRouteImport } from './routes/downloads'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BlogRouteImport } from './routes/blog'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SolutionsIndexRouteImport } from './routes/solutions.index'
 import { Route as SolutionsSlugRouteImport } from './routes/solutions.$slug'
+import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 
 const SolutionsRoute = SolutionsRouteImport.update({
   id: '/solutions',
@@ -34,6 +38,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const ProductsRoute = ProductsRouteImport.update({
   id: '/products',
   path: '/products',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PricingRoute = PricingRouteImport.update({
+  id: '/pricing',
+  path: '/pricing',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PlatformRoute = PlatformRouteImport.update({
@@ -56,9 +65,18 @@ const BlogRoute = BlogRouteImport.update({
   path: '/blog',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -76,43 +94,58 @@ const SolutionsSlugRoute = SolutionsSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => SolutionsRoute,
 } as any)
+const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/auth': typeof AuthRoute
   '/blog': typeof BlogRoute
   '/contact': typeof ContactRoute
   '/downloads': typeof DownloadsRoute
   '/platform': typeof PlatformRoute
+  '/pricing': typeof PricingRoute
   '/products': typeof ProductsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/solutions': typeof SolutionsRouteWithChildren
+  '/dashboard': typeof AuthenticatedDashboardRoute
   '/solutions/$slug': typeof SolutionsSlugRoute
   '/solutions/': typeof SolutionsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/auth': typeof AuthRoute
   '/blog': typeof BlogRoute
   '/contact': typeof ContactRoute
   '/downloads': typeof DownloadsRoute
   '/platform': typeof PlatformRoute
+  '/pricing': typeof PricingRoute
   '/products': typeof ProductsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
   '/solutions/$slug': typeof SolutionsSlugRoute
   '/solutions': typeof SolutionsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/about': typeof AboutRoute
+  '/auth': typeof AuthRoute
   '/blog': typeof BlogRoute
   '/contact': typeof ContactRoute
   '/downloads': typeof DownloadsRoute
   '/platform': typeof PlatformRoute
+  '/pricing': typeof PricingRoute
   '/products': typeof ProductsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/solutions': typeof SolutionsRouteWithChildren
+  '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/solutions/$slug': typeof SolutionsSlugRoute
   '/solutions/': typeof SolutionsIndexRoute
 }
@@ -121,49 +154,62 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/auth'
     | '/blog'
     | '/contact'
     | '/downloads'
     | '/platform'
+    | '/pricing'
     | '/products'
     | '/sitemap.xml'
     | '/solutions'
+    | '/dashboard'
     | '/solutions/$slug'
     | '/solutions/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
+    | '/auth'
     | '/blog'
     | '/contact'
     | '/downloads'
     | '/platform'
+    | '/pricing'
     | '/products'
     | '/sitemap.xml'
+    | '/dashboard'
     | '/solutions/$slug'
     | '/solutions'
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
     | '/about'
+    | '/auth'
     | '/blog'
     | '/contact'
     | '/downloads'
     | '/platform'
+    | '/pricing'
     | '/products'
     | '/sitemap.xml'
     | '/solutions'
+    | '/_authenticated/dashboard'
     | '/solutions/$slug'
     | '/solutions/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AboutRoute: typeof AboutRoute
+  AuthRoute: typeof AuthRoute
   BlogRoute: typeof BlogRoute
   ContactRoute: typeof ContactRoute
   DownloadsRoute: typeof DownloadsRoute
   PlatformRoute: typeof PlatformRoute
+  PricingRoute: typeof PricingRoute
   ProductsRoute: typeof ProductsRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SolutionsRoute: typeof SolutionsRouteWithChildren
@@ -190,6 +236,13 @@ declare module '@tanstack/react-router' {
       path: '/products'
       fullPath: '/products'
       preLoaderRoute: typeof ProductsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pricing': {
+      id: '/pricing'
+      path: '/pricing'
+      fullPath: '/pricing'
+      preLoaderRoute: typeof PricingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/platform': {
@@ -220,11 +273,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about': {
       id: '/about'
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -248,8 +315,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SolutionsSlugRouteImport
       parentRoute: typeof SolutionsRoute
     }
+    '/_authenticated/dashboard': {
+      id: '/_authenticated/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
+
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
 
 interface SolutionsRouteChildren {
   SolutionsSlugRoute: typeof SolutionsSlugRoute
@@ -267,11 +352,14 @@ const SolutionsRouteWithChildren = SolutionsRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AboutRoute: AboutRoute,
+  AuthRoute: AuthRoute,
   BlogRoute: BlogRoute,
   ContactRoute: ContactRoute,
   DownloadsRoute: DownloadsRoute,
   PlatformRoute: PlatformRoute,
+  PricingRoute: PricingRoute,
   ProductsRoute: ProductsRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SolutionsRoute: SolutionsRouteWithChildren,
