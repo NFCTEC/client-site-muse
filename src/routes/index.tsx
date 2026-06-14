@@ -3,8 +3,6 @@ import { useI18n } from "@/lib/i18n";
 import { ArrowRight, Code2, Cpu, Layers, Wrench,
   Wallet, Train, Landmark, KeyRound, HeartPulse, Boxes,
   ShieldCheck, ShoppingBag, Car, Smartphone } from "lucide-react";
-import heroCard from "@/assets/hero-nfc-card.png";
-import waveDivider from "@/assets/nfc-waves-divider.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -94,19 +92,6 @@ function Home() {
             </Link>
           </div>
 
-          {/* Hero visual */}
-          <div className="relative mt-14 lg:mt-20 max-w-3xl mx-auto">
-            <div className="absolute inset-0 -m-8 bg-primary/15 blur-3xl rounded-full pointer-events-none" aria-hidden />
-            <img
-              src={heroCard}
-              alt="NFCTEC NFC smart card with secure signal waves"
-              width={1024}
-              height={768}
-              fetchPriority="high"
-              className="relative w-full h-auto rounded-2xl shadow-float ring-1 ring-border"
-            />
-          </div>
-
           {/* Protocol marquee */}
           <div className="relative mt-16 overflow-hidden [mask-image:linear-gradient(90deg,transparent,black_15%,black_85%,transparent)]">
             <div className="flex gap-3 animate-marquee w-max">
@@ -122,18 +107,6 @@ function Home() {
           </div>
         </div>
       </section>
-
-      {/* Wave divider */}
-      <div className="relative" aria-hidden>
-        <img
-          src={waveDivider}
-          alt=""
-          width={1536}
-          height={512}
-          loading="lazy"
-          className="w-full h-auto opacity-70"
-        />
-      </div>
 
       {/* 2. WHAT WE DO */}
       <section className="py-24 lg:py-28">
