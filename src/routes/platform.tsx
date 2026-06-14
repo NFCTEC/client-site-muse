@@ -14,9 +14,9 @@ export const Route = createFileRoute("/platform")({
 });
 
 const steps = [
-  { icon: Plug, n: "01", t: "Connect", d: "Plug in any compatible NFC reader. No drivers, no local software setup required." },
-  { icon: Settings2, n: "02", t: "Configure", d: "Set up your card profile on the dashboard. Define application structure, access rules, and data fields through a simple interface." },
-  { icon: Sparkles, n: "03", t: "Issue", d: "Place the card on the reader. All encryption, key management, and authentication happen in our cloud — your reader just relays the data." },
+  { icon: Plug, n: "01", t: "Connect Any Hardware", d: "Works with any NFC reader, terminal, or embedded device — desktop USB readers, mobile phones, kiosks, POS terminals. If it can talk APDU, it can talk to our API. No drivers, no SDK lock-in." },
+  { icon: Settings2, n: "02", t: "Call a Simple API", d: "Two REST endpoints — issue and verify. No cryptography knowledge, no key files, no APDU scripts to write. Send a request, get a result. Your developers can integrate in an afternoon." },
+  { icon: Sparkles, n: "03", t: "We Handle the Hard Part", d: "All encryption, key derivation, authentication, and secure messaging run server-side in our HSM. Your hardware just relays bytes — we do the crypto." },
 ];
 
 const features = [
