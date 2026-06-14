@@ -29,7 +29,6 @@ export function Header() {
     { to: "/products", label: tr("nav.products"), key: "products" },
     { to: "/solutions", label: tr("nav.solutions"), key: "solutions" },
     { to: "/platform", label: tr("nav.platform"), key: "plain" },
-    { to: "/pricing", label: "Pricing", key: "plain" },
     { to: "/downloads", label: tr("nav.downloads"), key: "plain" },
     { to: "/blog", label: tr("nav.blog"), key: "plain" },
     { to: "/about", label: tr("nav.about"), key: "plain" },
