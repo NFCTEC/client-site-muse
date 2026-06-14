@@ -107,12 +107,9 @@ function Platform() {
             Cloud personalization and verification for NTAG424 DNA and MIFARE DESFire. A simple REST API — we handle the cryptography.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <a
-              href="https://platform.nfctec.com"
-              className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3 text-sm font-semibold hover:shadow-glow-strong transition-all"
-            >
+            <Link to="/auth" className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3 text-sm font-semibold hover:shadow-glow-strong transition-all">
               Get Started Free <ArrowRight size={16} />
-            </a>
+            </Link>
             <a href="#pricing" className="inline-flex items-center gap-2 rounded-full border border-border bg-surface/50 px-6 py-3 text-sm font-semibold hover:border-primary/50 transition-colors">
               View Pricing
             </a>
@@ -233,8 +230,8 @@ function Platform() {
                     </span>
                   </div>
                   {p.note && <p className="text-[11px] font-mono text-primary">{p.note}</p>}
-                  <a
-                    href="https://platform.nfctec.com"
+                  <Link
+                    to="/auth"
                     className={`mt-5 inline-flex items-center justify-center gap-2 rounded-full px-4 py-2.5 text-sm font-semibold transition-all ${
                       p.highlight
                         ? "bg-primary text-primary-foreground hover:shadow-glow-strong"
@@ -242,7 +239,7 @@ function Platform() {
                     }`}
                   >
                     {p.cta} <ArrowRight size={14} />
-                  </a>
+                  </Link>
                   <ul className="mt-6 space-y-3 text-sm">
                     {p.features.map((f) => (
                       <li key={f} className="flex items-start gap-2">
@@ -283,12 +280,9 @@ function Platform() {
             Sign up free, grab your API key, and issue your first card in minutes.
           </p>
           <div className="mt-8 flex flex-wrap gap-3 justify-center">
-            <a
-              href="https://platform.nfctec.com"
-              className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3 text-sm font-semibold hover:shadow-glow-strong transition-all"
-            >
+            <Link to="/auth" className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3 text-sm font-semibold hover:shadow-glow-strong transition-all">
               Get Started Free <ArrowRight size={16} />
-            </a>
+            </Link>
             <Link to="/contact" className="inline-flex items-center gap-2 rounded-full border border-border bg-surface/50 px-6 py-3 text-sm font-semibold hover:border-primary/50 transition-colors">
               Contact Us
             </Link>

@@ -134,18 +134,18 @@ export function Header() {
           >
             {lang === "zh" ? "EN" : "中"}
           </button>
-          <a
-            href="https://platform.nfctec.com"
+          <Link
+            to="/auth"
             className="hidden md:inline-flex items-center rounded-full border border-border bg-surface/50 px-4 py-2 text-sm font-semibold hover:border-primary/50 transition-colors"
           >
             Sign In
-          </a>
-          <a
-            href="https://platform.nfctec.com"
+          </Link>
+          <Link
+            to="/auth"
             className="hidden md:inline-flex items-center rounded-full bg-primary text-primary-foreground px-4 py-2 text-sm font-semibold hover:shadow-glow transition-all"
           >
             Get Started
-          </a>
+          </Link>
           <button
             onClick={() => setOpen(!open)}
             className="lg:hidden p-2 -mr-2 text-foreground"
