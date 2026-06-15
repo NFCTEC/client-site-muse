@@ -520,81 +520,6 @@ function SolutionDetail() {
           </div>
         </div>
       </section>
-
-      {/* DELIVERABLES */}
-      <section className="py-16 lg:py-20 border-t border-border bg-surface/30">
-        <div className="mx-auto max-w-6xl px-6 lg:px-10">
-          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12">
-            <div className="lg:col-span-4">
-              <div className="text-xs font-mono text-primary uppercase tracking-widest mb-3">
-                {lang === "zh" ? "交付物" : "Deliverables"}
-              </div>
-              <h2 className="font-display text-2xl lg:text-3xl tracking-tight text-balance">
-                {lang === "zh"
-                  ? "您会拿到什么"
-                  : "What you receive"}
-              </h2>
-              <p className="mt-4 text-sm text-muted-foreground leading-relaxed max-w-sm">
-                {lang === "zh"
-                  ? "每个项目都附带源码、文档与认证支持 —— 我们不交付黑盒。"
-                  : "Every engagement ships with source, documentation and certification support — no black boxes."}
-              </p>
-            </div>
-            <div className="lg:col-span-8">
-              <ul className="grid sm:grid-cols-2 gap-3">
-                {ind.deliverables.map((d) => (
-                  <li
-                    key={d.en}
-                    className="flex items-start gap-3 rounded-xl border border-border bg-card-gradient px-4 py-4"
-                  >
-                    <span className="mt-0.5 inline-grid w-5 h-5 rounded-full bg-primary/15 border border-primary/30 place-items-center shrink-0">
-                      <ShieldCheck size={11} className="text-primary" />
-                    </span>
-                    <span className="text-sm text-foreground/90 leading-relaxed">
-                      {pick(d)}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* WORKFLOW */}
-      <section className="py-16 lg:py-20">
-        <div className="mx-auto max-w-6xl px-6 lg:px-10">
-          <div className="mb-10">
-            <div className="text-xs font-mono text-primary uppercase tracking-widest mb-3">
-              {lang === "zh" ? "合作流程" : "Engagement"}
-            </div>
-            <h2 className="font-display text-2xl lg:text-3xl tracking-tight text-balance">
-              {lang === "zh"
-                ? "从需求到上线的 5 个阶段"
-                : "From discovery to rollout — 5 stages"}
-            </h2>
-          </div>
-          <ol className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
-            {ind.workflow.map((s, i) => (
-              <li
-                key={s.t.en}
-                className="relative rounded-2xl border border-border bg-card-gradient p-5"
-              >
-                <div className="text-[10px] font-mono text-muted-foreground mb-3">
-                  STEP {String(i + 1).padStart(2, "0")}
-                </div>
-                <h3 className="font-display text-sm font-semibold mb-1.5 leading-snug">
-                  {pick(s.t)}
-                </h3>
-                <p className="text-xs text-muted-foreground leading-relaxed">
-                  {pick(s.d)}
-                </p>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
-
       {/* PROTOCOLS + CERTIFICATIONS */}
       <section className="py-16 lg:py-20 border-t border-border bg-surface/30">
         <div className="mx-auto max-w-6xl px-6 lg:px-10 grid lg:grid-cols-2 gap-10">
@@ -630,42 +555,6 @@ function SolutionDetail() {
           </div>
         </div>
       </section>
-
-      {/* RESOURCES */}
-      <section className="py-16 lg:py-20">
-        <div className="mx-auto max-w-6xl px-6 lg:px-10">
-          <div className="mb-10 flex items-end justify-between gap-6">
-            <div>
-              <div className="text-xs font-mono text-primary uppercase tracking-widest mb-3">
-                {lang === "zh" ? "下载与资源" : "Resources"}
-              </div>
-              <h2 className="font-display text-2xl lg:text-3xl tracking-tight">
-                {lang === "zh" ? "立即可获取的资料" : "Available right now"}
-              </h2>
-            </div>
-          </div>
-          <div className="grid sm:grid-cols-3 gap-4">
-            {ind.resources.map((r) => (
-              <a
-                key={r.t.en}
-                href="/downloads"
-                className="group rounded-2xl border border-border bg-card-gradient p-6 hover:border-primary/50 transition-colors"
-              >
-                <div className="text-[10px] font-mono text-primary uppercase tracking-widest mb-3">
-                  {pick(r.kind)}
-                </div>
-                <h3 className="font-display text-base font-semibold mb-2 group-hover:text-primary transition-colors">
-                  {pick(r.t)}
-                </h3>
-                <span className="inline-flex items-center gap-1.5 text-xs text-muted-foreground group-hover:text-primary transition-colors">
-                  {lang === "zh" ? "前往下载" : "Get it"} <ArrowRight size={12} />
-                </span>
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* CTA */}
       <section className="pb-24">
         <div className="mx-auto max-w-5xl px-6 lg:px-10">
