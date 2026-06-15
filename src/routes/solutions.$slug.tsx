@@ -522,35 +522,56 @@ function SolutionDetail() {
       </section>
       {/* PROTOCOLS + CERTIFICATIONS */}
       <section className="py-16 lg:py-20 border-t border-border bg-surface/30">
-        <div className="mx-auto max-w-6xl px-6 lg:px-10 grid lg:grid-cols-2 gap-10">
-          <div>
-            <div className="text-xs font-mono text-primary uppercase tracking-widest mb-4">
-              {lang === "zh" ? "覆盖协议" : "Protocols"}
+        <div className="mx-auto max-w-6xl px-6 lg:px-10">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 mb-10">
+            <div className="lg:col-span-4">
+              <div className="text-xs font-mono text-primary uppercase tracking-widest mb-3">
+                {lang === "zh" ? "技术覆盖" : "Technology"}
+              </div>
+              <h2 className="font-display text-2xl lg:text-3xl tracking-tight text-balance">
+                {lang === "zh"
+                  ? "协议与认证"
+                  : "Protocols & certifications"}
+              </h2>
             </div>
-            <div className="flex flex-wrap gap-2">
-              {ind.protocols.map((p) => (
-                <span
-                  key={p}
-                  className="rounded-full border border-border bg-background/40 px-3.5 py-1.5 text-xs font-mono text-foreground/80"
-                >
-                  {p}
-                </span>
-              ))}
+            <div className="lg:col-span-8">
+              <p className="text-base text-muted-foreground leading-relaxed max-w-2xl">
+                {lang === "zh"
+                  ? "主流芯片、协议与认证全覆盖 — 兼容全球已部署的存量系统。"
+                  : "Full coverage of the chips, protocols and certifications your market already runs on."}
+              </p>
             </div>
           </div>
-          <div>
-            <div className="text-xs font-mono text-primary uppercase tracking-widest mb-4">
-              {lang === "zh" ? "认证与合规" : "Certifications"}
+          <div className="grid lg:grid-cols-2 gap-10 pt-2">
+            <div>
+              <div className="text-xs font-mono text-muted-foreground uppercase tracking-widest mb-4">
+                {lang === "zh" ? "覆盖协议" : "Protocols"}
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {ind.protocols.map((p) => (
+                  <span
+                    key={p}
+                    className="rounded-full border border-border bg-background/40 px-3.5 py-1.5 text-xs font-mono text-foreground/80"
+                  >
+                    {p}
+                  </span>
+                ))}
+              </div>
             </div>
-            <div className="flex flex-wrap gap-2">
-              {ind.certifications.map((c) => (
-                <span
-                  key={c}
-                  className="rounded-full border border-primary/30 bg-primary/10 px-3.5 py-1.5 text-xs font-mono text-primary"
-                >
-                  {c}
-                </span>
-              ))}
+            <div>
+              <div className="text-xs font-mono text-muted-foreground uppercase tracking-widest mb-4">
+                {lang === "zh" ? "认证与合规" : "Certifications"}
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {ind.certifications.map((c) => (
+                  <span
+                    key={c}
+                    className="rounded-full border border-primary/30 bg-primary/10 px-3.5 py-1.5 text-xs font-mono text-primary"
+                  >
+                    {c}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
         </div>
