@@ -8,8 +8,6 @@ import {
 
 type Bi = { en: string; zh: string };
 type Capability = { t: Bi; d: Bi };
-type Step = { t: Bi; d: Bi };
-type Resource = { t: Bi; kind: Bi };
 type Industry = {
   slug: string;
   icon: LucideIcon;
@@ -20,11 +18,7 @@ type Industry = {
   deliverables: Bi[];
   protocols: string[];
   certifications: string[];
-  workflow: Step[];
-  resources: Resource[];
 };
-
-type BaseIndustry = Omit<Industry, "certifications" | "workflow" | "resources">;
 
 const baseIndustries: BaseIndustry[] = [
   {
