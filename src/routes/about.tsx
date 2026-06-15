@@ -18,33 +18,6 @@ export const Route = createFileRoute("/about")({
   component: About,
 });
 
-const team = [
-  {
-    role: "about.team1.role",
-    exp: "about.team1.exp",
-    bio: "about.team1.bio",
-    accent: "from-primary to-accent",
-  },
-  {
-    role: "about.team2.role",
-    exp: "about.team2.exp",
-    bio: "about.team2.bio",
-    accent: "from-accent to-primary",
-  },
-  {
-    role: "about.team3.role",
-    exp: "about.team3.exp",
-    bio: "about.team3.bio",
-    accent: "from-primary to-accent",
-  },
-  {
-    role: "about.team4.role",
-    exp: "about.team4.exp",
-    bio: "about.team4.bio",
-    accent: "from-accent to-primary",
-  },
-];
-
 const stats = [
   "about.stats.founded",
   "about.stats.projects",
@@ -92,49 +65,6 @@ function About() {
               </div>
             );
           })}
-        </div>
-      </section>
-
-      {/* Founding Team */}
-      <section className="py-24 lg:py-32">
-        <div className="mx-auto max-w-7xl px-6 lg:px-10">
-          <div className="max-w-3xl mb-14">
-            <div className="text-xs font-mono uppercase tracking-[0.2em] text-primary mb-5">
-              {tr("about.team.eyebrow")}
-            </div>
-            <h2 className="font-display text-4xl lg:text-5xl tracking-tight whitespace-pre-line text-balance">
-              {tr("about.team.title")}
-            </h2>
-            <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
-              {tr("about.team.sub")}
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-5">
-            {team.map((m, i) => (
-              <article
-                key={m.role}
-                className="card-glow group rounded-3xl bg-card-gradient border border-border p-8 lg:p-10 transition-colors hover:border-primary/40"
-              >
-                <div className="flex items-start gap-5">
-                  <div
-                    className={`flex-shrink-0 w-16 h-16 lg:w-20 lg:h-20 rounded-2xl bg-gradient-to-br ${m.accent} flex items-center justify-center font-mono text-sm text-primary-foreground shadow-glow tracking-wider`}
-                  >
-                    {String(i + 1).padStart(2, "0")}
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <div className="text-sm text-primary mt-1">{tr(m.role)}</div>
-                    <div className="font-mono text-xs text-muted-foreground mt-1.5">
-                      {tr(m.exp)}
-                    </div>
-                  </div>
-                </div>
-                <p className="mt-6 text-muted-foreground leading-relaxed">
-                  {tr(m.bio)}
-                </p>
-              </article>
-            ))}
-          </div>
         </div>
       </section>
 
