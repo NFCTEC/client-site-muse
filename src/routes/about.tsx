@@ -20,32 +20,24 @@ export const Route = createFileRoute("/about")({
 
 const team = [
   {
-    initials: "WZ",
-    name: "Wei Zhang",
     role: "about.team1.role",
     exp: "about.team1.exp",
     bio: "about.team1.bio",
     accent: "from-primary to-accent",
   },
   {
-    initials: "LC",
-    name: "Lily Chen",
     role: "about.team2.role",
     exp: "about.team2.exp",
     bio: "about.team2.bio",
     accent: "from-accent to-primary",
   },
   {
-    initials: "ML",
-    name: "Marcus Liu",
     role: "about.team3.role",
     exp: "about.team3.exp",
     bio: "about.team3.bio",
     accent: "from-primary to-accent",
   },
   {
-    initials: "AH",
-    name: "Anna Hu",
     role: "about.team4.role",
     exp: "about.team4.exp",
     bio: "about.team4.bio",
