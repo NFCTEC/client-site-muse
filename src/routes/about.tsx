@@ -20,32 +20,24 @@ export const Route = createFileRoute("/about")({
 
 const team = [
   {
-    initials: "WZ",
-    name: "Wei Zhang",
     role: "about.team1.role",
     exp: "about.team1.exp",
     bio: "about.team1.bio",
     accent: "from-primary to-accent",
   },
   {
-    initials: "LC",
-    name: "Lily Chen",
     role: "about.team2.role",
     exp: "about.team2.exp",
     bio: "about.team2.bio",
     accent: "from-accent to-primary",
   },
   {
-    initials: "ML",
-    name: "Marcus Liu",
     role: "about.team3.role",
     exp: "about.team3.exp",
     bio: "about.team3.bio",
     accent: "from-primary to-accent",
   },
   {
-    initials: "AH",
-    name: "Anna Hu",
     role: "about.team4.role",
     exp: "about.team4.exp",
     bio: "about.team4.bio",
@@ -119,21 +111,18 @@ function About() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-5">
-            {team.map((m) => (
+            {team.map((m, i) => (
               <article
-                key={m.name}
+                key={m.role}
                 className="card-glow group rounded-3xl bg-card-gradient border border-border p-8 lg:p-10 transition-colors hover:border-primary/40"
               >
                 <div className="flex items-start gap-5">
                   <div
-                    className={`flex-shrink-0 w-16 h-16 lg:w-20 lg:h-20 rounded-2xl bg-gradient-to-br ${m.accent} flex items-center justify-center font-display text-xl lg:text-2xl text-primary-foreground shadow-glow`}
+                    className={`flex-shrink-0 w-16 h-16 lg:w-20 lg:h-20 rounded-2xl bg-gradient-to-br ${m.accent} flex items-center justify-center font-mono text-sm text-primary-foreground shadow-glow tracking-wider`}
                   >
-                    {m.initials}
+                    {String(i + 1).padStart(2, "0")}
                   </div>
                   <div className="min-w-0 flex-1">
-                    <div className="font-display text-xl lg:text-2xl tracking-tight">
-                      {m.name}
-                    </div>
                     <div className="text-sm text-primary mt-1">{tr(m.role)}</div>
                     <div className="font-mono text-xs text-muted-foreground mt-1.5">
                       {tr(m.exp)}
