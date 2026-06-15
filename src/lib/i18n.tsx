@@ -286,7 +286,7 @@ export const t: Dict = {
   "about.stats.founded": { en: "Founded 2010 · Shenzhen", zh: "2010 年成立于深圳" },
   "about.stats.projects": { en: "500+ projects shipped", zh: "已交付 500+ 项目" },
   "about.stats.countries": { en: "60+ countries", zh: "覆盖 60+ 国家" },
-  "about.stats.team": { en: "1200+ engineers", zh: "1200+ 工程师" },
+  "about.stats.team": { en: "12+ engineers", zh: "12+ 工程师" },
 
   // Contact
   "contact.eyebrow": { en: "Contact", zh: "联系我们" },
