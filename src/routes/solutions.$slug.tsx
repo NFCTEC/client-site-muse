@@ -452,12 +452,10 @@ function SolutionDetail() {
   const Icon = ind.icon;
   const pick = (b: Bi) => b[lang];
 
-  const topCaps = ind.capabilities.slice(0, 4);
-
   return (
     <>
       {/* HERO */}
-      <section className="relative pt-24 lg:pt-32 pb-16 border-b border-border">
+      <section className="relative pt-24 lg:pt-32 pb-14 border-b border-border">
         <div className="absolute inset-0 bg-hero-glow pointer-events-none" />
         <div className="relative mx-auto max-w-6xl px-6 lg:px-10">
           <Link
@@ -482,17 +480,38 @@ function SolutionDetail() {
         </div>
       </section>
 
+      {/* INTRO */}
+      <section className="py-14 lg:py-16 border-b border-border">
+        <div className="mx-auto max-w-6xl px-6 lg:px-10 grid lg:grid-cols-12 gap-8 lg:gap-12">
+          <div className="lg:col-span-3">
+            <div className="text-xs font-mono text-primary uppercase tracking-widest">
+              {lang === "zh" ? "概述" : "Overview"}
+            </div>
+          </div>
+          <div className="lg:col-span-9">
+            <p className="text-base lg:text-lg text-foreground/90 leading-relaxed max-w-3xl">
+              {pick(ind.intro)}
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* CAPABILITIES */}
-      <section className="py-20">
+      <section className="py-16 lg:py-20">
         <div className="mx-auto max-w-6xl px-6 lg:px-10">
-          <h2 className="font-display text-2xl lg:text-3xl tracking-tight mb-10">
-            {lang === "zh" ? "我们能做什么" : "What we build"}
-          </h2>
-          <div className="grid sm:grid-cols-2 gap-4">
-            {topCaps.map((c) => (
+          <div className="flex items-end justify-between gap-6 mb-10">
+            <h2 className="font-display text-2xl lg:text-3xl tracking-tight">
+              {lang === "zh" ? "我们能做什么" : "What we build"}
+            </h2>
+            <span className="text-xs font-mono text-muted-foreground hidden sm:inline">
+              {ind.capabilities.length} {lang === "zh" ? "项核心能力" : "capabilities"}
+            </span>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {ind.capabilities.map((c) => (
               <div
                 key={c.t.en}
-                className="rounded-2xl border border-border bg-card-gradient p-6"
+                className="rounded-2xl border border-border bg-card-gradient p-6 hover:border-primary/40 transition-colors"
               >
                 <h3 className="font-display text-base font-semibold mb-2">{pick(c.t)}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{pick(c.d)}</p>
@@ -502,20 +521,146 @@ function SolutionDetail() {
         </div>
       </section>
 
-      {/* PROTOCOLS */}
-      <section className="pb-20">
+      {/* DELIVERABLES */}
+      <section className="py-16 lg:py-20 border-t border-border bg-surface/30">
         <div className="mx-auto max-w-6xl px-6 lg:px-10">
-          <div className="text-xs font-mono text-primary uppercase tracking-widest mb-4">
-            {lang === "zh" ? "覆盖协议" : "Protocols"}
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12">
+            <div className="lg:col-span-4">
+              <div className="text-xs font-mono text-primary uppercase tracking-widest mb-3">
+                {lang === "zh" ? "交付物" : "Deliverables"}
+              </div>
+              <h2 className="font-display text-2xl lg:text-3xl tracking-tight text-balance">
+                {lang === "zh"
+                  ? "您会拿到什么"
+                  : "What you receive"}
+              </h2>
+              <p className="mt-4 text-sm text-muted-foreground leading-relaxed max-w-sm">
+                {lang === "zh"
+                  ? "每个项目都附带源码、文档与认证支持 —— 我们不交付黑盒。"
+                  : "Every engagement ships with source, documentation and certification support — no black boxes."}
+              </p>
+            </div>
+            <div className="lg:col-span-8">
+              <ul className="grid sm:grid-cols-2 gap-3">
+                {ind.deliverables.map((d) => (
+                  <li
+                    key={d.en}
+                    className="flex items-start gap-3 rounded-xl border border-border bg-card-gradient px-4 py-4"
+                  >
+                    <span className="mt-0.5 inline-grid w-5 h-5 rounded-full bg-primary/15 border border-primary/30 place-items-center shrink-0">
+                      <ShieldCheck size={11} className="text-primary" />
+                    </span>
+                    <span className="text-sm text-foreground/90 leading-relaxed">
+                      {pick(d)}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
-          <div className="flex flex-wrap gap-2">
-            {ind.protocols.map((p) => (
-              <span
-                key={p}
-                className="rounded-full border border-border bg-surface/60 px-3.5 py-1.5 text-xs font-mono text-muted-foreground"
+        </div>
+      </section>
+
+      {/* WORKFLOW */}
+      <section className="py-16 lg:py-20">
+        <div className="mx-auto max-w-6xl px-6 lg:px-10">
+          <div className="mb-10">
+            <div className="text-xs font-mono text-primary uppercase tracking-widest mb-3">
+              {lang === "zh" ? "合作流程" : "Engagement"}
+            </div>
+            <h2 className="font-display text-2xl lg:text-3xl tracking-tight text-balance">
+              {lang === "zh"
+                ? "从需求到上线的 5 个阶段"
+                : "From discovery to rollout — 5 stages"}
+            </h2>
+          </div>
+          <ol className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
+            {ind.workflow.map((s, i) => (
+              <li
+                key={s.t.en}
+                className="relative rounded-2xl border border-border bg-card-gradient p-5"
               >
-                {p}
-              </span>
+                <div className="text-[10px] font-mono text-muted-foreground mb-3">
+                  STEP {String(i + 1).padStart(2, "0")}
+                </div>
+                <h3 className="font-display text-sm font-semibold mb-1.5 leading-snug">
+                  {pick(s.t)}
+                </h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  {pick(s.d)}
+                </p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      {/* PROTOCOLS + CERTIFICATIONS */}
+      <section className="py-16 lg:py-20 border-t border-border bg-surface/30">
+        <div className="mx-auto max-w-6xl px-6 lg:px-10 grid lg:grid-cols-2 gap-10">
+          <div>
+            <div className="text-xs font-mono text-primary uppercase tracking-widest mb-4">
+              {lang === "zh" ? "覆盖协议" : "Protocols"}
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {ind.protocols.map((p) => (
+                <span
+                  key={p}
+                  className="rounded-full border border-border bg-background/40 px-3.5 py-1.5 text-xs font-mono text-foreground/80"
+                >
+                  {p}
+                </span>
+              ))}
+            </div>
+          </div>
+          <div>
+            <div className="text-xs font-mono text-primary uppercase tracking-widest mb-4">
+              {lang === "zh" ? "认证与合规" : "Certifications"}
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {ind.certifications.map((c) => (
+                <span
+                  key={c}
+                  className="rounded-full border border-primary/30 bg-primary/10 px-3.5 py-1.5 text-xs font-mono text-primary"
+                >
+                  {c}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* RESOURCES */}
+      <section className="py-16 lg:py-20">
+        <div className="mx-auto max-w-6xl px-6 lg:px-10">
+          <div className="mb-10 flex items-end justify-between gap-6">
+            <div>
+              <div className="text-xs font-mono text-primary uppercase tracking-widest mb-3">
+                {lang === "zh" ? "下载与资源" : "Resources"}
+              </div>
+              <h2 className="font-display text-2xl lg:text-3xl tracking-tight">
+                {lang === "zh" ? "立即可获取的资料" : "Available right now"}
+              </h2>
+            </div>
+          </div>
+          <div className="grid sm:grid-cols-3 gap-4">
+            {ind.resources.map((r) => (
+              <a
+                key={r.t.en}
+                href="/downloads"
+                className="group rounded-2xl border border-border bg-card-gradient p-6 hover:border-primary/50 transition-colors"
+              >
+                <div className="text-[10px] font-mono text-primary uppercase tracking-widest mb-3">
+                  {pick(r.kind)}
+                </div>
+                <h3 className="font-display text-base font-semibold mb-2 group-hover:text-primary transition-colors">
+                  {pick(r.t)}
+                </h3>
+                <span className="inline-flex items-center gap-1.5 text-xs text-muted-foreground group-hover:text-primary transition-colors">
+                  {lang === "zh" ? "前往下载" : "Get it"} <ArrowRight size={12} />
+                </span>
+              </a>
             ))}
           </div>
         </div>

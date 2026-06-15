@@ -82,27 +82,60 @@ export const t: Dict = {
   "ind.eyebrow": { en: "Industry Solutions", zh: "行业方案" },
   "ind.title": { en: "10 industries.\nProven NFC playbooks.", zh: "10 大行业，\n成熟 NFC 方案。" },
   "ind.banking.t": { en: "Banking & Payment", zh: "银行与支付" },
-  "ind.banking.d": { en: "EMV personalization, contactless cards, tokenization.", zh: "EMV 个人化、非接卡、令牌化。" },
+  "ind.banking.d": {
+    en: "End-to-end payment engineering — from card applet to acquirer host. We deliver EMV-certified applets, PCI-compliant issuance, tokenization for mobile wallets and the ISO 8583 host systems that move money at scale.",
+    zh: "端到端的支付工程能力 — 从卡片 Applet 到收单主机。提供 EMV 认证 Applet、PCI 合规发卡、移动钱包令牌化,以及承载大规模交易的 ISO 8583 后台系统。",
+  },
   "ind.transit.t": { en: "Transit & Ticketing", zh: "公共交通" },
-  "ind.transit.d": { en: "CALYPSO, MIFARE, mobile ticketing, gate readers.", zh: "CALYPSO、MIFARE、移动票务、闸机读卡。" },
+  "ind.transit.d": {
+    en: "Complete AFC systems for metros, buses and open-loop tap-to-ride. From card and mobile tickets to gates, validators and the central clearing house that settles revenue across operators.",
+    zh: "面向地铁、公交与开放环即刷即乘的完整 AFC 系统。从卡片与手机票,到闸机、验票机,再到跨运营商分账的中央清分中心。",
+  },
   "ind.gov.t": { en: "Government & ID", zh: "政务与身份" },
-  "ind.gov.d": { en: "eID, ePassport ICAO 9303, driver license, eSIM.", zh: "电子身份证、电子护照 ICAO 9303、驾照、eSIM。" },
+  "ind.gov.d": {
+    en: "Trusted credentials for national ID, ePassport and driver license. Issuance platforms, border-control inspection, eID middleware and GSMA-compliant eSIM — meeting ICAO 9303 and CC EAL5+ requirements.",
+    zh: "面向身份证、电子护照与驾照的可信凭证方案。提供发行平台、边检核验、电子身份证中间件与符合 GSMA 规范的 eSIM — 满足 ICAO 9303 与 CC EAL5+ 要求。",
+  },
   "ind.access.t": { en: "Access Control", zh: "门禁访问" },
-  "ind.access.d": { en: "DESFire, SEOS, mobile credentials, multi-factor.", zh: "DESFire、SEOS、手机凭证、多因子认证。" },
+  "ind.access.d": {
+    en: "Modern physical access — DESFire EV3 / SEOS cards, OSDP readers and mobile credentials over NFC + BLE. Engineered for enterprise campuses, multi-site operations and FIDO2-grade logical access.",
+    zh: "面向现代物理门禁的完整方案 — DESFire EV3 / SEOS 卡片、OSDP 读卡器与 NFC + BLE 手机凭证。专为多站点企业园区与 FIDO2 级逻辑访问而设计。",
+  },
   "ind.health.t": { en: "Healthcare", zh: "医疗健康" },
-  "ind.health.d": { en: "Patient ID, eHealth cards, secure prescriptions.", zh: "患者身份、电子健康卡、安全处方。" },
+  "ind.health.d": {
+    en: "Hospital-grade NFC for patient ID, eHealth cards, pharmaceutical authentication and cold-chain compliance. HIPAA-ready, GDPR-aligned, with NTAG 424 SUN verification at item level.",
+    zh: "面向医疗场景的 NFC 方案 — 患者身份、电子健康卡、药品防伪与冷链合规。符合 HIPAA 与 GDPR 要求,支持 NTAG 424 SUN 单品级验证。",
+  },
   "ind.iot.t": { en: "IoT & Smart Devices", zh: "物联网" },
-  "ind.iot.d": { en: "Device pairing, secure provisioning, NTAG sensors.", zh: "设备配对、安全配置、NTAG 传感。" },
+  "ind.iot.d": {
+    en: "NFC as the secure side-channel for connected products. One-tap BLE / Wi-Fi pairing, factory provisioning, OTA key rotation and field-engineer tooling — built around NXP NTAG and Secure Element families.",
+    zh: "把 NFC 作为联网产品的安全旁路。一触式 BLE / Wi-Fi 配对、产线批量配置、OTA 密钥轮换与现场工程师工具 — 基于 NXP NTAG 与安全元件系列构建。",
+  },
   "ind.brand.t": { en: "Brand Protection", zh: "品牌防伪" },
-  "ind.brand.d": { en: "SUN dynamic URL, anti-counterfeit, supply chain.", zh: "SUN 动态 URL、防伪、供应链溯源。" },
+  "ind.brand.d": {
+    en: "Item-level authentication and consumer engagement. NTAG 424 DNA SUN dynamic URLs, tamper-evident tags, scan analytics and branded landing pages — turning every product into a trusted digital touchpoint.",
+    zh: "单品级防伪与消费者互动。基于 NTAG 424 DNA SUN 动态 URL、防撕标签、扫码分析与品牌落地页 — 让每件产品都成为可信赖的数字触点。",
+  },
   "ind.retail.t": { en: "Retail & Loyalty", zh: "零售与会员" },
-  "ind.retail.d": { en: "Tap-to-engage, smart packaging, member cards.", zh: "Tap 互动、智能包装、会员卡。" },
+  "ind.retail.d": {
+    en: "Connect product to customer with NFC. Smart packaging, physical and wallet-based loyalty cards, RFID smart shelves and POS plug-ins — driving engagement, inventory accuracy and loss prevention.",
+    zh: "用 NFC 把商品与消费者连接起来。智能包装、实体与钱包会员卡、RFID 智能货架与 POS 插件 — 驱动互动、提升库存精度、降低损耗。",
+  },
   "ind.auto.t": { en: "Automotive", zh: "汽车" },
-  "ind.auto.d": { en: "Digital key (CCC), NFC unlock, in-cabin pairing.", zh: "数字车钥匙 (CCC)、NFC 解锁、车内配对。" },
+  "ind.auto.d": {
+    en: "Digital key systems for OEMs and Tier 1s. CCC Digital Key 3.0 over NFC + UWB + BLE, in-cabin readers qualified to AEC-Q100, owner apps and aftermarket retrofit kits for non-OEM vehicles.",
+    zh: "面向 OEM 与 Tier 1 的数字钥匙系统。基于 CCC 数字钥匙 3.0 (NFC + UWB + BLE)、符合 AEC-Q100 的车内读卡器、车主 App 与非 OEM 车辆后装改装套件。",
+  },
   "ind.edu.t": { en: "Education & Campus", zh: "教育与校园" },
-  "ind.edu.d": { en: "Student ID, library, canteen, attendance.", zh: "学生证、图书馆、食堂、考勤。" },
+  "ind.edu.d": {
+    en: "One card for student ID, library, canteen and attendance — physical DESFire plus mobile wallet credentials, with a central issuance and access platform ready for multi-campus deployments.",
+    zh: "一张卡覆盖学生证、图书馆、食堂与考勤 — 实体 DESFire 加手机钱包凭证,配合可扩展到多校区的中央发卡与门禁平台。",
+  },
   "ind.wallet.t": { en: "Mobile Wallet & Digital Credentials", zh: "手机钱包与数字凭证" },
-  "ind.wallet.d": { en: "HCE, SE applets, tokenization, digital keys for payment, access and transit.", zh: "HCE、SE 小程序、令牌化、支付/门禁/公交数字钥匙。" },
+  "ind.wallet.d": {
+    en: "Ship any credential to a phone. HCE card emulation, Secure Element applets, EMV tokenization and push provisioning to Apple, Google and Samsung wallets — plus ISO 18013-5 mDL readiness.",
+    zh: "把任何凭证发到手机上。HCE 卡模拟、安全元件 Applet、EMV 令牌化,以及推送开通到 Apple、Google 与 Samsung 钱包 — 同时支持 ISO 18013-5 mDL。",
+  },
 
   // Dev tools
   "tools.eyebrow": { en: "Free Developer Tools", zh: "免费开发者工具" },
