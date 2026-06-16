@@ -21,7 +21,9 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SolutionsIndexRouteImport } from './routes/solutions.index'
+import { Route as ProductsIndexRouteImport } from './routes/products.index'
 import { Route as SolutionsSlugRouteImport } from './routes/solutions.$slug'
+import { Route as ProductsNfcFieldDetectorRouteImport } from './routes/products.nfc-field-detector'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 
 const SolutionsRoute = SolutionsRouteImport.update({
@@ -83,11 +85,22 @@ const SolutionsIndexRoute = SolutionsIndexRouteImport.update({
   path: '/',
   getParentRoute: () => SolutionsRoute,
 } as any)
+const ProductsIndexRoute = ProductsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ProductsRoute,
+} as any)
 const SolutionsSlugRoute = SolutionsSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
   getParentRoute: () => SolutionsRoute,
 } as any)
+const ProductsNfcFieldDetectorRoute =
+  ProductsNfcFieldDetectorRouteImport.update({
+    id: '/nfc-field-detector',
+    path: '/nfc-field-detector',
+    getParentRoute: () => ProductsRoute,
+  } as any)
 const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
@@ -102,11 +115,13 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/downloads': typeof DownloadsRoute
   '/platform': typeof PlatformRoute
-  '/products': typeof ProductsRoute
+  '/products': typeof ProductsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/solutions': typeof SolutionsRouteWithChildren
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/products/nfc-field-detector': typeof ProductsNfcFieldDetectorRoute
   '/solutions/$slug': typeof SolutionsSlugRoute
+  '/products/': typeof ProductsIndexRoute
   '/solutions/': typeof SolutionsIndexRoute
 }
 export interface FileRoutesByTo {
@@ -117,10 +132,11 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/downloads': typeof DownloadsRoute
   '/platform': typeof PlatformRoute
-  '/products': typeof ProductsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/products/nfc-field-detector': typeof ProductsNfcFieldDetectorRoute
   '/solutions/$slug': typeof SolutionsSlugRoute
+  '/products': typeof ProductsIndexRoute
   '/solutions': typeof SolutionsIndexRoute
 }
 export interface FileRoutesById {
@@ -133,11 +149,13 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/downloads': typeof DownloadsRoute
   '/platform': typeof PlatformRoute
-  '/products': typeof ProductsRoute
+  '/products': typeof ProductsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/solutions': typeof SolutionsRouteWithChildren
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/products/nfc-field-detector': typeof ProductsNfcFieldDetectorRoute
   '/solutions/$slug': typeof SolutionsSlugRoute
+  '/products/': typeof ProductsIndexRoute
   '/solutions/': typeof SolutionsIndexRoute
 }
 export interface FileRouteTypes {
@@ -154,7 +172,9 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/solutions'
     | '/dashboard'
+    | '/products/nfc-field-detector'
     | '/solutions/$slug'
+    | '/products/'
     | '/solutions/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -165,10 +185,11 @@ export interface FileRouteTypes {
     | '/contact'
     | '/downloads'
     | '/platform'
-    | '/products'
     | '/sitemap.xml'
     | '/dashboard'
+    | '/products/nfc-field-detector'
     | '/solutions/$slug'
+    | '/products'
     | '/solutions'
   id:
     | '__root__'
@@ -184,7 +205,9 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/solutions'
     | '/_authenticated/dashboard'
+    | '/products/nfc-field-detector'
     | '/solutions/$slug'
+    | '/products/'
     | '/solutions/'
   fileRoutesById: FileRoutesById
 }
@@ -197,7 +220,7 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   DownloadsRoute: typeof DownloadsRoute
   PlatformRoute: typeof PlatformRoute
-  ProductsRoute: typeof ProductsRoute
+  ProductsRoute: typeof ProductsRouteWithChildren
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SolutionsRoute: typeof SolutionsRouteWithChildren
 }
@@ -288,12 +311,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SolutionsIndexRouteImport
       parentRoute: typeof SolutionsRoute
     }
+    '/products/': {
+      id: '/products/'
+      path: '/'
+      fullPath: '/products/'
+      preLoaderRoute: typeof ProductsIndexRouteImport
+      parentRoute: typeof ProductsRoute
+    }
     '/solutions/$slug': {
       id: '/solutions/$slug'
       path: '/$slug'
       fullPath: '/solutions/$slug'
       preLoaderRoute: typeof SolutionsSlugRouteImport
       parentRoute: typeof SolutionsRoute
+    }
+    '/products/nfc-field-detector': {
+      id: '/products/nfc-field-detector'
+      path: '/nfc-field-detector'
+      fullPath: '/products/nfc-field-detector'
+      preLoaderRoute: typeof ProductsNfcFieldDetectorRouteImport
+      parentRoute: typeof ProductsRoute
     }
     '/_authenticated/dashboard': {
       id: '/_authenticated/dashboard'
@@ -315,6 +352,20 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
 
 const AuthenticatedRouteRouteWithChildren =
   AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
+interface ProductsRouteChildren {
+  ProductsNfcFieldDetectorRoute: typeof ProductsNfcFieldDetectorRoute
+  ProductsIndexRoute: typeof ProductsIndexRoute
+}
+
+const ProductsRouteChildren: ProductsRouteChildren = {
+  ProductsNfcFieldDetectorRoute: ProductsNfcFieldDetectorRoute,
+  ProductsIndexRoute: ProductsIndexRoute,
+}
+
+const ProductsRouteWithChildren = ProductsRoute._addFileChildren(
+  ProductsRouteChildren,
+)
 
 interface SolutionsRouteChildren {
   SolutionsSlugRoute: typeof SolutionsSlugRoute
@@ -339,20 +390,10 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   DownloadsRoute: DownloadsRoute,
   PlatformRoute: PlatformRoute,
-  ProductsRoute: ProductsRoute,
+  ProductsRoute: ProductsRouteWithChildren,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SolutionsRoute: SolutionsRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
