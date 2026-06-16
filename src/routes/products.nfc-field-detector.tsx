@@ -1,5 +1,4 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
 import { useI18n } from "@/lib/i18n";
 import { ArrowLeft, ArrowRight, CheckCircle2, Zap, BatteryCharging, CreditCard, Wrench, Radio } from "lucide-react";
 
@@ -16,18 +15,13 @@ export const Route = createFileRoute("/products/nfc-field-detector")({
   component: ProductPage,
 });
 
-const gallery = [
-  "https://m.media-amazon.com/images/I/61ekYw88WyL._AC_SX679_.jpg",
-  "https://m.media-amazon.com/images/I/418FHh99LQL._AC_SX679_.jpg",
-  "https://m.media-amazon.com/images/I/410bF064fqL._AC_SX679_.jpg",
-  "https://m.media-amazon.com/images/I/41uz9AYIqJL._AC_SX679_.jpg",
-  "https://m.media-amazon.com/images/I/41f2aHI44VL._AC_SX679_.jpg",
-  "https://m.media-amazon.com/images/I/51mUzlkiLbL._AC_SX679_.jpg",
+const productImages = [
+  { src: "https://m.media-amazon.com/images/I/61ekYw88WyL._AC_SX679_.jpg", label: { en: "Front", zh: "正面" } },
+  { src: "https://m.media-amazon.com/images/I/418FHh99LQL._AC_SX679_.jpg", label: { en: "Back", zh: "背面" } },
 ];
 
 function ProductPage() {
   const { lang } = useI18n();
-  const [active, setActive] = useState(0);
   const t = (en: string, zh: string) => (lang === "zh" ? zh : en);
 
   const features = [
@@ -117,28 +111,20 @@ function ProductPage() {
       {/* Hero — gallery + summary */}
       <section className="pb-16 lg:pb-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-10 grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-          {/* Gallery */}
-          <div>
-            <div className="relative rounded-2xl border border-border bg-surface/40 overflow-hidden aspect-square grid place-items-center p-8">
-              <img
-                src={gallery[active]}
-                alt={t("NFC Signal Detection Card", "NFC 信号检测卡")}
-                className="max-h-full max-w-full object-contain"
-              />
-            </div>
-            <div className="mt-4 grid grid-cols-6 gap-2">
-              {gallery.map((src, i) => (
-                <button
-                  key={src}
-                  onClick={() => setActive(i)}
-                  className={`aspect-square rounded-lg border overflow-hidden bg-surface/40 grid place-items-center p-1 transition-all ${
-                    active === i ? "border-primary shadow-glow" : "border-border hover:border-primary/40"
-                  }`}
-                >
-                  <img src={src} alt="" className="max-h-full max-w-full object-contain" />
-                </button>
-              ))}
-            </div>
+          {/* Product Images */}
+          <div className="grid grid-cols-2 gap-4">
+            {productImages.map((img) => (
+              <div key={img.src} className="relative rounded-2xl border border-border bg-surface/40 overflow-hidden aspect-[4/5] grid place-items-center p-6">
+                <img
+                  src={img.src}
+                  alt={t("NFC Signal Detection Card", "NFC 信号检测卡")}
+                  className="max-h-full max-w-full object-contain"
+                />
+                <span className="absolute bottom-3 left-3 text-[10px] font-mono text-muted-foreground bg-background/80 backdrop-blur-sm border border-border rounded-full px-2.5 py-0.5">
+                  {lang === "zh" ? img.label.zh : img.label.en}
+                </span>
+              </div>
+            ))}
           </div>
 
           {/* Summary */}
