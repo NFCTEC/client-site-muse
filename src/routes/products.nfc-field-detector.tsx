@@ -111,28 +111,20 @@ function ProductPage() {
       {/* Hero — gallery + summary */}
       <section className="pb-16 lg:pb-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-10 grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-          {/* Gallery */}
-          <div>
-            <div className="relative rounded-2xl border border-border bg-surface/40 overflow-hidden aspect-square grid place-items-center p-8">
-              <img
-                src={gallery[active]}
-                alt={t("NFC Signal Detection Card", "NFC 信号检测卡")}
-                className="max-h-full max-w-full object-contain"
-              />
-            </div>
-            <div className="mt-4 grid grid-cols-6 gap-2">
-              {gallery.map((src, i) => (
-                <button
-                  key={src}
-                  onClick={() => setActive(i)}
-                  className={`aspect-square rounded-lg border overflow-hidden bg-surface/40 grid place-items-center p-1 transition-all ${
-                    active === i ? "border-primary shadow-glow" : "border-border hover:border-primary/40"
-                  }`}
-                >
-                  <img src={src} alt="" className="max-h-full max-w-full object-contain" />
-                </button>
-              ))}
-            </div>
+          {/* Product Images */}
+          <div className="grid grid-cols-2 gap-4">
+            {productImages.map((img) => (
+              <div key={img.src} className="relative rounded-2xl border border-border bg-surface/40 overflow-hidden aspect-[4/5] grid place-items-center p-6">
+                <img
+                  src={img.src}
+                  alt={t("NFC Signal Detection Card", "NFC 信号检测卡")}
+                  className="max-h-full max-w-full object-contain"
+                />
+                <span className="absolute bottom-3 left-3 text-[10px] font-mono text-muted-foreground bg-background/80 backdrop-blur-sm border border-border rounded-full px-2.5 py-0.5">
+                  {lang === "zh" ? img.label.zh : img.label.en}
+                </span>
+              </div>
+            ))}
           </div>
 
           {/* Summary */}
