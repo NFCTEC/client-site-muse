@@ -22,7 +22,6 @@ const productImages = [
 
 function ProductPage() {
   const { lang } = useI18n();
-  const [active, setActive] = useState(0);
   const t = (en: string, zh: string) => (lang === "zh" ? zh : en);
 
   const features = [
