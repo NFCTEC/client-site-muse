@@ -1,5 +1,4 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
 import { useI18n } from "@/lib/i18n";
 import { ArrowLeft, ArrowRight, CheckCircle2, Zap, BatteryCharging, CreditCard, Wrench, Radio } from "lucide-react";
 
@@ -16,13 +15,9 @@ export const Route = createFileRoute("/products/nfc-field-detector")({
   component: ProductPage,
 });
 
-const gallery = [
-  "https://m.media-amazon.com/images/I/61ekYw88WyL._AC_SX679_.jpg",
-  "https://m.media-amazon.com/images/I/418FHh99LQL._AC_SX679_.jpg",
-  "https://m.media-amazon.com/images/I/410bF064fqL._AC_SX679_.jpg",
-  "https://m.media-amazon.com/images/I/41uz9AYIqJL._AC_SX679_.jpg",
-  "https://m.media-amazon.com/images/I/41f2aHI44VL._AC_SX679_.jpg",
-  "https://m.media-amazon.com/images/I/51mUzlkiLbL._AC_SX679_.jpg",
+const productImages = [
+  { src: "https://m.media-amazon.com/images/I/61ekYw88WyL._AC_SX679_.jpg", label: { en: "Front", zh: "正面" } },
+  { src: "https://m.media-amazon.com/images/I/418FHh99LQL._AC_SX679_.jpg", label: { en: "Back", zh: "背面" } },
 ];
 
 function ProductPage() {
