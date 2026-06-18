@@ -9,7 +9,10 @@ export const Route = createFileRoute("/platform")({
       { name: "description", content: "Cloud personalization & verification for NTAG424 DNA and MIFARE DESFire. Simple API, HSM-backed keys." },
       { property: "og:title", content: "NFC Issuance Platform — NFCTEC" },
       { property: "og:description", content: "Issue NFC cards with a simple API." },
+      { property: "og:url", content: "https://www.nfctec.com/platform" },
+      { property: "og:type", content: "website" },
     ],
+    links: [{ rel: "canonical", href: "https://www.nfctec.com/platform" }],
   }),
   component: Platform,
 });

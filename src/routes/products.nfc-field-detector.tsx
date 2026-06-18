@@ -12,7 +12,10 @@ export const Route = createFileRoute("/products/nfc-field-detector")({
       { property: "og:title", content: "NFC Signal Detection Card — NFCTEC" },
       { property: "og:description", content: "15-LED field tester for 13.56 MHz NFC / RFID readers." },
       { property: "og:image", content: "https://m.media-amazon.com/images/I/61ekYw88WyL._AC_SX679_.jpg" },
+      { property: "og:url", content: "https://www.nfctec.com/products/nfc-field-detector" },
+      { property: "og:type", content: "product" },
     ],
+    links: [{ rel: "canonical", href: "https://www.nfctec.com/products/nfc-field-detector" }],
   }),
   component: ProductPage,
 });

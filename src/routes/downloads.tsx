@@ -9,7 +9,10 @@ export const Route = createFileRoute("/downloads")({
       { name: "description", content: "SDKs, drivers, datasheets, sample code and certifications." },
       { property: "og:title", content: "Download Center — NFCTEC" },
       { property: "og:description", content: "All NFCTEC downloads in one place." },
+      { property: "og:url", content: "https://www.nfctec.com/downloads" },
+      { property: "og:type", content: "website" },
     ],
+    links: [{ rel: "canonical", href: "https://www.nfctec.com/downloads" }],
   }),
   component: Downloads,
 });

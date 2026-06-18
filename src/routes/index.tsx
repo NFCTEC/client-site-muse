@@ -11,7 +11,10 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "NFC hardware, software SDKs and an issuance & verification API — one partner for every NFC project." },
       { property: "og:title", content: "NFCTEC — Full-Stack NFC & Smart Card Solutions" },
       { property: "og:description", content: "Hardware, software, API — everything NFC, from one partner." },
+      { property: "og:url", content: "https://www.nfctec.com/" },
+      { property: "og:type", content: "website" },
     ],
+    links: [{ rel: "canonical", href: "https://www.nfctec.com/" }],
   }),
   component: Home,
 });
