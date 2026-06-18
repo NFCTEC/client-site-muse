@@ -1,6 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
-import { Plug, Code2, Sparkles, ShieldCheck, KeyRound, Lock, ArrowRight, Check } from "lucide-react";
+import { Plug, Code2, Sparkles, ShieldCheck, KeyRound, Lock, ArrowRight } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 
 export const Route = createFileRoute("/platform")({
