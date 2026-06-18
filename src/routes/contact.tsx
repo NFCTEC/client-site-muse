@@ -5,7 +5,6 @@ import { Mail, MessageCircle, MapPin, ArrowRight, CheckCircle2 } from "lucide-re
 
 const INQUIRY_TO = "support@nfctec.com";
 const SALES_EMAIL = "sale@nfctec.com";
-const WHATSAPP = "+86 138 0000 0000";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
