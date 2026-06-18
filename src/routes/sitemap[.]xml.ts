@@ -8,6 +8,8 @@ interface SitemapEntry {
   priority?: string;
 }
 
+import { posts } from "@/lib/blog-posts";
+
 const SOLUTION_SLUGS = [
   "banking", "transit", "gov", "access", "health", "iot", "brand", "retail", "auto", "wallet",
 ];
@@ -29,6 +31,11 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/platform", changefreq: "weekly", priority: "0.8" },
           { path: "/downloads", changefreq: "weekly", priority: "0.7" },
           { path: "/blog", changefreq: "weekly", priority: "0.7" },
+          ...posts.map((p) => ({
+            path: `/blog/${p.slug}`,
+            changefreq: "monthly" as const,
+            priority: "0.6",
+          })),
           { path: "/about", changefreq: "monthly", priority: "0.6" },
           { path: "/contact", changefreq: "monthly", priority: "0.6" },
         ];

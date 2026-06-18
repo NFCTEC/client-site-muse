@@ -1,6 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
 import { ArrowRight } from "lucide-react";
+import { posts } from "@/lib/blog-posts";
 
 export const Route = createFileRoute("/blog")({
   head: () => ({
@@ -16,45 +17,6 @@ export const Route = createFileRoute("/blog")({
   }),
   component: Blog,
 });
-
-const posts = [
-  {
-    cat: "EMV",
-    date: "2026-05-12",
-    title: "How EMV Contactless Selects an AID in 6 ms",
-    excerpt: "A byte-level walk-through of PPSE, AID lists and kernel selection across Visa, Mastercard and UPI.",
-  },
-  {
-    cat: "Security",
-    date: "2026-04-28",
-    title: "SUN Dynamic URL: Anti-Counterfeit Done Right",
-    excerpt: "How NTAG 424 DNA's signed URL protocol stops cloning while staying cloud-friendly.",
-  },
-  {
-    cat: "Case Study",
-    date: "2026-04-10",
-    title: "Rolling Out 2M Transit Cards in 90 Days",
-    excerpt: "Inside a CALYPSO + DESFire migration for a tier-1 metro operator.",
-  },
-  {
-    cat: "Hardware",
-    date: "2026-03-22",
-    title: "PN5180 vs PN532: Choosing the Right Frontend",
-    excerpt: "RF performance, current draw, BOM cost and protocol coverage — head to head.",
-  },
-  {
-    cat: "JavaCard",
-    date: "2026-03-05",
-    title: "Shipping Your First JavaCard 3.1 Applet",
-    excerpt: "From keystore to GP-Pro install — a complete onboarding for new applet developers.",
-  },
-  {
-    cat: "Mobile",
-    date: "2026-02-18",
-    title: "HCE on Android 15: What Changed",
-    excerpt: "New TEE binding requirements, foreground service rules and tokenization tips.",
-  },
-];
 
 function Blog() {
   const { tr } = useI18n();
@@ -74,9 +36,11 @@ function Blog() {
       <section className="pb-24 lg:pb-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-10 grid md:grid-cols-2 lg:grid-cols-3 gap-5">
           {posts.map((p) => (
-            <article
-              key={p.title}
-              className="card-glow rounded-2xl border border-border bg-card-gradient p-7 flex flex-col"
+            <Link
+              key={p.slug}
+              to="/blog/$slug"
+              params={{ slug: p.slug }}
+              className="card-glow rounded-2xl border border-border bg-card-gradient p-7 flex flex-col group"
             >
               <div className="flex items-center gap-3 mb-5">
                 <span className="rounded-full bg-primary/10 border border-primary/30 px-2.5 py-1 text-[10px] font-mono text-primary">
@@ -84,15 +48,14 @@ function Blog() {
                 </span>
                 <span className="text-[11px] font-mono text-muted-foreground">{p.date}</span>
               </div>
-              <h3 className="font-display text-lg font-semibold mb-3 leading-snug">{p.title}</h3>
+              <h3 className="font-display text-lg font-semibold mb-3 leading-snug group-hover:text-primary transition-colors">
+                {p.title}
+              </h3>
               <p className="text-sm text-muted-foreground leading-relaxed flex-1">{p.excerpt}</p>
-              <a
-                href="#"
-                className="mt-6 inline-flex items-center gap-1 text-xs font-mono text-primary hover:gap-2 transition-all"
-              >
+              <span className="mt-6 inline-flex items-center gap-1 text-xs font-mono text-primary group-hover:gap-2 transition-all">
                 {tr("blog.read")} <ArrowRight size={12} />
-              </a>
-            </article>
+              </span>
+            </Link>
           ))}
         </div>
       </section>
