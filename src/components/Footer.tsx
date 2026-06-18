@@ -1,6 +1,11 @@
 import { Link } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
+import { Youtube, ShoppingBag, Mail } from "lucide-react";
 import logoAsset from "@/assets/nfctec-logo.png.asset.json";
+
+const AMAZON_STORE = "https://www.amazon.com/s?k=SZLEJUN&ref=bl_dp_s_web_0";
+const YOUTUBE_URL = "https://youtube.com/@lejuntech";
+const SALES_EMAIL = "sale@nfctec.com";
 
 export function Footer() {
   const { tr } = useI18n();
@@ -51,6 +56,17 @@ export function Footer() {
               {tr("brand.tagline")}
             </p>
             <p className="mt-6 text-xs font-mono text-muted-foreground">{tr("foot.addr")}</p>
+            <div className="mt-5 flex items-center gap-2.5">
+              <a href={`mailto:${SALES_EMAIL}`} aria-label="Email Sales" className="w-9 h-9 grid place-items-center rounded-full border border-border bg-surface/60 text-muted-foreground hover:text-primary hover:border-primary/40 transition-colors">
+                <Mail size={15} />
+              </a>
+              <a href={AMAZON_STORE} target="_blank" rel="noreferrer" aria-label="Amazon Store" className="w-9 h-9 grid place-items-center rounded-full border border-border bg-surface/60 text-muted-foreground hover:text-[#FF9900] hover:border-[#FF9900]/40 transition-colors">
+                <ShoppingBag size={15} />
+              </a>
+              <a href={YOUTUBE_URL} target="_blank" rel="noreferrer" aria-label="YouTube" className="w-9 h-9 grid place-items-center rounded-full border border-border bg-surface/60 text-muted-foreground hover:text-[#FF0000] hover:border-[#FF0000]/40 transition-colors">
+                <Youtube size={15} />
+              </a>
+            </div>
           </div>
 
           {cols.map((c) => (
