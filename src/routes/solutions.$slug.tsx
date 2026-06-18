@@ -499,18 +499,33 @@ function SolutionDetail() {
           >
             <ArrowLeft size={14} /> {lang === "zh" ? "全部行业方案" : "All solutions"}
           </Link>
-          <div className="flex items-start gap-6">
-            <div className="hidden sm:grid w-14 h-14 rounded-2xl bg-primary/10 border border-primary/30 place-items-center shrink-0">
-              <Icon size={26} className="text-primary" />
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+            <div className="lg:col-span-7 flex items-start gap-6">
+              <div className="hidden sm:grid w-14 h-14 rounded-2xl bg-primary/10 border border-primary/30 place-items-center shrink-0">
+                <Icon size={26} className="text-primary" />
+              </div>
+              <div className="flex-1">
+                <h1 className="font-display text-4xl lg:text-5xl tracking-tight text-balance">
+                  {pick(ind.name)}
+                </h1>
+                <p className="mt-4 text-base lg:text-lg text-muted-foreground leading-relaxed">
+                  {pick(ind.tagline)}
+                </p>
+              </div>
             </div>
-            <div className="flex-1">
-              <h1 className="font-display text-4xl lg:text-5xl tracking-tight text-balance">
-                {pick(ind.name)}
-              </h1>
-              <p className="mt-4 text-base lg:text-lg text-muted-foreground max-w-2xl leading-relaxed">
-                {pick(ind.tagline)}
-              </p>
-            </div>
+            {SLUG_IMAGES[slug] && (
+              <div className="lg:col-span-5">
+                <div className="relative rounded-2xl overflow-hidden border border-border bg-card-gradient shadow-glow">
+                  <img
+                    src={SLUG_IMAGES[slug]}
+                    alt={`${ind.name.en} NFC solution illustration`}
+                    width={1216}
+                    height={640}
+                    className="w-full h-auto block"
+                  />
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </section>
