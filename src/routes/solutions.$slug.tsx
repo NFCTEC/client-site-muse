@@ -418,16 +418,32 @@ export const Route = createFileRoute("/solutions/$slug")({
     if (!ind) throw notFound();
     return { slug: ind.slug, nameEn: ind.name.en, taglineEn: ind.tagline.en };
   },
-  head: ({ loaderData }) => {
+  head: ({ loaderData, params }) => {
     const title = loaderData ? `${loaderData.nameEn} — NFCTEC Solutions` : "Solution — NFCTEC";
     const desc = loaderData?.taglineEn ?? "Industry NFC solution by NFCTEC.";
+    const url = `https://www.nfctec.com/solutions/${params.slug}`;
     return {
       meta: [
         { title },
         { name: "description", content: desc },
         { property: "og:title", content: title },
         { property: "og:description", content: desc },
+        { property: "og:url", content: url },
+        { property: "og:type", content: "article" },
       ],
+      links: [{ rel: "canonical", href: url }],
+      scripts: loaderData ? [{
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://www.nfctec.com/" },
+            { "@type": "ListItem", position: 2, name: "Solutions", item: "https://www.nfctec.com/solutions" },
+            { "@type": "ListItem", position: 3, name: loaderData.nameEn, item: url },
+          ],
+        }),
+      }] : [],
     };
   },
   notFoundComponent: () => (
