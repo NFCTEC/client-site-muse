@@ -436,6 +436,7 @@ export const Route = createFileRoute("/solutions/$slug")({
     const title = loaderData ? `${loaderData.nameEn} — NFCTEC Solutions` : "Solution — NFCTEC";
     const desc = loaderData?.taglineEn ?? "Industry NFC solution by NFCTEC.";
     const url = `https://www.nfctec.com/solutions/${params.slug}`;
+    const heroImg = SLUG_IMAGES[params.slug] ?? "/og-default.jpg";
     return {
       meta: [
         { title },
@@ -444,6 +445,10 @@ export const Route = createFileRoute("/solutions/$slug")({
         { property: "og:description", content: desc },
         { property: "og:url", content: url },
         { property: "og:type", content: "article" },
+        { property: "og:image", content: `${SITE}${heroImg}` },
+        { property: "og:image:width", content: "1216" },
+        { property: "og:image:height", content: "640" },
+        { name: "twitter:image", content: `${SITE}${heroImg}` },
       ],
       links: [{ rel: "canonical", href: url }],
       scripts: loaderData ? [{
