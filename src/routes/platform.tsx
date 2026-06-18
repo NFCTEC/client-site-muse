@@ -53,64 +53,6 @@ const trust: { icon: typeof Lock; t: Bi; d: Bi }[] = [
   },
 ];
 
-type Plan = {
-  name: string;
-  monthly: number;
-  annual: number;
-  desc: Bi;
-  cta: Bi;
-  highlight: boolean;
-  features: Bi[];
-  note?: Bi;
-};
-
-const plans: Plan[] = [
-  {
-    name: "Free",
-    monthly: 0, annual: 0,
-    desc: { en: "Test and evaluate the platform.", zh: "测试与评估平台。" },
-    cta: { en: "Start Free", zh: "免费开始" },
-    highlight: false,
-    features: [
-      { en: "20 test issuances (one-time)", zh: "20 次测试发卡(一次性)" },
-      { en: "1,000 verifications / month", zh: "每月 1,000 次验证" },
-      { en: "NTAG424 DNA only", zh: "仅支持 NTAG424 DNA" },
-      { en: "1 API key included", zh: "含 1 个 API 密钥" },
-      { en: "Community support", zh: "社区支持" },
-    ],
-    note: { en: "No credit card required", zh: "无需信用卡" },
-  },
-  {
-    name: "Pro",
-    monthly: 199, annual: 159,
-    desc: { en: "Commercial deployments at scale.", zh: "面向规模化商用部署。" },
-    cta: { en: "Choose Pro", zh: "选择 Pro" },
-    highlight: true,
-    features: [
-      { en: "15,000 issuances / month", zh: "每月 15,000 次发卡" },
-      { en: "300,000 verifications / month", zh: "每月 300,000 次验证" },
-      { en: "All card types (NTAG424 + DESFire EV1/2/3)", zh: "全部卡型(NTAG424 + DESFire EV1/2/3)" },
-      { en: "Webhooks & audit log export", zh: "Webhooks 与审计日志导出" },
-      { en: "20 API keys · 5 team seats", zh: "20 个 API 密钥 · 5 个团队席位" },
-      { en: "Priority support · 24h", zh: "优先支持 · 24 小时响应" },
-    ],
-  },
-  {
-    name: "Business",
-    monthly: 799, annual: 639,
-    desc: { en: "High volume & multi-tenant.", zh: "大批量与多租户。" },
-    cta: { en: "Choose Business", zh: "选择 Business" },
-    highlight: false,
-    features: [
-      { en: "100,000 issuances / month", zh: "每月 100,000 次发卡" },
-      { en: "2,000,000 verifications / month", zh: "每月 2,000,000 次验证" },
-      { en: "Batch issuance API", zh: "批量发卡 API" },
-      { en: "Multi-tenant management", zh: "多租户管理" },
-      { en: "99.9% SLA · dedicated CSM", zh: "99.9% SLA · 专属客户成功经理" },
-      { en: "Overage: $0.01 / issuance", zh: "超额:$0.01 / 次发卡" },
-    ],
-  },
-];
 
 function Platform() {
   const [billing, setBilling] = useState<"monthly" | "annual">("annual");
