@@ -1,11 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { useI18n } from "@/lib/i18n";
-import { Mail, MessageCircle, MapPin, ArrowRight, CheckCircle2 } from "lucide-react";
+import { Mail, MapPin, ArrowRight, CheckCircle2 } from "lucide-react";
 
 const INQUIRY_TO = "support@nfctec.com";
 const SALES_EMAIL = "sale@nfctec.com";
-const WHATSAPP = "+86 138 0000 0000";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -100,7 +99,6 @@ function Contact() {
             {[
               { icon: Mail, label: tr("contact.support"), value: INQUIRY_TO, href: `mailto:${INQUIRY_TO}` },
               { icon: Mail, label: tr("contact.sales"), value: SALES_EMAIL, href: `mailto:${SALES_EMAIL}` },
-              { icon: MessageCircle, label: "WhatsApp", value: WHATSAPP, href: `https://wa.me/${WHATSAPP.replace(/\D/g, "")}` },
               { icon: MapPin, label: tr("contact.addr"), value: tr("foot.addr") },
             ].map((c) => {
               const Icon = c.icon;
