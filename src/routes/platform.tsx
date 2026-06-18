@@ -1,15 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
-import { Plug, Code2, Sparkles, ShieldCheck, KeyRound, Lock, ArrowRight, Check } from "lucide-react";
+import { Plug, Code2, Sparkles, ShieldCheck, KeyRound, Lock, ArrowRight } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 
 export const Route = createFileRoute("/platform")({
   head: () => ({
     meta: [
-      { title: "NFC Issuance Platform & Pricing — NFCTEC" },
-      { name: "description", content: "Cloud personalization & verification for NTAG424 DNA and MIFARE DESFire. Simple API, HSM-backed keys. Free tier — issue 20 test cards, no credit card required." },
+      { title: "NFC Issuance Platform — NFCTEC" },
+      { name: "description", content: "Cloud personalization & verification for NTAG424 DNA and MIFARE DESFire. Simple API, HSM-backed keys." },
       { property: "og:title", content: "NFC Issuance Platform — NFCTEC" },
-      { property: "og:description", content: "Issue NFC cards with a simple API. Free tier includes 20 test issuances and an API key." },
+      { property: "og:description", content: "Issue NFC cards with a simple API." },
     ],
   }),
   component: Platform,
@@ -54,67 +53,8 @@ const trust: { icon: typeof Lock; t: Bi; d: Bi }[] = [
   },
 ];
 
-type Plan = {
-  name: string;
-  monthly: number;
-  annual: number;
-  desc: Bi;
-  cta: Bi;
-  highlight: boolean;
-  features: Bi[];
-  note?: Bi;
-};
-
-const plans: Plan[] = [
-  {
-    name: "Free",
-    monthly: 0, annual: 0,
-    desc: { en: "Test and evaluate the platform.", zh: "测试与评估平台。" },
-    cta: { en: "Start Free", zh: "免费开始" },
-    highlight: false,
-    features: [
-      { en: "20 test issuances (one-time)", zh: "20 次测试发卡(一次性)" },
-      { en: "1,000 verifications / month", zh: "每月 1,000 次验证" },
-      { en: "NTAG424 DNA only", zh: "仅支持 NTAG424 DNA" },
-      { en: "1 API key included", zh: "含 1 个 API 密钥" },
-      { en: "Community support", zh: "社区支持" },
-    ],
-    note: { en: "No credit card required", zh: "无需信用卡" },
-  },
-  {
-    name: "Pro",
-    monthly: 199, annual: 159,
-    desc: { en: "Commercial deployments at scale.", zh: "面向规模化商用部署。" },
-    cta: { en: "Choose Pro", zh: "选择 Pro" },
-    highlight: true,
-    features: [
-      { en: "15,000 issuances / month", zh: "每月 15,000 次发卡" },
-      { en: "300,000 verifications / month", zh: "每月 300,000 次验证" },
-      { en: "All card types (NTAG424 + DESFire EV1/2/3)", zh: "全部卡型(NTAG424 + DESFire EV1/2/3)" },
-      { en: "Webhooks & audit log export", zh: "Webhooks 与审计日志导出" },
-      { en: "20 API keys · 5 team seats", zh: "20 个 API 密钥 · 5 个团队席位" },
-      { en: "Priority support · 24h", zh: "优先支持 · 24 小时响应" },
-    ],
-  },
-  {
-    name: "Business",
-    monthly: 799, annual: 639,
-    desc: { en: "High volume & multi-tenant.", zh: "大批量与多租户。" },
-    cta: { en: "Choose Business", zh: "选择 Business" },
-    highlight: false,
-    features: [
-      { en: "100,000 issuances / month", zh: "每月 100,000 次发卡" },
-      { en: "2,000,000 verifications / month", zh: "每月 2,000,000 次验证" },
-      { en: "Batch issuance API", zh: "批量发卡 API" },
-      { en: "Multi-tenant management", zh: "多租户管理" },
-      { en: "99.9% SLA · dedicated CSM", zh: "99.9% SLA · 专属客户成功经理" },
-      { en: "Overage: $0.01 / issuance", zh: "超额:$0.01 / 次发卡" },
-    ],
-  },
-];
 
 function Platform() {
-  const [billing, setBilling] = useState<"monthly" | "annual">("annual");
   const { lang } = useI18n();
   const T = (b: Bi) => pick(b, lang);
 
@@ -139,9 +79,9 @@ function Platform() {
             <Link to="/auth" className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3 text-sm font-semibold hover:shadow-glow-strong transition-all">
               {lang === "zh" ? "免费开始" : "Get Started Free"} <ArrowRight size={16} />
             </Link>
-            <a href="#pricing" className="inline-flex items-center gap-2 rounded-full border border-border bg-surface/50 px-6 py-3 text-sm font-semibold hover:border-primary/50 transition-colors">
-              {lang === "zh" ? "查看价格" : "View Pricing"}
-            </a>
+            <Link to="/contact" className="inline-flex items-center gap-2 rounded-full border border-border bg-surface/50 px-6 py-3 text-sm font-semibold hover:border-primary/50 transition-colors">
+              {lang === "zh" ? "联系我们" : "Contact Us"}
+            </Link>
           </div>
         </div>
       </section>
@@ -195,119 +135,6 @@ function Platform() {
         </div>
       </section>
 
-      {/* Pricing */}
-      <section id="pricing" className="py-20 lg:py-24 bg-surface/40 border-y border-border scroll-mt-20">
-        <div className="mx-auto max-w-7xl px-6 lg:px-10">
-          <div className="text-center max-w-3xl mx-auto">
-            <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-[11px] font-mono text-primary">
-              {lang === "zh" ? "价格" : "PRICING"}
-            </span>
-            <h2 className="mt-5 font-display text-4xl lg:text-5xl tracking-tight text-balance">
-              {lang === "zh" ? "免费起步,准备好再扩展。" : "Start Free. Scale When You're Ready."}
-            </h2>
-            <p className="mt-5 text-muted-foreground">
-              {lang === "zh"
-                ? "每个套餐(含 Free)都附带 API 密钥。年付节省 20%。"
-                : "Every plan — including Free — comes with an API key. Annual billing saves 20%."}
-            </p>
-
-            {/* Toggle */}
-            <div className="mt-7 inline-flex items-center gap-1 p-1 rounded-full border border-border bg-background">
-              <button
-                onClick={() => setBilling("monthly")}
-                className={`px-5 py-2 text-sm font-semibold rounded-full transition-all ${
-                  billing === "monthly" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                {lang === "zh" ? "按月" : "Monthly"}
-              </button>
-              <button
-                onClick={() => setBilling("annual")}
-                className={`px-5 py-2 text-sm font-semibold rounded-full transition-all inline-flex items-center gap-2 ${
-                  billing === "annual" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                {lang === "zh" ? "按年" : "Annual"}
-                <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${
-                  billing === "annual" ? "bg-primary-foreground/20" : "bg-primary/15 text-primary"
-                }`}>−20%</span>
-              </button>
-            </div>
-          </div>
-
-          <div className="mt-12 grid md:grid-cols-3 gap-5 max-w-6xl mx-auto">
-            {plans.map((p) => {
-              const price = billing === "monthly" ? p.monthly : p.annual;
-              return (
-                <div
-                  key={p.name}
-                  className={`rounded-2xl border p-7 flex flex-col ${
-                    p.highlight
-                      ? "border-primary/60 bg-card-gradient shadow-glow relative"
-                      : "border-border bg-card-gradient"
-                  }`}
-                >
-                  {p.highlight && (
-                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-primary text-primary-foreground px-3 py-1 text-[10px] font-mono uppercase tracking-wider">
-                      {lang === "zh" ? "最受欢迎" : "Most popular"}
-                    </span>
-                  )}
-                  <h3 className="font-display text-xl font-semibold">{p.name}</h3>
-                  <p className="mt-1 text-xs text-muted-foreground">{T(p.desc)}</p>
-                  <div className="mt-5 flex items-baseline gap-1 min-h-[3rem]">
-                    <span className="font-display text-4xl font-semibold">${price}</span>
-                    <span className="text-sm text-muted-foreground">
-                      {price === 0
-                        ? (lang === "zh" ? "/ 永久免费" : "/ forever")
-                        : billing === "annual"
-                          ? (lang === "zh" ? "/ 月,按年计费" : "/ mo, billed yearly")
-                          : (lang === "zh" ? "/ 月" : "/ month")}
-                    </span>
-                  </div>
-                  {p.note && <p className="text-[11px] font-mono text-primary">{T(p.note)}</p>}
-                  <Link
-                    to="/auth"
-                    className={`mt-5 inline-flex items-center justify-center gap-2 rounded-full px-4 py-2.5 text-sm font-semibold transition-all ${
-                      p.highlight
-                        ? "bg-primary text-primary-foreground hover:shadow-glow-strong"
-                        : "border border-border bg-surface/50 hover:border-primary/50"
-                    }`}
-                  >
-                    {T(p.cta)} <ArrowRight size={14} />
-                  </Link>
-                  <ul className="mt-6 space-y-3 text-sm">
-                    {p.features.map((f) => (
-                      <li key={f.en} className="flex items-start gap-2">
-                        <Check size={14} className="text-primary mt-0.5 shrink-0" />
-                        <span className="text-muted-foreground">{T(f)}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              );
-            })}
-          </div>
-
-          <div className="mt-10 mx-auto max-w-3xl">
-            <div className="rounded-2xl border border-border bg-background/60 p-6 text-center">
-              <h3 className="font-display text-lg">
-                {lang === "zh" ? "需要更多?提供企业方案。" : "Need more? Enterprise plans available."}
-              </h3>
-              <p className="mt-2 text-sm text-muted-foreground">
-                {lang === "zh"
-                  ? "无限发卡、专属 HSM 分区、SSO、定制 SLA 与合同。"
-                  : "Unlimited issuance, private HSM partition, SSO, custom SLA and contracts."}
-              </p>
-              <Link
-                to="/contact"
-                className="mt-4 inline-flex items-center gap-2 rounded-full border border-border bg-surface/50 px-5 py-2 text-sm font-semibold hover:border-primary/50 transition-colors"
-              >
-                {lang === "zh" ? "联系销售" : "Contact Sales"} <ArrowRight size={14} />
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* CTA */}
       <section className="py-24 lg:py-28">
