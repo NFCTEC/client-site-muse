@@ -6,6 +6,20 @@ import {
   type LucideIcon,
 } from "lucide-react";
 
+const SLUG_IMAGES: Record<string, string> = {
+  banking: "/solutions/banking.jpg",
+  transit: "/solutions/transit.jpg",
+  gov: "/solutions/gov.jpg",
+  access: "/solutions/access.jpg",
+  health: "/solutions/health.jpg",
+  iot: "/solutions/iot.jpg",
+  brand: "/solutions/brand.jpg",
+  retail: "/solutions/retail.jpg",
+  auto: "/solutions/auto.jpg",
+  wallet: "/solutions/wallet.jpg",
+};
+const SITE = "https://www.nfctec.com";
+
 type Bi = { en: string; zh: string };
 type Capability = { t: Bi; d: Bi };
 type Step = { t: Bi; d: Bi };
@@ -422,6 +436,7 @@ export const Route = createFileRoute("/solutions/$slug")({
     const title = loaderData ? `${loaderData.nameEn} — NFCTEC Solutions` : "Solution — NFCTEC";
     const desc = loaderData?.taglineEn ?? "Industry NFC solution by NFCTEC.";
     const url = `https://www.nfctec.com/solutions/${params.slug}`;
+    const heroImg = SLUG_IMAGES[params.slug] ?? "/og-default.jpg";
     return {
       meta: [
         { title },
@@ -430,6 +445,10 @@ export const Route = createFileRoute("/solutions/$slug")({
         { property: "og:description", content: desc },
         { property: "og:url", content: url },
         { property: "og:type", content: "article" },
+        { property: "og:image", content: `${SITE}${heroImg}` },
+        { property: "og:image:width", content: "1216" },
+        { property: "og:image:height", content: "640" },
+        { name: "twitter:image", content: `${SITE}${heroImg}` },
       ],
       links: [{ rel: "canonical", href: url }],
       scripts: loaderData ? [{
@@ -480,18 +499,33 @@ function SolutionDetail() {
           >
             <ArrowLeft size={14} /> {lang === "zh" ? "全部行业方案" : "All solutions"}
           </Link>
-          <div className="flex items-start gap-6">
-            <div className="hidden sm:grid w-14 h-14 rounded-2xl bg-primary/10 border border-primary/30 place-items-center shrink-0">
-              <Icon size={26} className="text-primary" />
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+            <div className="lg:col-span-7 flex items-start gap-6">
+              <div className="hidden sm:grid w-14 h-14 rounded-2xl bg-primary/10 border border-primary/30 place-items-center shrink-0">
+                <Icon size={26} className="text-primary" />
+              </div>
+              <div className="flex-1">
+                <h1 className="font-display text-4xl lg:text-5xl tracking-tight text-balance">
+                  {pick(ind.name)}
+                </h1>
+                <p className="mt-4 text-base lg:text-lg text-muted-foreground leading-relaxed">
+                  {pick(ind.tagline)}
+                </p>
+              </div>
             </div>
-            <div className="flex-1">
-              <h1 className="font-display text-4xl lg:text-5xl tracking-tight text-balance">
-                {pick(ind.name)}
-              </h1>
-              <p className="mt-4 text-base lg:text-lg text-muted-foreground max-w-2xl leading-relaxed">
-                {pick(ind.tagline)}
-              </p>
-            </div>
+            {SLUG_IMAGES[slug] && (
+              <div className="lg:col-span-5">
+                <div className="relative rounded-2xl overflow-hidden border border-border bg-card-gradient shadow-glow">
+                  <img
+                    src={SLUG_IMAGES[slug]}
+                    alt={`${ind.name.en} NFC solution illustration`}
+                    width={1216}
+                    height={640}
+                    className="w-full h-auto block"
+                  />
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </section>
