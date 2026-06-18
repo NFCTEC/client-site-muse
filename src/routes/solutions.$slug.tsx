@@ -6,6 +6,20 @@ import {
   type LucideIcon,
 } from "lucide-react";
 
+const SLUG_IMAGES: Record<string, string> = {
+  banking: "/solutions/banking.jpg",
+  transit: "/solutions/transit.jpg",
+  gov: "/solutions/gov.jpg",
+  access: "/solutions/access.jpg",
+  health: "/solutions/health.jpg",
+  iot: "/solutions/iot.jpg",
+  brand: "/solutions/brand.jpg",
+  retail: "/solutions/retail.jpg",
+  auto: "/solutions/auto.jpg",
+  wallet: "/solutions/wallet.jpg",
+};
+const SITE = "https://www.nfctec.com";
+
 type Bi = { en: string; zh: string };
 type Capability = { t: Bi; d: Bi };
 type Step = { t: Bi; d: Bi };
