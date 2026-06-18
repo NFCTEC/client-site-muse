@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { useI18n } from "@/lib/i18n";
-import { Mail, MessageCircle, MapPin, ArrowRight, CheckCircle2 } from "lucide-react";
+import { Mail, MapPin, ArrowRight, CheckCircle2 } from "lucide-react";
 
 const INQUIRY_TO = "support@nfctec.com";
 const SALES_EMAIL = "sale@nfctec.com";
