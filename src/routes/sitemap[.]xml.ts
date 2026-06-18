@@ -8,6 +8,8 @@ interface SitemapEntry {
   priority?: string;
 }
 
+import { posts } from "@/lib/blog-posts";
+
 const SOLUTION_SLUGS = [
   "banking", "transit", "gov", "access", "health", "iot", "brand", "retail", "auto", "wallet",
 ];
