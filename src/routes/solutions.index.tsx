@@ -49,6 +49,17 @@ function SolutionsIndex() {
                 id={ind.k}
                 className="card-glow group grid lg:grid-cols-12 gap-px rounded-3xl border border-border bg-border overflow-hidden scroll-mt-20 hover:border-primary/50 transition-colors"
               >
+                <div className="lg:col-span-12 bg-card-gradient">
+                  <img
+                    src={`/solutions/${slug}.jpg`}
+                    alt={`${tr(`${ind.k}.t` as never)} — NFC solution illustration`}
+                    width={1216}
+                    height={384}
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-48 lg:h-56 object-cover"
+                  />
+                </div>
                 <div className="lg:col-span-5 bg-card-gradient p-10 lg:p-12">
                   <div className="flex items-center justify-between mb-8">
                     <div className="w-14 h-14 rounded-2xl bg-primary/10 border border-primary/30 grid place-items-center">
