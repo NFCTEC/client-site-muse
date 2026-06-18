@@ -31,6 +31,7 @@ export function Header() {
     { to: "/platform", label: tr("nav.platform"), key: "plain" },
     { to: "/downloads", label: tr("nav.downloads"), key: "plain" },
     { to: "/blog", label: tr("nav.blog"), key: "plain" },
+    { to: "/contact", label: tr("nav.contact"), key: "plain" },
   ];
 
   return (
