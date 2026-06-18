@@ -17,10 +17,12 @@ export const Route = createFileRoute("/")({
 });
 
 const protocolMarquee = [
-  "EMV Contactless", "ISO 14443 A/B", "ISO 15693", "ISO 7816", "FeliCa",
+  "EMV Contactless", "EMV ECP 2.0", "Apple ECP", "VAS / Smart Tap", "NCI 2.0", "NCI 2.2",
+  "ISO 14443 A/B", "ISO 15693", "ISO 7816", "ISO 18092", "FeliCa",
+  "NFC Forum T2T/T3T/T4T/T5T", "LLCP", "SNEP", "NDEF Type 2/4/5", "SUN Dynamic URL",
   "NTAG 424 DNA", "MIFARE DESFire EV3", "MIFARE Plus", "JavaCard 3.1", "GlobalPlatform 2.3",
-  "ICAO 9303", "PACE / BAC / EAC", "HCE", "SUN Dynamic URL", "AES-128/256",
-  "NDEF Type 2/4/5", "ISO 18092", "Apple Pay", "Google Pay", "PKCS#11",
+  "ICAO 9303", "PACE / BAC / EAC", "HCE", "AES-128/256",
+  "Apple Pay", "Google Pay", "Samsung Wallet", "PKCS#11",
 ];
 
 const industries = [

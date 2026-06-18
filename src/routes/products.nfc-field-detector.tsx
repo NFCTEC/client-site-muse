@@ -1,6 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
-import { ArrowLeft, ArrowRight, CheckCircle2, Zap, BatteryCharging, CreditCard, Wrench, Radio } from "lucide-react";
+import { ArrowLeft, ArrowRight, CheckCircle2, Zap, BatteryCharging, CreditCard, Wrench, Radio, ShoppingCart } from "lucide-react";
+
+const AMAZON_URL = "https://www.amazon.com/NFC-Field-Status-Card-Professional/dp/B0FSRYJP7J";
 
 export const Route = createFileRoute("/products/nfc-field-detector")({
   head: () => ({
@@ -258,6 +260,14 @@ function ProductPage() {
             )}
           </p>
           <div className="mt-8 flex justify-center gap-3 flex-wrap">
+            <a
+              href={AMAZON_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 rounded-full bg-[#FF9900] text-black px-6 py-3 text-sm font-semibold hover:opacity-90 transition-opacity"
+            >
+              <ShoppingCart size={14} /> {t("Buy on Amazon", "亚马逊购买")}
+            </a>
             <Link
               to="/contact"
               className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3 text-sm font-medium shadow-glow hover:opacity-90 transition-opacity"
