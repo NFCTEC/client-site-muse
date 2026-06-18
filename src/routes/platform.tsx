@@ -5,10 +5,10 @@ import { useI18n } from "@/lib/i18n";
 export const Route = createFileRoute("/platform")({
   head: () => ({
     meta: [
-      { title: "NFC Issuance Platform & Pricing — NFCTEC" },
-      { name: "description", content: "Cloud personalization & verification for NTAG424 DNA and MIFARE DESFire. Simple API, HSM-backed keys. Free tier — issue 20 test cards, no credit card required." },
+      { title: "NFC Issuance Platform — NFCTEC" },
+      { name: "description", content: "Cloud personalization & verification for NTAG424 DNA and MIFARE DESFire. Simple API, HSM-backed keys." },
       { property: "og:title", content: "NFC Issuance Platform — NFCTEC" },
-      { property: "og:description", content: "Issue NFC cards with a simple API. Free tier includes 20 test issuances and an API key." },
+      { property: "og:description", content: "Issue NFC cards with a simple API." },
     ],
   }),
   component: Platform,
