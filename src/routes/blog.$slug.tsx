@@ -108,7 +108,7 @@ function PostPage() {
           <p className="text-lg text-muted-foreground leading-relaxed mb-12">{post.excerpt}</p>
 
           <div className="prose prose-invert max-w-none space-y-6">
-            {post.body.map((b, i) => (
+            {post.body.map((b: { heading?: string; text: string }, i: number) => (
               <div key={i}>
                 {b.heading && (
                   <h2 className="font-display text-2xl font-semibold mt-10 mb-3">{b.heading}</h2>
