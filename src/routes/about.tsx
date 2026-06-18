@@ -13,7 +13,10 @@ export const Route = createFileRoute("/about")({
       },
       { property: "og:title", content: "About NFCTEC" },
       { property: "og:description", content: "15 years at the edge of NFC." },
+      { property: "og:url", content: "https://www.nfctec.com/about" },
+      { property: "og:type", content: "website" },
     ],
+    links: [{ rel: "canonical", href: "https://www.nfctec.com/about" }],
   }),
   component: About,
 });

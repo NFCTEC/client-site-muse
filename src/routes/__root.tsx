@@ -83,9 +83,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { title: "NFCTEC — Full-Stack NFC & Smart Card Solutions" },
       { name: "description", content: "Software SDKs, reader hardware, JavaCard applets and free developer tools. 15+ years, 50+ protocols, 500+ projects." },
       { name: "author", content: "NFCTEC" },
-      { name: "theme-color", content: "#ffffff" },
+      { name: "theme-color", content: "#0a0e1a" },
       { property: "og:type", content: "website" },
+      { property: "og:site_name", content: "NFCTEC" },
+      { property: "og:image", content: "https://www.nfctec.com/og-default.jpg" },
+      { property: "og:image:width", content: "1216" },
+      { property: "og:image:height", content: "640" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: "https://www.nfctec.com/og-default.jpg" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -94,6 +99,28 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap",
+      },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "NFCTEC",
+          url: "https://www.nfctec.com",
+          logo: "https://www.nfctec.com/og-default.jpg",
+          description: "Full-stack NFC and smart card solutions: SDKs, JavaCard applets, EMV-certified readers, issuance & verification platform.",
+          email: "sale@nfctec.com",
+          sameAs: [
+            "https://www.amazon.com/s?k=SZLEJUN&ref=bl_dp_s_web_0",
+            "https://youtube.com/@lejuntech",
+          ],
+          contactPoint: [
+            { "@type": "ContactPoint", contactType: "sales", email: "sale@nfctec.com", availableLanguage: ["en", "zh"] },
+            { "@type": "ContactPoint", contactType: "customer support", email: "support@nfctec.com", availableLanguage: ["en", "zh"] },
+          ],
+        }),
       },
     ],
   }),

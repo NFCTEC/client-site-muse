@@ -12,7 +12,33 @@ export const Route = createFileRoute("/products/nfc-field-detector")({
       { property: "og:title", content: "NFC Signal Detection Card — NFCTEC" },
       { property: "og:description", content: "15-LED field tester for 13.56 MHz NFC / RFID readers." },
       { property: "og:image", content: "https://m.media-amazon.com/images/I/61ekYw88WyL._AC_SX679_.jpg" },
+      { property: "og:url", content: "https://www.nfctec.com/products/nfc-field-detector" },
+      { property: "og:type", content: "product" },
     ],
+    links: [{ rel: "canonical", href: "https://www.nfctec.com/products/nfc-field-detector" }],
+    scripts: [{
+      type: "application/ld+json",
+      children: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Product",
+        name: "NFC Signal Detection Card — 15 LED Field Tester",
+        description: "Pocket-size NFC field status card with 15 LED indicators. Visually verify reader RF field strength on-site. No battery, no data storage, ISO card form factor.",
+        image: [
+          "https://m.media-amazon.com/images/I/61ekYw88WyL._AC_SX679_.jpg",
+          "https://m.media-amazon.com/images/I/418FHh99LQL._AC_SX679_.jpg",
+        ],
+        brand: { "@type": "Brand", name: "SZLEJUN" },
+        manufacturer: { "@type": "Organization", name: "NFCTEC" },
+        category: "NFC Test Equipment",
+        offers: {
+          "@type": "Offer",
+          url: "https://www.amazon.com/NFC-Field-Status-Card-Professional/dp/B0FSRYJP7J",
+          availability: "https://schema.org/InStock",
+          priceCurrency: "USD",
+          seller: { "@type": "Organization", name: "SZLEJUN on Amazon" },
+        },
+      }),
+    }],
   }),
   component: ProductPage,
 });

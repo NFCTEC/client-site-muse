@@ -13,7 +13,10 @@ export const Route = createFileRoute("/contact")({
       { name: "description", content: "Talk to our NFC solution engineers — quotes, samples and SDK access within 24 hours." },
       { property: "og:title", content: "Contact Us — NFCTEC" },
       { property: "og:description", content: "Get in touch with NFCTEC." },
+      { property: "og:url", content: "https://www.nfctec.com/contact" },
+      { property: "og:type", content: "website" },
     ],
+    links: [{ rel: "canonical", href: "https://www.nfctec.com/contact" }],
   }),
   component: Contact,
 });

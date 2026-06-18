@@ -1,16 +1,31 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
+import { SITE_URL } from "@/lib/seo";
 
-const BASE_URL = "";
+interface SitemapEntry {
+  path: string;
+  changefreq?: "always" | "hourly" | "daily" | "weekly" | "monthly" | "yearly" | "never";
+  priority?: string;
+}
+
+const SOLUTION_SLUGS = [
+  "banking", "transit", "gov", "access", "health", "iot", "brand", "retail", "auto", "wallet",
+];
 
 export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
       GET: async () => {
-        const entries = [
+        const entries: SitemapEntry[] = [
           { path: "/", changefreq: "weekly", priority: "1.0" },
           { path: "/products", changefreq: "weekly", priority: "0.9" },
+          { path: "/products/nfc-field-detector", changefreq: "monthly", priority: "0.8" },
           { path: "/solutions", changefreq: "weekly", priority: "0.9" },
+          ...SOLUTION_SLUGS.map((s) => ({
+            path: `/solutions/${s}`,
+            changefreq: "monthly" as const,
+            priority: "0.7",
+          })),
           { path: "/platform", changefreq: "weekly", priority: "0.8" },
           { path: "/downloads", changefreq: "weekly", priority: "0.7" },
           { path: "/blog", changefreq: "weekly", priority: "0.7" },
@@ -18,9 +33,14 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/contact", changefreq: "monthly", priority: "0.6" },
         ];
 
-        const urls = entries.map(
-          (e) =>
-            `  <url>\n    <loc>${BASE_URL}${e.path}</loc>\n    <changefreq>${e.changefreq}</changefreq>\n    <priority>${e.priority}</priority>\n  </url>`,
+        const urls = entries.map((e) =>
+          [
+            `  <url>`,
+            `    <loc>${SITE_URL}${e.path}</loc>`,
+            e.changefreq ? `    <changefreq>${e.changefreq}</changefreq>` : null,
+            e.priority ? `    <priority>${e.priority}</priority>` : null,
+            `  </url>`,
+          ].filter(Boolean).join("\n"),
         );
 
         const xml = [

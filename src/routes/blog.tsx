@@ -9,7 +9,10 @@ export const Route = createFileRoute("/blog")({
       { name: "description", content: "Engineering deep-dives, protocol explainers and customer case studies on NFC and Smart Cards." },
       { property: "og:title", content: "Blog & Insights — NFCTEC" },
       { property: "og:description", content: "NFC engineering deep-dives and case studies." },
+      { property: "og:url", content: "https://www.nfctec.com/blog" },
+      { property: "og:type", content: "website" },
     ],
+    links: [{ rel: "canonical", href: "https://www.nfctec.com/blog" }],
   }),
   component: Blog,
 });
