@@ -39,6 +39,7 @@ const industries = [
   { icon: ShoppingBag, k: "ind.retail" },
   { icon: Car, k: "ind.auto" },
   { icon: Smartphone, k: "ind.wallet" },
+  { icon: Fingerprint, k: "ind.security" },
 ] as const;
 
 function Home() {

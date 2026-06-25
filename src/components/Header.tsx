@@ -15,6 +15,7 @@ const industryLinks = [
   { key: "ind.retail", slug: "retail" },
   { key: "ind.auto", slug: "auto" },
   { key: "ind.wallet", slug: "wallet" },
+  { key: "ind.security", slug: "security" },
 ] as const;
 
 export function Header() {

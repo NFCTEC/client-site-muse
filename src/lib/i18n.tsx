@@ -80,7 +80,7 @@ export const t: Dict = {
 
   // Industries
   "ind.eyebrow": { en: "Industry Solutions", zh: "行业方案" },
-  "ind.title": { en: "10 industries.\nProven NFC playbooks.", zh: "10 大行业，\n成熟 NFC 方案。" },
+  "ind.title": { en: "11 industries.\nProven NFC playbooks.", zh: "11 大行业，\n成熟 NFC 方案。" },
   "ind.banking.t": { en: "Banking & Payment", zh: "银行与支付" },
   "ind.banking.d": {
     en: "End-to-end payment engineering — from card applet to acquirer host. We deliver EMV-certified applets, PCI-compliant issuance, tokenization for mobile wallets and the ISO 8583 host systems that move money at scale.",
@@ -135,6 +135,11 @@ export const t: Dict = {
   "ind.wallet.d": {
     en: "Ship any credential to a phone. HCE card emulation, Secure Element applets, EMV tokenization and push provisioning to Apple, Google and Samsung wallets — plus ISO 18013-5 mDL readiness.",
     zh: "把任何凭证发到手机上。HCE 卡模拟、安全元件 Applet、EMV 令牌化,以及推送开通到 Apple、Google 与 Samsung 钱包 — 同时支持 ISO 18013-5 mDL。",
+  },
+  "ind.security.t": { en: "Security & Crypto Wallet", zh: "安全与加密货币钱包" },
+  "ind.security.d": {
+    en: "Hardware-grade security for the modern web. FIDO2 / Passkey security keys, crypto-wallet smart cards signing secp256k1 / ed25519 transactions on-card, cold backup cards and seed-phrase recovery — built on Secure Elements certified to CC EAL6+.",
+    zh: "面向现代互联网的硬件级安全。FIDO2 / Passkey 安全密钥、片上签名 secp256k1 / ed25519 交易的加密货币智能卡、冷备份卡与助记词恢复 — 基于 CC EAL6+ 认证的安全元件。",
   },
 
   // Dev tools

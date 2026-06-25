@@ -11,7 +11,8 @@ interface SitemapEntry {
 import { posts } from "@/lib/blog-posts";
 
 const SOLUTION_SLUGS = [
-  "banking", "transit", "gov", "access", "health", "iot", "brand", "retail", "auto", "wallet",
+  "banking", "transit", "gov", "access", "health", "iot", "brand", "retail", "auto", "wallet", "security",
+
 ];
 
 export const Route = createFileRoute("/sitemap.xml")({
