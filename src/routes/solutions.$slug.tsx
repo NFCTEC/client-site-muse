@@ -2,7 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
 import {
   Wallet, Train, Landmark, KeyRound, HeartPulse, Boxes,
-  ShieldCheck, ShoppingBag, Car, Smartphone, ArrowRight, ArrowLeft,
+  ShieldCheck, ShoppingBag, Car, Smartphone, Fingerprint, ArrowRight, ArrowLeft,
   type LucideIcon,
 } from "lucide-react";
 
@@ -17,6 +17,7 @@ const SLUG_IMAGES: Record<string, string> = {
   retail: "/solutions/retail.jpg",
   auto: "/solutions/auto.jpg",
   wallet: "/solutions/wallet.jpg",
+  security: "/solutions/security.jpg",
 };
 const SITE = "https://www.nfctec.com";
 
@@ -321,6 +322,34 @@ const baseIndustries: BaseIndustry[] = [
     ],
     protocols: ["HCE", "GlobalPlatform", "JavaCard", "EMV Tokenization", "ISO 18013-5"],
   },
+  {
+    slug: "security",
+    icon: Fingerprint,
+    name: { en: "Security & Crypto Wallet", zh: "安全与加密货币钱包" },
+    tagline: {
+      en: "FIDO2 security keys, crypto-wallet smart cards, on-card signing.",
+      zh: "FIDO2 安全密钥、加密货币智能卡、片上签名。",
+    },
+    intro: {
+      en: "Hardware-grade security for the modern web: FIDO2 / WebAuthn / Passkey security keys, JavaCard crypto-wallet cards that sign secp256k1 and ed25519 transactions on-chip, cold backup cards and seed-phrase recovery — all built on Secure Elements certified to CC EAL6+.",
+      zh: "面向现代互联网的硬件级安全：FIDO2 / WebAuthn / Passkey 安全密钥、片上签名 secp256k1 与 ed25519 交易的 JavaCard 加密货币卡、冷备份卡与助记词恢复 —— 全部基于 CC EAL6+ 认证的安全元件。",
+    },
+    capabilities: [
+      { t: { en: "FIDO2 / Passkey Keys", zh: "FIDO2 / Passkey 安全密钥" }, d: { en: "USB-A / USB-C / NFC security keys for WebAuthn, U2F, OTP and PIV — phishing-resistant logins.", zh: "USB-A / USB-C / NFC 安全密钥,支持 WebAuthn、U2F、OTP 与 PIV —— 抗钓鱼登录。" } },
+      { t: { en: "Crypto-Wallet Smart Cards", zh: "加密货币智能卡" }, d: { en: "JavaCard applet signing secp256k1 (Bitcoin / EVM) and ed25519 (Solana / Aptos) — private keys never leave the chip.", zh: "JavaCard Applet 在卡上签名 secp256k1 (BTC / EVM) 与 ed25519 (Solana / Aptos) —— 私钥永不出芯片。" } },
+      { t: { en: "Seed Backup & Recovery", zh: "助记词备份与恢复" }, d: { en: "BIP-39 / SLIP-39 seed import / export with Shamir secret-sharing across multiple backup cards.", zh: "BIP-39 / SLIP-39 助记词导入导出,Shamir 秘密分享于多张备份卡。" } },
+      { t: { en: "Cold Storage Cards", zh: "冷钱包卡片" }, d: { en: "Air-gapped DESFire / JavaCard cards that store keys offline; tap-to-sign via mobile companion app.", zh: "气隙隔离的 DESFire / JavaCard 卡片离线存储密钥;通过手机配套 App 触卡签名。" } },
+      { t: { en: "Enterprise SSO", zh: "企业 SSO" }, d: { en: "Azure AD / Okta / Google Workspace SSO with FIDO2 mandate, smart card login for Windows Hello and macOS.", zh: "Azure AD / Okta / Google Workspace SSO 强制 FIDO2,智能卡登录 Windows Hello 与 macOS。" } },
+      { t: { en: "Secure Element", zh: "安全元件" }, d: { en: "NXP A71CH / SE050, Infineon SLE / SLI, ST33 — CC EAL6+ certified, anti-tamper, anti-side-channel.", zh: "NXP A71CH / SE050、Infineon SLE / SLI、ST33 —— CC EAL6+ 认证,防篡改、防侧信道。" } },
+    ],
+    deliverables: [
+      { en: "FIDO2 security key reference hardware + firmware", zh: "FIDO2 安全密钥参考硬件 + 固件" },
+      { en: "JavaCard crypto-wallet applet (secp256k1 / ed25519)", zh: "JavaCard 加密货币 Applet (secp256k1 / ed25519)" },
+      { en: "iOS / Android companion SDK (NFC tap-to-sign)", zh: "iOS / Android 配套 SDK (NFC 触卡签名)" },
+      { en: "Enterprise SSO integration & deployment", zh: "企业 SSO 集成与部署" },
+    ],
+    protocols: ["FIDO2 / WebAuthn", "U2F", "PIV", "secp256k1", "ed25519", "BIP-32/39", "SLIP-39", "JavaCard", "GlobalPlatform"],
+  },
 ];
 
 // Per-industry extras: certifications, typical engagement workflow, downloadable resources
@@ -418,6 +447,15 @@ const extrasMap: Record<string, Extras> = {
       { t: { en: "HCE / SE applet SDK", zh: "HCE / SE Applet SDK" }, kind: { en: "SDK", zh: "SDK" } },
       { t: { en: "Wallet provisioning guide", zh: "钱包开通集成指南" }, kind: { en: "Datasheet", zh: "规格书" } },
       { t: { en: "mDL reference implementation", zh: "mDL 参考实现" }, kind: { en: "Sample", zh: "示例" } },
+    ],
+  },
+  security: {
+    certifications: ["FIDO2 Certified", "FIDO U2F", "Common Criteria EAL6+", "FIPS 140-2", "WebAuthn L3"],
+    workflow: defaultWorkflow,
+    resources: [
+      { t: { en: "FIDO2 key hardware datasheet", zh: "FIDO2 密钥硬件规格书" }, kind: { en: "Datasheet", zh: "规格书" } },
+      { t: { en: "Crypto-wallet applet API", zh: "加密货币 Applet API" }, kind: { en: "SDK", zh: "SDK" } },
+      { t: { en: "Tap-to-sign mobile SDK", zh: "触卡签名移动 SDK" }, kind: { en: "SDK", zh: "SDK" } },
     ],
   },
 };
