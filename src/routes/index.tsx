@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
 import { ArrowRight, Code2, Cpu, Layers, Wrench,
   Wallet, Train, Landmark, KeyRound, HeartPulse, Boxes,
-  ShieldCheck, ShoppingBag, Car, Smartphone } from "lucide-react";
+  ShieldCheck, ShoppingBag, Car, Smartphone, Fingerprint } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -39,6 +39,7 @@ const industries = [
   { icon: ShoppingBag, k: "ind.retail" },
   { icon: Car, k: "ind.auto" },
   { icon: Smartphone, k: "ind.wallet" },
+  { icon: Fingerprint, k: "ind.security" },
 ] as const;
 
 function Home() {

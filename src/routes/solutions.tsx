@@ -6,7 +6,7 @@ export const Route = createFileRoute("/solutions")({
       { title: "Industry Solutions — NFCTEC" },
       { name: "description", content: "End-to-end NFC solutions for banking, transit, government, IoT, brand protection and more." },
       { property: "og:title", content: "Industry Solutions — NFCTEC" },
-      { property: "og:description", content: "Proven NFC playbooks across 10 industries." },
+      { property: "og:description", content: "Proven NFC playbooks across 11 industries." },
       { property: "og:url", content: "https://www.nfctec.com/solutions" },
       { property: "og:type", content: "website" },
     ],
