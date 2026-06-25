@@ -12,6 +12,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { I18nProvider } from "@/lib/i18n";
+import { ThemeProvider } from "@/lib/theme";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 
@@ -149,13 +150,15 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <I18nProvider>
-        <Header />
-        <main className="pt-16">
-          <Outlet />
-        </main>
-        <Footer />
-      </I18nProvider>
+      <ThemeProvider>
+        <I18nProvider>
+          <Header />
+          <main className="pt-16">
+            <Outlet />
+          </main>
+          <Footer />
+        </I18nProvider>
+      </ThemeProvider>
     </QueryClientProvider>
   );
 }

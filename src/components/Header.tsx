@@ -1,7 +1,8 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useState } from "react";
 import { useI18n } from "@/lib/i18n";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { useTheme } from "@/lib/theme";
+import { Menu, X, ChevronDown, Sun, Moon } from "lucide-react";
 import logoAsset from "@/assets/nfctec-logo.png.asset.json";
 
 const industryLinks = [
@@ -20,6 +21,7 @@ const industryLinks = [
 
 export function Header() {
   const { tr, lang, setLang } = useI18n();
+  const { theme, toggle: toggleTheme } = useTheme();
   const [open, setOpen] = useState(false);
   const [solOpen, setSolOpen] = useState(false);
   const [prodOpen, setProdOpen] = useState(false);
@@ -129,6 +131,13 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-3">
+          <button
+            onClick={toggleTheme}
+            aria-label="Toggle theme"
+            className="text-muted-foreground hover:text-primary transition-colors border border-border rounded-full p-1.5"
+          >
+            {theme === "dark" ? <Sun size={14} /> : <Moon size={14} />}
+          </button>
           <button
             onClick={() => setLang(lang === "zh" ? "en" : "zh")}
             className="text-xs font-mono text-muted-foreground hover:text-primary transition-colors border border-border rounded-full px-3 py-1.5"
