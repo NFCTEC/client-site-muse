@@ -1,6 +1,6 @@
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/solutions")({
+export const Route = createFileRoute("/$locale/solutions")({
   head: () => ({
     meta: [
       { title: "Industry Solutions — NFCTEC" },

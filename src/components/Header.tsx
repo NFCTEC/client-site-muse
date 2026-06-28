@@ -2,8 +2,10 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { useState } from "react";
 import { useI18n } from "@/lib/i18n";
 import { useTheme } from "@/lib/theme";
+import { useLocale } from "@/hooks/useLocale";
+import { localePath } from "@/lib/locale";
 import { Menu, X, ChevronDown, Sun, Moon } from "lucide-react";
-import logoAsset from "@/assets/nfctec-logo.png.asset.json";
+import { Logo } from "@/components/Logo";
 
 const industryLinks = [
   { key: "ind.banking", slug: "banking" },
@@ -22,41 +24,48 @@ const industryLinks = [
 export function Header() {
   const { tr, lang, setLang } = useI18n();
   const { theme, toggle: toggleTheme } = useTheme();
+  const locale = useLocale();
   const [open, setOpen] = useState(false);
   const [solOpen, setSolOpen] = useState(false);
   const [prodOpen, setProdOpen] = useState(false);
   const path = useRouterState({ select: (s) => s.location.pathname });
 
-  const navItems: { to: string; label: string; key: "plain" | "products" | "solutions" }[] = [
-    { to: "/", label: tr("nav.home"), key: "plain" },
-    { to: "/products", label: tr("nav.products"), key: "products" },
-    { to: "/solutions", label: tr("nav.solutions"), key: "solutions" },
-    { to: "/platform", label: tr("nav.platform"), key: "plain" },
-    { to: "/downloads", label: tr("nav.downloads"), key: "plain" },
-    { to: "/blog", label: tr("nav.blog"), key: "plain" },
-    { to: "/contact", label: tr("nav.contact"), key: "plain" },
+  const navItems: { path: string; label: string; key: "plain" | "products" | "solutions" }[] = [
+    { path: "/", label: tr("nav.home"), key: "plain" },
+    { path: "/products", label: tr("nav.products"), key: "products" },
+    { path: "/solutions", label: tr("nav.solutions"), key: "solutions" },
+    { path: "/platform", label: tr("nav.platform"), key: "plain" },
+    { path: "/downloads", label: tr("nav.downloads"), key: "plain" },
+    { path: "/blog", label: tr("nav.blog"), key: "plain" },
+    { path: "/contact", label: tr("nav.contact"), key: "plain" },
   ];
+
+  const isActive = (p: string) => {
+    const full = localePath(locale, p);
+    return path === full || (p !== "/" && path.startsWith(full));
+  };
 
   return (
     <header className="fixed top-0 inset-x-0 z-50 backdrop-blur-xl bg-background/80 border-b border-border">
-      <div className="mx-auto max-w-7xl px-6 lg:px-10 h-16 flex items-center justify-between">
-        <Link to="/" className="flex items-center" aria-label="NFCTEC home">
-          <img src={logoAsset.url} alt="NFCTEC" className="h-9 w-auto" />
+      <div className="mx-auto max-w-7xl px-6 lg:px-10 h-[4.25rem] flex items-center justify-between">
+        <Link to="/$locale" params={{ locale }} className="flex items-center shrink-0" aria-label="NFCTEC home">
+          <Logo className="h-11 sm:h-12 w-auto max-w-[min(100vw-8rem,280px)]" />
         </Link>
 
         <nav className="hidden lg:flex items-center gap-7">
           {navItems.map((l) => {
-            const active = path === l.to || (l.to !== "/" && path.startsWith(l.to));
+            const active = isActive(l.path);
             if (l.key === "products") {
               return (
                 <div
-                  key={l.to}
+                  key={l.path}
                   className="relative"
                   onMouseEnter={() => setProdOpen(true)}
                   onMouseLeave={() => setProdOpen(false)}
                 >
                   <Link
-                    to={l.to}
+                    to="/$locale/products"
+                    params={{ locale }}
                     className={`inline-flex items-center gap-1 text-sm transition-colors ${
                       active ? "text-foreground" : "text-muted-foreground hover:text-foreground"
                     }`}
@@ -66,12 +75,18 @@ export function Header() {
                   {prodOpen && (
                     <div className="absolute top-full left-0 pt-3">
                       <div className="rounded-xl border border-border bg-popover shadow-float p-2 min-w-[180px]">
-                        <Link to="/products"
-                          className="block px-3 py-2 text-sm rounded-lg hover:bg-surface-elevated hover:text-primary">
+                        <Link
+                          to="/$locale/products"
+                          params={{ locale }}
+                          className="block px-3 py-2 text-sm rounded-lg hover:bg-surface-elevated hover:text-primary"
+                        >
                           {tr("nav.products.sw")}
                         </Link>
-                        <Link to="/products"
-                          className="block px-3 py-2 text-sm rounded-lg hover:bg-surface-elevated hover:text-primary">
+                        <Link
+                          to="/$locale/products"
+                          params={{ locale }}
+                          className="block px-3 py-2 text-sm rounded-lg hover:bg-surface-elevated hover:text-primary"
+                        >
                           {tr("nav.products.hw")}
                         </Link>
                       </div>
@@ -83,13 +98,14 @@ export function Header() {
             if (l.key === "solutions") {
               return (
                 <div
-                  key={l.to}
+                  key={l.path}
                   className="relative"
                   onMouseEnter={() => setSolOpen(true)}
                   onMouseLeave={() => setSolOpen(false)}
                 >
                   <Link
-                    to={l.to}
+                    to="/$locale/solutions"
+                    params={{ locale }}
                     className={`inline-flex items-center gap-1 text-sm transition-colors ${
                       active ? "text-foreground" : "text-muted-foreground hover:text-foreground"
                     }`}
@@ -102,8 +118,8 @@ export function Header() {
                         {industryLinks.map((item) => (
                           <Link
                             key={item.key}
-                            to="/solutions/$slug"
-                            params={{ slug: item.slug }}
+                            to="/$locale/solutions/$slug"
+                            params={{ locale, slug: item.slug }}
                             onClick={() => setSolOpen(false)}
                             className="block px-3 py-2 text-sm rounded-lg hover:bg-surface-elevated hover:text-primary"
                           >
@@ -116,10 +132,17 @@ export function Header() {
                 </div>
               );
             }
+            const routeTo =
+              l.path === "/"
+                ? { to: "/$locale" as const, params: { locale } }
+                : {
+                    to: `/$locale${l.path}` as "/$locale/platform",
+                    params: { locale },
+                  };
             return (
               <Link
-                key={l.to}
-                to={l.to}
+                key={l.path}
+                {...routeTo}
                 className={`text-sm transition-colors ${
                   active ? "text-foreground" : "text-muted-foreground hover:text-foreground"
                 }`}
@@ -145,13 +168,15 @@ export function Header() {
             {lang === "zh" ? "EN" : "中"}
           </button>
           <Link
-            to="/auth"
+            to="/$locale/auth"
+            params={{ locale }}
             className="hidden md:inline-flex items-center rounded-full border border-border bg-surface/50 px-4 py-2 text-sm font-semibold hover:border-primary/50 transition-colors"
           >
             Sign In
           </Link>
           <Link
-            to="/auth"
+            to="/$locale/auth"
+            params={{ locale }}
             className="hidden md:inline-flex items-center rounded-full bg-primary text-primary-foreground px-4 py-2 text-sm font-semibold hover:shadow-glow transition-all"
           >
             Get Started
@@ -169,18 +194,29 @@ export function Header() {
       {open && (
         <div className="lg:hidden border-t border-border bg-background">
           <div className="px-6 py-4 flex flex-col gap-3">
-            {navItems.map((l) => (
-              <Link
-                key={l.to}
-                to={l.to}
-                onClick={() => setOpen(false)}
-                className="text-sm text-foreground py-1"
-              >
-                {l.label}
-              </Link>
-            ))}
+            {navItems.map((l) => {
+              const mobileTo =
+                l.path === "/"
+                  ? { to: "/$locale" as const, params: { locale } }
+                  : l.key === "solutions"
+                    ? { to: "/$locale/solutions" as const, params: { locale } }
+                    : l.key === "products"
+                      ? { to: "/$locale/products" as const, params: { locale } }
+                      : { to: `/$locale${l.path}` as "/$locale/blog", params: { locale } };
+              return (
+                <Link
+                  key={l.path}
+                  {...mobileTo}
+                  onClick={() => setOpen(false)}
+                  className="text-sm text-foreground py-1"
+                >
+                  {l.label}
+                </Link>
+              );
+            })}
             <Link
-              to="/contact"
+              to="/$locale/contact"
+              params={{ locale }}
               onClick={() => setOpen(false)}
               className="mt-2 inline-flex items-center justify-center rounded-full bg-primary text-primary-foreground px-4 py-2.5 text-sm font-semibold"
             >

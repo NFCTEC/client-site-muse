@@ -1,7 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
+import { useLocale } from "@/hooks/useLocale";
 import { Youtube, ShoppingBag, Mail } from "lucide-react";
-import logoAsset from "@/assets/nfctec-logo.png.asset.json";
+import { Logo } from "@/components/Logo";
 
 const AMAZON_STORE = "https://www.amazon.com/s?k=SZLEJUN&ref=bl_dp_s_web_0";
 const YOUTUBE_URL = "https://youtube.com/@lejuntech";
@@ -9,39 +10,40 @@ const SALES_EMAIL = "sale@nfctec.com";
 
 export function Footer() {
   const { tr } = useI18n();
+  const locale = useLocale();
 
   const cols: { title: string; links: { to: string; label: string }[] }[] = [
     {
       title: tr("foot.product"),
       links: [
-        { to: "/products", label: tr("nav.products.sw") },
-        { to: "/products", label: tr("nav.products.hw") },
-        { to: "/platform", label: tr("nav.platform") },
+        { to: "/$locale/products", label: tr("nav.products.sw") },
+        { to: "/$locale/products", label: tr("nav.products.hw") },
+        { to: "/$locale/platform", label: tr("nav.platform") },
       ],
     },
     {
       title: tr("foot.solution"),
       links: [
-        { to: "/solutions", label: tr("ind.banking.t") },
-        { to: "/solutions", label: tr("ind.transit.t") },
-        { to: "/solutions", label: tr("ind.gov.t") },
-        { to: "/solutions", label: tr("ind.access.t") },
+        { to: "/$locale/solutions", label: tr("ind.banking.t") },
+        { to: "/$locale/solutions", label: tr("ind.transit.t") },
+        { to: "/$locale/solutions", label: tr("ind.gov.t") },
+        { to: "/$locale/solutions", label: tr("ind.access.t") },
       ],
     },
     {
       title: tr("foot.resource"),
       links: [
-        { to: "/downloads", label: tr("nav.downloads") },
-        { to: "/blog", label: tr("nav.blog") },
-        { to: "/platform", label: tr("tools.emv.t") },
-        { to: "/platform", label: tr("tools.apdu.t") },
+        { to: "/$locale/downloads", label: tr("nav.downloads") },
+        { to: "/$locale/blog", label: tr("nav.blog") },
+        { to: "/$locale/platform", label: tr("tools.emv.t") },
+        { to: "/$locale/platform", label: tr("tools.apdu.t") },
       ],
     },
     {
       title: tr("foot.company"),
       links: [
-        { to: "/about", label: tr("nav.about") },
-        { to: "/contact", label: tr("nav.contact") },
+        { to: "/$locale/about", label: tr("nav.about") },
+        { to: "/$locale/contact", label: tr("nav.contact") },
       ],
     },
   ];
@@ -51,7 +53,9 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-6 lg:px-10 py-16">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-5">
           <div className="lg:col-span-1">
-            <img src={logoAsset.url} alt="NFCTEC" className="h-9 w-auto" />
+            <Link to="/$locale" params={{ locale }}>
+              <Logo className="h-12 w-auto max-w-[260px]" />
+            </Link>
             <p className="mt-4 text-sm text-muted-foreground max-w-xs leading-relaxed">
               {tr("brand.tagline")}
             </p>
@@ -75,7 +79,7 @@ export function Footer() {
               <ul className="space-y-2.5 text-sm text-muted-foreground">
                 {c.links.map((l) => (
                   <li key={l.label}>
-                    <Link to={l.to} className="hover:text-primary transition-colors">{l.label}</Link>
+                    <Link to={l.to} params={{ locale }} className="hover:text-primary transition-colors">{l.label}</Link>
                   </li>
                 ))}
               </ul>

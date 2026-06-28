@@ -153,7 +153,7 @@ function RootComponent() {
       <ThemeProvider>
         <I18nProvider>
           <Header />
-          <main className="pt-16">
+          <main className="pt-[4.25rem]">
             <Outlet />
           </main>
           <Footer />

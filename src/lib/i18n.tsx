@@ -1,4 +1,6 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from "react";
+import { useNavigate, useRouterState } from "@tanstack/react-router";
+import { stripLocalePrefix, swapLocalePath } from "./locale";
 
 export type Lang = "en" | "zh";
 
@@ -272,7 +274,7 @@ export const t: Dict = {
   "form.subject": { en: "Subject", zh: "主题" },
   "form.desc": { en: "Project description", zh: "项目描述" },
   "form.submit": { en: "Submit inquiry", zh: "提交需求" },
-  "form.success": { en: "Opening your email app — your inquiry will be sent to our team.", zh: "正在打开您的邮件客户端，您的需求将发送给我们团队。" },
+  "form.success": { en: "Thank you — your inquiry has been submitted. We'll respond within one business day.", zh: "感谢提交！我们已收到您的需求，将在 1 个工作日内回复。" },
   "form.mailto.hint": { en: "If nothing opened, email us directly at", zh: "如未自动打开，请直接发送邮件至" },
   "contact.support": { en: "Support / Inquiries", zh: "客服 / 询盘" },
   "contact.sales": { en: "Sales", zh: "销售" },
@@ -288,14 +290,23 @@ interface I18nCtx {
 const Ctx = createContext<I18nCtx | null>(null);
 
 export function I18nProvider({ children }: { children: ReactNode }) {
-  const [lang, setLangState] = useState<Lang>("en");
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const navigate = useNavigate();
+  const { locale: urlLocale } = stripLocalePrefix(pathname);
+  const [lang, setLangState] = useState<Lang>(urlLocale ?? "en");
 
   useEffect(() => {
-    const stored = typeof window !== "undefined" ? (localStorage.getItem("lang") as Lang | null) : null;
-    if (stored === "zh" || stored === "en") setLangState(stored);
-  }, []);
+    if (urlLocale) {
+      setLangState(urlLocale);
+      if (typeof window !== "undefined") localStorage.setItem("lang", urlLocale);
+    }
+  }, [urlLocale]);
 
   const setLang = (l: Lang) => {
+    if (urlLocale) {
+      navigate({ to: swapLocalePath(pathname, l) });
+      return;
+    }
     setLangState(l);
     if (typeof window !== "undefined") localStorage.setItem("lang", l);
   };
