@@ -1,14 +1,23 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, notFound } from "@tanstack/react-router";
 import { useState } from "react";
 import { useI18n } from "@/lib/i18n";
 import { Mail, MapPin, ArrowRight, CheckCircle2 } from "lucide-react";
 import { submitInquiry } from "@/lib/api/inquiry.functions";
+import { fetchDisplayConfig } from "@/lib/cms";
+import { isModuleEnabled } from "@/lib/display-config";
 import { absLocaleUrl, type Locale } from "@/lib/locale";
+import { PageHero } from "@/components/PageHero";
+import { PageSection } from "@/components/PageSection";
 
 const INQUIRY_TO = "support@nfctec.com";
 const SALES_EMAIL = "sale@nfctec.com";
 
 export const Route = createFileRoute("/$locale/contact")({
+  loader: async ({ params }) => {
+    const config = await fetchDisplayConfig(params.locale as Locale);
+    if (!isModuleEnabled(config, "contact")) throw notFound();
+    return {};
+  },
   head: ({ params }) => ({
     meta: [
       { title: "Contact Us — NFCTEC" },
@@ -25,6 +34,7 @@ export const Route = createFileRoute("/$locale/contact")({
 
 function Contact() {
   const { tr } = useI18n();
+  const { locale } = Route.useParams();
   const [done, setDone] = useState(false);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -35,6 +45,8 @@ function Contact() {
     setError(false);
     const fd = new FormData(e.currentTarget);
     const get = (k: string) => String(fd.get(k) || "").trim();
+    const projectType = get("projectType");
+    const subject = get("subject") || "Website inquiry";
     try {
       await submitInquiry({
         data: {
@@ -43,7 +55,7 @@ function Contact() {
           email: get("email"),
           whatsapp: get("whatsapp") || undefined,
           country: get("country") || undefined,
-          subject: get("subject") || "Website inquiry",
+          subject: projectType ? `[${projectType}] ${subject}` : subject,
           message: get("desc"),
         },
       });
@@ -56,18 +68,18 @@ function Contact() {
   };
 
   return (
-    <section className="relative pt-24 lg:pt-32 pb-24 lg:pb-32">
-      <div className="absolute inset-0 bg-hero-glow pointer-events-none" />
-      <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
-        <h1 className="font-display text-5xl lg:text-7xl tracking-tight whitespace-pre-line text-balance max-w-4xl">
-          {tr("contact.title")}
-        </h1>
-        <p className="mt-6 text-lg text-muted-foreground max-w-2xl">{tr("contact.sub")}</p>
+    <>
+      <PageHero
+        eyebrow={tr("contact.eyebrow")}
+        title={tr("contact.title")}
+        subtitle={tr("contact.sub")}
+      />
 
-        <div className="mt-16 grid lg:grid-cols-5 gap-8 lg:gap-12">
+      <PageSection spacing="main" className="!pt-0">
+        <div className="grid lg:grid-cols-5 gap-8 lg:gap-12">
           <form
             onSubmit={handleSubmit}
-            className="lg:col-span-3 rounded-3xl border border-border bg-card-gradient p-8 lg:p-12"
+            className="lg:col-span-3 rounded-2xl border border-border bg-card-gradient p-6 sm:p-8 lg:p-10"
           >
             {done ? (
               <div className="py-16 text-center">
@@ -76,19 +88,33 @@ function Contact() {
               </div>
             ) : (
               <>
-                {error && (
-                  <p className="mb-4 text-sm text-red-400">Failed to send. Please email us directly.</p>
-                )}
+                {error && <p className="mb-4 text-sm text-destructive">{tr("form.error")}</p>}
                 <div className="grid sm:grid-cols-2 gap-5">
                   <Field label={tr("form.name")} name="name" required />
                   <Field label={tr("form.company")} name="company" required />
                   <Field label={tr("form.email")} name="email" type="email" required />
                   <Field label={tr("form.whatsapp")} name="whatsapp" placeholder="+1 555 …" />
                   <Field label={tr("form.country")} name="country" />
+                  <div>
+                    <label className="block text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">
+                      {tr("form.projectType")}<span className="text-primary ml-1">*</span>
+                    </label>
+                    <select
+                      name="projectType"
+                      required
+                      className="w-full rounded-xl border border-border bg-background/60 px-4 py-3 text-sm outline-none focus:border-primary transition-colors"
+                    >
+                      <option value="">{tr("form.projectType")}</option>
+                      <option value={tr("form.type.sw")}>{tr("form.type.sw")}</option>
+                      <option value={tr("form.type.hw")}>{tr("form.type.hw")}</option>
+                      <option value={tr("form.type.cloud")}>{tr("form.type.cloud")}</option>
+                      <option value={tr("form.type.full")}>{tr("form.type.full")}</option>
+                    </select>
+                  </div>
                   <Field label={tr("form.subject")} name="subject" required />
                 </div>
                 <div className="mt-5">
-                  <label className="block text-xs font-mono text-muted-foreground uppercase tracking-wider mb-2">
+                  <label className="block text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">
                     {tr("form.desc")}<span className="text-primary ml-1">*</span>
                   </label>
                   <textarea
@@ -102,7 +128,7 @@ function Contact() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="mt-8 inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-7 py-3.5 text-sm font-semibold hover:shadow-glow-strong transition-all disabled:opacity-60"
+                  className="mt-8 inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-7 py-3.5 text-sm font-semibold hover:opacity-90 transition-opacity disabled:opacity-60"
                 >
                   {loading ? "Sending…" : tr("form.submit")} <ArrowRight size={16} />
                 </button>
@@ -120,34 +146,51 @@ function Contact() {
               const inner = (
                 <>
                   <Icon size={18} className="text-primary mb-4" />
-                  <div className="text-xs font-mono text-muted-foreground uppercase tracking-wider mb-1.5">
+                  <div className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-1.5">
                     {c.label}
                   </div>
                   <div className="font-medium break-all">{c.value}</div>
                 </>
               );
               return c.href ? (
-                <a key={c.label} href={c.href} className="card-glow block rounded-2xl border border-border bg-card-gradient p-7 hover:border-primary/40 transition-colors">
+                <a
+                  key={c.label}
+                  href={c.href}
+                  className="card-glow block rounded-2xl border border-border bg-card-gradient p-7 hover:border-primary/40 transition-colors"
+                >
                   {inner}
                 </a>
               ) : (
-                <div key={c.label} className="card-glow rounded-2xl border border-border bg-card-gradient p-7">{inner}</div>
+                <div key={c.label} className="card-glow rounded-2xl border border-border bg-card-gradient p-7">
+                  {inner}
+                </div>
               );
             })}
           </aside>
         </div>
-      </div>
-    </section>
+      </PageSection>
+    </>
   );
 }
 
 function Field({
-  label, name, type = "text", required, placeholder,
-}: { label: string; name: string; type?: string; required?: boolean; placeholder?: string }) {
+  label,
+  name,
+  type = "text",
+  required,
+  placeholder,
+}: {
+  label: string;
+  name: string;
+  type?: string;
+  required?: boolean;
+  placeholder?: string;
+}) {
   return (
     <div>
-      <label className="block text-xs font-mono text-muted-foreground uppercase tracking-wider mb-2">
-        {label}{required && <span className="text-primary ml-1">*</span>}
+      <label className="block text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">
+        {label}
+        {required && <span className="text-primary ml-1">*</span>}
       </label>
       <input
         type={type}

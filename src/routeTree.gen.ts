@@ -36,8 +36,10 @@ import { Route as LocaleAuthRouteImport } from './routes/$locale/auth'
 import { Route as LocaleAboutRouteImport } from './routes/$locale/about'
 import { Route as LocaleSolutionsIndexRouteImport } from './routes/$locale/solutions.index'
 import { Route as LocaleProductsIndexRouteImport } from './routes/$locale/products.index'
+import { Route as LocaleBlogIndexRouteImport } from './routes/$locale/blog.index'
 import { Route as LocaleSolutionsSlugRouteImport } from './routes/$locale/solutions.$slug'
 import { Route as LocaleProductsNfcFieldDetectorRouteImport } from './routes/$locale/products.nfc-field-detector'
+import { Route as LocaleProductsSlugRouteImport } from './routes/$locale/products.$slug'
 import { Route as LocaleBlogSlugRouteImport } from './routes/$locale/blog.$slug'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -175,6 +177,11 @@ const LocaleProductsIndexRoute = LocaleProductsIndexRouteImport.update({
   path: '/',
   getParentRoute: () => LocaleProductsRoute,
 } as any)
+const LocaleBlogIndexRoute = LocaleBlogIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => LocaleBlogRoute,
+} as any)
 const LocaleSolutionsSlugRoute = LocaleSolutionsSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -186,6 +193,11 @@ const LocaleProductsNfcFieldDetectorRoute =
     path: '/nfc-field-detector',
     getParentRoute: () => LocaleProductsRoute,
   } as any)
+const LocaleProductsSlugRoute = LocaleProductsSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => LocaleProductsRoute,
+} as any)
 const LocaleBlogSlugRoute = LocaleBlogSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -218,8 +230,10 @@ export interface FileRoutesByFullPath {
   '/products/': typeof ProductsIndexRoute
   '/solutions/': typeof SolutionsIndexRoute
   '/$locale/blog/$slug': typeof LocaleBlogSlugRoute
+  '/$locale/products/$slug': typeof LocaleProductsSlugRoute
   '/$locale/products/nfc-field-detector': typeof LocaleProductsNfcFieldDetectorRoute
   '/$locale/solutions/$slug': typeof LocaleSolutionsSlugRoute
+  '/$locale/blog/': typeof LocaleBlogIndexRoute
   '/$locale/products/': typeof LocaleProductsIndexRoute
   '/$locale/solutions/': typeof LocaleSolutionsIndexRoute
 }
@@ -234,7 +248,6 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/$locale/about': typeof LocaleAboutRoute
   '/$locale/auth': typeof LocaleAuthRoute
-  '/$locale/blog': typeof LocaleBlogRouteWithChildren
   '/$locale/contact': typeof LocaleContactRoute
   '/$locale/downloads': typeof LocaleDownloadsRoute
   '/$locale/platform': typeof LocalePlatformRoute
@@ -246,8 +259,10 @@ export interface FileRoutesByTo {
   '/products': typeof ProductsIndexRoute
   '/solutions': typeof SolutionsIndexRoute
   '/$locale/blog/$slug': typeof LocaleBlogSlugRoute
+  '/$locale/products/$slug': typeof LocaleProductsSlugRoute
   '/$locale/products/nfc-field-detector': typeof LocaleProductsNfcFieldDetectorRoute
   '/$locale/solutions/$slug': typeof LocaleSolutionsSlugRoute
+  '/$locale/blog': typeof LocaleBlogIndexRoute
   '/$locale/products': typeof LocaleProductsIndexRoute
   '/$locale/solutions': typeof LocaleSolutionsIndexRoute
 }
@@ -279,8 +294,10 @@ export interface FileRoutesById {
   '/products/': typeof ProductsIndexRoute
   '/solutions/': typeof SolutionsIndexRoute
   '/$locale/blog/$slug': typeof LocaleBlogSlugRoute
+  '/$locale/products/$slug': typeof LocaleProductsSlugRoute
   '/$locale/products/nfc-field-detector': typeof LocaleProductsNfcFieldDetectorRoute
   '/$locale/solutions/$slug': typeof LocaleSolutionsSlugRoute
+  '/$locale/blog/': typeof LocaleBlogIndexRoute
   '/$locale/products/': typeof LocaleProductsIndexRoute
   '/$locale/solutions/': typeof LocaleSolutionsIndexRoute
 }
@@ -312,8 +329,10 @@ export interface FileRouteTypes {
     | '/products/'
     | '/solutions/'
     | '/$locale/blog/$slug'
+    | '/$locale/products/$slug'
     | '/$locale/products/nfc-field-detector'
     | '/$locale/solutions/$slug'
+    | '/$locale/blog/'
     | '/$locale/products/'
     | '/$locale/solutions/'
   fileRoutesByTo: FileRoutesByTo
@@ -328,7 +347,6 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/$locale/about'
     | '/$locale/auth'
-    | '/$locale/blog'
     | '/$locale/contact'
     | '/$locale/downloads'
     | '/$locale/platform'
@@ -340,8 +358,10 @@ export interface FileRouteTypes {
     | '/products'
     | '/solutions'
     | '/$locale/blog/$slug'
+    | '/$locale/products/$slug'
     | '/$locale/products/nfc-field-detector'
     | '/$locale/solutions/$slug'
+    | '/$locale/blog'
     | '/$locale/products'
     | '/$locale/solutions'
   id:
@@ -372,8 +392,10 @@ export interface FileRouteTypes {
     | '/products/'
     | '/solutions/'
     | '/$locale/blog/$slug'
+    | '/$locale/products/$slug'
     | '/$locale/products/nfc-field-detector'
     | '/$locale/solutions/$slug'
+    | '/$locale/blog/'
     | '/$locale/products/'
     | '/$locale/solutions/'
   fileRoutesById: FileRoutesById
@@ -586,6 +608,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LocaleProductsIndexRouteImport
       parentRoute: typeof LocaleProductsRoute
     }
+    '/$locale/blog/': {
+      id: '/$locale/blog/'
+      path: '/'
+      fullPath: '/$locale/blog/'
+      preLoaderRoute: typeof LocaleBlogIndexRouteImport
+      parentRoute: typeof LocaleBlogRoute
+    }
     '/$locale/solutions/$slug': {
       id: '/$locale/solutions/$slug'
       path: '/$slug'
@@ -600,6 +629,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LocaleProductsNfcFieldDetectorRouteImport
       parentRoute: typeof LocaleProductsRoute
     }
+    '/$locale/products/$slug': {
+      id: '/$locale/products/$slug'
+      path: '/$slug'
+      fullPath: '/$locale/products/$slug'
+      preLoaderRoute: typeof LocaleProductsSlugRouteImport
+      parentRoute: typeof LocaleProductsRoute
+    }
     '/$locale/blog/$slug': {
       id: '/$locale/blog/$slug'
       path: '/$slug'
@@ -612,10 +648,12 @@ declare module '@tanstack/react-router' {
 
 interface LocaleBlogRouteChildren {
   LocaleBlogSlugRoute: typeof LocaleBlogSlugRoute
+  LocaleBlogIndexRoute: typeof LocaleBlogIndexRoute
 }
 
 const LocaleBlogRouteChildren: LocaleBlogRouteChildren = {
   LocaleBlogSlugRoute: LocaleBlogSlugRoute,
+  LocaleBlogIndexRoute: LocaleBlogIndexRoute,
 }
 
 const LocaleBlogRouteWithChildren = LocaleBlogRoute._addFileChildren(
@@ -623,11 +661,13 @@ const LocaleBlogRouteWithChildren = LocaleBlogRoute._addFileChildren(
 )
 
 interface LocaleProductsRouteChildren {
+  LocaleProductsSlugRoute: typeof LocaleProductsSlugRoute
   LocaleProductsNfcFieldDetectorRoute: typeof LocaleProductsNfcFieldDetectorRoute
   LocaleProductsIndexRoute: typeof LocaleProductsIndexRoute
 }
 
 const LocaleProductsRouteChildren: LocaleProductsRouteChildren = {
+  LocaleProductsSlugRoute: LocaleProductsSlugRoute,
   LocaleProductsNfcFieldDetectorRoute: LocaleProductsNfcFieldDetectorRoute,
   LocaleProductsIndexRoute: LocaleProductsIndexRoute,
 }

@@ -1,4 +1,5 @@
 import type { Locale } from "./locale";
+import { mergeDisplayConfig, type SiteDisplayConfig } from "./display-config";
 
 export type CmsPost = {
   id: string;
@@ -6,10 +7,39 @@ export type CmsPost = {
   slug: string;
   title: string;
   excerpt: string;
-  body: { heading?: string; text: string }[];
+  body: string | { heading?: string; text: string }[];
   category: string;
   readMinutes: number;
+  viewCount: number;
   publishedAt: string | null;
+  seoTitle: string | null;
+  seoDescription: string | null;
+  ogImage: string | null;
+};
+
+export type CmsProduct = {
+  id: string;
+  locale: Locale;
+  slug: string;
+  name: string;
+  description: string;
+  tagline: string | null;
+  intro: string | null;
+  category: "software" | "hardware";
+  icon: string;
+  heroImage: string | null;
+  images: { src: string; label: string }[];
+  features: { title: string; description: string; icon: string }[];
+  specs: { key: string; value: string }[];
+  useCases: string[];
+  highlights: string[];
+  body: string;
+  hasDetailPage: boolean;
+  ctaUrl: string | null;
+  ctaLabel: string | null;
+  secondaryCtaUrl: string | null;
+  secondaryCtaLabel: string | null;
+  sortOrder: number;
   seoTitle: string | null;
   seoDescription: string | null;
   ogImage: string | null;
@@ -48,8 +78,20 @@ export type CmsDownloadGroup = {
     fileUrl: string | null;
     fileSize: string | null;
     sortOrder: number;
+    downloadCount: number;
   }[];
 };
+
+export function getDownloadTrackUrl(itemId: string, locale: Locale): string {
+  const base = getCmsApiBase();
+  return `${base}/public/downloads/items/${encodeURIComponent(itemId)}/file?locale=${locale}`;
+}
+
+export function formatDownloadCount(count: number, locale: Locale): string {
+  const n = count >= 1000 ? `${(count / 1000).toFixed(1).replace(/\.0$/, "")}k` : String(count);
+  if (locale === "zh") return `${n} 次下载`;
+  return count === 1 ? `${n} download` : `${n} downloads`;
+}
 
 export function getCmsApiBase(): string {
   if (typeof process !== "undefined" && process.env.CMS_API_URL) {
@@ -76,6 +118,34 @@ async function cmsFetch<T>(path: string, init?: RequestInit): Promise<T> {
   return res.json() as Promise<T>;
 }
 
+export async function fetchDisplayConfig(locale: Locale): Promise<SiteDisplayConfig> {
+  const raw = await cmsFetch<unknown>(`/public/display-config?locale=${locale}`);
+  return mergeDisplayConfig(raw);
+}
+
+export async function fetchProducts(locale: Locale, category?: "software" | "hardware"): Promise<CmsProduct[]> {
+  const qs = category ? `&category=${category}` : "";
+  const rows = await cmsFetch<Array<Omit<CmsProduct, "images" | "features" | "specs" | "useCases" | "highlights"> & {
+    images: unknown;
+    features: unknown;
+    specs: unknown;
+    useCases: unknown;
+    highlights: unknown;
+  }>>(`/public/products?locale=${locale}${qs}`);
+  return rows.map(normalizeProduct);
+}
+
+export async function fetchProduct(locale: Locale, slug: string): Promise<CmsProduct | null> {
+  try {
+    const row = await cmsFetch<Parameters<typeof normalizeProduct>[0]>(
+      `/public/products/${encodeURIComponent(slug)}?locale=${locale}`,
+    );
+    return normalizeProduct(row);
+  } catch {
+    return null;
+  }
+}
+
 export async function fetchPosts(locale: Locale): Promise<CmsPost[]> {
   const rows = await cmsFetch<Array<Omit<CmsPost, "body"> & { body: unknown; category: string }>>(
     `/public/posts?locale=${locale}`,
@@ -92,6 +162,43 @@ export async function fetchPost(locale: Locale, slug: string): Promise<CmsPost |
   } catch {
     return null;
   }
+}
+
+const VIEWER_ID_KEY = "nfctec_viewer_id";
+
+export function getViewerId(): string {
+  if (typeof window === "undefined") return "";
+  let id = localStorage.getItem(VIEWER_ID_KEY);
+  if (!id) {
+    id = crypto.randomUUID();
+    localStorage.setItem(VIEWER_ID_KEY, id);
+  }
+  return id;
+}
+
+export async function recordPostView(
+  locale: Locale,
+  slug: string,
+): Promise<{ viewCount: number; recorded: boolean }> {
+  const base = getCmsApiBase();
+  const res = await fetch(
+    `${base}/public/posts/${encodeURIComponent(slug)}/view?locale=${locale}`,
+    {
+      method: "POST",
+      headers: { Accept: "application/json", "Content-Type": "application/json" },
+      body: JSON.stringify({ viewerId: getViewerId() }),
+    },
+  );
+  if (!res.ok) {
+    throw new Error(`CMS view ${slug} failed: ${res.status}`);
+  }
+  return res.json() as Promise<{ viewCount: number; recorded: boolean }>;
+}
+
+export function formatViewCount(count: number, locale: Locale): string {
+  const n = count >= 1000 ? `${(count / 1000).toFixed(1).replace(/\.0$/, "")}k` : String(count);
+  if (locale === "zh") return `${n} 次阅读`;
+  return count === 1 ? `${n} view` : `${n} views`;
 }
 
 export async function fetchSolutions(locale: Locale): Promise<CmsSolution[]> {
@@ -140,11 +247,91 @@ export async function fetchSitemapUrls(): Promise<{ loc: string; lastmod?: strin
   return data.urls;
 }
 
+function normalizeProduct(row: {
+  id: string;
+  locale: Locale;
+  slug: string;
+  name: string;
+  description: string;
+  tagline: string | null;
+  intro: string | null;
+  category: "software" | "hardware";
+  icon: string;
+  heroImage: string | null;
+  images: unknown;
+  features: unknown;
+  specs: unknown;
+  useCases: unknown;
+  highlights: unknown;
+  body: string;
+  hasDetailPage: boolean;
+  ctaUrl: string | null;
+  ctaLabel: string | null;
+  secondaryCtaUrl: string | null;
+  secondaryCtaLabel: string | null;
+  sortOrder: number;
+  seoTitle: string | null;
+  seoDescription: string | null;
+  ogImage: string | null;
+}): CmsProduct {
+  return {
+    ...row,
+    images: normalizeProductImages(row.images),
+    features: normalizeProductFeatures(row.features),
+    specs: normalizeProductSpecs(row.specs),
+    useCases: normalizeStrings(row.useCases),
+    highlights: normalizeStrings(row.highlights),
+    body: row.body ?? "",
+  };
+}
+
+function normalizeProductImages(v: unknown): CmsProduct["images"] {
+  if (!Array.isArray(v)) return [];
+  return v.map((item) => {
+    if (item && typeof item === "object") {
+      const o = item as Record<string, unknown>;
+      return { src: String(o.src ?? ""), label: String(o.label ?? "") };
+    }
+    return { src: "", label: "" };
+  });
+}
+
+function normalizeProductFeatures(v: unknown): CmsProduct["features"] {
+  if (!Array.isArray(v)) return [];
+  return v.map((item) => {
+    if (item && typeof item === "object") {
+      const o = item as Record<string, unknown>;
+      return {
+        title: String(o.title ?? ""),
+        description: String(o.description ?? ""),
+        icon: String(o.icon ?? "Zap"),
+      };
+    }
+    return { title: "", description: "", icon: "Zap" };
+  });
+}
+
+function normalizeProductSpecs(v: unknown): CmsProduct["specs"] {
+  if (!Array.isArray(v)) return [];
+  return v.map((item) => {
+    if (item && typeof item === "object") {
+      const o = item as Record<string, unknown>;
+      return { key: String(o.key ?? ""), value: String(o.value ?? "") };
+    }
+    return { key: "", value: "" };
+  });
+}
+
 function normalizePost(row: Omit<CmsPost, "body"> & { body: unknown }): CmsPost {
-  const body = Array.isArray(row.body)
-    ? (row.body as CmsPost["body"])
-    : [];
-  return { ...row, body };
+  let body: CmsPost["body"];
+  if (typeof row.body === "string") {
+    body = row.body;
+  } else if (Array.isArray(row.body)) {
+    body = row.body as { heading?: string; text: string }[];
+  } else {
+    body = "";
+  }
+  return { ...row, viewCount: row.viewCount ?? 0, body };
 }
 
 function normalizeSolution(row: {
@@ -251,5 +438,6 @@ export function toBlogPost(p: CmsPost) {
     excerpt: p.excerpt,
     body: p.body,
     readMinutes: p.readMinutes,
+    viewCount: p.viewCount,
   };
 }

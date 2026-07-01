@@ -1,5 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { fetchSolution } from "@/lib/cms";
+import { fetchDisplayConfig, fetchSolution, fetchSolutions } from "@/lib/cms";
+import { filterByDisplayConfig, isModuleEnabled } from "@/lib/display-config";
 import { absLocaleUrl, type Locale } from "@/lib/locale";
 import { useLocale } from "@/hooks/useLocale";
 import { SolutionDetailPage } from "@/components/SolutionDetailPage";
@@ -7,8 +8,14 @@ import { SolutionDetailPage } from "@/components/SolutionDetailPage";
 export const Route = createFileRoute("/$locale/solutions/$slug")({
   loader: async ({ params }) => {
     const locale = params.locale as Locale;
+    const config = await fetchDisplayConfig(locale);
+    if (!isModuleEnabled(config, "solutions")) throw notFound();
     const solution = await fetchSolution(locale, params.slug);
     if (!solution) throw notFound();
+    if (config.modules.solutions.mode === "selected") {
+      const visible = filterByDisplayConfig(await fetchSolutions(locale), config.modules.solutions);
+      if (!visible.some((s) => s.slug === params.slug)) throw notFound();
+    }
     return { solution };
   },
   head: ({ loaderData, params }) => {

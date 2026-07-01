@@ -12,35 +12,102 @@ export const t: Dict = {
   "nav.products.sw": { en: "Software", zh: "软件方案" },
   "nav.products.hw": { en: "Hardware", zh: "硬件设备" },
   "nav.solutions": { en: "Solutions", zh: "行业方案" },
-  "nav.platform": { en: "Platform", zh: "开发平台" },
+  "nav.platform": { en: "Cloud Services", zh: "云服务" },
   "nav.downloads": { en: "Downloads", zh: "下载中心" },
   "nav.blog": { en: "Blog", zh: "博客" },
   "nav.about": { en: "About", zh: "关于" },
   "nav.contact": { en: "Contact Us", zh: "联系我们" },
   "nav.home": { en: "Home", zh: "首页" },
+  "nav.getQuote": { en: "Get a Quote", zh: "获取报价" },
+
+  "home.protocols": { en: "50+ protocols supported", zh: "支持 50+ 协议标准" },
+  "home.stats.eyebrow": { en: "Trusted worldwide", zh: "全球客户信赖" },
+  "home.featured.products": { en: "Featured products", zh: "精选产品" },
+  "home.featured.products.sub": {
+    en: "SDKs, readers and modules ready to evaluate — samples available on request.",
+    zh: "SDK、读卡器与模组均可评估 — 样品可按需寄送。",
+  },
+  "home.featured.solutions": { en: "Industry playbooks", zh: "行业成熟方案" },
+  "home.featured.solutions.sub": {
+    en: "Proven architectures for payment, transit, identity and IoT — from pilot to production.",
+    zh: "覆盖支付、交通、身份与物联网的成熟架构 — 从试点到量产。",
+  },
+  "home.why.eyebrow": { en: "Why NFCTEC", zh: "为什么选择我们" },
+  "home.why.title": { en: "One partner for the entire NFC stack.", zh: "NFC 全栈，一个合作伙伴。" },
+  "home.why.1.title": { en: "Full-stack ownership", zh: "全栈自主" },
+  "home.why.1.desc": {
+    en: "Hardware, firmware, SDKs and cloud API — designed together, not stitched from vendors.",
+    zh: "硬件、固件、SDK 与云端 API 一体设计，而非拼凑多家供应商。",
+  },
+  "home.why.2.title": { en: "Security & compliance", zh: "安全与合规" },
+  "home.why.2.desc": {
+    en: "FIDO2, hardware wallets, secure elements and EMV / PCI certifications — security built in from chip to cloud.",
+    zh: "FIDO2、硬件钱包、安全元件及 EMV / PCI 认证 — 从芯片到云端内置安全能力。",
+  },
+  "home.why.3.title": { en: "Engineer to engineer", zh: "工程师直连" },
+  "home.why.3.desc": {
+    en: "Talk directly to the team that builds the readers and writes the SDK — no sales hand-offs.",
+    zh: "直接与开发读卡器、编写 SDK 的工程师沟通 — 无需层层转接。",
+  },
+  "home.process.eyebrow": { en: "How we work", zh: "合作流程" },
+  "home.process.title": { en: "From first call to production.", zh: "从首次沟通到量产交付。" },
+  "home.process.1.title": { en: "Discovery", zh: "需求梳理" },
+  "home.process.1.desc": {
+    en: "Protocol, chip and compliance requirements mapped in a technical workshop.",
+    zh: "通过技术 workshop 明确协议、芯片与合规要求。",
+  },
+  "home.process.2.title": { en: "Prototype", zh: "原型验证" },
+  "home.process.2.desc": {
+    en: "Samples, SDK integration and lab validation within weeks — not months.",
+    zh: "数周内完成样品、SDK 集成与实验室验证 — 而非数月。",
+  },
+  "home.process.3.title": { en: "Production", zh: "量产交付" },
+  "home.process.3.desc": {
+    en: "Certification support, manufacturing and ongoing firmware updates.",
+    zh: "认证辅导、量产支持及持续固件更新。",
+  },
+  "home.viewAll.products": { en: "View all products", zh: "查看全部产品" },
+  "home.viewAll.solutions": { en: "View all industries", zh: "查看全部行业" },
+  "home.viewAll.blog": { en: "Read more insights", zh: "阅读更多文章" },
+  "home.insights": { en: "Latest insights", zh: "最新洞察" },
+  "home.insights.sub": {
+    en: "Engineering notes, protocol explainers and customer stories.",
+    zh: "工程笔记、协议解读与客户案例。",
+  },
+  "ind.sub": {
+    en: "Tap an industry to explore capabilities, protocols and deliverables.",
+    zh: "点击行业，查看能力清单、协议支持与交付物。",
+  },
+  "ind.capabilities": { en: "Key capabilities", zh: "核心能力" },
+  "ind.learnMore": { en: "Learn more", zh: "了解更多" },
+  "about.certs": { en: "Certifications & partnerships", zh: "认证与合作伙伴" },
 
   // Brand
   "brand.tagline": {
-    en: "NFC Hardware · Issuance & Verification API",
-    zh: "NFC 硬件 · 发卡与验证 API",
+    en: "Software · Hardware · Cloud — built with your team",
+    zh: "软件 · 硬件 · 云服务 — 与您的团队共建",
   },
 
   // Hero
-  "hero.eyebrow": { en: "Anything NFC — Hardware · Software · API", zh: "NFC 全栈 — 硬件 · 软件 · API" },
+  "hero.eyebrow": { en: "Product development · Firmware · Cloud", zh: "产品开发 · 固件 · 云服务" },
   "hero.title": {
-    en: "Everything NFC,\nfrom one partner.",
-    zh: "一切与 NFC 相关，\n一个合作伙伴搞定。",
+    en: "We help you ship\nNFC-enabled products.",
+    zh: "助您交付\nNFC 智能产品。",
   },
   "hero.sub": {
-    en: "Mobile wallets, ePassports, bank cards, transit, access, anti-counterfeit and IoT — every NFC chip, reader and protocol. Hardware we build, software we ship, and a cloud API to issue or verify any tag.",
-    zh: "手机钱包、电子护照、银行卡、公交、门禁、防伪与物联网 — 覆盖所有 NFC 芯片、读卡器与协议。硬件自主研发，软件持续交付，云端 API 一键发卡与验证。",
+    en: "Co-develop software, design hardware and connect cloud backends — from first prototype to certified mass production. You bring the product vision; we bring the NFC stack.",
+    zh: "联合开发软件、设计硬件、对接云端服务 — 从首版原型到认证量产。您负责产品方向，我们负责 NFC 全栈能力。",
   },
   "hero.cta1": { en: "Explore Products", zh: "查看产品" },
   "hero.cta2": { en: "Talk to Engineer", zh: "联系工程师" },
+  "hero.ill.label": { en: "NFC Product Stack", zh: "NFC 产品全栈" },
+  "hero.ill.hw": { en: "Hardware", zh: "硬件" },
+  "hero.ill.sw": { en: "Software", zh: "软件" },
+  "hero.ill.cloud": { en: "Cloud API", zh: "云端 API" },
 
   // Business pillars
   "pillar.eyebrow": { en: "What We Do", zh: "我们做什么" },
-  "pillar.title": { en: "If it's NFC, we do it.", zh: "只要是 NFC，我们都做。" },
+  "pillar.title": { en: "How we help you build", zh: "我们如何与您共建" },
   "pillar.sw.title": { en: "Software", zh: "软件" },
   "pillar.sw.desc": {
     en: "Mobile wallet SDKs, issuance & reading software for ePassports, bank cards (EMV), NTAG 424 DNA, DESFire, MIFARE, FeliCa, JavaCard and more.",
@@ -51,38 +118,43 @@ export const t: Dict = {
     en: "USB / Serial / USB CCID readers, embedded modules, NFC signal detection cards, antennas and blank cards.",
     zh: "USB / 串口 / USB CCID 读卡器、嵌入式模组、NFC 信号检测卡、天线与空白卡。",
   },
-  "pillar.sol.title": { en: "Cloud API", zh: "云端 API" },
+  "pillar.sol.title": { en: "Cloud Services", zh: "云服务" },
   "pillar.sol.desc": {
-    en: "Issue or verify any supported NFC chip with one REST call — keys, HSM and crypto fully managed.",
-    zh: "一个 REST 接口即可发行或验证任意 NFC 芯片 — 密钥、HSM 与加密全程托管。",
+    en: "Issuance & verification APIs, HSM-backed keys and SaaS consoles — connect your hardware to the cloud without crypto complexity.",
+    zh: "发卡与验证 API、HSM 托管密钥与 SaaS 控制台 — 无需深入密码学，即可让硬件对接云端。",
   },
-  "pillar.dev.title": { en: "Solutions & Consulting", zh: "方案与咨询" },
+  "pillar.dev.title": { en: "Industry Solutions", zh: "行业方案" },
   "pillar.dev.desc": {
-    en: "From ePassport readers to brand protection, payment to access — turn-key designs across every NFC scenario.",
-    zh: "从电子护照阅读到品牌防伪，从支付到门禁 — 覆盖所有 NFC 场景的交钥匙方案。",
+    en: "Turn-key architectures for payment, transit, identity, access and IoT — tailored to your product requirements.",
+    zh: "面向支付、交通、身份、门禁与物联网的交钥匙架构 — 按您的产品需求定制。",
   },
 
-  // Protocols
-  "proto.eyebrow": { en: "Protocol Coverage", zh: "协议覆盖" },
-  "proto.title": { en: "50+ protocols. One stack.", zh: "50+ 协议，一套技术栈。" },
+  // Protocols, chips & security
+  "proto.eyebrow": { en: "Technology Coverage", zh: "技术覆盖" },
+  "proto.title": { en: "50+ protocols, chips & security.\nOne stack.", zh: "50+ 协议、芯片与安全能力\n一套技术栈。" },
   "proto.sub": {
-    en: "From contactless payment to government ID — we speak every NFC dialect.",
-    zh: "从非接支付到政务身份证 — 我们精通每一种 NFC 协议。",
+    en: "Payment protocols, Apple VAS / ECP, NCI controller chips, secure elements, FIDO / Passkeys, crypto wallets and industry certifications — engineered as one integrated stack.",
+    zh: "支付协议、Apple VAS / ECP、NCI 控制器芯片、安全元件、FIDO / Passkeys、加密货币钱包与行业认证 — 以一套集成技术栈交付。",
   },
-  "proto.g1": { en: "Payment", zh: "支付" },
-  "proto.g2": { en: "Contactless", zh: "非接通信" },
-  "proto.g3": { en: "Smart Card", zh: "智能卡" },
+  "proto.g1": { en: "Payment & Wallet", zh: "支付与钱包" },
+  "proto.g2": { en: "Contactless RF", zh: "非接射频" },
+  "proto.g3": { en: "Smart Card & ID", zh: "智能卡与身份" },
   "proto.g4": { en: "NFC Forum", zh: "NFC 论坛" },
-  "proto.g5": { en: "Crypto & Security", zh: "加密与安全" },
+  "proto.g5": { en: "Security & FIDO", zh: "安全与 FIDO" },
+  "proto.g6": { en: "Crypto & Wallet", zh: "加密货币与钱包" },
+  "proto.g7": { en: "NFC Tags & Chips", zh: "NFC 标签与芯片" },
+  "proto.g8": { en: "NCI Controllers & SE", zh: "NCI 控制器与安全芯片" },
+  "proto.g9": { en: "Certifications", zh: "认证与合规" },
 
   // Stats
   "stat.years": { en: "Years of expertise", zh: "年技术沉淀" },
   "stat.protocols": { en: "Protocols supported", zh: "项协议支持" },
   "stat.projects": { en: "Projects delivered", zh: "个项目交付" },
+  "stat.countries": { en: "Countries served", zh: "个国家与地区" },
 
   // Industries
   "ind.eyebrow": { en: "Industry Solutions", zh: "行业方案" },
-  "ind.title": { en: "11 industries.\nProven NFC playbooks.", zh: "11 大行业，\n成熟 NFC 方案。" },
+  "ind.title": { en: "Vertical expertise\nfor your product roadmap.", zh: "垂直行业经验，\n支撑您的产品路线。" },
   "ind.banking.t": { en: "Banking & Payment", zh: "银行与支付" },
   "ind.banking.d": {
     en: "End-to-end payment engineering — from card applet to acquirer host. We deliver EMV-certified applets, PCI-compliant issuance, tokenization for mobile wallets and the ISO 8583 host systems that move money at scale.",
@@ -177,9 +249,10 @@ export const t: Dict = {
   // Products page
   "ppage.title": { en: "Products", zh: "产品矩阵" },
   "ppage.sub": {
-    en: "Software libraries and hardware devices powering the full NFC & Smart Card lifecycle.",
-    zh: "覆盖 NFC 与智能卡全生命周期的软件库与硬件设备。",
+    en: "Reference designs, SDKs and devices — ready to integrate into your product, with engineering support from our team.",
+    zh: "参考设计、SDK 与设备 — 可直接集成到您的产品中，并由我们的工程师提供技术支持。",
   },
+  "ppage.empty": { en: "No products in this category yet.", zh: "该分类暂无产品。" },
   "ppage.sw": { en: "Software", zh: "软件方案" },
   "ppage.hw": { en: "Hardware", zh: "硬件设备" },
 
@@ -223,11 +296,52 @@ export const t: Dict = {
   "api.issue": { en: "Issue any chip", zh: "发行任意芯片" },
   "api.verify": { en: "Verify any scan", zh: "验证任意扫描" },
 
-  // Platform page
-  "plat.title": { en: "Dev Platform", zh: "开发者平台" },
+  // Platform / Cloud page
+  "cloud.eyebrow": { en: "Cloud Services", zh: "云服务" },
+  "cloud.title": { en: "Issue & verify NFC credentials\nwithout crypto complexity.", zh: "发卡与验证 NFC 凭证\n无需处理复杂密码学。" },
+  "cloud.sub": {
+    en: "Cloud personalization and verification for NTAG424 DNA and MIFARE DESFire. Simple REST API — we handle keys, HSM and secure messaging.",
+    zh: "面向 NTAG424 DNA 与 MIFARE DESFire 的云端个性化与验证。简洁 REST API — 密钥、HSM 与安全报文由我们处理。",
+  },
+  "cloud.steps.title": { en: "Three steps to go live", zh: "三步即可上线" },
+  "cloud.security.title": { en: "Enterprise-grade security", zh: "企业级安全" },
+  "cloud.cta.title": { en: "Ready to connect your product to the cloud?", zh: "准备好让产品对接云端了吗？" },
+  "cloud.cta.sub": {
+    en: "Sign up for sandbox access or talk to our engineers about production deployment.",
+    zh: "注册获取沙箱访问权限，或与我们的工程师讨论量产部署。",
+  },
+  "cloud.getStarted": { en: "Get Started Free", zh: "免费开始" },
+  "cloud.s1.title": { en: "Connect any hardware", zh: "连接任意硬件" },
+  "cloud.s1.desc": {
+    en: "Any NFC reader, terminal, phone or embedded device — if it speaks APDU, it connects to our API.",
+    zh: "任意 NFC 读卡器、终端、手机或嵌入式设备 — 只要能收发 APDU，即可对接我们的 API。",
+  },
+  "cloud.s2.title": { en: "Call a simple API", zh: "调用简单 API" },
+  "cloud.s2.desc": {
+    en: "Issue and verify with REST endpoints — no key files, no APDU scripts, no crypto expertise required.",
+    zh: "通过 REST 接口发卡与验证 — 无需密钥文件、APDU 脚本或密码学背景。",
+  },
+  "cloud.s3.title": { en: "We handle the crypto", zh: "加密由我们处理" },
+  "cloud.s3.desc": {
+    en: "Key derivation, authentication and secure messaging run in our HSM. Your product relays bytes.",
+    zh: "密钥派生、认证与安全报文在 HSM 中完成，您的产品只负责传输数据。",
+  },
+  "cloud.t1.title": { en: "HSM-backed keys", zh: "HSM 托管密钥" },
+  "cloud.t1.desc": {
+    en: "Card keys never leave hardware security modules — not exposed in plaintext.",
+    zh: "卡密钥存放于硬件安全模块，不以明文暴露。",
+  },
+  "cloud.t2.title": { en: "Encrypted in transit", zh: "传输全程加密" },
+  "cloud.t2.desc": { en: "All device ↔ cloud traffic is encrypted end-to-end.", zh: "设备与云端之间的流量全程加密。" },
+  "cloud.t3.title": { en: "Full audit trail", zh: "完整审计日志" },
+  "cloud.t3.desc": {
+    en: "Every issuance and verification logged with exportable audit records.",
+    zh: "每次发卡与验证均有完整、可导出的审计记录。",
+  },
+  "plat.title": { en: "Developer Tools", zh: "开发者工具" },
   "plat.sub": {
-    en: "Free tools, SDKs and sandbox APIs to accelerate every NFC project.",
-    zh: "免费工具、SDK 与沙箱 API，加速每一个 NFC 项目。",
+    en: "Free browser tools to debug EMV, APDU, NDEF and MIFARE — or browse SDKs in the download center.",
+    zh: "免费浏览器工具，调试 EMV、APDU、NDEF 与 MIFARE — 或在下载中心获取 SDK。",
   },
   "plat.try": { en: "Open in browser", zh: "在浏览器中打开" },
 
@@ -240,6 +354,14 @@ export const t: Dict = {
   "dl.cat.sample": { en: "Sample Code", zh: "示例代码" },
   "dl.cat.cert": { en: "Certifications", zh: "认证" },
   "dl.download": { en: "Download", zh: "下载" },
+  "dl.empty": {
+    en: "No downloads published yet. Contact us for SDK access or check back soon.",
+    zh: "暂无已发布的下载资源。如需 SDK 请联系我们的工程师，或稍后再来查看。",
+  },
+  "dl.unavailable": { en: "Coming soon", zh: "即将提供" },
+  "dl.files": { en: "files", zh: "个文件" },
+  "dl.groupEmpty": { en: "No files in this category yet.", zh: "该分类下暂无文件。" },
+  "dl.contact": { en: "Request access", zh: "申请获取" },
 
   // Blog page
   "blog.title": { en: "Blog & Insights", zh: "博客与洞察" },
@@ -250,11 +372,14 @@ export const t: Dict = {
   "about.eyebrow": { en: "About NFCTEC", zh: "关于 NFCTEC" },
   "about.title": { en: "15 years\nat the edge of NFC.", zh: "15 年深耕\n站在 NFC 前沿。" },
   "about.intro": {
-    en: "Founded in 2010, NFCTEC is a full-stack NFC and Smart Card company. Our engineers build silicon-to-cloud solutions for banks, governments, transit operators and global brands — across software libraries, certified hardware, JavaCard applets and a thriving developer platform.",
-    zh: "NFCTEC 成立于 2010 年，是一家全栈式 NFC 与智能卡公司。我们为银行、政府、交通运营商与全球品牌提供从芯片到云端的完整方案 — 包括软件库、认证硬件、JavaCard 小程序与开发者平台。",
+    en: "Founded in 2010, NFCTEC partners with product teams worldwide — co-developing NFC software, designing hardware and building cloud backends, from early prototypes to certified mass production.",
+    zh: "NFCTEC 成立于 2010 年，与全球产品团队深度合作 — 联合开发 NFC 软件、设计硬件、搭建云服务，从早期原型到认证量产。",
   },
   "about.mission.t": { en: "Mission", zh: "使命" },
-  "about.mission.d": { en: "Give every object a trusted digital identity.", zh: "让每一件物品都拥有可信的数字身份。" },
+  "about.mission.d": {
+    en: "Help product teams ship secure, connected NFC experiences — faster, with less integration risk.",
+    zh: "帮助产品团队更快、更低风险地交付安全、互联的 NFC 体验。",
+  },
   "about.values.t": { en: "Values", zh: "价值观" },
   "about.values.d": { en: "Open standards · Engineering rigor · Long-term partnerships.", zh: "开放标准 · 工程严谨 · 长期合作。" },
   "about.stats.founded": { en: "Founded 2010 · Shenzhen", zh: "2010 年成立于深圳" },
@@ -264,8 +389,22 @@ export const t: Dict = {
 
   // Contact
   "contact.eyebrow": { en: "Contact", zh: "联系我们" },
-  "contact.title": { en: "Let's build your\nNFC project together.", zh: "一起打造\n您的 NFC 项目。" },
-  "contact.sub": { en: "Our solution engineers will respond within one business day.", zh: "我们的方案工程师将在 1 个工作日内回复。" },
+  "contact.title": { en: "Tell us what\nyou're building.", zh: "告诉我们\n您要做什么产品。" },
+  "contact.sub": {
+    en: "Software, hardware or cloud — our engineers respond within one business day with a practical next step.",
+    zh: "软件、硬件或云服务 — 我们的工程师将在 1 个工作日内回复，并给出可行的下一步建议。",
+  },
+  "form.projectType": { en: "Project type", zh: "项目类型" },
+  "form.type.sw": { en: "Software development", zh: "软件开发" },
+  "form.type.hw": { en: "Hardware / product design", zh: "硬件 / 产品设计" },
+  "form.type.cloud": { en: "Cloud / API integration", zh: "云服务 / API 集成" },
+  "form.type.full": { en: "Full-stack (SW + HW + Cloud)", zh: "全栈（软+硬+云）" },
+  "form.error": {
+    en: "Failed to send. Please email us directly.",
+    zh: "发送失败，请直接发送邮件联系我们。",
+  },
+  "product.features.title": { en: "Key features", zh: "核心特性" },
+  "product.back": { en: "Back to Products", zh: "返回产品列表" },
   "form.name": { en: "Name", zh: "姓名" },
   "form.company": { en: "Company", zh: "公司" },
   "form.email": { en: "Email", zh: "邮箱" },

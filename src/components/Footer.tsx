@@ -12,22 +12,27 @@ export function Footer() {
   const { tr } = useI18n();
   const locale = useLocale();
 
-  const cols: { title: string; links: { to: string; label: string }[] }[] = [
+  type FooterLink =
+    | { to: "/$locale/products"; label: string; search: { tab: "sw" | "hw" } }
+    | { to: "/$locale/solutions/$slug"; label: string; slug: string }
+    | { to: string; label: string };
+
+  const cols: { title: string; links: FooterLink[] }[] = [
     {
       title: tr("foot.product"),
       links: [
-        { to: "/$locale/products", label: tr("nav.products.sw") },
-        { to: "/$locale/products", label: tr("nav.products.hw") },
+        { to: "/$locale/products", label: tr("nav.products.sw"), search: { tab: "sw" } },
+        { to: "/$locale/products", label: tr("nav.products.hw"), search: { tab: "hw" } },
         { to: "/$locale/platform", label: tr("nav.platform") },
       ],
     },
     {
       title: tr("foot.solution"),
       links: [
-        { to: "/$locale/solutions", label: tr("ind.banking.t") },
-        { to: "/$locale/solutions", label: tr("ind.transit.t") },
-        { to: "/$locale/solutions", label: tr("ind.gov.t") },
-        { to: "/$locale/solutions", label: tr("ind.access.t") },
+        { to: "/$locale/solutions/$slug", label: tr("ind.banking.t"), slug: "banking" },
+        { to: "/$locale/solutions/$slug", label: tr("ind.transit.t"), slug: "transit" },
+        { to: "/$locale/solutions/$slug", label: tr("ind.gov.t"), slug: "gov" },
+        { to: "/$locale/solutions/$slug", label: tr("ind.access.t"), slug: "access" },
       ],
     },
     {
@@ -79,7 +84,28 @@ export function Footer() {
               <ul className="space-y-2.5 text-sm text-muted-foreground">
                 {c.links.map((l) => (
                   <li key={l.label}>
-                    <Link to={l.to} params={{ locale }} className="hover:text-primary transition-colors">{l.label}</Link>
+                    {"slug" in l ? (
+                      <Link
+                        to={l.to}
+                        params={{ locale, slug: l.slug }}
+                        className="hover:text-primary transition-colors"
+                      >
+                        {l.label}
+                      </Link>
+                    ) : "search" in l ? (
+                      <Link
+                        to={l.to}
+                        params={{ locale }}
+                        search={l.search}
+                        className="hover:text-primary transition-colors"
+                      >
+                        {l.label}
+                      </Link>
+                    ) : (
+                      <Link to={l.to} params={{ locale }} className="hover:text-primary transition-colors">
+                        {l.label}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>

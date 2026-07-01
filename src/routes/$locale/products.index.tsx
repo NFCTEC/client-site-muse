@@ -1,114 +1,135 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
-import {
-  ArrowRight, Code2, Cpu, CreditCard, Smartphone, Server, Key,
-  Usb, Boxes, Tablet, Terminal, Layers, Radio, Wallet,
-} from "lucide-react";
+import { fetchDisplayConfig, fetchProducts } from "@/lib/cms";
+import { filterByDisplayConfig } from "@/lib/display-config";
+import type { Locale } from "@/lib/locale";
+import * as LucideIcons from "lucide-react";
+import { ArrowRight, type LucideIcon } from "lucide-react";
+import { PageHero } from "@/components/PageHero";
+import { PageSection } from "@/components/PageSection";
+import { SectionHeader } from "@/components/SectionHeader";
+import { CtaBand } from "@/components/CtaBand";
 
 export const Route = createFileRoute("/$locale/products/")({
+  loader: async ({ params }) => {
+    const locale = params.locale as Locale;
+    const config = await fetchDisplayConfig(locale);
+    const moduleConfig = config.modules.products;
+    if (!moduleConfig.enabled) throw notFound();
+
+    const [software, hardware] = await Promise.all([
+      fetchProducts(locale, "software"),
+      fetchProducts(locale, "hardware"),
+    ]);
+
+    return {
+      software: filterByDisplayConfig(software, moduleConfig),
+      hardware: filterByDisplayConfig(hardware, moduleConfig),
+      showPlatform: config.modules.platform.enabled,
+    };
+  },
   component: Products,
 });
 
-type Item = {
-  icon: typeof Code2;
-  k: string;
-  to?: string;
-};
+function getIcon(name: string): LucideIcon {
+  const icons = LucideIcons as unknown as Record<string, LucideIcon>;
+  return icons[name] ?? LucideIcons.Boxes;
+}
 
 function Products() {
   const { tr } = useI18n();
   const { locale } = Route.useParams();
-  const [tab, setTab] = useState<"sw" | "hw">("sw");
-
-  const software: Item[] = [
-    { icon: Code2, k: "sw.1" },
-    { icon: CreditCard, k: "sw.2" },
-    { icon: Layers, k: "sw.3" },
-    { icon: Smartphone, k: "sw.4" },
-    { icon: Key, k: "sw.5" },
-    { icon: Server, k: "sw.6" },
-    { icon: Wallet, k: "sw.7" },
-  ];
-
-  const hardware: Item[] = [
-    { icon: Usb, k: "hw.1" },
-    { icon: Cpu, k: "hw.2" },
-    { icon: Tablet, k: "hw.3" },
-    { icon: Terminal, k: "hw.4", to: "/$locale/products/nfc-field-detector" },
-    { icon: Boxes, k: "hw.5" },
-    { icon: Radio, k: "hw.6" },
-  ];
-
+  const search = Route.useSearch() as { tab?: string };
+  const navigate = Route.useNavigate();
+  const { software, hardware, showPlatform } = Route.useLoaderData();
+  const tab: "sw" | "hw" = search.tab === "hw" ? "hw" : "sw";
   const items = tab === "sw" ? software : hardware;
+
+  const setTab = (k: "sw" | "hw") => {
+    navigate({ search: (prev) => ({ ...prev, tab: k }), replace: true });
+  };
+
+  const tabSwitcher = (
+    <div className="inline-flex rounded-full border border-border bg-surface/60 p-1">
+      {(["sw", "hw"] as const).map((k) => (
+        <button
+          key={k}
+          onClick={() => setTab(k)}
+          className={`px-6 py-2 text-sm font-medium rounded-full transition-colors ${
+            tab === k ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"
+          }`}
+        >
+          {tr(k === "sw" ? "ppage.sw" : "ppage.hw")}
+        </button>
+      ))}
+    </div>
+  );
 
   return (
     <>
-      <section className="relative pt-24 lg:pt-32 pb-16">
-        <div className="absolute inset-0 bg-hero-glow pointer-events-none" />
-        <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
-          <h1 className="font-display text-5xl lg:text-7xl tracking-tight max-w-4xl text-balance">
-            {tr("ppage.title")}
-          </h1>
-          <p className="mt-6 text-lg text-muted-foreground max-w-2xl">{tr("ppage.sub")}</p>
+      <PageHero
+        eyebrow={tr("nav.products")}
+        title={tr("ppage.title")}
+        subtitle={tr("ppage.sub")}
+        actions={tabSwitcher}
+      />
 
-          <div className="mt-10 inline-flex rounded-full border border-border bg-surface/60 p-1">
-            {(["sw", "hw"] as const).map((k) => (
-              <button
-                key={k}
-                onClick={() => setTab(k)}
-                className={`px-6 py-2 text-sm font-medium rounded-full transition-all ${
-                  tab === k
-                    ? "bg-primary text-primary-foreground shadow-glow"
-                    : "text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                {tr(k === "sw" ? "ppage.sw" : "ppage.hw")}
-              </button>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="pb-24 lg:pb-32">
-        <div className="mx-auto max-w-7xl px-6 lg:px-10">
+      <PageSection spacing="main">
+        {items.length === 0 ? (
+          <p className="text-muted-foreground">{tr("ppage.empty")}</p>
+        ) : (
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {items.map((p, i) => {
-              const Icon = p.icon;
-              const ctaTo = p.to ?? "/$locale/contact";
-              const ctaLabel = p.to ? tr("hero.cta1") : tr("hero.cta2");
+            {items.map((p) => {
+              const Icon = getIcon(p.icon);
+              const ctaTo = p.hasDetailPage
+                ? { to: "/$locale/products/$slug" as const, params: { locale, slug: p.slug } }
+                : { to: "/$locale/contact" as const, params: { locale } };
               return (
                 <div
-                  key={p.k}
-                  className="card-glow group relative rounded-2xl border border-border bg-card-gradient p-7 overflow-hidden"
+                  key={p.id}
+                  className="card-glow card-equal group rounded-2xl border border-border bg-card-gradient p-7"
                 >
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/30 grid place-items-center">
-                      <Icon size={20} className="text-primary" />
-                    </div>
-                    <span className="text-[10px] font-mono text-muted-foreground">
-                      0{i + 1}
-                    </span>
+                  <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/30 grid place-items-center mb-6">
+                    <Icon size={20} className="text-primary" />
                   </div>
-                  <h3 className="font-display text-lg font-semibold mb-2">
-                    {tr(`${p.k}.t` as never)}
-                  </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                    {tr(`${p.k}.d` as never)}
-                  </p>
+                  <h3 className="font-display text-lg font-semibold mb-2">{p.name}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed flex-1 mb-6">{p.description}</p>
                   <Link
-                    to={ctaTo}
-                    params={{ locale }}
-                    className="text-xs font-mono text-primary inline-flex items-center gap-1 group-hover:gap-2 transition-all"
+                    {...ctaTo}
+                    className="text-sm text-primary inline-flex items-center gap-1 group-hover:gap-2 transition-all"
                   >
-                    {ctaLabel} <ArrowRight size={12} />
+                    {p.hasDetailPage ? tr("ind.learnMore") : tr("hero.cta2")} <ArrowRight size={14} />
                   </Link>
                 </div>
               );
             })}
           </div>
-        </div>
-      </section>
+        )}
+      </PageSection>
+
+      {showPlatform && (
+        <PageSection tone="muted" spacing="main">
+          <SectionHeader eyebrow={tr("api.eyebrow")} title={tr("api.title")} sub={tr("api.sub")} />
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link
+              to="/$locale/platform"
+              params={{ locale }}
+              className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3 text-sm font-semibold hover:opacity-90 transition-opacity"
+            >
+              {tr("cloud.getStarted")} <ArrowRight size={16} />
+            </Link>
+            <Link
+              to="/$locale/contact"
+              params={{ locale }}
+              className="inline-flex items-center gap-2 rounded-full border border-border-strong bg-background/60 px-6 py-3 text-sm font-medium hover:border-primary hover:text-primary transition-colors"
+            >
+              {tr("hero.cta2")}
+            </Link>
+          </div>
+        </PageSection>
+      )}
+
+      <CtaBand />
     </>
   );
 }

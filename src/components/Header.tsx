@@ -1,44 +1,52 @@
-import { Link, useRouterState } from "@tanstack/react-router";
+import { Link, useMatches, useRouterState } from "@tanstack/react-router";
 import { useState } from "react";
 import { useI18n } from "@/lib/i18n";
 import { useTheme } from "@/lib/theme";
 import { useLocale } from "@/hooks/useLocale";
 import { localePath } from "@/lib/locale";
+import { getLocaleLoaderData, isModuleInNav, type ModuleKey } from "@/lib/display-config";
 import { Menu, X, ChevronDown, Sun, Moon } from "lucide-react";
 import { Logo } from "@/components/Logo";
 
-const industryLinks = [
-  { key: "ind.banking", slug: "banking" },
-  { key: "ind.transit", slug: "transit" },
-  { key: "ind.gov", slug: "gov" },
-  { key: "ind.access", slug: "access" },
-  { key: "ind.health", slug: "health" },
-  { key: "ind.iot", slug: "iot" },
-  { key: "ind.brand", slug: "brand" },
-  { key: "ind.retail", slug: "retail" },
-  { key: "ind.auto", slug: "auto" },
-  { key: "ind.wallet", slug: "wallet" },
-  { key: "ind.security", slug: "security" },
-] as const;
+const PATH_MODULE: Record<string, ModuleKey | undefined> = {
+  "/products": "products",
+  "/solutions": "solutions",
+  "/platform": "platform",
+  "/downloads": "downloads",
+  "/blog": "blog",
+  "/contact": "contact",
+};
 
 export function Header() {
   const { tr, lang, setLang } = useI18n();
   const { theme, toggle: toggleTheme } = useTheme();
   const locale = useLocale();
+  const matches = useMatches();
+  const localeData = getLocaleLoaderData(matches);
+  const displayConfig = localeData?.displayConfig;
+  const navSolutions = localeData?.navSolutions ?? [];
   const [open, setOpen] = useState(false);
   const [solOpen, setSolOpen] = useState(false);
   const [prodOpen, setProdOpen] = useState(false);
   const path = useRouterState({ select: (s) => s.location.pathname });
 
-  const navItems: { path: string; label: string; key: "plain" | "products" | "solutions" }[] = [
+  type NavItem = { path: string; label: string; key: "plain" | "products" | "solutions" };
+
+  const navItems = ([
     { path: "/", label: tr("nav.home"), key: "plain" },
     { path: "/products", label: tr("nav.products"), key: "products" },
     { path: "/solutions", label: tr("nav.solutions"), key: "solutions" },
     { path: "/platform", label: tr("nav.platform"), key: "plain" },
     { path: "/downloads", label: tr("nav.downloads"), key: "plain" },
     { path: "/blog", label: tr("nav.blog"), key: "plain" },
+    { path: "/about", label: tr("nav.about"), key: "plain" },
     { path: "/contact", label: tr("nav.contact"), key: "plain" },
-  ];
+  ] as NavItem[]).filter((item) => {
+    if (item.path === "/") return true;
+    const mod = PATH_MODULE[item.path];
+    if (!mod || !displayConfig) return true;
+    return isModuleInNav(displayConfig, mod);
+  });
 
   const isActive = (p: string) => {
     const full = localePath(locale, p);
@@ -67,7 +75,7 @@ export function Header() {
                     to="/$locale/products"
                     params={{ locale }}
                     className={`inline-flex items-center gap-1 text-sm transition-colors ${
-                      active ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+                      active ? "text-foreground font-medium" : "text-muted-foreground hover:text-foreground"
                     }`}
                   >
                     {l.label} <ChevronDown size={14} />
@@ -78,6 +86,7 @@ export function Header() {
                         <Link
                           to="/$locale/products"
                           params={{ locale }}
+                          search={{ tab: "sw" }}
                           className="block px-3 py-2 text-sm rounded-lg hover:bg-surface-elevated hover:text-primary"
                         >
                           {tr("nav.products.sw")}
@@ -85,6 +94,7 @@ export function Header() {
                         <Link
                           to="/$locale/products"
                           params={{ locale }}
+                          search={{ tab: "hw" }}
                           className="block px-3 py-2 text-sm rounded-lg hover:bg-surface-elevated hover:text-primary"
                         >
                           {tr("nav.products.hw")}
@@ -107,7 +117,7 @@ export function Header() {
                     to="/$locale/solutions"
                     params={{ locale }}
                     className={`inline-flex items-center gap-1 text-sm transition-colors ${
-                      active ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+                      active ? "text-foreground font-medium" : "text-muted-foreground hover:text-foreground"
                     }`}
                   >
                     {l.label} <ChevronDown size={14} />
@@ -115,15 +125,15 @@ export function Header() {
                   {solOpen && (
                     <div className="absolute top-full left-1/2 -translate-x-1/2 pt-3">
                       <div className="rounded-xl border border-border bg-popover shadow-float p-3 grid grid-cols-2 gap-1 min-w-[420px]">
-                        {industryLinks.map((item) => (
+                        {navSolutions.map((item) => (
                           <Link
-                            key={item.key}
+                            key={item.slug}
                             to="/$locale/solutions/$slug"
                             params={{ locale, slug: item.slug }}
                             onClick={() => setSolOpen(false)}
                             className="block px-3 py-2 text-sm rounded-lg hover:bg-surface-elevated hover:text-primary"
                           >
-                            {tr(`${item.key}.t` as never)}
+                            {item.name}
                           </Link>
                         ))}
                       </div>
@@ -144,7 +154,7 @@ export function Header() {
                 key={l.path}
                 {...routeTo}
                 className={`text-sm transition-colors ${
-                  active ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+                  active ? "text-foreground font-medium" : "text-muted-foreground hover:text-foreground"
                 }`}
               >
                 {l.label}
@@ -168,18 +178,11 @@ export function Header() {
             {lang === "zh" ? "EN" : "中"}
           </button>
           <Link
-            to="/$locale/auth"
+            to="/$locale/contact"
             params={{ locale }}
-            className="hidden md:inline-flex items-center rounded-full border border-border bg-surface/50 px-4 py-2 text-sm font-semibold hover:border-primary/50 transition-colors"
+            className="hidden md:inline-flex items-center rounded-full bg-primary text-primary-foreground px-4 py-2 text-sm font-semibold hover:opacity-90 transition-opacity"
           >
-            Sign In
-          </Link>
-          <Link
-            to="/$locale/auth"
-            params={{ locale }}
-            className="hidden md:inline-flex items-center rounded-full bg-primary text-primary-foreground px-4 py-2 text-sm font-semibold hover:shadow-glow transition-all"
-          >
-            Get Started
+            {tr("nav.getQuote")}
           </Link>
           <button
             onClick={() => setOpen(!open)}
@@ -220,7 +223,7 @@ export function Header() {
               onClick={() => setOpen(false)}
               className="mt-2 inline-flex items-center justify-center rounded-full bg-primary text-primary-foreground px-4 py-2.5 text-sm font-semibold"
             >
-              {tr("nav.contact")}
+              {tr("nav.getQuote")}
             </Link>
           </div>
         </div>

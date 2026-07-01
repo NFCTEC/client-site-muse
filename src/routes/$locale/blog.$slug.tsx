@@ -1,17 +1,29 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, Calendar, Clock } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
-import { fetchPost, fetchPosts, toBlogPost } from "@/lib/cms";
+import { fetchDisplayConfig, fetchPost, fetchPosts, toBlogPost } from "@/lib/cms";
+import { filterByDisplayConfig, isModuleEnabled } from "@/lib/display-config";
 import { absLocaleUrl, type Locale } from "@/lib/locale";
 import { useLocale } from "@/hooks/useLocale";
+import { PostBody } from "@/components/PostBody";
+import { PostViewCounter } from "@/components/PostViewCounter";
 
 export const Route = createFileRoute("/$locale/blog/$slug")({
   loader: async ({ params }) => {
     const locale = params.locale as Locale;
+    const config = await fetchDisplayConfig(locale);
+    if (!isModuleEnabled(config, "blog")) throw notFound();
     const post = await fetchPost(locale, params.slug);
     if (!post) throw notFound();
     const all = await fetchPosts(locale);
-    return { post: toBlogPost(post), related: all.filter((p) => p.slug !== params.slug).slice(0, 3).map(toBlogPost) };
+    const visible = filterByDisplayConfig(all, config.modules.blog);
+    if (config.modules.blog.mode === "selected" && !visible.some((p) => p.slug === params.slug)) {
+      throw notFound();
+    }
+    return {
+      post: toBlogPost(post),
+      related: visible.filter((p) => p.slug !== params.slug).slice(0, 3).map(toBlogPost),
+    };
   },
   head: ({ loaderData, params }) => {
     const post = loaderData?.post;
@@ -96,6 +108,7 @@ function PostPage() {
             <span className="inline-flex items-center gap-1 text-[11px] font-mono text-muted-foreground">
               <Clock size={12} /> {post.readMinutes} min read
             </span>
+            <PostViewCounter locale={locale as Locale} slug={slug} initialCount={post.viewCount} />
           </div>
 
           <h1 className="font-display text-4xl lg:text-5xl tracking-tight text-balance mb-6">
@@ -103,16 +116,7 @@ function PostPage() {
           </h1>
           <p className="text-lg text-muted-foreground leading-relaxed mb-12">{post.excerpt}</p>
 
-          <div className="prose prose-invert max-w-none space-y-6">
-            {post.body.map((b, i) => (
-              <div key={i}>
-                {b.heading && (
-                  <h2 className="font-display text-2xl font-semibold mt-10 mb-3">{b.heading}</h2>
-                )}
-                <p className="text-base leading-relaxed text-foreground/90">{b.text}</p>
-              </div>
-            ))}
-          </div>
+          <PostBody body={post.body} />
         </div>
       </article>
 
