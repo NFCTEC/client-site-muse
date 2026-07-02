@@ -25,7 +25,10 @@ export const Route = createFileRoute("/$locale/platform")({
       { property: "og:url", content: "https://www.nfctec.com/platform" },
       { property: "og:type", content: "website" },
     ],
-    links: [{ rel: "canonical", href: "https://www.nfctec.com/platform" }],
+    links: [
+      { rel: "canonical", href: "https://www.nfctec.com/platform" },
+      ...hreflangLinks("/platform"),
+    ],
   }),
   component: Platform,
 });
