@@ -73,9 +73,10 @@ const devTools = [
 ] as const;
 
 function Platform() {
-  const { tr } = useI18n();
+  const { tr, lang } = useI18n();
   const { locale } = Route.useParams();
   const { showDownloads } = Route.useLoaderData();
+  const faqItems = buildFaq(lang);
 
   const primaryActions = (
     <>
