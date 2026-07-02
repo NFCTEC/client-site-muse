@@ -1,6 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { Plug, Code2, Sparkles, ShieldCheck, KeyRound, Lock, ArrowRight } from "lucide-react";
-import { useI18n } from "@/lib/i18n";
+import { useI18n, t as dict, type Lang } from "@/lib/i18n";
 import { fetchDisplayConfig } from "@/lib/cms";
 import { isModuleEnabled } from "@/lib/display-config";
 import { absLocaleUrl, type Locale } from "@/lib/locale";
@@ -9,6 +9,15 @@ import { PageHero } from "@/components/PageHero";
 import { PageSection } from "@/components/PageSection";
 import { SectionHeader } from "@/components/SectionHeader";
 import { CtaBand } from "@/components/CtaBand";
+import { FaqSection, faqJsonLd, type FaqItem } from "@/components/FaqSection";
+
+const PLATFORM_FAQ_KEYS = ["p1", "p2", "p3", "p4", "p5"] as const;
+function buildFaq(lang: Lang): FaqItem[] {
+  return PLATFORM_FAQ_KEYS.map((k) => ({
+    q: dict[`faq.${k}.q`][lang],
+    a: dict[`faq.${k}.a`][lang],
+  }));
+}
 
 export const Route = createFileRoute("/$locale/platform")({
   loader: async ({ params }) => {
