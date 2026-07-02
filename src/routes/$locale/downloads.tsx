@@ -1,7 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
 import { Download, FileArchive, FileText, Cpu, Code2, ShieldCheck, Sparkles, ArrowRight } from "lucide-react";
-import { fetchDisplayConfig, fetchDownloads, formatDownloadCount, getDownloadTrackUrl } from "@/lib/cms";
+import { fetchDisplayConfig, fetchDownloads, formatDownloadCount, getDownloadTrackUrl, type CmsDownloadGroup } from "@/lib/cms";
 import { filterByDisplayConfig, isModuleEnabled } from "@/lib/display-config";
 import { absLocaleUrl, type Locale } from "@/lib/locale";
 import { PageHero } from "@/components/PageHero";
@@ -60,9 +60,9 @@ function Downloads() {
   const { tr, lang } = useI18n();
   const { groups, showPlatform } = Route.useLoaderData();
   const { locale } = Route.useParams();
-  const totalFiles = groups.reduce((n, g) => n + g.items.length, 0);
+  const totalFiles = groups.reduce((n: number, g: CmsDownloadGroup) => n + g.items.length, 0);
   const totalDownloads = groups.reduce(
-    (n, g) => n + g.items.reduce((m, it) => m + (it.downloadCount ?? 0), 0),
+    (n: number, g: CmsDownloadGroup) => n + g.items.reduce((m: number, it) => m + (it.downloadCount ?? 0), 0),
     0,
   );
 
@@ -97,7 +97,7 @@ function Downloads() {
               </Link>
             </div>
           ) : (
-            groups.map((g) => {
+            groups.map((g: CmsDownloadGroup) => {
               const Icon = iconForGroup(g.name);
               return (
                 <div key={g.id} className="rounded-2xl border border-border bg-card-gradient overflow-hidden">

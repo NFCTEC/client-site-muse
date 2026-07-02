@@ -2,6 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, Calendar, Clock } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 import { fetchDisplayConfig, fetchPost, fetchPosts, toBlogPost } from "@/lib/cms";
+type BlogItem = ReturnType<typeof toBlogPost>;
 import { filterByDisplayConfig, isModuleEnabled } from "@/lib/display-config";
 import { absLocaleUrl, type Locale } from "@/lib/locale";
 import { useLocale } from "@/hooks/useLocale";
@@ -125,7 +126,7 @@ function PostPage() {
           <div className="mx-auto max-w-7xl px-6 lg:px-10">
             <h2 className="font-display text-2xl mb-8">More from the blog</h2>
             <div className="grid md:grid-cols-3 gap-5">
-              {related.map((p) => (
+              {related.map((p: BlogItem) => (
                 <Link
                   key={p.slug}
                   to="/$locale/blog/$slug"

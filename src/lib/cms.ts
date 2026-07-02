@@ -105,17 +105,29 @@ export function getCmsApiBase(): string {
 
 async function cmsFetch<T>(path: string, init?: RequestInit): Promise<T> {
   const base = getCmsApiBase();
-  const res = await fetch(`${base}${path}`, {
-    ...init,
-    headers: {
-      Accept: "application/json",
-      ...(init?.headers ?? {}),
-    },
-  });
-  if (!res.ok) {
-    throw new Error(`CMS ${path} failed: ${res.status}`);
+  try {
+    const res = await fetch(`${base}${path}`, {
+      ...init,
+      headers: {
+        Accept: "application/json",
+        ...(init?.headers ?? {}),
+      },
+    });
+    if (!res.ok) {
+      throw new Error(`CMS ${path} failed: ${res.status}`);
+    }
+    return (await res.json()) as T;
+  } catch (err) {
+    const { mockResponse } = await import("./cms-mock");
+    const mock = mockResponse(path);
+    if (mock !== null && mock !== undefined) {
+      if (typeof console !== "undefined") {
+        console.warn(`[cms] ${path} unreachable, using mock data`, err);
+      }
+      return mock as T;
+    }
+    throw err;
   }
-  return res.json() as Promise<T>;
 }
 
 export async function fetchDisplayConfig(locale: Locale): Promise<SiteDisplayConfig> {

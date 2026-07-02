@@ -1,6 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
-import { fetchDisplayConfig, fetchSolutions } from "@/lib/cms";
+import { fetchDisplayConfig, fetchSolutions, type CmsSolution } from "@/lib/cms";
 import { filterByDisplayConfig } from "@/lib/display-config";
 import * as LucideIcons from "lucide-react";
 import { ArrowRight, type LucideIcon } from "lucide-react";
@@ -50,7 +50,7 @@ function SolutionsIndex() {
 
       <PageSection spacing="main">
         <div className="grid md:grid-cols-2 gap-5">
-          {solutions.map((ind) => {
+          {solutions.map((ind: CmsSolution) => {
             const iconName = iconBySlug[ind.slug] ?? "Boxes";
             const Icon = (LucideIcons as unknown as Record<string, LucideIcon>)[iconName] ?? LucideIcons.Boxes;
             return (

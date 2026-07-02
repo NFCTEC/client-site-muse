@@ -1,6 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
-import { fetchDisplayConfig, fetchProducts } from "@/lib/cms";
+import { fetchDisplayConfig, fetchProducts, type CmsProduct } from "@/lib/cms";
 import { filterByDisplayConfig } from "@/lib/display-config";
 import type { Locale } from "@/lib/locale";
 import * as LucideIcons from "lucide-react";
@@ -46,7 +46,7 @@ function Products() {
   const items = tab === "sw" ? software : hardware;
 
   const setTab = (k: "sw" | "hw") => {
-    navigate({ search: (prev) => ({ ...prev, tab: k }), replace: true });
+    navigate({ search: (prev: Record<string, unknown>) => ({ ...prev, tab: k }), replace: true });
   };
 
   const tabSwitcher = (
@@ -79,7 +79,7 @@ function Products() {
           <p className="text-muted-foreground">{tr("ppage.empty")}</p>
         ) : (
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {items.map((p) => {
+            {items.map((p: CmsProduct) => {
               const Icon = getIcon(p.icon);
               const ctaTo = p.hasDetailPage
                 ? { to: "/$locale/products/$slug" as const, params: { locale, slug: p.slug } }

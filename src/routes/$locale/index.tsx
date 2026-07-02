@@ -6,6 +6,8 @@ import {
   fetchProducts,
   fetchSolutions,
   toBlogPost,
+  type CmsProduct,
+  type CmsSolution,
 } from "@/lib/cms";
 import { filterByDisplayConfig, isModuleEnabled, type ModuleKey } from "@/lib/display-config";
 import { absLocaleUrl, type Locale } from "@/lib/locale";
@@ -337,7 +339,7 @@ function Home() {
               }
             />
             <div className="grid md:grid-cols-3 gap-5">
-              {solutions.map((s) => (
+              {solutions.map((s: CmsSolution) => (
                 <Link
                   key={s.slug}
                   to="/$locale/solutions/$slug"
@@ -508,7 +510,7 @@ function Home() {
               }
             />
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-              {products.map((p) => {
+              {products.map((p: CmsProduct) => {
                 const Icon = getIcon(p.icon);
                 const linkProps = p.hasDetailPage
                   ? { to: "/$locale/products/$slug" as const, params: { locale, slug: p.slug } }
@@ -637,7 +639,7 @@ function Home() {
               }
             />
             <div className="grid md:grid-cols-3 gap-5">
-              {posts.map((p) => (
+              {posts.map((p: ReturnType<typeof toBlogPost>) => (
                 <Link
                   key={p.slug}
                   to="/$locale/blog/$slug"

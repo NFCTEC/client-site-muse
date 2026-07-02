@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
 import { fetchDisplayConfig, fetchPosts, toBlogPost } from "@/lib/cms";
+type BlogItem = ReturnType<typeof toBlogPost>;
 import { filterByDisplayConfig } from "@/lib/display-config";
 import type { Locale } from "@/lib/locale";
 import { absLocaleUrl } from "@/lib/locale";
@@ -46,7 +47,7 @@ function BlogIndex() {
           <p className="text-muted-foreground">{tr("blog.sub")}</p>
         ) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {posts.map((p) => (
+            {posts.map((p: BlogItem) => (
               <Link
                 key={p.slug}
                 to="/$locale/blog/$slug"
