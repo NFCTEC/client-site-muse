@@ -19,6 +19,20 @@ export const Route = createFileRoute("/$locale/solutions/")({
     const solutions = await fetchSolutions(locale);
     return { solutions: filterByDisplayConfig(solutions, moduleConfig) };
   },
+  head: ({ params }) => {
+    const url = absLocaleUrl(params.locale as Locale, "/solutions");
+    return {
+      meta: [
+        { title: "Industry Solutions — NFCTEC" },
+        { name: "description", content: "End-to-end NFC solutions for banking, transit, government, IoT, brand protection and more." },
+        { property: "og:title", content: "Industry Solutions — NFCTEC" },
+        { property: "og:description", content: "Proven NFC playbooks across 11 industries." },
+        { property: "og:url", content: url },
+        { property: "og:type", content: "website" },
+      ],
+      links: [{ rel: "canonical", href: url }, ...hreflangLinks("/solutions")],
+    };
+  },
   component: SolutionsIndex,
 });
 
