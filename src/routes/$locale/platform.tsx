@@ -26,7 +26,9 @@ export const Route = createFileRoute("/$locale/platform")({
     return { showDownloads: config.modules.downloads.enabled };
   },
   head: ({ params }) => {
-    const url = absLocaleUrl(params.locale as Locale, "/platform");
+    const locale = params.locale as Locale;
+    const url = absLocaleUrl(locale, "/platform");
+    const lang: Lang = locale === "zh" ? "zh" : "en";
     return {
       meta: [
         { title: "Cloud Services — NFCTEC" },
@@ -39,6 +41,12 @@ export const Route = createFileRoute("/$locale/platform")({
       links: [
         { rel: "canonical", href: url },
         ...hreflangLinks("/platform"),
+      ],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify(faqJsonLd(buildFaq(lang))),
+        },
       ],
     };
   },
