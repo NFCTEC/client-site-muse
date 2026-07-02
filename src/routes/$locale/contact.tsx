@@ -193,6 +193,8 @@ function Contact() {
           </aside>
         </div>
       </PageSection>
+
+      <FaqSection eyebrow={tr("faq.eyebrow")} title={tr("faq.title")} items={faqItems} />
     </>
   );
 }
