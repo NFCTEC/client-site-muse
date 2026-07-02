@@ -79,7 +79,7 @@ function Products() {
           <p className="text-muted-foreground">{tr("ppage.empty")}</p>
         ) : (
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {items.map((p) => {
+            {items.map((p: CmsProduct) => {
               const Icon = getIcon(p.icon);
               const ctaTo = p.hasDetailPage
                 ? { to: "/$locale/products/$slug" as const, params: { locale, slug: p.slug } }
