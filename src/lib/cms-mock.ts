@@ -295,7 +295,7 @@ function solutions(locale: Locale) {
     tagline: locale === "zh" ? i.taglineZh : i.taglineEn,
     intro: locale === "zh" ? i.introZh : i.introEn,
     icon: i.icon,
-    heroImage: `/solutions/${i.slug}.jpg`,
+    heroImage: `/solutions/${i.slug}.webp`,
     capabilities: i.capabilities.map((c) => ({
       title: locale === "zh" ? c.titleZh : c.titleEn,
       description: locale === "zh" ? c.descZh : c.descEn,

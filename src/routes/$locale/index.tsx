@@ -348,7 +348,7 @@ function Home() {
                   className="card-glow group flex flex-col rounded-2xl border border-border bg-card-gradient overflow-hidden min-h-[20rem]"
                 >
                   <img
-                    src={s.heroImage ?? `/solutions/${s.slug}.jpg`}
+                    src={s.heroImage ?? `/solutions/${s.slug}.webp`}
                     alt={s.name}
                     width={400}
                     height={180}
