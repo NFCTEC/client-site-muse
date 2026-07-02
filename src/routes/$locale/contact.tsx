@@ -1,6 +1,6 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { useState } from "react";
-import { useI18n } from "@/lib/i18n";
+import { useI18n, t as dict, type Lang } from "@/lib/i18n";
 import { Mail, MapPin, ArrowRight, CheckCircle2 } from "lucide-react";
 import { submitInquiry } from "@/lib/api/inquiry.functions";
 import { fetchDisplayConfig } from "@/lib/cms";
@@ -9,6 +9,15 @@ import { absLocaleUrl, type Locale } from "@/lib/locale";
 import { hreflangLinks } from "@/lib/seo";
 import { PageHero } from "@/components/PageHero";
 import { PageSection } from "@/components/PageSection";
+import { FaqSection, faqJsonLd, type FaqItem } from "@/components/FaqSection";
+
+const CONTACT_FAQ_KEYS = ["c1", "c2", "c3", "c4"] as const;
+function buildContactFaq(lang: Lang): FaqItem[] {
+  return CONTACT_FAQ_KEYS.map((k) => ({
+    q: dict[`faq.${k}.q`][lang],
+    a: dict[`faq.${k}.a`][lang],
+  }));
+}
 
 const INQUIRY_TO = "support@nfctec.com";
 const SALES_EMAIL = "sale@nfctec.com";
