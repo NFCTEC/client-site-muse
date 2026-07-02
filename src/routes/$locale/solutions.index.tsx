@@ -77,7 +77,7 @@ function SolutionsIndex() {
               >
                 <div className="relative w-full aspect-[16/9] overflow-hidden">
                   <img
-                    src={ind.heroImage ?? `/solutions/${ind.slug}.jpg`}
+                    src={ind.heroImage ?? `/solutions/${ind.slug}.webp`}
                     alt={`${ind.name} — NFC solution`}
                     width={600}
                     height={240}

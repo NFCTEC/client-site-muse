@@ -22,9 +22,12 @@ export const Route = createFileRoute("/$locale/blog/$slug")({
     if (config.modules.blog.mode === "selected" && !visible.some((p) => p.slug === params.slug)) {
       throw notFound();
     }
+    const others = visible.filter((p) => p.slug !== params.slug);
+    const sameCat = others.filter((p) => p.category === post.category);
+    const rest = others.filter((p) => p.category !== post.category);
     return {
       post: toBlogPost(post),
-      related: visible.filter((p) => p.slug !== params.slug).slice(0, 3).map(toBlogPost),
+      related: [...sameCat, ...rest].slice(0, 3).map(toBlogPost),
     };
   },
   head: ({ loaderData, params }) => {
@@ -125,6 +128,40 @@ function PostPage() {
           <p className="text-lg text-muted-foreground leading-relaxed mb-12">{post.excerpt}</p>
 
           <PostBody body={post.body} />
+
+          {/* Cross-links: keep readers on-site, help SEO internal linking */}
+          <div className="mt-16 pt-8 border-t border-border grid sm:grid-cols-3 gap-3">
+            <Link
+              to="/$locale/solutions"
+              params={{ locale }}
+              className="card-glow group rounded-xl border border-border bg-card-gradient p-5"
+            >
+              <div className="text-[10px] font-mono text-muted-foreground uppercase tracking-wider">Solutions</div>
+              <div className="mt-1 font-display text-sm font-semibold group-hover:text-primary transition-colors">
+                Browse industry playbooks <ArrowRight size={12} className="inline" />
+              </div>
+            </Link>
+            <Link
+              to="/$locale/platform"
+              params={{ locale }}
+              className="card-glow group rounded-xl border border-border bg-card-gradient p-5"
+            >
+              <div className="text-[10px] font-mono text-muted-foreground uppercase tracking-wider">Platform</div>
+              <div className="mt-1 font-display text-sm font-semibold group-hover:text-primary transition-colors">
+                Issue &amp; verify via API <ArrowRight size={12} className="inline" />
+              </div>
+            </Link>
+            <Link
+              to="/$locale/contact"
+              params={{ locale }}
+              className="card-glow group rounded-xl border border-border bg-card-gradient p-5"
+            >
+              <div className="text-[10px] font-mono text-muted-foreground uppercase tracking-wider">Contact</div>
+              <div className="mt-1 font-display text-sm font-semibold group-hover:text-primary transition-colors">
+                Talk to an engineer <ArrowRight size={12} className="inline" />
+              </div>
+            </Link>
+          </div>
         </div>
       </article>
 

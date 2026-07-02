@@ -5,17 +5,17 @@ import { useI18n } from "@/lib/i18n";
 import type { CmsSolution } from "@/lib/cms";
 
 const SLUG_IMAGES: Record<string, string> = {
-  banking: "/solutions/banking.jpg",
-  transit: "/solutions/transit.jpg",
-  gov: "/solutions/gov.jpg",
-  access: "/solutions/access.jpg",
-  health: "/solutions/health.jpg",
-  iot: "/solutions/iot.jpg",
-  brand: "/solutions/brand.jpg",
-  retail: "/solutions/retail.jpg",
-  auto: "/solutions/auto.jpg",
-  wallet: "/solutions/wallet.jpg",
-  security: "/solutions/security.jpg",
+  banking: "/solutions/banking.webp",
+  transit: "/solutions/transit.webp",
+  gov: "/solutions/gov.webp",
+  access: "/solutions/access.webp",
+  health: "/solutions/health.webp",
+  iot: "/solutions/iot.webp",
+  brand: "/solutions/brand.webp",
+  retail: "/solutions/retail.webp",
+  auto: "/solutions/auto.webp",
+  wallet: "/solutions/wallet.webp",
+  security: "/solutions/security.webp",
 };
 
 function getIcon(name: string): LucideIcon {
