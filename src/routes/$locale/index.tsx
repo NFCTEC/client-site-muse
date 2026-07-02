@@ -639,7 +639,7 @@ function Home() {
               }
             />
             <div className="grid md:grid-cols-3 gap-5">
-              {posts.map((p) => (
+              {posts.map((p: ReturnType<typeof toBlogPost>) => (
                 <Link
                   key={p.slug}
                   to="/$locale/blog/$slug"
