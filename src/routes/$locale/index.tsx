@@ -510,7 +510,7 @@ function Home() {
               }
             />
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-              {products.map((p) => {
+              {products.map((p: CmsProduct) => {
                 const Icon = getIcon(p.icon);
                 const linkProps = p.hasDetailPage
                   ? { to: "/$locale/products/$slug" as const, params: { locale, slug: p.slug } }
