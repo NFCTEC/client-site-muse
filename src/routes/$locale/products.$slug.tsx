@@ -32,7 +32,10 @@ export const Route = createFileRoute("/$locale/products/$slug")({
         { property: "og:type", content: "product" },
         ...(product?.ogImage ? [{ property: "og:image", content: product.ogImage }] : []),
       ],
-      links: [{ rel: "canonical", href: url }],
+      links: [
+        { rel: "canonical", href: url },
+        ...hreflangLinks(`/products/${params.slug}`),
+      ],
       scripts: product
         ? [
             {
