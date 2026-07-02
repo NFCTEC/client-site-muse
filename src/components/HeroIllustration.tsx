@@ -84,7 +84,7 @@ export function HeroIllustration({ className = "w-full max-w-[560px]" }: HeroIll
             <text x="36" y="18" textAnchor="middle" fill="var(--primary)">EMV</text>
           </g>
           {/* DESFire */}
-          <g transform="translate(430 470)">
+          <g transform="translate(40 610)">
             <rect x="0" y="0" width="94" height="28" rx="14" fill="var(--surface)" stroke="var(--border-strong)" />
             <text x="47" y="18" textAnchor="middle" fill="var(--primary)">DESFire</text>
           </g>
