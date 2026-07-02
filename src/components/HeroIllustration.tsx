@@ -71,12 +71,11 @@ export function HeroIllustration({ className = "w-full max-w-[520px]" }: HeroIll
           </g>
 
           {/* NFC wave mark — the hero of the card */}
-          <g transform="translate(300 288)" fill="none" stroke="url(#hi-accent)" strokeLinecap="round" strokeWidth="6">
-            <path d="M-8 -22 A 30 30 0 0 1 -8 22" opacity="1" />
-            <path d="M-24 -42 A 54 54 0 0 1 -24 42" opacity="0.7" />
-            <path d="M-40 -62 A 78 78 0 0 1 -40 62" opacity="0.4" />
-            {/* Origin dot */}
-            <circle r="4" fill="url(#hi-accent)" stroke="none" />
+          <g transform="translate(260 288)" fill="none" stroke="url(#hi-accent)" strokeLinecap="round" strokeWidth="7">
+            <circle r="6" fill="url(#hi-accent)" stroke="none" />
+            <path d="M 14 -22 A 26 26 0 0 1 14 22" opacity="1" />
+            <path d="M 30 -40 A 44 44 0 0 1 30 40" opacity="0.7" />
+            <path d="M 46 -58 A 62 62 0 0 1 46 58" opacity="0.4" />
           </g>
 
           {/* Wordmark line under the wave */}
