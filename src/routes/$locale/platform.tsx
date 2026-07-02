@@ -4,6 +4,7 @@ import { useI18n } from "@/lib/i18n";
 import { fetchDisplayConfig } from "@/lib/cms";
 import { isModuleEnabled } from "@/lib/display-config";
 import type { Locale } from "@/lib/locale";
+import { hreflangLinks } from "@/lib/seo";
 import { PageHero } from "@/components/PageHero";
 import { PageSection } from "@/components/PageSection";
 import { SectionHeader } from "@/components/SectionHeader";
