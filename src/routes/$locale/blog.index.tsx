@@ -29,7 +29,10 @@ export const Route = createFileRoute("/$locale/blog/")({
       { property: "og:url", content: absLocaleUrl(params.locale as Locale, "/blog") },
       { property: "og:type", content: "website" },
     ],
-    links: [{ rel: "canonical", href: absLocaleUrl(params.locale as Locale, "/blog") }],
+    links: [
+      { rel: "canonical", href: absLocaleUrl(params.locale as Locale, "/blog") },
+      ...hreflangLinks("/blog"),
+    ],
   }),
   component: BlogIndex,
 });
