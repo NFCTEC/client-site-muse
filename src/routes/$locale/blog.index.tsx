@@ -5,6 +5,7 @@ type BlogItem = ReturnType<typeof toBlogPost>;
 import { filterByDisplayConfig } from "@/lib/display-config";
 import type { Locale } from "@/lib/locale";
 import { absLocaleUrl } from "@/lib/locale";
+import { hreflangLinks } from "@/lib/seo";
 import { ArrowRight } from "lucide-react";
 import { PageHero } from "@/components/PageHero";
 import { PageSection } from "@/components/PageSection";
