@@ -339,7 +339,7 @@ function Home() {
               }
             />
             <div className="grid md:grid-cols-3 gap-5">
-              {solutions.map((s) => (
+              {solutions.map((s: CmsSolution) => (
                 <Link
                   key={s.slug}
                   to="/$locale/solutions/$slug"
