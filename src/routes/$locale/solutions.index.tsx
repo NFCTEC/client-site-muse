@@ -4,7 +4,8 @@ import { fetchDisplayConfig, fetchSolutions, type CmsSolution } from "@/lib/cms"
 import { filterByDisplayConfig } from "@/lib/display-config";
 import * as LucideIcons from "lucide-react";
 import { ArrowRight, type LucideIcon } from "lucide-react";
-import type { Locale } from "@/lib/locale";
+import { absLocaleUrl, type Locale } from "@/lib/locale";
+import { hreflangLinks } from "@/lib/seo";
 import { PageHero } from "@/components/PageHero";
 import { PageSection } from "@/components/PageSection";
 import { CtaBand } from "@/components/CtaBand";
