@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
 import { fetchDisplayConfig, fetchPosts, toBlogPost } from "@/lib/cms";
+type BlogItem = ReturnType<typeof toBlogPost>;
 import { filterByDisplayConfig } from "@/lib/display-config";
 import type { Locale } from "@/lib/locale";
 import { absLocaleUrl } from "@/lib/locale";
