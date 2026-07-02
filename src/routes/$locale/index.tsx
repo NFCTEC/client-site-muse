@@ -434,6 +434,25 @@ function Home() {
         </section>
       )}
 
+      {/* Technology partners strip — silicon vendors + standards bodies */}
+      <section aria-label="Technology partners and standards" className="py-10 border-y border-border bg-surface/20">
+        <div className="mx-auto max-w-7xl px-6 lg:px-10">
+          <p className="text-center text-[11px] font-mono uppercase tracking-[0.2em] text-muted-foreground mb-6">
+            {tr("home.partners.title")}
+          </p>
+          <ul className="flex flex-wrap justify-center gap-2.5">
+            {techPartners.map((name) => (
+              <li
+                key={name}
+                className="rounded-md border border-border bg-background/60 px-3.5 py-1.5 text-xs font-display font-semibold text-foreground/80"
+              >
+                {name}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
       {/* Pillars */}
       {visiblePillars.length > 0 && (
         <section className="section-main bg-surface/40 border-y border-border">
