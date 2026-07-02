@@ -45,9 +45,12 @@ export const Route = createFileRoute("/$locale/products/$slug")({
                 "@type": "Product",
                 name: product.name,
                 description: desc,
+                url,
                 image: product.ogImage ?? product.images[0]?.src,
+                sku: product.slug,
                 brand: { "@type": "Brand", name: "NFCTEC" },
-                manufacturer: { "@type": "Organization", name: "NFCTEC" },
+                manufacturer: { "@type": "Organization", name: "NFCTEC", url: "https://www.nfctec.com" },
+                category: product.category ?? undefined,
               }),
             },
           ]
