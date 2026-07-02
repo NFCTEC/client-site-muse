@@ -5,6 +5,7 @@ import { fetchDisplayConfig, fetchPost, fetchPosts, toBlogPost } from "@/lib/cms
 type BlogItem = ReturnType<typeof toBlogPost>;
 import { filterByDisplayConfig, isModuleEnabled } from "@/lib/display-config";
 import { absLocaleUrl, type Locale } from "@/lib/locale";
+import { hreflangLinks } from "@/lib/seo";
 import { useLocale } from "@/hooks/useLocale";
 import { PostBody } from "@/components/PostBody";
 import { PostViewCounter } from "@/components/PostViewCounter";
