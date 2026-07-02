@@ -36,7 +36,10 @@ export const Route = createFileRoute("/$locale/solutions/$slug")({
         { property: "og:type", content: "article" },
         { property: "og:image", content: `https://www.nfctec.com${heroImg}` },
       ],
-      links: [{ rel: "canonical", href: url }],
+      links: [
+        { rel: "canonical", href: url },
+        ...hreflangLinks(`/solutions/${params.slug}`),
+      ],
     };
   },
   notFoundComponent: function SolutionNotFound() {
