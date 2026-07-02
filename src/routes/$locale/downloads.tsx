@@ -4,6 +4,7 @@ import { Download, FileArchive, FileText, Cpu, Code2, ShieldCheck, Sparkles, Arr
 import { fetchDisplayConfig, fetchDownloads, formatDownloadCount, getDownloadTrackUrl, type CmsDownloadGroup } from "@/lib/cms";
 import { filterByDisplayConfig, isModuleEnabled } from "@/lib/display-config";
 import { absLocaleUrl, type Locale } from "@/lib/locale";
+import { hreflangLinks } from "@/lib/seo";
 import { PageHero } from "@/components/PageHero";
 import { PageSection } from "@/components/PageSection";
 import { SectionHeader } from "@/components/SectionHeader";
