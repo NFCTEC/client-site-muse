@@ -1,6 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
-import { fetchDisplayConfig, fetchProducts } from "@/lib/cms";
+import { fetchDisplayConfig, fetchProducts, type CmsProduct } from "@/lib/cms";
 import { filterByDisplayConfig } from "@/lib/display-config";
 import type { Locale } from "@/lib/locale";
 import * as LucideIcons from "lucide-react";
