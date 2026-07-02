@@ -16,20 +16,23 @@ export const Route = createFileRoute("/$locale/platform")({
     if (!isModuleEnabled(config, "platform")) throw notFound();
     return { showDownloads: config.modules.downloads.enabled };
   },
-  head: () => ({
-    meta: [
-      { title: "Cloud Services — NFCTEC" },
-      { name: "description", content: "Cloud personalization & verification for NTAG424 DNA and MIFARE DESFire. Simple REST API, HSM-backed keys." },
-      { property: "og:title", content: "NFCTEC Cloud Services" },
-      { property: "og:description", content: "Issue and verify NFC credentials via REST API." },
-      { property: "og:url", content: "https://www.nfctec.com/platform" },
-      { property: "og:type", content: "website" },
-    ],
-    links: [
-      { rel: "canonical", href: "https://www.nfctec.com/platform" },
-      ...hreflangLinks("/platform"),
-    ],
-  }),
+  head: ({ params }) => {
+    const url = absLocaleUrl(params.locale as Locale, "/platform");
+    return {
+      meta: [
+        { title: "Cloud Services — NFCTEC" },
+        { name: "description", content: "Cloud personalization & verification for NTAG424 DNA and MIFARE DESFire. Simple REST API, HSM-backed keys." },
+        { property: "og:title", content: "NFCTEC Cloud Services" },
+        { property: "og:description", content: "Issue and verify NFC credentials via REST API." },
+        { property: "og:url", content: url },
+        { property: "og:type", content: "website" },
+      ],
+      links: [
+        { rel: "canonical", href: url },
+        ...hreflangLinks("/platform"),
+      ],
+    };
+  },
   component: Platform,
 });
 
