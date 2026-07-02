@@ -11,6 +11,7 @@ import {
 } from "@/lib/cms";
 import { filterByDisplayConfig, isModuleEnabled, type ModuleKey } from "@/lib/display-config";
 import { absLocaleUrl, type Locale } from "@/lib/locale";
+import { hreflangLinks } from "@/lib/seo";
 import {
   ArrowRight,
   Boxes,
