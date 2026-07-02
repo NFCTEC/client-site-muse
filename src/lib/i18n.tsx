@@ -27,6 +27,10 @@ export const t: Dict = {
     en: "SDKs, readers and modules ready to evaluate — samples available on request.",
     zh: "SDK、读卡器与模组均可评估 — 样品可按需寄送。",
   },
+  "home.partners.title": {
+    en: "Silicon, standards & wallets we work with",
+    zh: "长期合作的芯片厂商、标准组织与钱包生态",
+  },
   "home.featured.solutions": { en: "Industry playbooks", zh: "行业成熟方案" },
   "home.featured.solutions.sub": {
     en: "Proven architectures for payment, transit, identity and IoT — from pilot to production.",
