@@ -1,7 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
 import { Download, FileArchive, FileText, Cpu, Code2, ShieldCheck, Sparkles, ArrowRight } from "lucide-react";
-import { fetchDisplayConfig, fetchDownloads, formatDownloadCount, getDownloadTrackUrl } from "@/lib/cms";
+import { fetchDisplayConfig, fetchDownloads, formatDownloadCount, getDownloadTrackUrl, type CmsDownloadGroup } from "@/lib/cms";
 import { filterByDisplayConfig, isModuleEnabled } from "@/lib/display-config";
 import { absLocaleUrl, type Locale } from "@/lib/locale";
 import { PageHero } from "@/components/PageHero";
