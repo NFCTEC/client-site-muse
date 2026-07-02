@@ -2,6 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, Calendar, Clock } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 import { fetchDisplayConfig, fetchPost, fetchPosts, toBlogPost } from "@/lib/cms";
+type BlogItem = ReturnType<typeof toBlogPost>;
 import { filterByDisplayConfig, isModuleEnabled } from "@/lib/display-config";
 import { absLocaleUrl, type Locale } from "@/lib/locale";
 import { useLocale } from "@/hooks/useLocale";
