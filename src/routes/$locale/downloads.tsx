@@ -97,7 +97,7 @@ function Downloads() {
               </Link>
             </div>
           ) : (
-            groups.map((g) => {
+            groups.map((g: CmsDownloadGroup) => {
               const Icon = iconForGroup(g.name);
               return (
                 <div key={g.id} className="rounded-2xl border border-border bg-card-gradient overflow-hidden">
