@@ -235,7 +235,7 @@ export const t: Dict = {
     en: "Talk to our engineers — get samples, SDKs and a tailored quote within 24 hours.",
     zh: "联系我们的工程师 — 24 小时内获取样品、SDK 与专属报价。",
   },
-  "cta.btn": { en: "Contact Sales", zh: "联系销售" },
+  "cta.btn": { en: "Talk to an engineer", zh: "联系工程师" },
   "cta.btn2": { en: "Browse Downloads", zh: "浏览下载" },
 
   // Footer
