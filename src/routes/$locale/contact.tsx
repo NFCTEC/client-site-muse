@@ -56,8 +56,9 @@ export const Route = createFileRoute("/$locale/contact")({
 });
 
 function Contact() {
-  const { tr } = useI18n();
+  const { tr, lang } = useI18n();
   const { locale } = Route.useParams();
+  const faqItems = buildContactFaq(lang);
   const [done, setDone] = useState(false);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
