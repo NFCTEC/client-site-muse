@@ -28,20 +28,30 @@ export const Route = createFileRoute("/$locale/contact")({
     if (!isModuleEnabled(config, "contact")) throw notFound();
     return {};
   },
-  head: ({ params }) => ({
-    meta: [
-      { title: "Contact Us — NFCTEC" },
-      { name: "description", content: "Talk to our NFC solution engineers — quotes, samples and SDK access within 24 hours." },
-      { property: "og:title", content: "Contact Us — NFCTEC" },
-      { property: "og:description", content: "Get in touch with NFCTEC." },
-      { property: "og:url", content: absLocaleUrl(params.locale as Locale, "/contact") },
-      { property: "og:type", content: "website" },
-    ],
-    links: [
-      { rel: "canonical", href: absLocaleUrl(params.locale as Locale, "/contact") },
-      ...hreflangLinks("/contact"),
-    ],
-  }),
+  head: ({ params }) => {
+    const locale = params.locale as Locale;
+    const lang: Lang = locale === "zh" ? "zh" : "en";
+    return {
+      meta: [
+        { title: "Contact Us — NFCTEC" },
+        { name: "description", content: "Talk to our NFC solution engineers — quotes, samples and SDK access within 24 hours." },
+        { property: "og:title", content: "Contact Us — NFCTEC" },
+        { property: "og:description", content: "Get in touch with NFCTEC." },
+        { property: "og:url", content: absLocaleUrl(locale, "/contact") },
+        { property: "og:type", content: "website" },
+      ],
+      links: [
+        { rel: "canonical", href: absLocaleUrl(locale, "/contact") },
+        ...hreflangLinks("/contact"),
+      ],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify(faqJsonLd(buildContactFaq(lang))),
+        },
+      ],
+    };
+  },
   component: Contact,
 });
 
