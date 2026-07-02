@@ -126,7 +126,7 @@ function PostPage() {
           <div className="mx-auto max-w-7xl px-6 lg:px-10">
             <h2 className="font-display text-2xl mb-8">More from the blog</h2>
             <div className="grid md:grid-cols-3 gap-5">
-              {related.map((p) => (
+              {related.map((p: BlogItem) => (
                 <Link
                   key={p.slug}
                   to="/$locale/blog/$slug"
