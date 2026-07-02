@@ -50,7 +50,7 @@ function SolutionsIndex() {
 
       <PageSection spacing="main">
         <div className="grid md:grid-cols-2 gap-5">
-          {solutions.map((ind) => {
+          {solutions.map((ind: CmsSolution) => {
             const iconName = iconBySlug[ind.slug] ?? "Boxes";
             const Icon = (LucideIcons as unknown as Record<string, LucideIcon>)[iconName] ?? LucideIcons.Boxes;
             return (
