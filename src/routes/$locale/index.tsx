@@ -174,6 +174,24 @@ const stats = [
   { value: "60+", label: "stat.countries" },
 ] as const;
 
+// Silicon vendors and standards bodies we work with day-to-day.
+// Text wordmarks (no image assets) — safe re: licensing, and looks
+// clean in both light and dark themes.
+const techPartners = [
+  "NXP",
+  "Infineon",
+  "STMicro",
+  "Sony FeliCa",
+  "Broadcom",
+  "Samsung",
+  "Apple Wallet",
+  "Google Pay",
+  "EMVCo",
+  "GlobalPlatform",
+  "GSMA",
+  "FIDO Alliance",
+] as const;
+
 const devTools = [
   { k: "tools.emv.t", d: "tools.emv.d" },
   { k: "tools.apdu.t", d: "tools.apdu.d" },
