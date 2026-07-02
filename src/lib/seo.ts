@@ -5,6 +5,20 @@ export const DEFAULT_OG_IMAGE = `${SITE_URL}/og-default.jpg`;
 
 export const absUrl = (path: string) => `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`;
 
+/**
+ * Build hreflang alternate <link> entries for a locale-agnostic path.
+ * `path` should be the sub-path AFTER the locale segment, e.g. "/blog" or "/products/x".
+ * Returns entries suitable for TanStack `head().links`.
+ */
+export function hreflangLinks(path: string) {
+  const norm = path === "" || path === "/" ? "" : path.startsWith("/") ? path : `/${path}`;
+  return [
+    { rel: "alternate", hrefLang: "en", href: `${SITE_URL}/en${norm}` },
+    { rel: "alternate", hrefLang: "zh", href: `${SITE_URL}/zh${norm}` },
+    { rel: "alternate", hrefLang: "x-default", href: `${SITE_URL}/en${norm}` },
+  ];
+}
+
 export const organizationJsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
