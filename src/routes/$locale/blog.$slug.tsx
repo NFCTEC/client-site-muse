@@ -22,9 +22,12 @@ export const Route = createFileRoute("/$locale/blog/$slug")({
     if (config.modules.blog.mode === "selected" && !visible.some((p) => p.slug === params.slug)) {
       throw notFound();
     }
+    const others = visible.filter((p) => p.slug !== params.slug);
+    const sameCat = others.filter((p) => p.category === post.category);
+    const rest = others.filter((p) => p.category !== post.category);
     return {
       post: toBlogPost(post),
-      related: visible.filter((p) => p.slug !== params.slug).slice(0, 3).map(toBlogPost),
+      related: [...sameCat, ...rest].slice(0, 3).map(toBlogPost),
     };
   },
   head: ({ loaderData, params }) => {
