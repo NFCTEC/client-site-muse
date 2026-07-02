@@ -60,9 +60,9 @@ function Downloads() {
   const { tr, lang } = useI18n();
   const { groups, showPlatform } = Route.useLoaderData();
   const { locale } = Route.useParams();
-  const totalFiles = groups.reduce((n, g) => n + g.items.length, 0);
+  const totalFiles = groups.reduce((n: number, g: CmsDownloadGroup) => n + g.items.length, 0);
   const totalDownloads = groups.reduce(
-    (n, g) => n + g.items.reduce((m, it) => m + (it.downloadCount ?? 0), 0),
+    (n: number, g: CmsDownloadGroup) => n + g.items.reduce((m: number, it) => m + (it.downloadCount ?? 0), 0),
     0,
   );
 
