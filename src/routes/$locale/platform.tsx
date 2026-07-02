@@ -166,6 +166,8 @@ function Platform() {
         </PageSection>
       )}
 
+      <FaqSection eyebrow={tr("faq.eyebrow")} title={tr("faq.title")} items={faqItems} />
+
       <section className="section-tight">
         <div className="mx-auto max-w-4xl px-6 lg:px-10 text-center">
           <h2 className="font-display text-3xl lg:text-4xl tracking-tight text-balance">{tr("cloud.cta.title")}</h2>
