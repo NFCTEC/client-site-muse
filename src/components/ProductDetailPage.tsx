@@ -100,7 +100,15 @@ export function ProductDetailPage({ product, locale }: { product: CmsProduct; lo
                   key={img.src}
                   className="relative rounded-2xl border border-border bg-surface/40 overflow-hidden aspect-[4/5] grid place-items-center p-6"
                 >
-                  <img src={img.src} alt={product.name} className="max-h-full max-w-full object-contain" />
+                  <img
+                    src={img.src}
+                    alt={product.name}
+                    width={800}
+                    height={1000}
+                    loading="lazy"
+                    decoding="async"
+                    className="max-h-full max-w-full object-contain"
+                  />
                   {img.label && (
                     <span className="absolute bottom-3 left-3 text-[10px] font-mono text-muted-foreground bg-background/80 backdrop-blur-sm border border-border rounded-full px-2.5 py-0.5">
                       {img.label}

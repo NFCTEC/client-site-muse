@@ -14,6 +14,8 @@ export function Logo({ className = "h-11 md:h-12 w-auto" }: LogoProps) {
     <img
       src={src}
       alt="NFCTEC"
+      width={180}
+      height={48}
       className={className}
       decoding="async"
     />
