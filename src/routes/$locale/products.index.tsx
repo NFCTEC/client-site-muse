@@ -29,6 +29,20 @@ export const Route = createFileRoute("/$locale/products/")({
       showPlatform: config.modules.platform.enabled,
     };
   },
+  head: ({ params }) => {
+    const url = absLocaleUrl(params.locale as Locale, "/products");
+    return {
+      meta: [
+        { title: "Products — Software & Hardware | NFCTEC" },
+        { name: "description", content: "Software SDKs, JavaCard applets, EMV kernels and certified hardware — readers, terminals, smart cards, antennas." },
+        { property: "og:title", content: "Products — NFCTEC" },
+        { property: "og:description", content: "Full-stack NFC software and hardware." },
+        { property: "og:url", content: url },
+        { property: "og:type", content: "website" },
+      ],
+      links: [{ rel: "canonical", href: url }, ...hreflangLinks("/products")],
+    };
+  },
   component: Products,
 });
 
