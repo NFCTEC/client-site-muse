@@ -1,6 +1,6 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { useState } from "react";
-import { useI18n } from "@/lib/i18n";
+import { useI18n, t as dict, type Lang } from "@/lib/i18n";
 import { Mail, MapPin, ArrowRight, CheckCircle2 } from "lucide-react";
 import { submitInquiry } from "@/lib/api/inquiry.functions";
 import { fetchDisplayConfig } from "@/lib/cms";
@@ -9,6 +9,15 @@ import { absLocaleUrl, type Locale } from "@/lib/locale";
 import { hreflangLinks } from "@/lib/seo";
 import { PageHero } from "@/components/PageHero";
 import { PageSection } from "@/components/PageSection";
+import { FaqSection, faqJsonLd, type FaqItem } from "@/components/FaqSection";
+
+const CONTACT_FAQ_KEYS = ["c1", "c2", "c3", "c4"] as const;
+function buildContactFaq(lang: Lang): FaqItem[] {
+  return CONTACT_FAQ_KEYS.map((k) => ({
+    q: dict[`faq.${k}.q`][lang],
+    a: dict[`faq.${k}.a`][lang],
+  }));
+}
 
 const INQUIRY_TO = "support@nfctec.com";
 const SALES_EMAIL = "sale@nfctec.com";
@@ -19,26 +28,37 @@ export const Route = createFileRoute("/$locale/contact")({
     if (!isModuleEnabled(config, "contact")) throw notFound();
     return {};
   },
-  head: ({ params }) => ({
-    meta: [
-      { title: "Contact Us — NFCTEC" },
-      { name: "description", content: "Talk to our NFC solution engineers — quotes, samples and SDK access within 24 hours." },
-      { property: "og:title", content: "Contact Us — NFCTEC" },
-      { property: "og:description", content: "Get in touch with NFCTEC." },
-      { property: "og:url", content: absLocaleUrl(params.locale as Locale, "/contact") },
-      { property: "og:type", content: "website" },
-    ],
-    links: [
-      { rel: "canonical", href: absLocaleUrl(params.locale as Locale, "/contact") },
-      ...hreflangLinks("/contact"),
-    ],
-  }),
+  head: ({ params }) => {
+    const locale = params.locale as Locale;
+    const lang: Lang = locale === "zh" ? "zh" : "en";
+    return {
+      meta: [
+        { title: "Contact Us — NFCTEC" },
+        { name: "description", content: "Talk to our NFC solution engineers — quotes, samples and SDK access within 24 hours." },
+        { property: "og:title", content: "Contact Us — NFCTEC" },
+        { property: "og:description", content: "Get in touch with NFCTEC." },
+        { property: "og:url", content: absLocaleUrl(locale, "/contact") },
+        { property: "og:type", content: "website" },
+      ],
+      links: [
+        { rel: "canonical", href: absLocaleUrl(locale, "/contact") },
+        ...hreflangLinks("/contact"),
+      ],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify(faqJsonLd(buildContactFaq(lang))),
+        },
+      ],
+    };
+  },
   component: Contact,
 });
 
 function Contact() {
-  const { tr } = useI18n();
+  const { tr, lang } = useI18n();
   const { locale } = Route.useParams();
+  const faqItems = buildContactFaq(lang);
   const [done, setDone] = useState(false);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -173,6 +193,8 @@ function Contact() {
           </aside>
         </div>
       </PageSection>
+
+      <FaqSection eyebrow={tr("faq.eyebrow")} title={tr("faq.title")} items={faqItems} />
     </>
   );
 }

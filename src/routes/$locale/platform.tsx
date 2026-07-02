@@ -1,6 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { Plug, Code2, Sparkles, ShieldCheck, KeyRound, Lock, ArrowRight } from "lucide-react";
-import { useI18n } from "@/lib/i18n";
+import { useI18n, t as dict, type Lang } from "@/lib/i18n";
 import { fetchDisplayConfig } from "@/lib/cms";
 import { isModuleEnabled } from "@/lib/display-config";
 import { absLocaleUrl, type Locale } from "@/lib/locale";
@@ -9,6 +9,15 @@ import { PageHero } from "@/components/PageHero";
 import { PageSection } from "@/components/PageSection";
 import { SectionHeader } from "@/components/SectionHeader";
 import { CtaBand } from "@/components/CtaBand";
+import { FaqSection, faqJsonLd, type FaqItem } from "@/components/FaqSection";
+
+const PLATFORM_FAQ_KEYS = ["p1", "p2", "p3", "p4", "p5"] as const;
+function buildFaq(lang: Lang): FaqItem[] {
+  return PLATFORM_FAQ_KEYS.map((k) => ({
+    q: dict[`faq.${k}.q`][lang],
+    a: dict[`faq.${k}.a`][lang],
+  }));
+}
 
 export const Route = createFileRoute("/$locale/platform")({
   loader: async ({ params }) => {
@@ -17,7 +26,9 @@ export const Route = createFileRoute("/$locale/platform")({
     return { showDownloads: config.modules.downloads.enabled };
   },
   head: ({ params }) => {
-    const url = absLocaleUrl(params.locale as Locale, "/platform");
+    const locale = params.locale as Locale;
+    const url = absLocaleUrl(locale, "/platform");
+    const lang: Lang = locale === "zh" ? "zh" : "en";
     return {
       meta: [
         { title: "Cloud Services — NFCTEC" },
@@ -30,6 +41,12 @@ export const Route = createFileRoute("/$locale/platform")({
       links: [
         { rel: "canonical", href: url },
         ...hreflangLinks("/platform"),
+      ],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify(faqJsonLd(buildFaq(lang))),
+        },
       ],
     };
   },
@@ -56,9 +73,10 @@ const devTools = [
 ] as const;
 
 function Platform() {
-  const { tr } = useI18n();
+  const { tr, lang } = useI18n();
   const { locale } = Route.useParams();
   const { showDownloads } = Route.useLoaderData();
+  const faqItems = buildFaq(lang);
 
   const primaryActions = (
     <>
@@ -147,6 +165,8 @@ function Platform() {
           </div>
         </PageSection>
       )}
+
+      <FaqSection eyebrow={tr("faq.eyebrow")} title={tr("faq.title")} items={faqItems} />
 
       <section className="section-tight">
         <div className="mx-auto max-w-4xl px-6 lg:px-10 text-center">
