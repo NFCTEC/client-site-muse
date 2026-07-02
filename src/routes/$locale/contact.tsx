@@ -28,7 +28,10 @@ export const Route = createFileRoute("/$locale/contact")({
       { property: "og:url", content: absLocaleUrl(params.locale as Locale, "/contact") },
       { property: "og:type", content: "website" },
     ],
-    links: [{ rel: "canonical", href: absLocaleUrl(params.locale as Locale, "/contact") }],
+    links: [
+      { rel: "canonical", href: absLocaleUrl(params.locale as Locale, "/contact") },
+      ...hreflangLinks("/contact"),
+    ],
   }),
   component: Contact,
 });
