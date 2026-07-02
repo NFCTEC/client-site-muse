@@ -85,7 +85,7 @@ export const Route = createFileRoute("/$locale/")({
         { property: "og:url", content: url },
         { property: "og:type", content: "website" },
       ],
-      links: [{ rel: "canonical", href: url }],
+      links: [{ rel: "canonical", href: url }, ...hreflangLinks("/")],
     };
   },
   component: Home,
