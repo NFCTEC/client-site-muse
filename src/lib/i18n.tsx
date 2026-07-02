@@ -310,6 +310,59 @@ export const t: Dict = {
     en: "Sign up for sandbox access or talk to our engineers about production deployment.",
     zh: "注册获取沙箱访问权限，或与我们的工程师讨论量产部署。",
   },
+
+  // FAQ — shared
+  "faq.eyebrow": { en: "FAQ", zh: "常见问题" },
+  "faq.title": { en: "Frequently asked questions", zh: "常见问题解答" },
+
+  // Platform FAQ
+  "faq.p1.q": { en: "Do I need cryptography knowledge to issue NTAG424 DNA or DESFire cards?", zh: "发行 NTAG424 DNA 或 DESFire 卡片需要懂密码学吗？" },
+  "faq.p1.a": {
+    en: "No. Our cloud performs all AES/CMAC/CBC-MAC operations, key diversification and session-key handling. You send a plain REST request; we return the ready-to-write payload or the verification result.",
+    zh: "不需要。所有 AES/CMAC/CBC-MAC 运算、密钥分散与会话密钥管理都在云端完成。您只需发送一个普通的 REST 请求，我们返回可直接写卡的数据或验证结果。",
+  },
+  "faq.p2.q": { en: "Which readers and hardware are supported?", zh: "支持哪些读卡器和硬件？" },
+  "faq.p2.a": {
+    en: "Anything that can exchange APDUs — PC/SC desktop readers, Android/iOS phones, embedded modules, POS terminals or our own NFCTEC hardware. The API is transport-agnostic.",
+    zh: "任何能收发 APDU 的设备均可 — PC/SC 桌面读卡器、安卓/iOS 手机、嵌入式模组、POS 终端或我们自研的 NFCTEC 硬件。API 与传输方式无关。",
+  },
+  "faq.p3.q": { en: "How are the master keys protected?", zh: "主密钥如何保护？" },
+  "faq.p3.a": {
+    en: "Master keys never leave the HSM cluster. Card keys are derived per-UID using AES-128 diversification; only session keys transit the API, and all traffic is TLS 1.3.",
+    zh: "主密钥永不出 HSM。卡片密钥基于 UID 使用 AES-128 分散派生;仅会话密钥在 API 中传输,全程 TLS 1.3 加密。",
+  },
+  "faq.p4.q": { en: "Can I test before signing anything?", zh: "可以先测试再签约吗?" },
+  "faq.p4.a": {
+    en: "Yes. Sandbox access is free and includes a full personalisation and verification pipeline. Talk to us when you're ready to move to production.",
+    zh: "可以。沙箱访问免费,包含完整的发行与验证流程。准备量产时再联系我们即可。",
+  },
+  "faq.p5.q": { en: "Do you offer on-premise deployment?", zh: "是否提供本地部署?" },
+  "faq.p5.a": {
+    en: "Yes, for regulated industries (banking, government) we deliver the same stack as a containerised on-premise appliance with your own HSM.",
+    zh: "支持。针对银行、政府等受监管行业,我们以容器化本地一体机形式交付完整技术栈,可对接客户自有 HSM。",
+  },
+
+  // Contact FAQ
+  "faq.c1.q": { en: "How fast will I get a reply?", zh: "多久能收到回复?" },
+  "faq.c1.a": {
+    en: "Engineering inquiries are answered within one business day (China Standard Time). For urgent projects, add WhatsApp in the form.",
+    zh: "工程类咨询将在一个工作日内(北京时间)得到回复。紧急项目请在表单中留下 WhatsApp。",
+  },
+  "faq.c2.q": { en: "Can I request samples?", zh: "可以申请样品吗?" },
+  "faq.c2.a": {
+    en: "Yes. Evaluation samples of readers, cards and modules are available. Mention the target application and quantity in the message field.",
+    zh: "可以。读卡器、卡片、模组均可提供评估样品。请在留言中说明目标应用和数量。",
+  },
+  "faq.c3.q": { en: "Do you sign NDAs?", zh: "是否签署保密协议?" },
+  "faq.c3.a": {
+    en: "Standard mutual NDA on request before we exchange chip specs, key material or firmware source.",
+    zh: "在交换芯片规格、密钥材料或固件源码前,可根据需要签署双向 NDA。",
+  },
+  "faq.c4.q": { en: "Where do you ship from?", zh: "从哪里发货?" },
+  "faq.c4.a": {
+    en: "Hardware ships from Shenzhen, China with DHL / FedEx / UPS. Amazon-fulfilled options are available for US and EU buyers.",
+    zh: "硬件从中国深圳发货,支持 DHL / FedEx / UPS。美国与欧洲客户可选择 Amazon 直送。",
+  },
   "cloud.getStarted": { en: "Get Started Free", zh: "免费开始" },
   "cloud.s1.title": { en: "Connect any hardware", zh: "连接任意硬件" },
   "cloud.s1.desc": {
