@@ -50,9 +50,15 @@ export const Route = createFileRoute("/$locale/downloads")({
     meta: [
       { title: "Download Center — NFCTEC" },
       { name: "description", content: "SDKs, drivers, datasheets, sample code and certifications." },
+      { property: "og:title", content: "Download Center — NFCTEC" },
+      { property: "og:description", content: "NFC SDKs, drivers, datasheets and sample code." },
       { property: "og:url", content: absLocaleUrl(params.locale as Locale, "/downloads") },
+      { property: "og:type", content: "website" },
     ],
-    links: [{ rel: "canonical", href: absLocaleUrl(params.locale as Locale, "/downloads") }],
+    links: [
+      { rel: "canonical", href: absLocaleUrl(params.locale as Locale, "/downloads") },
+      ...hreflangLinks("/downloads"),
+    ],
   }),
   component: Downloads,
 });
