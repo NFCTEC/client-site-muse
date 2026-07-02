@@ -46,7 +46,7 @@ function Products() {
   const items = tab === "sw" ? software : hardware;
 
   const setTab = (k: "sw" | "hw") => {
-    navigate({ search: (prev) => ({ ...prev, tab: k }), replace: true });
+    navigate({ search: (prev: Record<string, unknown>) => ({ ...prev, tab: k }), replace: true });
   };
 
   const tabSwitcher = (
