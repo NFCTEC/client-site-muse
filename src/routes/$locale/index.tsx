@@ -6,6 +6,8 @@ import {
   fetchProducts,
   fetchSolutions,
   toBlogPost,
+  type CmsProduct,
+  type CmsSolution,
 } from "@/lib/cms";
 import { filterByDisplayConfig, isModuleEnabled, type ModuleKey } from "@/lib/display-config";
 import { absLocaleUrl, type Locale } from "@/lib/locale";
