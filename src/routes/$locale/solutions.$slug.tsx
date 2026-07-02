@@ -2,6 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { fetchDisplayConfig, fetchSolution, fetchSolutions } from "@/lib/cms";
 import { filterByDisplayConfig, isModuleEnabled } from "@/lib/display-config";
 import { absLocaleUrl, type Locale } from "@/lib/locale";
+import { hreflangLinks } from "@/lib/seo";
 import { useLocale } from "@/hooks/useLocale";
 import { SolutionDetailPage } from "@/components/SolutionDetailPage";
 
