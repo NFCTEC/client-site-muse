@@ -46,19 +46,25 @@ export const Route = createFileRoute("/$locale/blog/$slug")({
           { property: "article:section", content: post.cat },
         ] : []),
       ],
-      links: [{ rel: "canonical", href: url }],
+      links: [
+        { rel: "canonical", href: url },
+        ...hreflangLinks(`/blog/${params.slug}`),
+      ],
       scripts: post ? [
         {
           type: "application/ld+json",
           children: JSON.stringify({
             "@context": "https://schema.org",
-            "@type": "Article",
+            "@type": "BlogPosting",
             headline: post.title,
             description: post.excerpt,
             datePublished: post.date,
             dateModified: post.date,
             articleSection: post.cat,
-            author: { "@type": "Organization", name: "NFCTEC" },
+            wordCount: post.readMinutes ? post.readMinutes * 200 : undefined,
+            timeRequired: post.readMinutes ? `PT${post.readMinutes}M` : undefined,
+            inLanguage: locale,
+            author: { "@type": "Organization", name: "NFCTEC", url: "https://www.nfctec.com" },
             publisher: {
               "@type": "Organization",
               name: "NFCTEC",
