@@ -2,7 +2,8 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
 import { fetchDisplayConfig, fetchProducts, type CmsProduct } from "@/lib/cms";
 import { filterByDisplayConfig } from "@/lib/display-config";
-import type { Locale } from "@/lib/locale";
+import { absLocaleUrl, type Locale } from "@/lib/locale";
+import { hreflangLinks } from "@/lib/seo";
 import * as LucideIcons from "lucide-react";
 import { ArrowRight, type LucideIcon } from "lucide-react";
 import { PageHero } from "@/components/PageHero";
@@ -26,6 +27,20 @@ export const Route = createFileRoute("/$locale/products/")({
       software: filterByDisplayConfig(software, moduleConfig),
       hardware: filterByDisplayConfig(hardware, moduleConfig),
       showPlatform: config.modules.platform.enabled,
+    };
+  },
+  head: ({ params }) => {
+    const url = absLocaleUrl(params.locale as Locale, "/products");
+    return {
+      meta: [
+        { title: "Products — Software & Hardware | NFCTEC" },
+        { name: "description", content: "Software SDKs, JavaCard applets, EMV kernels and certified hardware — readers, terminals, smart cards, antennas." },
+        { property: "og:title", content: "Products — NFCTEC" },
+        { property: "og:description", content: "Full-stack NFC software and hardware." },
+        { property: "og:url", content: url },
+        { property: "og:type", content: "website" },
+      ],
+      links: [{ rel: "canonical", href: url }, ...hreflangLinks("/products")],
     };
   },
   component: Products,

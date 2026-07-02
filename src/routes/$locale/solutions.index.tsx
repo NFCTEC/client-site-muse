@@ -4,7 +4,8 @@ import { fetchDisplayConfig, fetchSolutions, type CmsSolution } from "@/lib/cms"
 import { filterByDisplayConfig } from "@/lib/display-config";
 import * as LucideIcons from "lucide-react";
 import { ArrowRight, type LucideIcon } from "lucide-react";
-import type { Locale } from "@/lib/locale";
+import { absLocaleUrl, type Locale } from "@/lib/locale";
+import { hreflangLinks } from "@/lib/seo";
 import { PageHero } from "@/components/PageHero";
 import { PageSection } from "@/components/PageSection";
 import { CtaBand } from "@/components/CtaBand";
@@ -17,6 +18,20 @@ export const Route = createFileRoute("/$locale/solutions/")({
     if (!moduleConfig.enabled) throw notFound();
     const solutions = await fetchSolutions(locale);
     return { solutions: filterByDisplayConfig(solutions, moduleConfig) };
+  },
+  head: ({ params }) => {
+    const url = absLocaleUrl(params.locale as Locale, "/solutions");
+    return {
+      meta: [
+        { title: "Industry Solutions — NFCTEC" },
+        { name: "description", content: "End-to-end NFC solutions for banking, transit, government, IoT, brand protection and more." },
+        { property: "og:title", content: "Industry Solutions — NFCTEC" },
+        { property: "og:description", content: "Proven NFC playbooks across 11 industries." },
+        { property: "og:url", content: url },
+        { property: "og:type", content: "website" },
+      ],
+      links: [{ rel: "canonical", href: url }, ...hreflangLinks("/solutions")],
+    };
   },
   component: SolutionsIndex,
 });

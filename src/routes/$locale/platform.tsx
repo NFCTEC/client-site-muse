@@ -3,7 +3,8 @@ import { Plug, Code2, Sparkles, ShieldCheck, KeyRound, Lock, ArrowRight } from "
 import { useI18n } from "@/lib/i18n";
 import { fetchDisplayConfig } from "@/lib/cms";
 import { isModuleEnabled } from "@/lib/display-config";
-import type { Locale } from "@/lib/locale";
+import { absLocaleUrl, type Locale } from "@/lib/locale";
+import { hreflangLinks } from "@/lib/seo";
 import { PageHero } from "@/components/PageHero";
 import { PageSection } from "@/components/PageSection";
 import { SectionHeader } from "@/components/SectionHeader";
@@ -15,17 +16,23 @@ export const Route = createFileRoute("/$locale/platform")({
     if (!isModuleEnabled(config, "platform")) throw notFound();
     return { showDownloads: config.modules.downloads.enabled };
   },
-  head: () => ({
-    meta: [
-      { title: "Cloud Services — NFCTEC" },
-      { name: "description", content: "Cloud personalization & verification for NTAG424 DNA and MIFARE DESFire. Simple REST API, HSM-backed keys." },
-      { property: "og:title", content: "NFCTEC Cloud Services" },
-      { property: "og:description", content: "Issue and verify NFC credentials via REST API." },
-      { property: "og:url", content: "https://www.nfctec.com/platform" },
-      { property: "og:type", content: "website" },
-    ],
-    links: [{ rel: "canonical", href: "https://www.nfctec.com/platform" }],
-  }),
+  head: ({ params }) => {
+    const url = absLocaleUrl(params.locale as Locale, "/platform");
+    return {
+      meta: [
+        { title: "Cloud Services — NFCTEC" },
+        { name: "description", content: "Cloud personalization & verification for NTAG424 DNA and MIFARE DESFire. Simple REST API, HSM-backed keys." },
+        { property: "og:title", content: "NFCTEC Cloud Services" },
+        { property: "og:description", content: "Issue and verify NFC credentials via REST API." },
+        { property: "og:url", content: url },
+        { property: "og:type", content: "website" },
+      ],
+      links: [
+        { rel: "canonical", href: url },
+        ...hreflangLinks("/platform"),
+      ],
+    };
+  },
   component: Platform,
 });
 

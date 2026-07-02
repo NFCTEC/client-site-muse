@@ -4,23 +4,28 @@ import { Target, Heart } from "lucide-react";
 import { PageHero } from "@/components/PageHero";
 import { PageSection } from "@/components/PageSection";
 import { CtaBand } from "@/components/CtaBand";
+import { absLocaleUrl, type Locale } from "@/lib/locale";
+import { hreflangLinks } from "@/lib/seo";
 
 export const Route = createFileRoute("/$locale/about")({
-  head: () => ({
-    meta: [
-      { title: "About — NFCTEC" },
-      {
-        name: "description",
-        content:
-          "Founded in 2010, NFCTEC partners with product teams on NFC software, hardware and cloud services.",
-      },
-      { property: "og:title", content: "About NFCTEC" },
-      { property: "og:description", content: "15 years helping teams ship NFC products." },
-      { property: "og:url", content: "https://www.nfctec.com/about" },
-      { property: "og:type", content: "website" },
-    ],
-    links: [{ rel: "canonical", href: "https://www.nfctec.com/about" }],
-  }),
+  head: ({ params }) => {
+    const url = absLocaleUrl(params.locale as Locale, "/about");
+    return {
+      meta: [
+        { title: "About — NFCTEC" },
+        {
+          name: "description",
+          content:
+            "Founded in 2010, NFCTEC partners with product teams on NFC software, hardware and cloud services.",
+        },
+        { property: "og:title", content: "About NFCTEC" },
+        { property: "og:description", content: "15 years helping teams ship NFC products." },
+        { property: "og:url", content: url },
+        { property: "og:type", content: "website" },
+      ],
+      links: [{ rel: "canonical", href: url }, ...hreflangLinks("/about")],
+    };
+  },
   component: About,
 });
 

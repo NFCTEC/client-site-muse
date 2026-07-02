@@ -6,6 +6,7 @@ import { submitInquiry } from "@/lib/api/inquiry.functions";
 import { fetchDisplayConfig } from "@/lib/cms";
 import { isModuleEnabled } from "@/lib/display-config";
 import { absLocaleUrl, type Locale } from "@/lib/locale";
+import { hreflangLinks } from "@/lib/seo";
 import { PageHero } from "@/components/PageHero";
 import { PageSection } from "@/components/PageSection";
 
@@ -27,7 +28,10 @@ export const Route = createFileRoute("/$locale/contact")({
       { property: "og:url", content: absLocaleUrl(params.locale as Locale, "/contact") },
       { property: "og:type", content: "website" },
     ],
-    links: [{ rel: "canonical", href: absLocaleUrl(params.locale as Locale, "/contact") }],
+    links: [
+      { rel: "canonical", href: absLocaleUrl(params.locale as Locale, "/contact") },
+      ...hreflangLinks("/contact"),
+    ],
   }),
   component: Contact,
 });

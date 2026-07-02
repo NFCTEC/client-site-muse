@@ -4,6 +4,7 @@ import { Download, FileArchive, FileText, Cpu, Code2, ShieldCheck, Sparkles, Arr
 import { fetchDisplayConfig, fetchDownloads, formatDownloadCount, getDownloadTrackUrl, type CmsDownloadGroup } from "@/lib/cms";
 import { filterByDisplayConfig, isModuleEnabled } from "@/lib/display-config";
 import { absLocaleUrl, type Locale } from "@/lib/locale";
+import { hreflangLinks } from "@/lib/seo";
 import { PageHero } from "@/components/PageHero";
 import { PageSection } from "@/components/PageSection";
 import { SectionHeader } from "@/components/SectionHeader";
@@ -49,9 +50,15 @@ export const Route = createFileRoute("/$locale/downloads")({
     meta: [
       { title: "Download Center — NFCTEC" },
       { name: "description", content: "SDKs, drivers, datasheets, sample code and certifications." },
+      { property: "og:title", content: "Download Center — NFCTEC" },
+      { property: "og:description", content: "NFC SDKs, drivers, datasheets and sample code." },
       { property: "og:url", content: absLocaleUrl(params.locale as Locale, "/downloads") },
+      { property: "og:type", content: "website" },
     ],
-    links: [{ rel: "canonical", href: absLocaleUrl(params.locale as Locale, "/downloads") }],
+    links: [
+      { rel: "canonical", href: absLocaleUrl(params.locale as Locale, "/downloads") },
+      ...hreflangLinks("/downloads"),
+    ],
   }),
   component: Downloads,
 });

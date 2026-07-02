@@ -1,6 +1,7 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { fetchDisplayConfig, fetchProduct } from "@/lib/cms";
 import { absLocaleUrl, type Locale } from "@/lib/locale";
+import { hreflangLinks } from "@/lib/seo";
 import { isModuleEnabled } from "@/lib/display-config";
 import { ProductDetailPage } from "@/components/ProductDetailPage";
 
@@ -31,7 +32,10 @@ export const Route = createFileRoute("/$locale/products/$slug")({
         { property: "og:type", content: "product" },
         ...(product?.ogImage ? [{ property: "og:image", content: product.ogImage }] : []),
       ],
-      links: [{ rel: "canonical", href: url }],
+      links: [
+        { rel: "canonical", href: url },
+        ...hreflangLinks(`/products/${params.slug}`),
+      ],
       scripts: product
         ? [
             {
@@ -41,9 +45,12 @@ export const Route = createFileRoute("/$locale/products/$slug")({
                 "@type": "Product",
                 name: product.name,
                 description: desc,
+                url,
                 image: product.ogImage ?? product.images[0]?.src,
+                sku: product.slug,
                 brand: { "@type": "Brand", name: "NFCTEC" },
-                manufacturer: { "@type": "Organization", name: "NFCTEC" },
+                manufacturer: { "@type": "Organization", name: "NFCTEC", url: "https://www.nfctec.com" },
+                category: product.category ?? undefined,
               }),
             },
           ]

@@ -11,6 +11,7 @@ import {
 } from "@/lib/cms";
 import { filterByDisplayConfig, isModuleEnabled, type ModuleKey } from "@/lib/display-config";
 import { absLocaleUrl, type Locale } from "@/lib/locale";
+import { hreflangLinks } from "@/lib/seo";
 import {
   ArrowRight,
   Boxes,
@@ -84,7 +85,7 @@ export const Route = createFileRoute("/$locale/")({
         { property: "og:url", content: url },
         { property: "og:type", content: "website" },
       ],
-      links: [{ rel: "canonical", href: url }],
+      links: [{ rel: "canonical", href: url }, ...hreflangLinks("/")],
     };
   },
   component: Home,
