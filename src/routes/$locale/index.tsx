@@ -314,7 +314,7 @@ function Home() {
             </div>
 
             <div className="flex justify-center lg:justify-end px-4 lg:px-0">
-              <HeroIllustration className="w-full max-w-[400px] lg:max-w-[420px]" />
+              <HeroIllustration className="w-full max-w-[520px] lg:max-w-[560px]" />
             </div>
           </div>
         </div>
