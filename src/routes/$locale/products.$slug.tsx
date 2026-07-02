@@ -1,6 +1,7 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { fetchDisplayConfig, fetchProduct } from "@/lib/cms";
 import { absLocaleUrl, type Locale } from "@/lib/locale";
+import { hreflangLinks } from "@/lib/seo";
 import { isModuleEnabled } from "@/lib/display-config";
 import { ProductDetailPage } from "@/components/ProductDetailPage";
 
