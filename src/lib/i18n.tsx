@@ -99,7 +99,7 @@ export const t: Dict = {
     zh: "联合开发软件、设计硬件、对接云端服务 — 从首版原型到认证量产。您负责产品方向，我们负责 NFC 全栈能力。",
   },
   "hero.cta1": { en: "Explore Products", zh: "查看产品" },
-  "hero.cta2": { en: "Talk to Engineer", zh: "联系工程师" },
+  "hero.cta2": { en: "Talk to an engineer", zh: "联系工程师" },
   "hero.ill.label": { en: "NFC Product Stack", zh: "NFC 产品全栈" },
   "hero.ill.hw": { en: "Hardware", zh: "硬件" },
   "hero.ill.sw": { en: "Software", zh: "软件" },
