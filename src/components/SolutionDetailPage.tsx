@@ -3,20 +3,7 @@ import { ArrowLeft, ArrowRight, type LucideIcon } from "lucide-react";
 import * as LucideIcons from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 import type { CmsSolution } from "@/lib/cms";
-
-const SLUG_IMAGES: Record<string, string> = {
-  banking: "/solutions/banking.webp",
-  transit: "/solutions/transit.webp",
-  gov: "/solutions/gov.webp",
-  access: "/solutions/access.webp",
-  health: "/solutions/health.webp",
-  iot: "/solutions/iot.webp",
-  brand: "/solutions/brand.webp",
-  retail: "/solutions/retail.webp",
-  auto: "/solutions/auto.webp",
-  wallet: "/solutions/wallet.webp",
-  security: "/solutions/security.webp",
-};
+import { SolutionVisual } from "@/components/SolutionVisual";
 
 function getIcon(name: string): LucideIcon {
   const icons = LucideIcons as unknown as Record<string, LucideIcon>;
@@ -32,7 +19,7 @@ export function SolutionDetailPage({
 }) {
   const { lang, tr } = useI18n();
   const Icon = getIcon(solution.icon);
-  const hero = solution.heroImage ?? SLUG_IMAGES[solution.slug];
+  const hero = solution.heroImage;
 
   return (
     <>
@@ -56,22 +43,11 @@ export function SolutionDetailPage({
                 <p className="mt-4 text-base lg:text-lg text-muted-foreground leading-relaxed">{solution.tagline}</p>
               </div>
             </div>
-            {hero && (
-              <div className="lg:col-span-5">
-                <div className="relative rounded-2xl overflow-hidden border border-border bg-card-gradient shadow-glow">
-                  <img
-                    src={hero}
-                    alt={`${solution.name} NFC solution`}
-                    width={1216}
-                    height={640}
-                    className="w-full h-auto block dark:[filter:none] [filter:brightness(1.08)_saturate(0.9)_contrast(0.95)]"
-                  />
-                  <div className="pointer-events-none absolute inset-0 dark:hidden bg-gradient-to-b from-white/25 via-transparent to-white/50" />
-                  <div className="pointer-events-none absolute inset-0 dark:hidden bg-gradient-to-tr from-[color-mix(in_oklab,var(--primary)_12%,transparent)] via-transparent to-[color-mix(in_oklab,#7B2FFF_12%,transparent)]" />
-                  <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-border/70 dark:ring-transparent" />
-                </div>
+            <div className="lg:col-span-5">
+              <div className="relative rounded-2xl overflow-hidden border border-border bg-card-gradient shadow-glow">
+                <SolutionVisual src={hero} alt={`${solution.name} NFC solution`} icon={solution.icon} />
               </div>
-            )}
+            </div>
           </div>
         </div>
       </section>

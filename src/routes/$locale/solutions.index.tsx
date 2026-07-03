@@ -9,6 +9,7 @@ import { hreflangLinks } from "@/lib/seo";
 import { PageHero } from "@/components/PageHero";
 import { PageSection } from "@/components/PageSection";
 import { CtaBand } from "@/components/CtaBand";
+import { SolutionVisual } from "@/components/SolutionVisual";
 
 export const Route = createFileRoute("/$locale/solutions/")({
   loader: async ({ params }) => {
@@ -75,21 +76,7 @@ function SolutionsIndex() {
                 params={{ locale, slug: ind.slug }}
                 className="card-glow group flex flex-col rounded-2xl border border-border bg-card-gradient overflow-hidden min-h-[20rem]"
               >
-                <div className="relative w-full aspect-[16/9] overflow-hidden">
-                  <img
-                    src={ind.heroImage ?? `/solutions/${ind.slug}.webp`}
-                    alt={`${ind.name} — NFC solution`}
-                    width={600}
-                    height={240}
-                    loading="lazy"
-                    decoding="async"
-                    className="w-full h-full object-cover dark:[filter:none] [filter:brightness(1.08)_saturate(0.9)_contrast(0.95)]"
-                  />
-                  {/* Light-mode only: soft white fade + brand tint to bridge dark art with white page */}
-                  <div className="pointer-events-none absolute inset-0 dark:hidden bg-gradient-to-b from-white/30 via-transparent to-white/55" />
-                  <div className="pointer-events-none absolute inset-0 dark:hidden bg-gradient-to-tr from-[color-mix(in_oklab,var(--primary)_10%,transparent)] via-transparent to-[color-mix(in_oklab,#7B2FFF_10%,transparent)]" />
-                  <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-border/60 dark:ring-transparent" />
-                </div>
+                <SolutionVisual src={ind.heroImage} alt={`${ind.name} — NFC solution`} icon={ind.icon} />
                 <div className="p-8 flex flex-col flex-1">
                   <div className="flex items-start gap-4">
                     <div className="w-12 h-12 shrink-0 rounded-xl bg-primary/10 border border-primary/30 grid place-items-center">

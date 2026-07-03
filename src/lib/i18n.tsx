@@ -248,7 +248,10 @@ export const t: Dict = {
   "foot.resource": { en: "Resources", zh: "资源" },
   "foot.company": { en: "Company", zh: "公司" },
   "foot.rights": { en: "© 2026 NFCTEC. All rights reserved.", zh: "© 2026 NFCTEC. 保留所有权利." },
-  "foot.addr": { en: "Shenzhen · Hong Kong · Singapore", zh: "深圳 · 香港 · 新加坡" },
+  "foot.addr": {
+    en: "Room 4-412, Minke Technology Park, Longgang District, Shenzhen, China",
+    zh: "中国深圳市龙岗区民科科技园 4-412",
+  },
 
   // Products page
   "ppage.title": { en: "Products", zh: "产品矩阵" },
@@ -349,8 +352,8 @@ export const t: Dict = {
   // Contact FAQ
   "faq.c1.q": { en: "How fast will I get a reply?", zh: "多久能收到回复?" },
   "faq.c1.a": {
-    en: "Engineering inquiries are answered within one business day (China Standard Time). For urgent projects, add WhatsApp in the form.",
-    zh: "工程类咨询将在一个工作日内(北京时间)得到回复。紧急项目请在表单中留下 WhatsApp。",
+    en: "Engineering inquiries submitted through the contact form are answered by email within one business day (China Standard Time).",
+    zh: "通过联系表单提交的工程咨询，我们将在一个工作日内（北京时间）通过邮件回复。",
   },
   "faq.c2.q": { en: "Can I request samples?", zh: "可以申请样品吗?" },
   "faq.c2.a": {
@@ -448,8 +451,8 @@ export const t: Dict = {
   "contact.eyebrow": { en: "Contact", zh: "联系我们" },
   "contact.title": { en: "Tell us what\nyou're building.", zh: "告诉我们\n您要做什么产品。" },
   "contact.sub": {
-    en: "Software, hardware or cloud — our engineers respond within one business day with a practical next step.",
-    zh: "软件、硬件或云服务 — 我们的工程师将在 1 个工作日内回复，并给出可行的下一步建议。",
+    en: "Software, hardware or cloud — submit your project details and our engineers will reply by email within one business day.",
+    zh: "软件、硬件或云服务 — 提交项目信息后，我们的工程师将在 1 个工作日内通过邮件回复。",
   },
   "form.projectType": { en: "Project type", zh: "项目类型" },
   "form.type.sw": { en: "Software development", zh: "软件开发" },
@@ -457,20 +460,25 @@ export const t: Dict = {
   "form.type.cloud": { en: "Cloud / API integration", zh: "云服务 / API 集成" },
   "form.type.full": { en: "Full-stack (SW + HW + Cloud)", zh: "全栈（软+硬+云）" },
   "form.error": {
-    en: "Failed to send. Please email us directly.",
-    zh: "发送失败，请直接发送邮件联系我们。",
+    en: "Failed to send. Please email us directly at support@nfctec.com.",
+    zh: "发送失败，请直接发送邮件至 support@nfctec.com。",
   },
   "product.features.title": { en: "Key features", zh: "核心特性" },
   "product.back": { en: "Back to Products", zh: "返回产品列表" },
   "form.name": { en: "Name", zh: "姓名" },
   "form.company": { en: "Company", zh: "公司" },
   "form.email": { en: "Email", zh: "邮箱" },
-  "form.whatsapp": { en: "WhatsApp", zh: "WhatsApp" },
+  "form.phone": { en: "Phone (optional)", zh: "电话（选填）" },
   "form.country": { en: "Country / Region", zh: "国家 / 地区" },
   "form.subject": { en: "Subject", zh: "主题" },
   "form.desc": { en: "Project description", zh: "项目描述" },
+  "form.subject.default": { en: "Website inquiry", zh: "网站咨询" },
   "form.submit": { en: "Submit inquiry", zh: "提交需求" },
-  "form.success": { en: "Thank you — your inquiry has been submitted. We'll respond within one business day.", zh: "感谢提交！我们已收到您的需求，将在 1 个工作日内回复。" },
+  "form.sending": { en: "Sending…", zh: "发送中…" },
+  "form.success": {
+    en: "Thank you — your inquiry has been submitted. We'll respond by email within one business day.",
+    zh: "感谢提交！我们已收到您的需求，将在 1 个工作日内通过邮件回复。",
+  },
   "form.mailto.hint": { en: "If nothing opened, email us directly at", zh: "如未自动打开，请直接发送邮件至" },
   "contact.support": { en: "Support / Inquiries", zh: "客服 / 询盘" },
   "contact.sales": { en: "Sales", zh: "销售" },

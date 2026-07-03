@@ -25,7 +25,7 @@ export const Route = createFileRoute("/$locale/solutions/$slug")({
     const url = absLocaleUrl(locale, `/solutions/${params.slug}`);
     const title = s ? `${s.name} — NFCTEC Solutions` : "Solution — NFCTEC";
     const desc = s?.tagline ?? "Industry NFC solution by NFCTEC.";
-    const heroImg = s?.heroImage ?? `/solutions/${params.slug}.webp`;
+    const heroImg = s?.heroImage;
     return {
       meta: [
         { title },
@@ -34,7 +34,7 @@ export const Route = createFileRoute("/$locale/solutions/$slug")({
         { property: "og:description", content: desc },
         { property: "og:url", content: url },
         { property: "og:type", content: "article" },
-        { property: "og:image", content: `https://www.nfctec.com${heroImg}` },
+        ...(heroImg ? [{ property: "og:image", content: `https://www.nfctec.com${heroImg}` }] : []),
       ],
       links: [
         { rel: "canonical", href: url },

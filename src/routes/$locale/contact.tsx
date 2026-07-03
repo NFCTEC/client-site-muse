@@ -1,6 +1,7 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { useState } from "react";
 import { useI18n, t as dict, type Lang } from "@/lib/i18n";
+import { SALES_EMAIL, SUPPORT_EMAIL } from "@/lib/contact";
 import { Mail, MapPin, ArrowRight, CheckCircle2 } from "lucide-react";
 import { submitInquiry } from "@/lib/api/inquiry.functions";
 import { fetchDisplayConfig } from "@/lib/cms";
@@ -18,9 +19,6 @@ function buildContactFaq(lang: Lang): FaqItem[] {
     a: dict[`faq.${k}.a`][lang],
   }));
 }
-
-const INQUIRY_TO = "support@nfctec.com";
-const SALES_EMAIL = "sale@nfctec.com";
 
 export const Route = createFileRoute("/$locale/contact")({
   loader: async ({ params }) => {
@@ -57,7 +55,6 @@ export const Route = createFileRoute("/$locale/contact")({
 
 function Contact() {
   const { tr, lang } = useI18n();
-  const { locale } = Route.useParams();
   const faqItems = buildContactFaq(lang);
   const [done, setDone] = useState(false);
   const [error, setError] = useState(false);
@@ -70,14 +67,14 @@ function Contact() {
     const fd = new FormData(e.currentTarget);
     const get = (k: string) => String(fd.get(k) || "").trim();
     const projectType = get("projectType");
-    const subject = get("subject") || "Website inquiry";
+    const subject = get("subject") || tr("form.subject.default");
     try {
       await submitInquiry({
         data: {
           name: get("name"),
           company: get("company") || undefined,
           email: get("email"),
-          whatsapp: get("whatsapp") || undefined,
+          whatsapp: get("phone") || undefined,
           country: get("country") || undefined,
           subject: projectType ? `[${projectType}] ${subject}` : subject,
           message: get("desc"),
@@ -117,7 +114,7 @@ function Contact() {
                   <Field label={tr("form.name")} name="name" required />
                   <Field label={tr("form.company")} name="company" required />
                   <Field label={tr("form.email")} name="email" type="email" required />
-                  <Field label={tr("form.whatsapp")} name="whatsapp" placeholder="+1 555 …" />
+                  <Field label={tr("form.phone")} name="phone" placeholder="+86 134 …" />
                   <Field label={tr("form.country")} name="country" />
                   <div>
                     <label className="block text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">
@@ -154,7 +151,7 @@ function Contact() {
                   disabled={loading}
                   className="mt-8 inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-7 py-3.5 text-sm font-semibold hover:opacity-90 transition-opacity disabled:opacity-60"
                 >
-                  {loading ? "Sending…" : tr("form.submit")} <ArrowRight size={16} />
+                  {loading ? tr("form.sending") : tr("form.submit")} <ArrowRight size={16} />
                 </button>
               </>
             )}
@@ -162,7 +159,7 @@ function Contact() {
 
           <aside className="lg:col-span-2 space-y-4">
             {[
-              { icon: Mail, label: tr("contact.support"), value: INQUIRY_TO, href: `mailto:${INQUIRY_TO}` },
+              { icon: Mail, label: tr("contact.support"), value: SUPPORT_EMAIL, href: `mailto:${SUPPORT_EMAIL}` },
               { icon: Mail, label: tr("contact.sales"), value: SALES_EMAIL, href: `mailto:${SALES_EMAIL}` },
               { icon: MapPin, label: tr("contact.addr"), value: tr("foot.addr") },
             ].map((c) => {

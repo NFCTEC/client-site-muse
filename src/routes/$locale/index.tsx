@@ -35,6 +35,7 @@ import {
 import { SectionHeader } from "@/components/SectionHeader";
 import { CtaBand } from "@/components/CtaBand";
 import { HeroIllustration } from "@/components/HeroIllustration";
+import { SolutionVisual } from "@/components/SolutionVisual";
 import * as LucideIcons from "lucide-react";
 
 export const Route = createFileRoute("/$locale/")({
@@ -365,14 +366,7 @@ function Home() {
                   params={{ locale, slug: s.slug }}
                   className="card-glow group flex flex-col rounded-2xl border border-border bg-card-gradient overflow-hidden min-h-[20rem]"
                 >
-                  <img
-                    src={s.heroImage ?? `/solutions/${s.slug}.webp`}
-                    alt={s.name}
-                    width={400}
-                    height={180}
-                    loading="lazy"
-                    className="w-full h-36 object-cover"
-                  />
+                  <SolutionVisual src={s.heroImage} alt={s.name} icon={s.icon} className="h-36" />
                   <div className="p-6 flex flex-col flex-1">
                     <h3 className="font-display text-lg font-semibold group-hover:text-primary transition-colors">
                       {s.name}

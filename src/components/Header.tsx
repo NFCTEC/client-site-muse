@@ -177,13 +177,6 @@ export function Header() {
           >
             {lang === "zh" ? "EN" : "中"}
           </button>
-          <Link
-            to="/$locale/contact"
-            params={{ locale }}
-            className="hidden md:inline-flex items-center rounded-full bg-primary text-primary-foreground px-4 py-2 text-sm font-semibold hover:opacity-90 transition-opacity"
-          >
-            {tr("nav.getQuote")}
-          </Link>
           <button
             onClick={() => setOpen(!open)}
             className="lg:hidden p-2 -mr-2 text-foreground"
@@ -217,14 +210,6 @@ export function Header() {
                 </Link>
               );
             })}
-            <Link
-              to="/$locale/contact"
-              params={{ locale }}
-              onClick={() => setOpen(false)}
-              className="mt-2 inline-flex items-center justify-center rounded-full bg-primary text-primary-foreground px-4 py-2.5 text-sm font-semibold"
-            >
-              {tr("nav.getQuote")}
-            </Link>
           </div>
         </div>
       )}
