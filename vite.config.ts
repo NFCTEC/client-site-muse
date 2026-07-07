@@ -7,6 +7,18 @@
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 export default defineConfig({
+  vite: {
+    preview: {
+      // Nginx/Cloudflare forwards Host; Vite 6+ blocks unknown hosts by default.
+      allowedHosts: [
+        "nfctec.com",
+        "www.nfctec.com",
+        "web.nfctec.com",
+        "admin.nfctec.com",
+        "localhost",
+      ],
+    },
+  },
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     // nitro/vite builds from this
