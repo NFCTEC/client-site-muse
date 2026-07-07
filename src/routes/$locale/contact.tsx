@@ -3,8 +3,7 @@ import { useState } from "react";
 import { useI18n, t as dict, type Lang } from "@/lib/i18n";
 import { SALES_EMAIL, SUPPORT_EMAIL } from "@/lib/contact";
 import { Mail, MapPin, ArrowRight, CheckCircle2 } from "lucide-react";
-import { submitInquiry } from "@/lib/api/inquiry.functions";
-import { fetchDisplayConfig } from "@/lib/cms";
+import { fetchDisplayConfig, submitInquiry } from "@/lib/cms";
 import { isModuleEnabled } from "@/lib/display-config";
 import { absLocaleUrl, type Locale } from "@/lib/locale";
 import { hreflangLinks } from "@/lib/seo";
@@ -70,15 +69,13 @@ function Contact() {
     const subject = get("subject") || tr("form.subject.default");
     try {
       await submitInquiry({
-        data: {
-          name: get("name"),
-          company: get("company") || undefined,
-          email: get("email"),
-          whatsapp: get("phone") || undefined,
-          country: get("country") || undefined,
-          subject: projectType ? `[${projectType}] ${subject}` : subject,
-          message: get("desc"),
-        },
+        name: get("name"),
+        company: get("company") || undefined,
+        email: get("email"),
+        whatsapp: get("phone") || undefined,
+        country: get("country") || undefined,
+        subject: projectType ? `[${projectType}] ${subject}` : subject,
+        message: get("desc"),
       });
       setDone(true);
     } catch {
