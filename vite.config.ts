@@ -7,6 +7,10 @@
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 export default defineConfig({
+  // VPS self-host: build a Node server in .output/ (not Cloudflare wrangler).
+  nitro: {
+    preset: "node-server",
+  },
   vite: {
     preview: {
       // Nginx/Cloudflare forwards Host; Vite 6+ blocks unknown hosts by default.
