@@ -66,10 +66,8 @@ const trust = [
 ] as const;
 
 const devTools = [
-  { k: "tools.emv.t", d: "tools.emv.d" },
-  { k: "tools.apdu.t", d: "tools.apdu.d" },
-  { k: "tools.ndef.t", d: "tools.ndef.d" },
-  { k: "tools.mifare.t", d: "tools.mifare.d" },
+  { k: "tools.ntag.t", d: "tools.ntag.d", slug: "ntag424-tool" },
+  { k: "tools.javacard.t", d: "tools.javacard.d", slug: "javacard-tool" },
 ] as const;
 
 function Platform() {
@@ -148,12 +146,12 @@ function Platform() {
       {showDownloads && (
         <PageSection tone="muted" spacing="main">
           <SectionHeader eyebrow={tr("tools.eyebrow")} title={tr("plat.title")} sub={tr("plat.sub")} />
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid sm:grid-cols-2 gap-4">
             {devTools.map((tool) => (
               <Link
                 key={tool.k}
-                to="/$locale/downloads"
-                params={{ locale }}
+                to="/$locale/tools/$slug"
+                params={{ locale, slug: tool.slug }}
                 className="card-glow rounded-xl border border-border bg-card-gradient p-5 min-h-[8.5rem] group"
               >
                 <h3 className="font-display text-sm font-semibold group-hover:text-primary transition-colors">

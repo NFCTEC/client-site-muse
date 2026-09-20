@@ -83,7 +83,7 @@ export type CmsDownloadGroup = {
 };
 
 export function getDownloadTrackUrl(itemId: string, locale: Locale): string {
-  const base = getCmsApiBase();
+  const base = getPublicCmsApiBase();
   return `${base}/public/downloads/items/${encodeURIComponent(itemId)}/file?locale=${locale}`;
 }
 
@@ -101,6 +101,19 @@ export function getCmsApiBase(): string {
     return String(import.meta.env.VITE_CMS_API_URL).replace(/\/$/, "");
   }
   return "http://localhost:3000/api";
+}
+
+export function getPublicCmsApiBase(): string {
+  if (import.meta.env.VITE_PUBLIC_CMS_API_URL) {
+    return String(import.meta.env.VITE_PUBLIC_CMS_API_URL).replace(/\/$/, "");
+  }
+  if (import.meta.env.VITE_CMS_API_URL) {
+    return String(import.meta.env.VITE_CMS_API_URL).replace(/\/$/, "");
+  }
+  if (typeof process !== "undefined" && process.env.PUBLIC_CMS_API_URL) {
+    return process.env.PUBLIC_CMS_API_URL.replace(/\/$/, "");
+  }
+  return "https://web.nfctec.com/api";
 }
 
 async function cmsFetch<T>(path: string, init?: RequestInit): Promise<T> {

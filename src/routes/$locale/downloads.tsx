@@ -1,7 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
 import { Download, FileArchive, FileText, Cpu, Code2, ShieldCheck, Sparkles, ArrowRight } from "lucide-react";
-import { fetchDisplayConfig, fetchDownloads, formatDownloadCount, getDownloadTrackUrl, type CmsDownloadGroup } from "@/lib/cms";
+import { fetchDisplayConfig, fetchDownloads, getDownloadTrackUrl, type CmsDownloadGroup } from "@/lib/cms";
 import { filterByDisplayConfig, isModuleEnabled } from "@/lib/display-config";
 import { absLocaleUrl, type Locale } from "@/lib/locale";
 import { hreflangLinks } from "@/lib/seo";
@@ -32,7 +32,10 @@ function fileKind(url: string | null, name: string): string {
   return ext.toUpperCase();
 }
 
-const tools = [{ k: "tools.emv" }, { k: "tools.apdu" }, { k: "tools.ndef" }, { k: "tools.mifare" }] as const;
+const tools = [
+  { k: "tools.ntag", slug: "ntag424-tool" },
+  { k: "tools.javacard", slug: "javacard-tool" },
+] as const;
 
 export const Route = createFileRoute("/$locale/downloads")({
   loader: async ({ params }) => {
@@ -68,10 +71,6 @@ function Downloads() {
   const { groups, showPlatform } = Route.useLoaderData();
   const { locale } = Route.useParams();
   const totalFiles = groups.reduce((n: number, g: CmsDownloadGroup) => n + g.items.length, 0);
-  const totalDownloads = groups.reduce(
-    (n: number, g: CmsDownloadGroup) => n + g.items.reduce((m: number, it) => m + (it.downloadCount ?? 0), 0),
-    0,
-  );
 
   return (
     <>
@@ -83,7 +82,6 @@ function Downloads() {
           totalFiles > 0 ? (
             <p className="text-sm text-muted-foreground">
               {groups.length} {lang === "zh" ? "个分类" : "categories"} · {totalFiles} {tr("dl.files")}
-              {totalDownloads > 0 && <> · {formatDownloadCount(totalDownloads, locale as Locale)}</>}
             </p>
           ) : undefined
         }
@@ -126,9 +124,6 @@ function Downloads() {
                       g.items.map((it) => {
                         const kind = fileKind(it.fileUrl, it.name);
                         const metaParts = [it.version, it.fileSize].filter(Boolean);
-                        if ((it.downloadCount ?? 0) > 0) {
-                          metaParts.push(formatDownloadCount(it.downloadCount, locale as Locale));
-                        }
                         const meta = metaParts.join(" · ");
                         return (
                           <li
@@ -171,12 +166,12 @@ function Downloads() {
       {showPlatform && (
         <PageSection tone="muted" spacing="main">
           <SectionHeader eyebrow={tr("tools.eyebrow")} title={tr("plat.title")} sub={tr("plat.sub")} />
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="grid sm:grid-cols-2 gap-5">
             {tools.map((t) => (
               <Link
                 key={t.k}
-                to="/$locale/platform"
-                params={{ locale }}
+                to="/$locale/tools/$slug"
+                params={{ locale, slug: t.slug }}
                 className="card-glow group rounded-2xl border border-border bg-card-gradient p-6 min-h-[8.5rem]"
               >
                 <h3 className="font-display text-base font-semibold mb-2 group-hover:text-primary transition-colors">

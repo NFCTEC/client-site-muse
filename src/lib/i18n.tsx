@@ -221,16 +221,12 @@ export const t: Dict = {
   },
 
   // Dev tools
-  "tools.eyebrow": { en: "Free Developer Tools", zh: "免费开发者工具" },
-  "tools.title": { en: "Build faster with our open tools.", zh: "用我们的开源工具，更快交付。" },
-  "tools.emv.t": { en: "EMV Parser", zh: "EMV 解析器" },
-  "tools.emv.d": { en: "Decode TLV tags, AIDs, PDOL/CDOL — instantly.", zh: "实时解析 TLV、AID、PDOL/CDOL。" },
-  "tools.apdu.t": { en: "APDU Debugger", zh: "APDU 调试器" },
-  "tools.apdu.d": { en: "Send APDU commands, log responses, replay traces.", zh: "发送 APDU 指令、记录响应、回放数据。" },
-  "tools.ndef.t": { en: "NDEF Editor", zh: "NDEF 编辑器" },
-  "tools.ndef.d": { en: "Create URI, vCard, WiFi, smart-poster records.", zh: "创建 URI、vCard、WiFi、智能海报记录。" },
-  "tools.mifare.t": { en: "MIFARE Toolkit", zh: "MIFARE 工具集" },
-  "tools.mifare.d": { en: "Read sectors, key recovery, dump & clone analysis.", zh: "读取扇区、密钥恢复、镜像与克隆分析。" },
+  "tools.eyebrow": { en: "Developer Tools", zh: "开发者工具" },
+  "tools.title": { en: "Tools we actually ship and support.", zh: "我们实际交付和支持的工具。" },
+  "tools.ntag.t": { en: "NTAG424 DNA Tool", zh: "NTAG424 DNA 工具" },
+  "tools.ntag.d": { en: "Configure NTAG 424 DNA, test SUN dynamic URLs and validate anti-counterfeit NFC labels.", zh: "配置 NTAG 424 DNA、测试 SUN 动态 URL，并验证防伪 NFC 标签。" },
+  "tools.javacard.t": { en: "JavaCard Tool", zh: "JavaCard 工具" },
+  "tools.javacard.d": { en: "Read CPLC, open SCP02/SCP03 secure channels, load CAP files and debug APDU traces.", zh: "读取 CPLC、打开 SCP02/SCP03 安全通道、加载 CAP 文件并调试 APDU trace。" },
   "tools.open": { en: "Open tool →", zh: "打开工具 →" },
 
   // CTA

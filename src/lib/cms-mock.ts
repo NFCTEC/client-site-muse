@@ -375,6 +375,32 @@ function mockPosts(locale: Locale) {
   }));
 }
 
+function sitemapUrls() {
+  const base = "https://www.nfctec.com";
+  const staticPaths = ["", "/products", "/solutions", "/platform", "/downloads", "/blog", "/about", "/contact", "/tools/ntag424-tool", "/tools/javacard-tool"];
+  const locales: Locale[] = ["en", "zh"];
+  const urls: { loc: string; lastmod?: string }[] = [];
+
+  for (const locale of locales) {
+    for (const path of staticPaths) {
+      urls.push({ loc: `${base}/${locale}${path}`, lastmod: "2026-09-20" });
+    }
+    for (const solution of solutions(locale)) {
+      urls.push({ loc: `${base}/${locale}/solutions/${solution.slug}`, lastmod: "2026-09-20" });
+    }
+    for (const product of products(locale)) {
+      if (product.hasDetailPage) {
+        urls.push({ loc: `${base}/${locale}/products/${product.slug}`, lastmod: "2026-09-20" });
+      }
+    }
+    for (const post of mockPosts(locale)) {
+      urls.push({ loc: `${base}/${locale}/blog/${post.slug}`, lastmod: post.publishedAt?.slice(0, 10) });
+    }
+  }
+
+  return { urls };
+}
+
 export function mockResponse(path: string): unknown {
   const url = new URL(`http://x${path}`);
   const p = url.pathname;
@@ -389,7 +415,7 @@ export function mockResponse(path: string): unknown {
   }
   if (p.endsWith("/public/posts")) return mockPosts(locale);
   if (p.endsWith("/public/downloads")) return [];
-  if (p.endsWith("/public/sitemap")) return { urls: [] };
+  if (p.endsWith("/public/sitemap")) return sitemapUrls();
 
   const solMatch = p.match(/\/public\/solutions\/([^/]+)$/);
   if (solMatch) return solutions(locale).find((s) => s.slug === solMatch[1]) ?? null;

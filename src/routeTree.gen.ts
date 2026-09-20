@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
 import { Route as PlatformRouteImport } from './routes/platform'
 import { Route as DownloadsRouteImport } from './routes/downloads'
 import { Route as ContactRouteImport } from './routes/contact'
@@ -37,6 +38,7 @@ import { Route as LocaleAboutRouteImport } from './routes/$locale/about'
 import { Route as LocaleSolutionsIndexRouteImport } from './routes/$locale/solutions.index'
 import { Route as LocaleProductsIndexRouteImport } from './routes/$locale/products.index'
 import { Route as LocaleBlogIndexRouteImport } from './routes/$locale/blog.index'
+import { Route as LocaleToolsSlugRouteImport } from './routes/$locale/tools.$slug'
 import { Route as LocaleSolutionsSlugRouteImport } from './routes/$locale/solutions.$slug'
 import { Route as LocaleProductsNfcFieldDetectorRouteImport } from './routes/$locale/products.nfc-field-detector'
 import { Route as LocaleProductsSlugRouteImport } from './routes/$locale/products.$slug'
@@ -45,6 +47,11 @@ import { Route as LocaleBlogSlugRouteImport } from './routes/$locale/blog.$slug'
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RobotsDottxtRoute = RobotsDottxtRouteImport.update({
+  id: '/robots.txt',
+  path: '/robots.txt',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PlatformRoute = PlatformRouteImport.update({
@@ -182,6 +189,11 @@ const LocaleBlogIndexRoute = LocaleBlogIndexRouteImport.update({
   path: '/',
   getParentRoute: () => LocaleBlogRoute,
 } as any)
+const LocaleToolsSlugRoute = LocaleToolsSlugRouteImport.update({
+  id: '/tools/$slug',
+  path: '/tools/$slug',
+  getParentRoute: () => LocaleRouteRoute,
+} as any)
 const LocaleSolutionsSlugRoute = LocaleSolutionsSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -213,6 +225,7 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/downloads': typeof DownloadsRoute
   '/platform': typeof PlatformRoute
+  '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/$locale/about': typeof LocaleAboutRoute
   '/$locale/auth': typeof LocaleAuthRoute
@@ -233,6 +246,7 @@ export interface FileRoutesByFullPath {
   '/$locale/products/$slug': typeof LocaleProductsSlugRoute
   '/$locale/products/nfc-field-detector': typeof LocaleProductsNfcFieldDetectorRoute
   '/$locale/solutions/$slug': typeof LocaleSolutionsSlugRoute
+  '/$locale/tools/$slug': typeof LocaleToolsSlugRoute
   '/$locale/blog/': typeof LocaleBlogIndexRoute
   '/$locale/products/': typeof LocaleProductsIndexRoute
   '/$locale/solutions/': typeof LocaleSolutionsIndexRoute
@@ -245,6 +259,7 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/downloads': typeof DownloadsRoute
   '/platform': typeof PlatformRoute
+  '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/$locale/about': typeof LocaleAboutRoute
   '/$locale/auth': typeof LocaleAuthRoute
@@ -262,6 +277,7 @@ export interface FileRoutesByTo {
   '/$locale/products/$slug': typeof LocaleProductsSlugRoute
   '/$locale/products/nfc-field-detector': typeof LocaleProductsNfcFieldDetectorRoute
   '/$locale/solutions/$slug': typeof LocaleSolutionsSlugRoute
+  '/$locale/tools/$slug': typeof LocaleToolsSlugRoute
   '/$locale/blog': typeof LocaleBlogIndexRoute
   '/$locale/products': typeof LocaleProductsIndexRoute
   '/$locale/solutions': typeof LocaleSolutionsIndexRoute
@@ -277,6 +293,7 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/downloads': typeof DownloadsRoute
   '/platform': typeof PlatformRoute
+  '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/$locale/about': typeof LocaleAboutRoute
   '/$locale/auth': typeof LocaleAuthRoute
@@ -297,6 +314,7 @@ export interface FileRoutesById {
   '/$locale/products/$slug': typeof LocaleProductsSlugRoute
   '/$locale/products/nfc-field-detector': typeof LocaleProductsNfcFieldDetectorRoute
   '/$locale/solutions/$slug': typeof LocaleSolutionsSlugRoute
+  '/$locale/tools/$slug': typeof LocaleToolsSlugRoute
   '/$locale/blog/': typeof LocaleBlogIndexRoute
   '/$locale/products/': typeof LocaleProductsIndexRoute
   '/$locale/solutions/': typeof LocaleSolutionsIndexRoute
@@ -312,6 +330,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/downloads'
     | '/platform'
+    | '/robots.txt'
     | '/sitemap.xml'
     | '/$locale/about'
     | '/$locale/auth'
@@ -332,6 +351,7 @@ export interface FileRouteTypes {
     | '/$locale/products/$slug'
     | '/$locale/products/nfc-field-detector'
     | '/$locale/solutions/$slug'
+    | '/$locale/tools/$slug'
     | '/$locale/blog/'
     | '/$locale/products/'
     | '/$locale/solutions/'
@@ -344,6 +364,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/downloads'
     | '/platform'
+    | '/robots.txt'
     | '/sitemap.xml'
     | '/$locale/about'
     | '/$locale/auth'
@@ -361,6 +382,7 @@ export interface FileRouteTypes {
     | '/$locale/products/$slug'
     | '/$locale/products/nfc-field-detector'
     | '/$locale/solutions/$slug'
+    | '/$locale/tools/$slug'
     | '/$locale/blog'
     | '/$locale/products'
     | '/$locale/solutions'
@@ -375,6 +397,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/downloads'
     | '/platform'
+    | '/robots.txt'
     | '/sitemap.xml'
     | '/$locale/about'
     | '/$locale/auth'
@@ -395,6 +418,7 @@ export interface FileRouteTypes {
     | '/$locale/products/$slug'
     | '/$locale/products/nfc-field-detector'
     | '/$locale/solutions/$slug'
+    | '/$locale/tools/$slug'
     | '/$locale/blog/'
     | '/$locale/products/'
     | '/$locale/solutions/'
@@ -410,6 +434,7 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   DownloadsRoute: typeof DownloadsRoute
   PlatformRoute: typeof PlatformRoute
+  RobotsDottxtRoute: typeof RobotsDottxtRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ProductsNfcFieldDetectorRoute: typeof ProductsNfcFieldDetectorRoute
   SolutionsSlugRoute: typeof SolutionsSlugRoute
@@ -424,6 +449,13 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/robots.txt': {
+      id: '/robots.txt'
+      path: '/robots.txt'
+      fullPath: '/robots.txt'
+      preLoaderRoute: typeof RobotsDottxtRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/platform': {
@@ -615,6 +647,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LocaleBlogIndexRouteImport
       parentRoute: typeof LocaleBlogRoute
     }
+    '/$locale/tools/$slug': {
+      id: '/$locale/tools/$slug'
+      path: '/tools/$slug'
+      fullPath: '/$locale/tools/$slug'
+      preLoaderRoute: typeof LocaleToolsSlugRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
     '/$locale/solutions/$slug': {
       id: '/$locale/solutions/$slug'
       path: '/$slug'
@@ -700,6 +739,7 @@ interface LocaleRouteRouteChildren {
   LocaleProductsRoute: typeof LocaleProductsRouteWithChildren
   LocaleSolutionsRoute: typeof LocaleSolutionsRouteWithChildren
   LocaleIndexRoute: typeof LocaleIndexRoute
+  LocaleToolsSlugRoute: typeof LocaleToolsSlugRoute
 }
 
 const LocaleRouteRouteChildren: LocaleRouteRouteChildren = {
@@ -712,6 +752,7 @@ const LocaleRouteRouteChildren: LocaleRouteRouteChildren = {
   LocaleProductsRoute: LocaleProductsRouteWithChildren,
   LocaleSolutionsRoute: LocaleSolutionsRouteWithChildren,
   LocaleIndexRoute: LocaleIndexRoute,
+  LocaleToolsSlugRoute: LocaleToolsSlugRoute,
 }
 
 const LocaleRouteRouteWithChildren = LocaleRouteRoute._addFileChildren(
@@ -749,6 +790,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   DownloadsRoute: DownloadsRoute,
   PlatformRoute: PlatformRoute,
+  RobotsDottxtRoute: RobotsDottxtRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   ProductsNfcFieldDetectorRoute: ProductsNfcFieldDetectorRoute,
   SolutionsSlugRoute: SolutionsSlugRoute,

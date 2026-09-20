@@ -1,12 +1,18 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
 import { fetchSitemapUrls } from "@/lib/cms";
+import { SITE_URL } from "@/lib/seo";
+
+const STATIC_URLS = ["en", "zh"].flatMap((locale) => [
+  { loc: `${SITE_URL}/${locale}/tools/ntag424-tool`, lastmod: "2026-09-20" },
+  { loc: `${SITE_URL}/${locale}/tools/javacard-tool`, lastmod: "2026-09-20" },
+]);
 
 export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
       GET: async () => {
-        const entries = await fetchSitemapUrls();
+        const entries = [...(await fetchSitemapUrls()), ...STATIC_URLS];
 
         const urls = entries.map((e) =>
           [

@@ -96,6 +96,60 @@ export const posts: BlogPost[] = [
       { heading: "Tokenization", text: "Token requestors should regenerate device tokens after the OS upgrade — the attestation chain changes when StrongBox migration happens." },
     ],
   },
+  {
+    slug: "javacard-cap-load-globalplatform-guide",
+    cat: "JavaCard",
+    date: "2026-09-20",
+    title: "JavaCard CAP Load with GlobalPlatform: INSTALL, LOAD and SELECT Explained",
+    excerpt: "A practical guide to loading a JavaCard applet with GlobalPlatform, from secure channel setup to final SELECT verification.",
+    readMinutes: 10,
+    body: [
+      { text: "Loading a JavaCard applet is not just sending a CAP file to a card. A production flow must open a GlobalPlatform secure channel, load package blocks, install the applet instance and verify that the new AID can be selected reliably." },
+      { heading: "Secure channel first", text: "The usual command sequence starts with INITIALIZE UPDATE and EXTERNAL AUTHENTICATE. These commands create the SCP02 or SCP03 secure channel used to wrap later INSTALL and LOAD commands. If this step fails, check key version, security level and host cryptogram calculation first." },
+      { heading: "INSTALL for load and LOAD", text: "INSTALL [for load] tells the card that a package is about to be loaded. LOAD then sends the CAP file in blocks. Large CAP files can fail because of block size, secure messaging overhead or EEPROM limits, so logs should include block index, response status and wrapped APDU length." },
+      { heading: "Install and verify", text: "INSTALL [for install] creates the applet instance using package AID, applet AID, instance AID and privileges. After installation, always SELECT the instance AID and run a minimal command to prove the lifecycle is complete." },
+    ],
+  },
+  {
+    slug: "apdu-status-words-9000-6a82-6985",
+    cat: "APDU",
+    date: "2026-09-20",
+    title: "APDU Status Words Explained: 9000, 6A82, 6985, 6700 and 6D00",
+    excerpt: "Common ISO 7816 status words engineers see when debugging smart cards and JavaCard applets.",
+    readMinutes: 7,
+    body: [
+      { text: "APDU status words are the fastest way to understand why a smart card command failed. The response data may be empty, but SW1/SW2 still tells you whether the command was accepted, malformed, unauthorized or unsupported." },
+      { heading: "9000, 6A82 and 6985", text: "9000 means success at the APDU layer. 6A82 usually means file or application not found, often because a SELECT AID is wrong or the applet instance was not installed. 6985 means conditions of use not satisfied, commonly caused by missing security state, wrong lifecycle or insufficient privileges." },
+      { heading: "Length and instruction errors", text: "6700 indicates wrong length, while 6D00 indicates an unsupported instruction code. Good APDU tooling should keep the complete command history so engineers can reproduce status-word failures instead of relying on screenshots." },
+    ],
+  },
+  {
+    slug: "mifare-classic-to-desfire-ev3-migration-checklist",
+    cat: "MIFARE",
+    date: "2026-09-20",
+    title: "MIFARE Classic to DESFire EV3 Migration Checklist",
+    excerpt: "What to check when replacing legacy MIFARE Classic access cards with DESFire EV3 credentials.",
+    readMinutes: 9,
+    body: [
+      { text: "Many access-control systems still rely on MIFARE Classic because it was cheap and widely supported. For new deployments, DESFire EV3 is usually the safer credential because it supports AES authentication, multiple applications and stronger transaction features." },
+      { heading: "Data mapping", text: "Classic sector and block layouts do not translate directly into DESFire applications and files. Define application IDs, file IDs, access rights, key versions and whether value files or standard data files are needed before personalization starts." },
+      { heading: "Reader firmware", text: "A reader that only reads UID or Classic sectors will not magically support DESFire authentication. Firmware must handle ISO 14443-4 communication, AES authentication and the chosen file operations." },
+      { heading: "Dual-credential period", text: "Many sites need readers and backend systems to accept both legacy Classic cards and new DESFire EV3 cards while users are migrated in batches. Plan this period explicitly." },
+    ],
+  },
+  {
+    slug: "ndef-uri-record-byte-example",
+    cat: "NDEF",
+    date: "2026-09-20",
+    title: "NDEF URI Record Byte Example for NFC Tags",
+    excerpt: "A byte-level example of how an NFC URI record is encoded and why prefix codes matter.",
+    readMinutes: 6,
+    body: [
+      { text: "NDEF URI records are one of the most common payloads written to NFC tags. They are used for product links, support pages, pairing flows, business cards and marketing campaigns." },
+      { heading: "Prefix code", text: "A URI record does not always store the full string. The first payload byte is a prefix code. For example, 0x04 means https://. The rest of the payload stores the remaining characters, saving tag memory." },
+      { heading: "Byte-level example", text: "For a URL such as https://www.nfctec.com/contact, the payload can use prefix code 0x04 followed by www.nfctec.com/contact in ASCII. The NDEF record header then describes TNF, type length, payload length and record type U." },
+    ],
+  },
 ];
 
 export const postsBySlug = new Map(posts.map((p) => [p.slug, p]));

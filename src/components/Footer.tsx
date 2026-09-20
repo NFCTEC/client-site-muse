@@ -40,8 +40,8 @@ export function Footer() {
       links: [
         { to: "/$locale/downloads", label: tr("nav.downloads") },
         { to: "/$locale/blog", label: tr("nav.blog") },
-        { to: "/$locale/platform", label: tr("tools.emv.t") },
-        { to: "/$locale/platform", label: tr("tools.apdu.t") },
+        { to: "/$locale/tools/ntag424-tool", label: tr("tools.ntag.t") },
+        { to: "/$locale/tools/javacard-tool", label: tr("tools.javacard.t") },
       ],
     },
     {
