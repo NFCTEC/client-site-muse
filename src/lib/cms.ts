@@ -1,5 +1,6 @@
 import type { Locale } from "./locale";
 import { mergeDisplayConfig, type SiteDisplayConfig } from "./display-config";
+import { mergeSolutionContent } from "./solutions-content";
 
 export type CmsPost = {
   id: string;
@@ -59,7 +60,10 @@ export type CmsSolution = {
   protocols: string[];
   certifications: string[];
   workflow: { title: string; description: string }[];
-  resources: { title: string; kind: string }[];
+  resources: { title: string; kind: string; href?: string }[];
+  faqs: { q: string; a: string }[];
+  relatedLinks: { title: string; href: string }[];
+  body: string;
   sortOrder: number;
   seoTitle: string | null;
   seoDescription: string | null;
@@ -227,13 +231,16 @@ export function formatViewCount(count: number, locale: Locale): string {
 }
 
 export async function fetchSolutions(locale: Locale): Promise<CmsSolution[]> {
-  const rows = await cmsFetch<Array<Omit<CmsSolution, "capabilities" | "deliverables" | "workflow" | "resources"> & {
+  const rows = await cmsFetch<Array<Omit<CmsSolution, "capabilities" | "deliverables" | "workflow" | "resources" | "faqs" | "relatedLinks" | "body"> & {
     capabilities: unknown;
     deliverables: unknown;
     workflow: unknown;
     resources: unknown;
+    faqs?: unknown;
+    relatedLinks?: unknown;
+    body?: unknown;
   }>>(`/public/solutions?locale=${locale}`);
-  return rows.map(normalizeSolution);
+  return rows.map((row) => mergeSolutionContent(normalizeSolution(row)));
 }
 
 export async function fetchSolution(locale: Locale, slug: string): Promise<CmsSolution | null> {
@@ -241,7 +248,7 @@ export async function fetchSolution(locale: Locale, slug: string): Promise<CmsSo
     const row = await cmsFetch<Parameters<typeof normalizeSolution>[0]>(
       `/public/solutions/${slug}?locale=${locale}`,
     );
-    return normalizeSolution(row);
+    return mergeSolutionContent(normalizeSolution(row));
   } catch {
     return null;
   }
@@ -374,11 +381,16 @@ function normalizeSolution(row: {
   certifications: unknown;
   workflow: unknown;
   resources: unknown;
+  faqs?: unknown;
+  relatedLinks?: unknown;
+  body?: unknown;
   sortOrder: number;
   seoTitle: string | null;
   seoDescription: string | null;
   ogImage: string | null;
 }): CmsSolution {
+  const faqs = normalizeFaqs(row.faqs);
+  const relatedLinks = normalizeRelated(row.relatedLinks, row.resources);
   return {
     ...row,
     capabilities: normalizeCaps(row.capabilities),
@@ -387,7 +399,49 @@ function normalizeSolution(row: {
     certifications: normalizeStrings(row.certifications),
     workflow: normalizeSteps(row.workflow),
     resources: normalizeResources(row.resources),
+    faqs,
+    relatedLinks,
+    body: typeof row.body === "string" ? row.body : "",
   };
+}
+
+function normalizeFaqs(v: unknown): CmsSolution["faqs"] {
+  if (!Array.isArray(v)) return [];
+  return v
+    .map((item) => {
+      if (item && typeof item === "object") {
+        const o = item as Record<string, unknown>;
+        return { q: String(o.q ?? o.question ?? o.title ?? ""), a: String(o.a ?? o.answer ?? o.description ?? "") };
+      }
+      return { q: "", a: "" };
+    })
+    .filter((x) => x.q && x.a);
+}
+
+function normalizeRelated(v: unknown, resources: unknown): CmsSolution["relatedLinks"] {
+  if (Array.isArray(v)) {
+    return v
+      .map((item) => {
+        if (item && typeof item === "object") {
+          const o = item as Record<string, unknown>;
+          return { title: String(o.title ?? ""), href: String(o.href ?? o.url ?? "") };
+        }
+        return { title: "", href: "" };
+      })
+      .filter((x) => x.title && x.href);
+  }
+  if (!Array.isArray(resources)) return [];
+  return resources
+    .map((item) => {
+      if (item && typeof item === "object") {
+        const o = item as Record<string, unknown>;
+        const href = String(o.href ?? o.url ?? "");
+        if (!href) return { title: "", href: "" };
+        return { title: String(o.title ?? href), href };
+      }
+      return { title: "", href: "" };
+    })
+    .filter((x) => x.title && x.href);
 }
 
 function normalizeCaps(v: unknown): CmsSolution["capabilities"] {
@@ -435,7 +489,7 @@ function normalizeResources(v: unknown): CmsSolution["resources"] {
         const kind = o.kind as { en?: string; zh?: string } | undefined;
         return { title: t.en ?? t.zh ?? "", kind: kind?.en ?? kind?.zh ?? "" };
       }
-      return { title: String(o.title ?? ""), kind: String(o.kind ?? "") };
+      return { title: String(o.title ?? ""), kind: String(o.kind ?? ""), href: o.href ? String(o.href) : o.url ? String(o.url) : undefined };
     }
     return { title: "", kind: "" };
   });

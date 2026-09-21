@@ -23,9 +23,52 @@ export const Route = createFileRoute("/$locale/solutions/$slug")({
     const s = loaderData?.solution;
     const locale = params.locale as Locale;
     const url = absLocaleUrl(locale, `/solutions/${params.slug}`);
-    const title = s ? `${s.name} — NFCTEC Solutions` : "Solution — NFCTEC";
-    const desc = s?.tagline ?? "Industry NFC solution by NFCTEC.";
+    const title = s?.seoTitle || (s ? `${s.name} — NFCTEC Solutions` : "Solution — NFCTEC");
+    const desc = s?.seoDescription || s?.tagline || "Industry NFC solution by NFCTEC.";
     const heroImg = s?.heroImage;
+    const faqScript =
+      s?.faqs && s.faqs.length > 0
+        ? {
+            type: "application/ld+json",
+            children: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              mainEntity: s.faqs.map((item) => ({
+                "@type": "Question",
+                name: item.q,
+                acceptedAnswer: { "@type": "Answer", text: item.a },
+              })),
+            }),
+          }
+        : null;
+    const serviceScript = s
+      ? {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Service",
+            name: s.name,
+            description: desc,
+            provider: { "@type": "Organization", name: "NFCTEC", url: "https://www.nfctec.com" },
+            areaServed: "Worldwide",
+            url,
+          }),
+        }
+      : null;
+    const crumbScript = s
+      ? {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: `https://www.nfctec.com/${locale}` },
+              { "@type": "ListItem", position: 2, name: "Solutions", item: `https://www.nfctec.com/${locale}/solutions` },
+              { "@type": "ListItem", position: 3, name: s.name, item: url },
+            ],
+          }),
+        }
+      : null;
     return {
       meta: [
         { title },
@@ -34,12 +77,15 @@ export const Route = createFileRoute("/$locale/solutions/$slug")({
         { property: "og:description", content: desc },
         { property: "og:url", content: url },
         { property: "og:type", content: "article" },
-        ...(heroImg ? [{ property: "og:image", content: `https://www.nfctec.com${heroImg}` }] : []),
+        ...(heroImg ? [{ property: "og:image", content: heroImg.startsWith("http") ? heroImg : `https://www.nfctec.com${heroImg}` }] : []),
       ],
       links: [
         { rel: "canonical", href: url },
         ...hreflangLinks(`/solutions/${params.slug}`),
       ],
+      scripts: [faqScript, serviceScript, crumbScript].filter(
+        (item): item is { type: string; children: string } => Boolean(item),
+      ),
     };
   },
   notFoundComponent: function SolutionNotFound() {
