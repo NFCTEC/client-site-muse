@@ -150,6 +150,34 @@ export const posts: BlogPost[] = [
       { heading: "Byte-level example", text: "For a URL such as https://www.nfctec.com/contact, the payload can use prefix code 0x04 followed by www.nfctec.com/contact in ASCII. The NDEF record header then describes TNF, type length, payload length and record type U." },
     ],
   },
+  {
+    slug: "scp02-vs-scp03-javacard-secure-channel",
+    cat: "JavaCard",
+    date: "2026-09-20",
+    title: "SCP02 vs SCP03: Which GlobalPlatform Secure Channel Should You Use?",
+    excerpt: "A practical comparison of GlobalPlatform SCP02 and SCP03 for JavaCard developers: key derivation, MAC/ENC wrapping, and when to choose each.",
+    readMinutes: 9,
+    body: [
+      { text: "If you load JavaCard applets for a living, you will eventually hit the same question: should this card use SCP02 or SCP03? The wrong answer usually shows up as a failed EXTERNAL AUTHENTICATE or a CAP load that breaks on the first wrapped INSTALL." },
+      { heading: "SCP02 in practice", text: "SCP02 is still widely deployed on older and mid-range JavaCards. It typically uses 3DES-based session keys. Use it when the card only advertises SCP02, especially during sample bring-up with default GP keys." },
+      { heading: "SCP03 in practice", text: "SCP03 is the AES-based GlobalPlatform secure channel. For new applet projects and higher-assurance cards, SCP03 with ENC+MAC is usually the better long-term choice when the card supports it." },
+      { heading: "Debug checklist", text: "When authentication fails, verify key version, ENC/MAC/DEK values, host cryptogram calculation, EXTERNAL AUTHENTICATE P1 security level, and that later LOAD/INSTALL wrapping uses the same session state." },
+    ],
+  },
+  {
+    slug: "ntag424-dna-sun-url-authentication-example",
+    cat: "Security",
+    date: "2026-09-20",
+    title: "NTAG424 DNA SUN URL Authentication Example",
+    excerpt: "A practical NTAG 424 DNA example: how SUN dynamic URLs, AES-CMAC, and read counters stop NFC label cloning.",
+    readMinutes: 8,
+    body: [
+      { text: "Static NFC tags are easy to clone. NTAG 424 DNA fixes that with Secure Unique NFC messaging — every tap can produce a signed, counter-based URL that a server can verify." },
+      { heading: "What a SUN URL contains", text: "On each tap the tag can assemble a URL from UID, read counter and AES-CMAC. The phone opens a normal HTTPS link, and the server decides whether the tap is authentic." },
+      { heading: "Server-side verification", text: "Recompute the CMAC with the diversified AES key, then reject taps with a bad MAC or a counter that is not strictly increasing for that UID. The counter check is what defeats simple URL copying." },
+      { heading: "Bring-up checklist", text: "Authenticate with EV2 keys, configure SDM/NDEF templates, generate a real SUN URL, verify it against your backend, then only move to batch personalization after the lab loop is stable." },
+    ],
+  },
 ];
 
 export const postsBySlug = new Map(posts.map((p) => [p.slug, p]));
