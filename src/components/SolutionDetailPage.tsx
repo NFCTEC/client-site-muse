@@ -41,7 +41,7 @@ export function SolutionDetailPage({
                 <Icon size={26} className="text-primary" />
               </div>
               <div className="flex-1">
-                <h1 className="font-display text-4xl lg:text-5xl tracking-tight text-balance">{solution.name}</h1>
+                <h1 className="font-display text-4xl lg:text-5xl tracking-tight text-balance">{solution.headline || solution.name}</h1>
                 <p className="mt-4 text-base lg:text-lg text-muted-foreground leading-relaxed">{solution.tagline}</p>
               </div>
             </div>
@@ -69,7 +69,7 @@ export function SolutionDetailPage({
         <section className="py-14 lg:py-16 border-b border-border">
           <div className="mx-auto max-w-6xl px-6 lg:px-10 grid lg:grid-cols-12 gap-8 lg:gap-12">
             <div className="lg:col-span-3">
-              <div className="text-xs font-mono text-primary uppercase tracking-widest">{zh ? "方案说明" : "How it works"}</div>
+              <div className="text-xs font-mono text-primary uppercase tracking-widest">{zh ? "说明" : "Notes"}</div>
             </div>
             <div className="lg:col-span-9">
               <PostBody body={solution.body} />
@@ -81,7 +81,7 @@ export function SolutionDetailPage({
       <section className="py-16 lg:py-20">
         <div className="mx-auto max-w-6xl px-6 lg:px-10">
           <h2 className="font-display text-2xl lg:text-3xl tracking-tight mb-10">
-            {zh ? "能力覆盖" : "Capabilities"}
+            {zh ? "工作范围" : "Work items"}
           </h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {solution.capabilities.map((c) => (
@@ -98,7 +98,7 @@ export function SolutionDetailPage({
         <section className="py-16 lg:py-20 border-t border-border bg-surface/30">
           <div className="mx-auto max-w-6xl px-6 lg:px-10">
             <h2 className="font-display text-2xl lg:text-3xl tracking-tight mb-10">
-              {zh ? "实施步骤" : "Delivery workflow"}
+              {zh ? "实施顺序" : "Sequence"}
             </h2>
             <ol className="grid md:grid-cols-2 gap-4">
               {solution.workflow.map((step, i) => (
@@ -117,7 +117,7 @@ export function SolutionDetailPage({
         <section className="py-16 lg:py-20 border-t border-border">
           <div className="mx-auto max-w-6xl px-6 lg:px-10">
             <h2 className="font-display text-2xl lg:text-3xl tracking-tight mb-8">
-              {zh ? "交付物" : "What you get"}
+              {zh ? "交付清单" : "Deliverables"}
             </h2>
             <ul className="grid sm:grid-cols-2 gap-3">
               {solution.deliverables.map((item) => (
@@ -171,7 +171,7 @@ export function SolutionDetailPage({
       {solution.relatedLinks.length > 0 ? (
         <section className="py-12 border-t border-border">
           <div className="mx-auto max-w-6xl px-6 lg:px-10">
-            <h2 className="font-display text-xl mb-5">{zh ? "相关工具与文章" : "Related tools and articles"}</h2>
+            <h2 className="font-display text-xl mb-5">{zh ? "相关资料" : "References"}</h2>
             <div className="flex flex-wrap gap-3">
               {solution.relatedLinks.map((link) => (
                 <a
@@ -190,13 +190,13 @@ export function SolutionDetailPage({
       <section className="pb-24 pt-8">
         <div className="mx-auto max-w-5xl px-6 lg:px-10">
           <div className="relative rounded-3xl border border-primary/30 bg-card-gradient p-10 lg:p-12 text-center overflow-hidden shadow-glow">
-            <h2 className="font-display text-2xl lg:text-3xl tracking-tight">{zh ? "需要这套方案落地？" : "Need this in production?"}</h2>
+            <h2 className="font-display text-2xl lg:text-3xl tracking-tight">{zh ? "技术对接" : "Technical enquiry"}</h2>
             <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
               <Link to="/$locale/contact" params={{ locale }} className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3 text-sm font-semibold hover:shadow-glow-strong transition-all">
                 {tr("cta.btn")} <ArrowRight size={16} />
               </Link>
               <Link to="/$locale/solutions" params={{ locale }} className="inline-flex items-center gap-2 rounded-full border border-border-strong bg-background/60 backdrop-blur px-6 py-3 text-sm font-medium hover:border-primary hover:text-primary transition-colors">
-                {zh ? "查看其他行业" : "Other industries"}
+                {zh ? "其他方案" : "Other programmes"}
               </Link>
             </div>
           </div>

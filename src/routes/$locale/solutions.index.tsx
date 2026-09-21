@@ -24,10 +24,10 @@ export const Route = createFileRoute("/$locale/solutions/")({
     const url = absLocaleUrl(params.locale as Locale, "/solutions");
     return {
       meta: [
-        { title: "Industry Solutions — NFCTEC" },
-        { name: "description", content: "End-to-end NFC solutions for banking, transit, government, IoT, brand protection and more." },
-        { property: "og:title", content: "Industry Solutions — NFCTEC" },
-        { property: "og:description", content: "Proven NFC playbooks across 11 industries." },
+        { title: "Industry solutions — EMV, AFC, DESFire, NTAG 424 | NFCTEC" },
+        { name: "description", content: "Issuer EMV, transit fare media, DESFire/Seos access, NTAG 424 DNA SUN, ICAO 9303, CCC Digital Key and related NFC programmes." },
+        { property: "og:title", content: "Industry solutions — NFCTEC" },
+        { property: "og:description", content: "EMV issuance, AFC, DESFire access, NTAG 424 DNA, ICAO 9303, CCC Digital Key." },
         { property: "og:url", content: url },
         { property: "og:type", content: "website" },
       ],

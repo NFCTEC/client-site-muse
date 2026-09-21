@@ -79,8 +79,8 @@ export const t: Dict = {
     zh: "工程笔记、协议解读与客户案例。",
   },
   "ind.sub": {
-    en: "Tap an industry to explore capabilities, protocols and deliverables.",
-    zh: "点击行业，查看能力清单、协议支持与交付物。",
+    en: "EMV issuance, AFC, DESFire/Seos, NTAG 424 DNA, ICAO 9303, CCC Digital Key and related programmes.",
+    zh: "EMV 发卡、AFC、DESFire/Seos、NTAG 424 DNA、ICAO 9303、CCC 数字钥匙及相关项目。",
   },
   "ind.capabilities": { en: "Key capabilities", zh: "核心能力" },
   "ind.learnMore": { en: "Learn more", zh: "了解更多" },
@@ -158,7 +158,7 @@ export const t: Dict = {
 
   // Industries
   "ind.eyebrow": { en: "Industry Solutions", zh: "行业方案" },
-  "ind.title": { en: "Vertical expertise\nfor your product roadmap.", zh: "垂直行业经验，\n支撑您的产品路线。" },
+  "ind.title": { en: "Industry programmes", zh: "行业项目" },
   "ind.banking.t": { en: "Banking & Payment", zh: "银行与支付" },
   "ind.banking.d": {
     en: "End-to-end payment engineering — from card applet to acquirer host. We deliver EMV-certified applets, PCI-compliant issuance, tokenization for mobile wallets and the ISO 8583 host systems that move money at scale.",

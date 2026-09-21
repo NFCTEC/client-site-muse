@@ -47,7 +47,7 @@ export const Route = createFileRoute("/$locale/solutions/$slug")({
           children: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Service",
-            name: s.name,
+            name: s.headline || s.name,
             description: desc,
             provider: { "@type": "Organization", name: "NFCTEC", url: "https://www.nfctec.com" },
             areaServed: "Worldwide",
@@ -64,7 +64,7 @@ export const Route = createFileRoute("/$locale/solutions/$slug")({
             itemListElement: [
               { "@type": "ListItem", position: 1, name: "Home", item: `https://www.nfctec.com/${locale}` },
               { "@type": "ListItem", position: 2, name: "Solutions", item: `https://www.nfctec.com/${locale}/solutions` },
-              { "@type": "ListItem", position: 3, name: s.name, item: url },
+              { "@type": "ListItem", position: 3, name: s.headline || s.name, item: url },
             ],
           }),
         }

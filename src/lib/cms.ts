@@ -51,6 +51,7 @@ export type CmsSolution = {
   locale: Locale;
   slug: string;
   name: string;
+  headline?: string;
   tagline: string;
   intro: string;
   icon: string;
