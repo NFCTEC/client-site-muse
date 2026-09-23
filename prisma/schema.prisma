@@ -1,0 +1,565 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Locale {
+  en
+  zh
+}
+
+enum ContentStatus {
+  DRAFT
+  REVIEW
+  PUBLISHED
+  ARCHIVED
+}
+
+enum ProductCategory {
+  SOFTWARE
+  HARDWARE
+  CLOUD
+}
+
+enum SolutionCategory {
+  PAYMENT
+  IDENTITY
+  ACCESS_CONTROL
+  BRAND_PROTECTION
+  TRANSIT
+  IOT
+}
+
+enum TechnologyCategory {
+  NFC_RF
+  SMART_CARDS
+  SECURITY_IDENTITY
+}
+
+enum ToolKind {
+  SDK
+  TOOL
+  API
+  DOCUMENTATION
+}
+
+enum DownloadCategory {
+  SOFTWARE
+  SDK
+  DRIVERS
+  FIRMWARE
+  DATASHEETS
+  MANUALS
+  DEVELOPER_TOOLS
+}
+
+enum MediaCategory {
+  PRODUCT_IMAGES
+  BLOG_IMAGES
+  TECHNOLOGY_IMAGES
+  LOGOS
+  DOCUMENTS
+  DATASHEETS
+  SCREENSHOTS
+  VIDEOS
+}
+
+enum NavLocation {
+  HEADER
+  FOOTER
+}
+
+enum UserRole {
+  SUPER_ADMIN
+  CONTENT_ADMIN
+  PRODUCT_MANAGER
+  EDITOR
+  SALES
+}
+
+enum LeadStatus {
+  NEW
+  CONTACTED
+  QUALIFIED
+  CONVERTED
+  CLOSED
+}
+
+model User {
+  id           String     @id @default(cuid())
+  email        String     @unique
+  name         String
+  passwordHash String
+  role         UserRole   @default(EDITOR)
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  auditLogs    AuditLog[]
+  assignedLeads Lead[]    @relation("Assignee")
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  action    String
+  entity    String
+  entityId  String?
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+}
+
+model Product {
+  id                 String              @id @default(cuid())
+  category           ProductCategory
+  status             ContentStatus       @default(DRAFT)
+  featured           Boolean             @default(false)
+  sortOrder          Int                 @default(0)
+  heroImage          String?
+  gallery            Json                @default("[]")
+  supportedProtocols String[]
+  supportedChips     String[]
+  platforms          String[]
+  documentationUrl   String?
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+  translations       ProductTranslation[]
+  technologies       ProductTechnology[]
+  solutions          ProductSolution[]
+  articles           ArticleProduct[]
+  tools              ToolProduct[]
+  downloads          Download[]
+
+  @@index([status, category])
+}
+
+model ProductTranslation {
+  id               String   @id @default(cuid())
+  productId        String
+  product          Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  locale           Locale
+  name             String
+  slug             String
+  shortDescription String
+  description      String   @db.Text
+  features         Json     @default("[]")
+  specifications   Json     @default("[]")
+  seoTitle         String?
+  seoDescription   String?
+  canonicalUrl     String?
+  ogImage          String?
+  robots           String   @default("index,follow")
+
+  @@unique([productId, locale])
+  @@unique([locale, slug])
+}
+
+model Solution {
+  id           String                 @id @default(cuid())
+  category     SolutionCategory       @unique
+  status       ContentStatus          @default(DRAFT)
+  sortOrder    Int                    @default(0)
+  heroImage    String?
+  createdAt    DateTime               @default(now())
+  updatedAt    DateTime               @updatedAt
+  translations SolutionTranslation[]
+  technologies SolutionTechnology[]
+  products     ProductSolution[]
+  articles     ArticleSolution[]
+
+  @@index([status])
+}
+
+model SolutionTranslation {
+  id              String   @id @default(cuid())
+  solutionId      String
+  solution        Solution @relation(fields: [solutionId], references: [id], onDelete: Cascade)
+  locale          Locale
+  name            String
+  slug            String
+  heroTitle       String
+  heroDescription String   @db.Text
+  problem         String   @db.Text
+  solutionText    String   @db.Text
+  architecture    String   @db.Text
+  useCases        Json     @default("[]")
+  security        String   @db.Text
+  deployment      String   @db.Text
+  seoTitle        String?
+  seoDescription  String?
+  canonicalUrl    String?
+  ogImage         String?
+  robots          String   @default("index,follow")
+
+  @@unique([solutionId, locale])
+  @@unique([locale, slug])
+}
+
+model Technology {
+  id               String                   @id @default(cuid())
+  category         TechnologyCategory
+  parentId         String?
+  parent           Technology?              @relation("TechTree", fields: [parentId], references: [id], onDelete: SetNull)
+  children         Technology[]             @relation("TechTree")
+  status           ContentStatus            @default(DRAFT)
+  featured         Boolean                  @default(false)
+  sortOrder        Int                      @default(0)
+  icon             String?
+  protocols        String[]
+  chips            String[]
+  documentationUrl String?
+  createdAt        DateTime                 @default(now())
+  updatedAt        DateTime                 @updatedAt
+  translations     TechnologyTranslation[]
+  products         ProductTechnology[]
+  solutions        SolutionTechnology[]
+  articles         ArticleTechnology[]
+  tools            ToolTechnology[]
+
+  @@index([status, category])
+}
+
+model TechnologyTranslation {
+  id             String     @id @default(cuid())
+  technologyId   String
+  technology     Technology @relation(fields: [technologyId], references: [id], onDelete: Cascade)
+  locale         Locale
+  name           String
+  slug           String
+  description    String     @db.Text
+  capabilities   Json       @default("[]")
+  seoTitle       String?
+  seoDescription String?
+  canonicalUrl   String?
+  ogImage        String?
+  robots         String     @default("index,follow")
+
+  @@unique([technologyId, locale])
+  @@unique([locale, slug])
+}
+
+model DeveloperTool {
+  id               String                  @id @default(cuid())
+  kind             ToolKind
+  version          String                  @default("")
+  platforms        String[]
+  screenshots      Json                    @default("[]")
+  downloadUrl      String?
+  documentationUrl String?
+  status           ContentStatus           @default(DRAFT)
+  featured         Boolean                 @default(false)
+  sortOrder        Int                     @default(0)
+  createdAt        DateTime                @default(now())
+  updatedAt        DateTime                @updatedAt
+  translations     DeveloperToolTranslation[]
+  products         ToolProduct[]
+  technologies     ToolTechnology[]
+
+  @@index([status, kind])
+}
+
+model DeveloperToolTranslation {
+  id             String        @id @default(cuid())
+  toolId         String
+  tool           DeveloperTool @relation(fields: [toolId], references: [id], onDelete: Cascade)
+  locale         Locale
+  name           String
+  slug           String
+  description    String        @db.Text
+  features       Json          @default("[]")
+  seoTitle       String?
+  seoDescription String?
+  canonicalUrl   String?
+  ogImage        String?
+  robots         String        @default("index,follow")
+
+  @@unique([toolId, locale])
+  @@unique([locale, slug])
+}
+
+model Article {
+  id           String               @id @default(cuid())
+  status       ContentStatus        @default(DRAFT)
+  featured     Boolean              @default(false)
+  author       String               @default("NFCTEC")
+  category     String               @default("")
+  tags         String[]
+  coverImage   String?
+  publishDate  DateTime?
+  createdAt    DateTime             @default(now())
+  updatedAt    DateTime             @updatedAt
+  translations ArticleTranslation[]
+  products     ArticleProduct[]
+  technologies ArticleTechnology[]
+  solutions    ArticleSolution[]
+
+  @@index([status, publishDate])
+}
+
+model ArticleTranslation {
+  id             String   @id @default(cuid())
+  articleId      String
+  article        Article  @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  locale         Locale
+  title          String
+  slug           String
+  excerpt        String   @db.Text
+  content        String   @db.Text
+  readingTime    Int      @default(1)
+  seoTitle       String?
+  seoDescription String?
+  canonicalUrl   String?
+  ogImage        String?
+  robots         String   @default("index,follow")
+
+  @@unique([articleId, locale])
+  @@unique([locale, slug])
+}
+
+model Download {
+  id               String                @id @default(cuid())
+  version          String                @default("")
+  category         DownloadCategory
+  platform         String                @default("")
+  filePath         String?
+  fileName         String?
+  fileSize         Int                   @default(0)
+  checksum         String?
+  documentationUrl String?
+  productId        String?
+  product          Product?              @relation(fields: [productId], references: [id], onDelete: SetNull)
+  publishedAt      DateTime?
+  status           ContentStatus         @default(DRAFT)
+  createdAt        DateTime              @default(now())
+  updatedAt        DateTime              @updatedAt
+  translations     DownloadTranslation[]
+
+  @@index([status, category])
+}
+
+model DownloadTranslation {
+  id           String   @id @default(cuid())
+  downloadId   String
+  download     Download @relation(fields: [downloadId], references: [id], onDelete: Cascade)
+  locale       Locale
+  name         String
+  slug         String
+  releaseNotes String   @db.Text
+
+  @@unique([downloadId, locale])
+  @@unique([locale, slug])
+}
+
+model Media {
+  id          String        @id @default(cuid())
+  title       String        @default("")
+  alt         String        @default("")
+  category    MediaCategory @default(PRODUCT_IMAGES)
+  mimeType    String
+  size        Int
+  width       Int?
+  height      Int?
+  storagePath String
+  createdAt   DateTime      @default(now())
+
+  @@index([category])
+}
+
+model Page {
+  id           String            @id @default(cuid())
+  key          String            @unique
+  status       ContentStatus     @default(DRAFT)
+  updatedAt    DateTime          @updatedAt
+  translations PageTranslation[]
+}
+
+model PageTranslation {
+  id             String  @id @default(cuid())
+  pageId         String
+  page           Page    @relation(fields: [pageId], references: [id], onDelete: Cascade)
+  locale         Locale
+  title          String
+  description    String  @db.Text
+  body           String  @db.Text
+  seoTitle       String?
+  seoDescription String?
+  canonicalUrl   String?
+  ogImage        String?
+  robots         String  @default("index,follow")
+
+  @@unique([pageId, locale])
+}
+
+model HomepageSection {
+  id           String                         @id @default(cuid())
+  key          String                         @unique
+  enabled      Boolean                        @default(true)
+  sortOrder    Int                            @default(0)
+  translations HomepageSectionTranslation[]
+}
+
+model HomepageSectionTranslation {
+  id          String          @id @default(cuid())
+  sectionId   String
+  section     HomepageSection @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+  locale      Locale
+  title       String
+  description String          @db.Text
+  content     Json            @default("{}")
+
+  @@unique([sectionId, locale])
+}
+
+model NavItem {
+  id           String               @id @default(cuid())
+  location     NavLocation
+  parentId     String?
+  parent       NavItem?             @relation("NavTree", fields: [parentId], references: [id], onDelete: Cascade)
+  children     NavItem[]            @relation("NavTree")
+  href         String
+  external     Boolean              @default(false)
+  visible      Boolean              @default(true)
+  emphasis     Boolean              @default(false)
+  sortOrder    Int                  @default(0)
+  translations NavItemTranslation[]
+
+  @@index([location, sortOrder])
+}
+
+model NavItemTranslation {
+  id     String  @id @default(cuid())
+  itemId String
+  item   NavItem @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  locale Locale
+  label  String
+
+  @@unique([itemId, locale])
+}
+
+model Lead {
+  id                 String     @id @default(cuid())
+  name               String
+  company            String     @default("")
+  email              String
+  country            String     @default("")
+  projectType        String     @default("")
+  interestedProduct  String     @default("")
+  message            String     @db.Text
+  attachmentPath     String?
+  attachmentName     String?
+  status             LeadStatus @default(NEW)
+  notes              String     @default("") @db.Text
+  assignedToId       String?
+  assignedTo         User?      @relation("Assignee", fields: [assignedToId], references: [id], onDelete: SetNull)
+  createdAt          DateTime   @default(now())
+  updatedAt          DateTime   @updatedAt
+
+  @@index([status, createdAt])
+}
+
+model Redirect {
+  id         String  @id @default(cuid())
+  fromPath   String  @unique
+  toPath     String
+  statusCode Int     @default(301)
+  note       String  @default("")
+  active     Boolean @default(true)
+}
+
+model SiteSetting {
+  key   String @id
+  value String @db.Text
+}
+
+model AnalyticsEvent {
+  id        String   @id @default(cuid())
+  name      String
+  path      String
+  createdAt DateTime @default(now())
+
+  @@index([name, createdAt])
+}
+
+model RateLimit {
+  id        String   @id @default(cuid())
+  key       String
+  createdAt DateTime @default(now())
+
+  @@index([key, createdAt])
+}
+
+model ProductTechnology {
+  productId    String
+  technologyId String
+  product      Product    @relation(fields: [productId], references: [id], onDelete: Cascade)
+  technology   Technology @relation(fields: [technologyId], references: [id], onDelete: Cascade)
+
+  @@id([productId, technologyId])
+}
+
+model ProductSolution {
+  productId  String
+  solutionId String
+  product    Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  solution   Solution @relation(fields: [solutionId], references: [id], onDelete: Cascade)
+
+  @@id([productId, solutionId])
+}
+
+model SolutionTechnology {
+  solutionId   String
+  technologyId String
+  solution     Solution   @relation(fields: [solutionId], references: [id], onDelete: Cascade)
+  technology   Technology @relation(fields: [technologyId], references: [id], onDelete: Cascade)
+
+  @@id([solutionId, technologyId])
+}
+
+model ArticleProduct {
+  articleId String
+  productId String
+  article   Article @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@id([articleId, productId])
+}
+
+model ArticleTechnology {
+  articleId    String
+  technologyId String
+  article      Article    @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  technology   Technology @relation(fields: [technologyId], references: [id], onDelete: Cascade)
+
+  @@id([articleId, technologyId])
+}
+
+model ArticleSolution {
+  articleId  String
+  solutionId String
+  article    Article  @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  solution   Solution @relation(fields: [solutionId], references: [id], onDelete: Cascade)
+
+  @@id([articleId, solutionId])
+}
+
+model ToolProduct {
+  toolId    String
+  productId String
+  tool      DeveloperTool @relation(fields: [toolId], references: [id], onDelete: Cascade)
+  product   Product       @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@id([toolId, productId])
+}
+
+model ToolTechnology {
+  toolId       String
+  technologyId String
+  tool         DeveloperTool @relation(fields: [toolId], references: [id], onDelete: Cascade)
+  technology   Technology    @relation(fields: [technologyId], references: [id], onDelete: Cascade)
+
+  @@id([toolId, technologyId])
+}
