@@ -209,10 +209,10 @@ export const t: Dict = {
     en: "One card for student ID, library, canteen and attendance — physical DESFire plus mobile wallet credentials, with a central issuance and access platform ready for multi-campus deployments.",
     zh: "一张卡覆盖学生证、图书馆、食堂与考勤 — 实体 DESFire 加手机钱包凭证,配合可扩展到多校区的中央发卡与门禁平台。",
   },
-  "ind.wallet.t": { en: "Mobile Wallet & Digital Credentials", zh: "手机钱包与数字凭证" },
+  "ind.wallet.t": { en: "Apple Wallet & Google Wallet", zh: "Apple Wallet 与 Google Wallet" },
   "ind.wallet.d": {
-    en: "Ship any credential to a phone. HCE card emulation, Secure Element applets, EMV tokenization and push provisioning to Apple, Google and Samsung wallets — plus ISO 18013-5 mDL readiness.",
-    zh: "把任何凭证发到手机上。HCE 卡模拟、安全元件 Applet、EMV 令牌化,以及推送开通到 Apple、Google 与 Samsung 钱包 — 同时支持 ISO 18013-5 mDL。",
+    en: "Issue passes into Apple Wallet and Google Wallet, update and void them, verify at the gate with barcode or NFC (VAS / Smart Tap).",
+    zh: "把卡券发进 Apple Wallet 和 Google Wallet，更新、作废，闸机用条码或 NFC（VAS / Smart Tap）验证。",
   },
   "ind.security.t": { en: "Security & Crypto Wallet", zh: "安全与加密货币钱包" },
   "ind.security.d": {

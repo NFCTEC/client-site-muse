@@ -359,36 +359,58 @@ export const EN: Record<string, SolutionEnrichment> = {
     relatedLinks: [],
   },
   wallet: {
-    headline: "PassKit, Google Wallet, mDoc",
-    tagline: "Pass types, VAS / Smart Tap, ISO 18013-5 verifiers.",
-    seoTitle: "Apple Wallet PassKit, Google Wallet, ISO 18013-5 mDoc | NFCTEC",
+    headline: "Apple Wallet and Google Wallet — issue and verify",
+    tagline: "Pass Type ID / issuer account, .pkpass and Wallet objects, APNs / callback, VAS and Smart Tap at the gate.",
+    seoTitle: "Apple Wallet PassKit and Google Wallet: issue and verify passes | NFCTEC",
     seoDescription:
-      "PassKit issuance and VAS, Google Wallet Smart Tap 2, ISO 18013-5/7 mDL, verifier SDKs.",
+      "Issue Apple Wallet and Google Wallet passes, update and void them, verify at a gate over barcode or NFC (VAS / Smart Tap). Reader firmware, serial lookup, revoke.",
     intro:
-      "A pass in Wallet is not a card applet. Apple uses pass styles plus VAS on the reader. Google uses class/object plus Smart Tap. mDL is ISO 18013 plus a trust list. The contract names which of those are in scope.",
+      "We run both sides. Issue: build the pass, put it in Apple Wallet or Google Wallet, update it, void it. Verify: a gate, a door, a counter, or a phone reader that decides accept or reject. Apple and Google are two programmes, two certificates, two reader setups. They are not one JSON file copied twice.",
     capabilities: [
-      { title: "PassKit", description: "Boarding, event, coupon, generic, ID. APNs for updates." },
-      { title: "VAS / ECP 2.0", description: "Reader merchant IDs. Express Mode is a configuration on a capable head." },
-      { title: "Google Wallet", description: "JWT-signed objects, Smart Tap 2 payload." },
-      { title: "mDoc", description: "18013-5 local presentation; 18013-7 if the RFP includes remote." },
+      { title: "Apple issue", description: "Pass Type ID, signer cert, pass.json, images, .pkpass. Web service: device register, serial list, APNs push. NFC extras only if VAS is in the pass and on the reader." },
+      { title: "Google issue", description: "Issuer account, class and object, JWT signed with the service account, save URL. Updates are object patches. Smart Tap needs a collector ID on the pass and on the head." },
+      { title: "Apple verify", description: "Barcode/QR for visual gates. NFC: VAS merchant ID, reader firmware, Express Mode only on heads that implement it. Backend: serial, status, last update." },
+      { title: "Google verify", description: "Barcode for visual. NFC: Smart Tap 2 collector, redemption value. Backend: object ID, state, redemption count if you use it." },
+      { title: "Lifecycle", description: "Add, update fields, void, push. Lost phone is not the same as void. Both have a record." },
+      { title: "Readers", description: "SKU list with firmware that actually speaks VAS or Smart Tap. A UID-out Wiegand head does not verify a Wallet pass." },
     ],
-    body: `<h2>Payment, loyalty and identity</h2>
-<p>ECP payment, VAS loyalty and mDL identity can share a phone and still require different readers and licences. Loading all three onto one head without those licences fails in the field.</p>
-<h2>Verifiers</h2>
-<p>Offline mDL needs a trust list and a revocation process. “Check online” fails in locations without coverage. The verifier SDK is a separate deliverable from issuance.</p>`,
+    body: `<h2>What this is not</h2>
+<p>A Wallet pass is not a DESFire file and not an EMV token. Payment in Wallet (Apple Pay / Google Pay) is a different contract. This page is PassKit and Google Wallet passes: membership, event, boarding, coupon, generic, store card, and similar styles Apple or Google allow for that issuer.</p>
+<h2>Issue — Apple</h2>
+<p>Apple needs a Pass Type ID and a certificate that can sign that type. The package is zip: pass.json, strip/icon/logo, manifest, signature. The user adds it from a HTTPS URL, Mail, or an in-app add. After add, the device registers with your web service. Field changes go through that service; Apple Push notifies the phone to pull. If register/unregister is missing, the pass sits stale until the user deletes it.</p>
+<p>NFC on Apple is VAS. The pass carries a VAS payload. The reader must be configured with the merchant identifiers Apple issued for that programme. Express Mode is reader firmware plus pass settings. Artwork on a PDF is not VAS.</p>
+<h2>Issue — Google</h2>
+<p>Google needs a Wallet issuer account and a service account that signs JWTs. You define a class (template) and objects (instances). The save link is a signed JWT. Updates are REST patches on the object. Smart Tap is optional: collector ID on the class/object and on the terminal. Without it, the phone still shows a barcode.</p>
+<h2>Verify</h2>
+<p>Visual path: camera or laser on the barcode/QR. Server looks up serial (Apple) or object ID (Google), checks void/expired, then opens the gate or stamps the ticket. Replay of the same barcode is a policy you write (once, N times, or ignore).</p>
+<p>NFC path: the head completes VAS or Smart Tap, returns the payload your backend already put on the pass. You compare it to the live record. If the head only outputs UID, you are not verifying Wallet.</p>
+<p>Revoke: set void on the object/pass and push. The phone may take seconds to minutes. The gate must also deny that serial immediately in your list, or a screenshot/barcode still works until the list updates. Two clocks: Wallet update, and your deny list.</p>
+<h2>What we deliver</h2>
+<p>Issuer onboarding (Apple developer + Pass Type ID, Google Wallet API). Pass templates per style. Issue API (create, update, void). Callbacks Apple requires. Google object REST. Gate or counter: barcode camera, or a named reader SKU with VAS/Smart Tap. Logs: serial, time, accept/reject, reason. We do not claim a reader we have not listed in the SKU appendix.</p>`,
     deliverables: [
-      "Pass type list and update channel",
-      "Reader IDs for VAS/Smart Tap",
-      "Verifier trust-list process if mDL is in scope",
+      "Apple Pass Type ID / cert procedure and .pkpass template",
+      "Google issuer, class/object, JWT issue URL",
+      "Issue / update / void API",
+      "Apple web service (register, serials, APNs)",
+      "Verify: barcode rules and, if in scope, VAS or Smart Tap reader SKU + payload check",
+      "Void vs deny-list timing",
     ],
     workflow: [
-      { title: "Wallet programme entitlements", description: "Then one pass type in sandbox." },
-      { title: "Reader SKU", description: "Confirm VAS/Smart Tap on that firmware." },
+      { title: "Accounts", description: "Apple Pass Type ID and Google issuer. Sandbox first." },
+      { title: "One pass style", description: "Issue, add to a real phone, update one field, void." },
+      { title: "Verify path", description: "Barcode only, or NFC on the reader SKU that will be purchased." },
+      { title: "Gate list", description: "Accept/reject log. Deny list independent of APNs delay." },
     ],
     faqs: [
-      { q: "One pass for door, payment and ID?", a: "Usually three credentials. Readers and licences differ." },
+      { q: "Can one pass open the door and pay?", a: "No. Wallet payment is Apple Pay / Google Pay. A pass is a separate credential. Doors need VAS/Smart Tap readers." },
+      { q: "Does a screenshot of the barcode work?", a: "If you only scan the image and never void or rate-limit, yes. Say so in the spec or add NFC / rotating barcodes." },
+      { q: "How fast after void?", a: "Backend deny list: immediate if the gate queries you. Phone Wallet: depends on APNs / Google object fetch. Record both." },
+      { q: "iPhone only?", a: "Apple and Google are two issue pipelines. Android without a Google issuer account has no Google Wallet pass." },
     ],
-    relatedLinks: [],
+    relatedLinks: [
+      { title: "Access (doors + Wallet)", href: "/en/solutions/access" },
+      { title: "Contact", href: "/en/contact" },
+    ],
   },
   security: {
     headline: "FIDO2 authenticators and on-SE signing",
@@ -791,35 +813,58 @@ export const ZH: Record<string, SolutionEnrichment> = {
     relatedLinks: [],
   },
   wallet: {
-    headline: "PassKit、Google Wallet、mDoc",
-    tagline: "卡券类型、VAS / Smart Tap、ISO 18013-5 验证端。",
-    seoTitle: "Apple Wallet PassKit、Google Wallet、ISO 18013-5 mDoc | NFCTEC",
-    seoDescription: "PassKit 发行与 VAS、Google Wallet Smart Tap 2、ISO 18013-5/7 mDL、验证端 SDK。",
+    headline: "Apple Wallet 与 Google Wallet — 发行和验证",
+    tagline: "Pass Type ID / 发行方账号、.pkpass 与 Wallet 对象、APNs / 回调、闸机 VAS 与 Smart Tap。",
+    seoTitle: "Apple Wallet PassKit 与 Google Wallet：发行与验证卡券 | NFCTEC",
+    seoDescription:
+      "发行 Apple Wallet、Google Wallet 卡券，更新与作废，闸机条码或 NFC（VAS / Smart Tap）验证。读头固件、流水号查询、吊销。",
     intro:
-      "钱包中的卡券不是卡上 applet。Apple 使用卡券样式加读头 VAS。Google 使用 class/object 加 Smart Tap。mDL 是 ISO 18013 加信任列表。合同写明范围内的项目。",
+      "两边都做。发行：做成卡券，放进 Apple Wallet 或 Google Wallet，改字段，作废。验证：闸机、门、柜台或手机读头给出过/不过。Apple 和 Google 是两套账号、两套证书、两套读头配置，不是一份 JSON 复制两遍。",
     capabilities: [
-      { title: "PassKit", description: "登机、活动、优惠券、通用、证件。APNs 更新。" },
-      { title: "VAS / ECP 2.0", description: "读头 merchant ID。快捷模式是具备能力的读头上的配置。" },
-      { title: "Google Wallet", description: "JWT 签名对象，Smart Tap 2 载荷。" },
-      { title: "mDoc", description: "本地呈现用 18013-5；RFP 含远程时用 18013-7。" },
+      { title: "Apple 发行", description: "Pass Type ID、签名证书、pass.json、图、.pkpass。Web 服务：设备注册、serial 列表、APNs。NFC 只有卡券和读头都配了 VAS 才有。" },
+      { title: "Google 发行", description: "Issuer 账号、class/object、服务账号签 JWT、保存链接。更新是改 object。Smart Tap 要卡券和读头都有 collector ID。" },
+      { title: "Apple 验证", description: "视觉闸机扫条码/QR。NFC：VAS merchant ID、读头固件，快捷模式只在实现了的型号上。后台：serial、状态、最后更新。" },
+      { title: "Google 验证", description: "视觉扫条码。NFC：Smart Tap 2 collector、核销值。后台：object ID、状态、如使用则核销次数。" },
+      { title: "生命周期", description: "添加、改字段、作废、推送。手机丢失和作废不是同一件事，都要有记录。" },
+      { title: "读头", description: "列出真正会 VAS 或 Smart Tap 的型号和固件。只出 UID 的 Wiegand 头验证不了 Wallet 卡券。" },
     ],
-    body: `<h2>支付、会员与身份</h2>
-<p>ECP 支付、VAS 会员、mDL 身份可以出现在同一部手机上，读头与许可证仍可能不同。在缺少许可证的情况下将三者堆到同一读头，现场会失败。</p>
-<h2>验证端</h2>
-<p>离线 mDL 需要信任列表与吊销流程。无覆盖地点无法依赖“联网再查”。验证 SDK 与发行是两份交付。</p>`,
+    body: `<h2>这页不包含什么</h2>
+<p>Wallet 卡券不是 DESFire 文件，也不是 EMV 令牌。钱包里的支付（Apple Pay / Google Pay）是另一份合同。本页是 PassKit 和 Google Wallet 卡券：会员、活动、登机、优惠券、generic、store card，以及 Apple/Google 允许该发行方使用的样式。</p>
+<h2>发行 — Apple</h2>
+<p>需要 Pass Type ID 和能签该类型的证书。包是 zip：pass.json、条带/图标/logo、manifest、signature。用户从 HTTPS、邮件或 App 内添加。添加后设备向你的 web 服务注册。改字段走该服务；Apple Push 通知手机来拉。没有 register/unregister，卡券会一直停在旧数据，除非用户删掉重加。</p>
+<p>Apple 的 NFC 是 VAS。卡券带 VAS 载荷。读头要配 Apple 给该项目的 merchant identifier。快捷模式是读头固件加卡券设置。PDF 上的图不是 VAS。</p>
+<h2>发行 — Google</h2>
+<p>需要 Wallet issuer 账号和签 JWT 的服务账号。先 class（模板）再 object（实例）。保存链接是签过名的 JWT。更新用 REST 改 object。Smart Tap 可选：class/object 和终端都要有 collector ID。没有 Smart Tap 时手机仍可出示条码。</p>
+<h2>验证</h2>
+<p>视觉：摄像头或激光扫条码/QR。服务器用 Apple 的 serial 或 Google 的 object ID 查是否作废、过期，再开门或盖票。同一条码能否再用，由你们写规则（一次、N 次、或不限）。</p>
+<p>NFC：读头做完 VAS 或 Smart Tap，带回你事先写在卡券里的载荷，和后台记录比对。读头只出 UID，就不是在验 Wallet。</p>
+<p>吊销：object/pass 作废并推送。手机可能数秒到数分钟才变。闸机还要在你们的名单里立刻拒绝该 serial，否则截图/条码在名单更新前仍可用。两本账：Wallet 更新，和你们的拒绝名单。</p>
+<h2>交付</h2>
+<p>发行方开通（Apple 开发者 + Pass Type ID，Google Wallet API）。按样式的卡券模板。发行 API（创建、更新、作废）。Apple 要求的回调。Google object REST。闸机或柜台：条码摄像头，或点名 VAS/Smart Tap 的读头型号。日志：serial、时间、过/不过、原因。附录没写的读头，现场不承诺。</p>`,
     deliverables: [
-      "卡券类型与更新通道",
-      "VAS/Smart Tap 的读头 ID",
-      "范围内含 mDL 时的验证端信任列表流程",
+      "Apple Pass Type ID / 证书流程与 .pkpass 模板",
+      "Google issuer、class/object、JWT 发行链接",
+      "创建 / 更新 / 作废 API",
+      "Apple web 服务（注册、serial、APNs）",
+      "验证：条码规则；范围内则 VAS 或 Smart Tap 读头型号 + 载荷校验",
+      "作废与拒绝名单的时差",
     ],
     workflow: [
-      { title: "Wallet 项目资质", description: "随后在沙盒完成一种卡券。" },
-      { title: "读头型号", description: "确认该固件具备 VAS/Smart Tap。" },
+      { title: "账号", description: "Apple Pass Type ID 与 Google issuer。先沙盒。" },
+      { title: "一种样式", description: "真机添加、改一个字段、作废。" },
+      { title: "验证路径", description: "只条码，或按将采购的读头做 NFC。" },
+      { title: "闸机名单", description: "过/不过日志。拒绝名单不依赖 APNs 延迟。" },
     ],
     faqs: [
-      { q: "一张卡券能否同时开门、支付、作身份？", a: "通常是三种凭证。读头与许可证均不同。" },
+      { q: "一张卡券能开门又能支付吗？", a: "不能。支付是 Apple Pay / Google Pay。卡券是另一凭证。门禁要 VAS/Smart Tap 读头。" },
+      { q: "截图条码能过吗？", a: "如果只扫图、不作废、不限次，能过。规格里写明，或改 NFC / 会变的条码。" },
+      { q: "作废后多久生效？", a: "后台拒绝名单：闸机查你就可以立刻拒绝。手机 Wallet：看 APNs / Google 拉 object。两个时间都要记。" },
+      { q: "只做 iPhone？", a: "Apple 和 Google 是两条发行线。没有 Google issuer 就发不了 Google Wallet 卡券。" },
     ],
-    relatedLinks: [],
+    relatedLinks: [
+      { title: "门禁（门 + Wallet）", href: "/zh/solutions/access" },
+      { title: "联系", href: "/zh/contact" },
+    ],
   },
   security: {
     headline: "FIDO2 认证器与卡内签名",
