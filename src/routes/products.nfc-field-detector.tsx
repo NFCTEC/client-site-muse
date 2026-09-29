@@ -4,8 +4,8 @@ import { DEFAULT_LOCALE } from "@/lib/locale";
 export const Route = createFileRoute("/products/nfc-field-detector")({
   beforeLoad: () => {
     throw redirect({
-      to: "/$locale/products/nfc-field-detector",
-      params: { locale: DEFAULT_LOCALE },
+      to: "/$locale/products/$slug",
+      params: { locale: DEFAULT_LOCALE, slug: "nfc-field-detector" },
     });
   },
 });

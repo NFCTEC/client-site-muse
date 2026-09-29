@@ -40,7 +40,6 @@ import { Route as LocaleProductsIndexRouteImport } from './routes/$locale/produc
 import { Route as LocaleBlogIndexRouteImport } from './routes/$locale/blog.index'
 import { Route as LocaleToolsSlugRouteImport } from './routes/$locale/tools.$slug'
 import { Route as LocaleSolutionsSlugRouteImport } from './routes/$locale/solutions.$slug'
-import { Route as LocaleProductsNfcFieldDetectorRouteImport } from './routes/$locale/products.nfc-field-detector'
 import { Route as LocaleProductsSlugRouteImport } from './routes/$locale/products.$slug'
 import { Route as LocaleBlogSlugRouteImport } from './routes/$locale/blog.$slug'
 
@@ -199,12 +198,6 @@ const LocaleSolutionsSlugRoute = LocaleSolutionsSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => LocaleSolutionsRoute,
 } as any)
-const LocaleProductsNfcFieldDetectorRoute =
-  LocaleProductsNfcFieldDetectorRouteImport.update({
-    id: '/nfc-field-detector',
-    path: '/nfc-field-detector',
-    getParentRoute: () => LocaleProductsRoute,
-  } as any)
 const LocaleProductsSlugRoute = LocaleProductsSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -244,7 +237,6 @@ export interface FileRoutesByFullPath {
   '/solutions/': typeof SolutionsIndexRoute
   '/$locale/blog/$slug': typeof LocaleBlogSlugRoute
   '/$locale/products/$slug': typeof LocaleProductsSlugRoute
-  '/$locale/products/nfc-field-detector': typeof LocaleProductsNfcFieldDetectorRoute
   '/$locale/solutions/$slug': typeof LocaleSolutionsSlugRoute
   '/$locale/tools/$slug': typeof LocaleToolsSlugRoute
   '/$locale/blog/': typeof LocaleBlogIndexRoute
@@ -275,7 +267,6 @@ export interface FileRoutesByTo {
   '/solutions': typeof SolutionsIndexRoute
   '/$locale/blog/$slug': typeof LocaleBlogSlugRoute
   '/$locale/products/$slug': typeof LocaleProductsSlugRoute
-  '/$locale/products/nfc-field-detector': typeof LocaleProductsNfcFieldDetectorRoute
   '/$locale/solutions/$slug': typeof LocaleSolutionsSlugRoute
   '/$locale/tools/$slug': typeof LocaleToolsSlugRoute
   '/$locale/blog': typeof LocaleBlogIndexRoute
@@ -312,7 +303,6 @@ export interface FileRoutesById {
   '/solutions/': typeof SolutionsIndexRoute
   '/$locale/blog/$slug': typeof LocaleBlogSlugRoute
   '/$locale/products/$slug': typeof LocaleProductsSlugRoute
-  '/$locale/products/nfc-field-detector': typeof LocaleProductsNfcFieldDetectorRoute
   '/$locale/solutions/$slug': typeof LocaleSolutionsSlugRoute
   '/$locale/tools/$slug': typeof LocaleToolsSlugRoute
   '/$locale/blog/': typeof LocaleBlogIndexRoute
@@ -349,7 +339,6 @@ export interface FileRouteTypes {
     | '/solutions/'
     | '/$locale/blog/$slug'
     | '/$locale/products/$slug'
-    | '/$locale/products/nfc-field-detector'
     | '/$locale/solutions/$slug'
     | '/$locale/tools/$slug'
     | '/$locale/blog/'
@@ -380,7 +369,6 @@ export interface FileRouteTypes {
     | '/solutions'
     | '/$locale/blog/$slug'
     | '/$locale/products/$slug'
-    | '/$locale/products/nfc-field-detector'
     | '/$locale/solutions/$slug'
     | '/$locale/tools/$slug'
     | '/$locale/blog'
@@ -416,7 +404,6 @@ export interface FileRouteTypes {
     | '/solutions/'
     | '/$locale/blog/$slug'
     | '/$locale/products/$slug'
-    | '/$locale/products/nfc-field-detector'
     | '/$locale/solutions/$slug'
     | '/$locale/tools/$slug'
     | '/$locale/blog/'
@@ -661,13 +648,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LocaleSolutionsSlugRouteImport
       parentRoute: typeof LocaleSolutionsRoute
     }
-    '/$locale/products/nfc-field-detector': {
-      id: '/$locale/products/nfc-field-detector'
-      path: '/nfc-field-detector'
-      fullPath: '/$locale/products/nfc-field-detector'
-      preLoaderRoute: typeof LocaleProductsNfcFieldDetectorRouteImport
-      parentRoute: typeof LocaleProductsRoute
-    }
     '/$locale/products/$slug': {
       id: '/$locale/products/$slug'
       path: '/$slug'
@@ -701,13 +681,11 @@ const LocaleBlogRouteWithChildren = LocaleBlogRoute._addFileChildren(
 
 interface LocaleProductsRouteChildren {
   LocaleProductsSlugRoute: typeof LocaleProductsSlugRoute
-  LocaleProductsNfcFieldDetectorRoute: typeof LocaleProductsNfcFieldDetectorRoute
   LocaleProductsIndexRoute: typeof LocaleProductsIndexRoute
 }
 
 const LocaleProductsRouteChildren: LocaleProductsRouteChildren = {
   LocaleProductsSlugRoute: LocaleProductsSlugRoute,
-  LocaleProductsNfcFieldDetectorRoute: LocaleProductsNfcFieldDetectorRoute,
   LocaleProductsIndexRoute: LocaleProductsIndexRoute,
 }
 
