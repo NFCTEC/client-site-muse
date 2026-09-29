@@ -1,7 +1,7 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { fetchDisplayConfig, fetchProduct } from "@/lib/cms";
 import { absLocaleUrl, type Locale } from "@/lib/locale";
-import { hreflangLinks } from "@/lib/seo";
+import { hreflangLinks, SITE_URL } from "@/lib/seo";
 import { isModuleEnabled } from "@/lib/display-config";
 import { ProductDetailPage } from "@/components/ProductDetailPage";
 
@@ -22,6 +22,16 @@ export const Route = createFileRoute("/$locale/products/$slug")({
     const url = absLocaleUrl(locale, `/products/${params.slug}`);
     const title = product?.seoTitle ?? (product ? `${product.name} — NFCTEC` : "Product — NFCTEC");
     const desc = product?.seoDescription ?? product?.description ?? "";
+    const imageSrc = product?.ogImage ?? product?.images[0]?.src;
+    const image = imageSrc
+      ? imageSrc.startsWith("http")
+        ? imageSrc
+        : `${SITE_URL}${imageSrc.startsWith("/") ? imageSrc : `/${imageSrc}`}`
+      : undefined;
+    const offerUrl =
+      product?.ctaUrl && /^https?:\/\//.test(product.ctaUrl)
+        ? product.ctaUrl
+        : absLocaleUrl(locale, "/contact");
     return {
       meta: [
         { title },
@@ -46,11 +56,19 @@ export const Route = createFileRoute("/$locale/products/$slug")({
                 name: product.name,
                 description: desc,
                 url,
-                image: product.ogImage ?? product.images[0]?.src,
+                image,
                 sku: product.slug,
                 brand: { "@type": "Brand", name: "NFCTEC" },
-                manufacturer: { "@type": "Organization", name: "NFCTEC", url: "https://www.nfctec.com" },
+                manufacturer: { "@type": "Organization", name: "NFCTEC", url: SITE_URL },
                 category: product.category ?? undefined,
+                offers: {
+                  "@type": "Offer",
+                  url: offerUrl,
+                  availability: "https://schema.org/InStock",
+                  itemCondition: "https://schema.org/NewCondition",
+                  priceCurrency: "USD",
+                  price: "0",
+                },
               }),
             },
           ]
