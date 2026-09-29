@@ -8,8 +8,7 @@ type HeroIllustrationProps = {
  * A quiet cloud-API hub at center (diamond core inside concentric rings +
  * a tilted orbital ellipse), connected by dashed lines to four floating
  * objects: smart card, mobile wallet, security key (FIDO2), reader/terminal.
- * Monochrome surfaces; brand cyan→violet reserved for connective lines,
- * NFC arcs, the core diamond, and two accent particles.
+ * Monochrome surfaces; brand cyan→violet on lines, NFC arcs, hub card, pings.
  */
 export function HeroIllustration({ className = "w-full max-w-[560px]" }: HeroIllustrationProps) {
   return (
@@ -47,9 +46,12 @@ export function HeroIllustration({ className = "w-full max-w-[560px]" }: HeroIll
             <stop offset="1" stopColor="#7B2FFF" />
           </linearGradient>
           <linearGradient id="hi-surface" x1="0" y1="0" x2="0" y2="1">
-            <stop stopColor="var(--foreground)" stopOpacity="0.05" />
-            <stop offset="1" stopColor="var(--foreground)" stopOpacity="0.015" />
+            <stop stopColor="var(--foreground)" stopOpacity="0.08" />
+            <stop offset="1" stopColor="var(--foreground)" stopOpacity="0.02" />
           </linearGradient>
+          <pattern id="hi-dots" width="28" height="28" patternUnits="userSpaceOnUse">
+            <circle cx="1" cy="1" r="0.7" fill="var(--foreground)" fillOpacity="0.07" />
+          </pattern>
           <filter id="hi-glow" x="-40%" y="-40%" width="180%" height="180%">
             <feGaussianBlur stdDeviation="2.4" result="b" />
             <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
@@ -58,6 +60,9 @@ export function HeroIllustration({ className = "w-full max-w-[560px]" }: HeroIll
             <feDropShadow dx="0" dy="16" stdDeviation="22" floodColor="#040814" floodOpacity="0.22" />
           </filter>
         </defs>
+
+        <circle cx="300" cy="300" r="268" fill="url(#hi-dots)" opacity="0.9" />
+        <circle cx="300" cy="300" r="210" fill="url(#hi-accent)" fillOpacity="0.04" />
 
         {/* ── Connection lines from hub to each node ─────────────── */}
         <g fill="none" stroke="url(#hi-accent)" strokeOpacity="0.35" strokeWidth="1" strokeLinecap="round">
@@ -78,8 +83,11 @@ export function HeroIllustration({ className = "w-full max-w-[560px]" }: HeroIll
           <circle cx="300" cy="300" r="50" fill="none" stroke="url(#hi-accent)" strokeWidth="1.25" />
           <circle cx="300" cy="300" r="38" fill="none" stroke="var(--foreground)" strokeOpacity="0.12" strokeWidth="1" />
           <circle cx="300" cy="300" r="60" fill="none" stroke="url(#hi-accent)" strokeWidth="1" className="hi-breathe" />
-          {/* diamond core */}
-          <path d="M285 300 L300 285 L315 300 L300 315 Z" fill="url(#hi-accent)" filter="url(#hi-glow)" />
+          <g transform="translate(300 300)" filter="url(#hi-glow)">
+            <rect x="-22" y="-14" width="44" height="28" rx="4" fill="url(#hi-surface)" stroke="url(#hi-accent)" strokeWidth="1.2" />
+            <rect x="-16" y="-6" width="10" height="8" rx="1" fill="none" stroke="url(#hi-accent)" strokeWidth="0.8" />
+            <circle cx="12" cy="0" r="1.6" fill="url(#hi-accent)" />
+          </g>
         </g>
 
         {/* ── Node: Smart card (top-left) ─────────────────────────── */}

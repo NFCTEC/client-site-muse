@@ -47,7 +47,7 @@ export function SolutionDetailPage({
             </div>
             <div className="lg:col-span-5">
               <div className="relative rounded-2xl overflow-hidden border border-border bg-card-gradient shadow-glow">
-                <SolutionVisual src={hero} alt={`${solution.name} NFC solution`} icon={solution.icon} />
+                <SolutionVisual slug={solution.slug} src={hero} alt={`${solution.name} NFC solution`} icon={solution.icon} />
               </div>
             </div>
           </div>
