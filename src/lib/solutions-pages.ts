@@ -44,7 +44,7 @@ export const EN: Record<string, SolutionEnrichment> = {
 84 82 03 00 10  [host cryptogram][C-MAC]</code></pre>
 <p>In the bureau the keys stay in the HSM. Each PAN drives STORE DATA / PUT DATA, then laser or print. Sample cards get CDA and a contactless timing log. Nobody uses the GlobalPlatform transport key printed in the silicon manual on a live perso line.</p>
 <h2>Once cards are in the field</h2>
-<p>L3 is Combination Selection plus cryptograms on the brand tool, against the letter you actually signed. Live traffic is an 8583 field map. Apple Pay, Google Pay and Samsung Pay are MDES or VTS — a second issuance, own test cards, scheduled with the BIN.</p>`
+<p>L3 is Combination Selection plus cryptograms on the brand tool, against the letter you actually signed. Live traffic is an 8583 field map. Apple Pay, Google Pay and Samsung Pay are MDES or VTS — a second issuance, own test cards, scheduled with the BIN.</p>`,
     deliverables: [
       "AID/kernel table referenced to the brand letter",
       "CAP, install parameters, SCP profile",
@@ -332,7 +332,7 @@ export const EN: Record<string, SolutionEnrichment> = {
 <p>Host-held points: the card is an identifier. Card-held purse: you need keys and a load MAC. If nobody writes which one is authoritative, you get weekend double-spend tickets. We are not recertifying EMV L2 on terminals we did not touch. Payment tokens are MDES/VTS (banking), not this pass.</p>
 <p>Wallet membership follows the <a href="/en/solutions/wallet">Wallet</a> page, then the exact POS head in the store — not a lab reader.</p>
 <h2>At the till</h2>
-<p>Talk to the kernel and merchant protocol already in production (NEXO and the like). A head licensed only for EMV payment will not pull loyalty until that licence and firmware are on. Gift replay and host-down decline are rules, not “ask the cashier”. Daily settlement vs purse logs should match or you will hate month-end.</p>`
+<p>Talk to the kernel and merchant protocol already in production (NEXO and the like). A head licensed only for EMV payment will not pull loyalty until that licence and firmware are on. Gift replay and host-down decline are rules, not “ask the cashier”. Daily settlement vs purse logs should match or you will hate month-end.</p>`,
     deliverables: [
       "File map: identifier versus purse",
       "Load/MAC description for gift",
@@ -369,7 +369,7 @@ export const EN: Record<string, SolutionEnrichment> = {
 <p>We only mention Apple/Google key sharing if those programmes are actually contracted. Aftermarket kits that skip CCC items are a different job. A transit pass in Wallet is not a car key.</p>
 <p>OEM cloud / TSM sits between the car and Apple or Google. Keys are written per VIN at a station — leaving a common test key in the vehicle is how you get a very expensive recall conversation.</p>
 <h2>Bench, then the line</h2>
-<p>First: handle NFC with the phone off. Then a UWB walk with antennas that were actually calibrated. End of line repeats both, plus share/revoke against the CCC items you signed. We implement against that list and the radios on the car. The OEM or Tier-1 owns the CCC name on the certificate.</p>`
+<p>First: handle NFC with the phone off. Then a UWB walk with antennas that were actually calibrated. End of line repeats both, plus share/revoke against the CCC items you signed. We implement against that list and the radios on the car. The OEM or Tier-1 owns the CCC name on the certificate.</p>`,
     deliverables: [
       "Radio and SE split against CCC items",
       "VIN inject steps",
@@ -452,7 +452,7 @@ export const EN: Record<string, SolutionEnrichment> = {
     ],
     body: `<h2>Two products, maybe one piece of silicon</h2>
 <p>FIDO L2, CC EAL, FIPS — only in the proposal if there is a real submission plan. Support cannot read the seed. CTAP over USB or NFC, PIN, a backup story. Coins: BIP-32/39/44 on card, shards on spare tags.</p>
-<p>The website or IdP runs WebAuthn; we build the authenticator. Enterprise and consumer should not share an AAGUID. Samples come from the SE that is already in the cert plan, not whatever JCOP is in the drawer.</p>`
+<p>The website or IdP runs WebAuthn; we build the authenticator. Enterprise and consumer should not share an AAGUID. Samples come from the SE that is already in the cert plan, not whatever JCOP is in the drawer.</p>`,
     deliverables: [
       "AAGUID / applet split (FIDO versus coin)",
       "Backup card procedure",
@@ -484,7 +484,7 @@ export const EN: Record<string, SolutionEnrichment> = {
     ],
     body: `<h2>Same card, different keys</h2>
 <p>“One tap everywhere” only works if every door and till actually speaks that credential. A photo in Wallet at the registrar is not a dorm reader. Doors: <a href="/en/solutions/access">access</a>. Passes: <a href="/en/solutions/wallet">Wallet</a>.</p>
-<p>Encoding is the AID/key split plus the lost-card flag from SIS. Cafeteria keeps the last subsidy/purse state when SIS is down. Doors use the panel deny list. Inspectors look at the photo, PVC or phone. Nightly SIS file is what most campuses actually run; real-time REST usually shows up late in the project.</p>`
+<p>Encoding is the AID/key split plus the lost-card flag from SIS. Cafeteria keeps the last subsidy/purse state when SIS is down. Doors use the panel deny list. Inspectors look at the photo, PVC or phone. Nightly SIS file is what most campuses actually run; real-time REST usually shows up late in the project.</p>`,
     deliverables: [
       "AID/key split",
       "Cafeteria terminal offline behaviour",
