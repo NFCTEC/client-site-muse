@@ -379,7 +379,7 @@ function Home() {
                   params={{ locale, slug: s.slug }}
                   className="card-glow group flex flex-col rounded-2xl border border-border bg-card-gradient overflow-hidden min-h-[20rem]"
                 >
-                  <SolutionVisual src={s.heroImage} alt={s.name} icon={s.icon} className="h-36" />
+                  <SolutionVisual slug={s.slug} src={s.heroImage} alt={s.name} icon={s.icon} className="h-44" />
                   <div className="p-6 flex flex-col flex-1">
                     <h3 className="font-display text-lg font-semibold group-hover:text-primary transition-colors">
                       {s.name}

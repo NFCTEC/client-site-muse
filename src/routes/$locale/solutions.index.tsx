@@ -76,7 +76,7 @@ function SolutionsIndex() {
                 params={{ locale, slug: ind.slug }}
                 className="card-glow group flex flex-col rounded-2xl border border-border bg-card-gradient overflow-hidden min-h-[20rem]"
               >
-                <SolutionVisual src={ind.heroImage} alt={`${ind.name} — NFC solution`} icon={ind.icon} />
+                <SolutionVisual slug={ind.slug} src={ind.heroImage} alt={`${ind.name} — NFC solution`} icon={ind.icon} />
                 <div className="p-8 flex flex-col flex-1">
                   <div className="flex items-start gap-4">
                     <div className="w-12 h-12 shrink-0 rounded-xl bg-primary/10 border border-primary/30 grid place-items-center">
