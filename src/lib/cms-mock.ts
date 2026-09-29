@@ -40,7 +40,7 @@ const INDUSTRIES: Industry[] = [
       { titleEn: "3-D Secure 2.x", titleZh: "3-D Secure 2.x", descEn: "ACS integration, biometric OOB, EMV 3DS SDK for issuer apps.", descZh: "ACS 集成、生物识别带外验证、发行方 App 的 EMV 3DS SDK。" },
     ],
     protocols: ["ISO 14443 Type A/B", "ISO 7816-3/4", "EMV Contactless 2.6+", "GlobalPlatform 2.3", "ISO 8583"],
-    certifications: ["EMVCo L1/L2", "PCI CP", "PCI DSS", "Visa VIS", "Mastercard M/Chip", "Common Criteria EAL5+"],
+    certifications: ["PCI CP", "ISO 8583", "GlobalPlatform"],
   },
   {
     slug: "transit",
@@ -62,7 +62,7 @@ const INDUSTRIES: Industry[] = [
       { titleEn: "Back-office clearing", titleZh: "后台清分", descEn: "ISO 20022 settlement, revenue split across operators.", descZh: "ISO 20022 结算、多运营商收入分账。" },
     ],
     protocols: ["CALYPSO Rev 3.1", "ISO 14443-4", "MIFARE DESFire EV3", "cEMV (Transit)", "ITSO 2.1.4"],
-    certifications: ["CALYPSO CNA", "EMVCo Transit", "Common Criteria EAL4+", "ISO 20022"],
+    certifications: ["CALYPSO Rev 3.1", "MIFARE DESFire EV3"],
   },
   {
     slug: "gov",
@@ -84,7 +84,7 @@ const INDUSTRIES: Industry[] = [
       { titleEn: "Secure printing", titleZh: "安全印刷", descEn: "Datapage lamination, MLI/CLI, tactile relief, UV/IR features.", descZh: "证件页覆膜、MLI/CLI、触感浮雕、紫外/红外防伪。" },
     ],
     protocols: ["ISO/IEC 14443", "ICAO 9303", "ISO/IEC 7816-4/8/9", "ISO/IEC 18013-5 (mDL)", "eIDAS 2.0"],
-    certifications: ["Common Criteria EAL5+/EAL6+", "ICAO PKD", "BSI TR-03110", "FIPS 140-3"],
+    certifications: ["ICAO 9303", "ISO/IEC 18013-5"],
   },
   {
     slug: "access",
@@ -106,7 +106,7 @@ const INDUSTRIES: Industry[] = [
       { titleEn: "Cloud key management", titleZh: "云端密钥管理", descEn: "OSS-SO compatible, real-time revocation, audit trail export.", descZh: "兼容 OSS-SO、实时吊销、审计日志导出。" },
     ],
     protocols: ["ISO 14443-4", "MIFARE DESFire EV3", "HID Seos", "Apple ECP 2.0 / VAS", "Google Smart Tap 2", "OSDP v2.2", "BLE 5.x"],
-    certifications: ["Common Criteria EAL5+", "FIPS 140-2/3", "OSS-SO", "Apple MFi Wallet"],
+    certifications: ["OSDP v2.2", "MIFARE DESFire EV3"],
   },
   {
     slug: "health",
@@ -128,7 +128,7 @@ const INDUSTRIES: Industry[] = [
       { titleEn: "Consent & audit", titleZh: "知情同意与审计", descEn: "Cryptographically signed consent records, immutable audit log.", descZh: "密码学签名的同意记录、不可篡改审计日志。" },
     ],
     protocols: ["ISO 14443-4", "ISO 7816", "NFC Forum Type 2/4", "HL7 FHIR R4", "IHE PIX/PDQ"],
-    certifications: ["HIPAA", "GDPR", "ISO 27001", "ISO 13485", "Common Criteria EAL4+"],
+    certifications: ["ISO 7816", "HL7 FHIR R4"],
   },
   {
     slug: "iot",
@@ -150,7 +150,7 @@ const INDUSTRIES: Industry[] = [
       { titleEn: "Lifecycle telemetry", titleZh: "全生命周期遥测", descEn: "Tap-verified service events, warranty and re-commission.", descZh: "轻触核验的售后事件、保修与二次配网记录。" },
     ],
     protocols: ["NFC Forum Type 2/4/5", "NTAG 424 DNA (SUN/CMAC)", "Matter 1.3", "Thread 1.3", "Zigbee 3.0", "MQTT 5"],
-    certifications: ["Matter Certified", "CSA Product Security Verified", "Common Criteria EAL4+", "FCC / CE / RCM"],
+    certifications: ["NFC Forum Type 2/4", "NTAG 424 DNA"],
   },
   {
     slug: "brand",
@@ -172,7 +172,7 @@ const INDUSTRIES: Industry[] = [
       { titleEn: "Supply chain traceability", titleZh: "供应链追溯", descEn: "GS1 Digital Link, EPCIS 2.0 events, batch/lot recall.", descZh: "GS1 Digital Link、EPCIS 2.0 事件、批次召回。" },
     ],
     protocols: ["NTAG 424 DNA (SUN/CMAC)", "NFC Forum Type 2/4", "GS1 Digital Link", "EPCIS 2.0"],
-    certifications: ["GS1 Certified", "ISO/IEC 22383", "Common Criteria EAL4+"],
+    certifications: ["NTAG 424 DNA SUN"],
   },
   {
     slug: "retail",
@@ -194,7 +194,7 @@ const INDUSTRIES: Industry[] = [
       { titleEn: "Reconciliation", titleZh: "对账与清分", descEn: "Daily settlement, chargeback tools, GAAP-ready exports.", descZh: "日终结算、拒付处理、可对接会计系统的导出。" },
     ],
     protocols: ["MIFARE DESFire EV3", "Apple VAS / ECP 2.0", "Google Smart Tap 2", "cEMV Kernel 2-7", "NEXO retailer protocols"],
-    certifications: ["EMVCo L2", "PCI DSS", "Google Smart Tap Certified", "Apple Wallet Partner"],
+    certifications: ["MIFARE DESFire EV3", "Apple VAS", "Google Smart Tap 2"],
   },
   {
     slug: "auto",
@@ -216,7 +216,7 @@ const INDUSTRIES: Industry[] = [
       { titleEn: "Assembly line tools", titleZh: "总装线工具", descEn: "Line-side HSM, per-VIN key injection, quality gates.", descZh: "线边 HSM、按 VIN 密钥注入、质量门控。" },
     ],
     protocols: ["CCC Digital Key R3.0", "UWB (IEEE 802.15.4z)", "NFC Forum Type 4", "BLE 5.3", "ISO 21434"],
-    certifications: ["CCC Certified", "Common Criteria EAL5+ (SE)", "ISO/SAE 21434", "AEC-Q100"],
+    certifications: ["CCC Digital Key R3.0 (profile)", "AEC-Q100 (SE grade)"],
   },
   {
     slug: "wallet",
@@ -260,7 +260,7 @@ const INDUSTRIES: Industry[] = [
       { titleEn: "Enterprise MDM", titleZh: "企业 MDM 管理", descEn: "Zero-touch enrollment, revocation, audit for 10k+ keys.", descZh: "零接触激活、吊销、面向 10k+ 密钥的审计。" },
     ],
     protocols: ["FIDO2 / CTAP2.1", "WebAuthn L3", "PIV (NIST SP 800-73)", "OpenPGP card", "BIP-32/39/44/85", "SLIP-39"],
-    certifications: ["FIDO L2 Authenticator", "Common Criteria EAL6+", "FIPS 140-3 Level 3", "PCI PTS"],
+    certifications: ["FIDO2 / CTAP2.1", "WebAuthn"],
   },
   {
     slug: "edu",
@@ -282,7 +282,7 @@ const INDUSTRIES: Industry[] = [
       { titleEn: "SIS integration", titleZh: "教务系统集成", descEn: "Ellucian, Workday Student, SIF/Ed-Fi data pipelines.", descZh: "Ellucian、Workday Student、SIF/Ed-Fi 数据管道。" },
     ],
     protocols: ["MIFARE DESFire EV3", "Apple VAS", "Google Smart Tap 2", "ISO 14443-4", "SIF / Ed-Fi"],
-    certifications: ["FERPA aligned", "ISO 27001", "Common Criteria EAL4+"],
+    certifications: ["MIFARE DESFire EV3"],
   },
 ];
 
