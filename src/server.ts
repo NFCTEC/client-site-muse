@@ -2,6 +2,7 @@ import "./lib/error-capture";
 
 import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
+import { isNoIndexPath } from "./lib/seo";
 
 type ServerEntry = {
   fetch: (request: Request, env: unknown, ctx: unknown) => Promise<Response> | Response;
@@ -42,7 +43,16 @@ export default {
     try {
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
-      return await normalizeCatastrophicSsrResponse(response);
+      const normalized = await normalizeCatastrophicSsrResponse(response);
+      const pathname = new URL(request.url).pathname;
+      if (!isNoIndexPath(pathname)) return normalized;
+      const headers = new Headers(normalized.headers);
+      headers.set("X-Robots-Tag", "noindex, nofollow, noarchive, nosnippet");
+      return new Response(normalized.body, {
+        status: normalized.status,
+        statusText: normalized.statusText,
+        headers,
+      });
     } catch (error) {
       console.error(error);
       return new Response(renderErrorPage(), {

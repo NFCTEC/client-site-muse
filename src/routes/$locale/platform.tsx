@@ -77,22 +77,13 @@ function Platform() {
   const faqItems = buildFaq(lang);
 
   const primaryActions = (
-    <>
-      <Link
-        to="/$locale/auth"
-        params={{ locale }}
-        className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3 text-sm font-semibold hover:opacity-90 transition-opacity"
-      >
-        {tr("cloud.getStarted")} <ArrowRight size={16} />
-      </Link>
-      <Link
-        to="/$locale/contact"
-        params={{ locale }}
-        className="inline-flex items-center gap-2 rounded-full border border-border-strong bg-surface/60 px-6 py-3 text-sm font-medium hover:border-primary hover:text-primary transition-colors"
-      >
-        {tr("hero.cta2")}
-      </Link>
-    </>
+    <Link
+      to="/$locale/contact"
+      params={{ locale }}
+      className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3 text-sm font-semibold hover:opacity-90 transition-opacity"
+    >
+      {tr("hero.cta2")} <ArrowRight size={16} />
+    </Link>
   );
 
   return (

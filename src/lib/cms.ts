@@ -1,4 +1,5 @@
 import type { Locale } from "./locale";
+import { isNoIndexPath } from "./seo";
 import { mergeDisplayConfig, type SiteDisplayConfig } from "./display-config";
 import { mergeSolutionContent } from "./solutions-content";
 import { getCatalogProduct, HIDDEN_PRODUCT_SLUGS, mergeCatalogProducts } from "./products-catalog";
@@ -281,7 +282,13 @@ export async function submitInquiry(data: {
 
 export async function fetchSitemapUrls(): Promise<{ loc: string; lastmod?: string }[]> {
   const data = await cmsFetch<{ urls: { loc: string; lastmod?: string }[] }>("/public/sitemap");
-  return data.urls;
+  return data.urls.filter((u) => {
+    try {
+      return !isNoIndexPath(new URL(u.loc).pathname);
+    } catch {
+      return false;
+    }
+  });
 }
 
 function normalizeProduct(row: {

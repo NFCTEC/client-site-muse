@@ -4,7 +4,13 @@ import { supabase } from "@/integrations/supabase/client";
 import { CreditCard, KeyRound, Activity, LogOut, ShieldCheck } from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
-  head: () => ({ meta: [{ title: "Dashboard — NFCTEC" }, { name: "robots", content: "noindex" }] }),
+  head: () => ({
+    meta: [
+      { title: "Dashboard" },
+      { name: "robots", content: "noindex, nofollow, noarchive, nosnippet" },
+      { name: "googlebot", content: "noindex, nofollow, noarchive, nosnippet" },
+    ],
+  }),
   component: Dashboard,
 });
 

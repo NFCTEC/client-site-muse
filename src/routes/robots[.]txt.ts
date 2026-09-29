@@ -8,11 +8,15 @@ export const Route = createFileRoute("/robots.txt")({
         new Response(
           [
             "User-agent: *",
-            "Allow: /",
             "Disallow: /auth",
+            "Disallow: /auth/",
             "Disallow: /en/auth",
+            "Disallow: /en/auth/",
             "Disallow: /zh/auth",
+            "Disallow: /zh/auth/",
             "Disallow: /dashboard",
+            "Disallow: /dashboard/",
+            "Allow: /",
             "",
             `Sitemap: ${SITE_URL}/sitemap.xml`,
             "",

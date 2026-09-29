@@ -5,6 +5,12 @@ export const DEFAULT_OG_IMAGE = `${SITE_URL}/og-default.jpg`;
 
 export const absUrl = (path: string) => `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`;
 
+/** Login, dashboard, and other private paths — never sitemap, never index. */
+export function isNoIndexPath(pathname: string) {
+  const p = pathname.replace(/\/+$/, "") || "/";
+  return p === "/auth" || p.endsWith("/auth") || p === "/dashboard" || p.endsWith("/dashboard");
+}
+
 /**
  * Build hreflang alternate <link> entries for a locale-agnostic path.
  * `path` should be the sub-path AFTER the locale segment, e.g. "/blog" or "/products/x".

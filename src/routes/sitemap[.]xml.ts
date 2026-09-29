@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
 import { fetchSitemapUrls } from "@/lib/cms";
-import { SITE_URL } from "@/lib/seo";
+import { SITE_URL, isNoIndexPath } from "@/lib/seo";
 
 const STATIC_URLS = ["en", "zh"].flatMap((locale) => [
   { loc: `${SITE_URL}/${locale}/tools/ntag424-tool`, lastmod: "2026-09-20" },
@@ -35,6 +35,11 @@ export const Route = createFileRoute("/sitemap.xml")({
       GET: async () => {
         const merged = new Map<string, { loc: string; lastmod?: string }>();
         for (const entry of [...(await fetchSitemapUrls()), ...STATIC_URLS]) {
+          try {
+            if (isNoIndexPath(new URL(entry.loc).pathname)) continue;
+          } catch {
+            continue;
+          }
           const prev = merged.get(entry.loc);
           if (!prev || (entry.lastmod && (!prev.lastmod || entry.lastmod > prev.lastmod))) {
             merged.set(entry.loc, entry);

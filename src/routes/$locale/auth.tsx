@@ -4,9 +4,9 @@ import { ArrowRight, Sparkles, Shield, Zap } from "lucide-react";
 export const Route = createFileRoute("/$locale/auth")({
   head: () => ({
     meta: [
-      { title: "Platform Access — NFCTEC" },
-      { name: "description", content: "Entry to the NFCTEC NFC issuance & verification platform." },
-      { name: "robots", content: "noindex" },
+      { title: "Sign in" },
+      { name: "robots", content: "noindex, nofollow, noarchive, nosnippet" },
+      { name: "googlebot", content: "noindex, nofollow, noarchive, nosnippet" },
     ],
   }),
   component: PlatformEntry,
