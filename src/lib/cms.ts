@@ -1,6 +1,7 @@
 import type { Locale } from "./locale";
 import { mergeDisplayConfig, type SiteDisplayConfig } from "./display-config";
 import { mergeSolutionContent } from "./solutions-content";
+import { getCatalogProduct, HIDDEN_PRODUCT_SLUGS, mergeCatalogProducts } from "./products-catalog";
 
 export type CmsPost = {
   id: string;
@@ -162,17 +163,20 @@ export async function fetchProducts(locale: Locale, category?: "software" | "har
     useCases: unknown;
     highlights: unknown;
   }>>(`/public/products?locale=${locale}${qs}`);
-  return rows.map(normalizeProduct);
+  return mergeCatalogProducts(rows.map(normalizeProduct), locale, category);
 }
 
 export async function fetchProduct(locale: Locale, slug: string): Promise<CmsProduct | null> {
+  if (HIDDEN_PRODUCT_SLUGS.has(slug)) return null;
+  const local = getCatalogProduct(locale, slug);
   try {
     const row = await cmsFetch<Parameters<typeof normalizeProduct>[0]>(
       `/public/products/${encodeURIComponent(slug)}?locale=${locale}`,
     );
-    return normalizeProduct(row);
+    const merged = mergeCatalogProducts([normalizeProduct(row)], locale);
+    return merged.find((p) => p.slug === slug) ?? local;
   } catch {
-    return null;
+    return local;
   }
 }
 

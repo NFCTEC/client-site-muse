@@ -1,6 +1,7 @@
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 import { fetchDisplayConfig, fetchProducts, fetchSolutions } from "@/lib/cms";
 import { filterByDisplayConfig } from "@/lib/display-config";
+import { mergeCatalogProducts } from "@/lib/products-catalog";
 import { DEFAULT_LOCALE, isLocale, type Locale } from "@/lib/locale";
 
 export const Route = createFileRoute("/$locale")({
@@ -20,7 +21,10 @@ export const Route = createFileRoute("/$locale")({
     return {
       displayConfig,
       navSolutions: filterByDisplayConfig(solutions, displayConfig.modules.solutions),
-      navProducts: filterByDisplayConfig(products, displayConfig.modules.products),
+      navProducts: mergeCatalogProducts(
+        filterByDisplayConfig(products, displayConfig.modules.products),
+        locale,
+      ),
     };
   },
   component: LocaleLayout,

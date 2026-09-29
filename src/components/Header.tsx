@@ -25,6 +25,9 @@ export function Header() {
   const localeData = getLocaleLoaderData(matches);
   const displayConfig = localeData?.displayConfig;
   const navSolutions = localeData?.navSolutions ?? [];
+  const navProducts = localeData?.navProducts ?? [];
+  const navHardware = navProducts.filter((p) => p.category === "hardware");
+  const navSoftware = navProducts.filter((p) => p.category === "software");
   const [open, setOpen] = useState(false);
   const [solOpen, setSolOpen] = useState(false);
   const [prodOpen, setProdOpen] = useState(false);
@@ -82,23 +85,31 @@ export function Header() {
                   </Link>
                   {prodOpen && (
                     <div className="absolute top-full left-0 pt-3">
-                      <div className="rounded-xl border border-border bg-popover shadow-float p-2 min-w-[180px]">
-                        <Link
-                          to="/$locale/products"
-                          params={{ locale }}
-                          search={{ tab: "sw" }}
-                          className="block px-3 py-2 text-sm rounded-lg hover:bg-surface-elevated hover:text-primary"
-                        >
-                          {tr("nav.products.sw")}
-                        </Link>
-                        <Link
-                          to="/$locale/products"
-                          params={{ locale }}
-                          search={{ tab: "hw" }}
-                          className="block px-3 py-2 text-sm rounded-lg hover:bg-surface-elevated hover:text-primary"
-                        >
-                          {tr("nav.products.hw")}
-                        </Link>
+                      <div className="rounded-xl border border-border bg-popover shadow-float p-2 min-w-[260px] max-h-[70vh] overflow-y-auto">
+                        {navHardware.map((item) => (
+                          <Link
+                            key={item.slug}
+                            to="/$locale/products/$slug"
+                            params={{ locale, slug: item.slug }}
+                            className="block px-3 py-2 text-sm rounded-lg hover:bg-surface-elevated hover:text-primary"
+                          >
+                            {item.name}
+                          </Link>
+                        ))}
+                        {navSoftware.length > 0 && (
+                          <div className="mt-1 border-t border-border pt-1">
+                            {navSoftware.map((item) => (
+                              <Link
+                                key={item.slug}
+                                to="/$locale/products/$slug"
+                                params={{ locale, slug: item.slug }}
+                                className="block px-3 py-2 text-sm rounded-lg hover:bg-surface-elevated hover:text-primary"
+                              >
+                                {item.name}
+                              </Link>
+                            ))}
+                          </div>
+                        )}
                       </div>
                     </div>
                   )}

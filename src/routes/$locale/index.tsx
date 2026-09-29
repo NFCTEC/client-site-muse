@@ -10,8 +10,10 @@ import {
   type CmsSolution,
 } from "@/lib/cms";
 import { filterByDisplayConfig, isModuleEnabled, type ModuleKey } from "@/lib/display-config";
+import { featuredSellableProducts, mergeCatalogProducts } from "@/lib/products-catalog";
 import { absLocaleUrl, type Locale } from "@/lib/locale";
 import { hreflangLinks } from "@/lib/seo";
+import { itemListJsonLd, jsonLdScript, socialMeta } from "@/lib/product-seo";
 import {
   ArrowRight,
   Boxes,
@@ -48,7 +50,10 @@ export const Route = createFileRoute("/$locale/")({
       fetchPosts(locale),
     ]);
 
-    const filteredProducts = filterByDisplayConfig(products, config.modules.products);
+    const filteredProducts = mergeCatalogProducts(
+      filterByDisplayConfig(products, config.modules.products),
+      locale,
+    );
     const filteredSolutions = filterByDisplayConfig(solutions, config.modules.solutions);
     const filteredPosts = filterByDisplayConfig(posts, config.modules.blog);
 
@@ -61,32 +66,42 @@ export const Route = createFileRoute("/$locale/")({
         downloads: isModuleEnabled(config, "downloads"),
         contact: isModuleEnabled(config, "contact"),
       },
-      products: filteredProducts.slice(0, 4),
+      products: featuredSellableProducts(filteredProducts, 4),
       solutions: filteredSolutions.slice(0, 3),
       solutionSlugs: new Set(filteredSolutions.map((s) => s.slug)),
       posts: filteredPosts.slice(0, 3).map(toBlogPost),
     };
   },
-  head: ({ params }) => {
+  head: ({ params, loaderData }) => {
     const locale = params.locale as Locale;
     const url = absLocaleUrl(locale, "/");
+    const zh = locale === "zh";
+    const title = zh
+      ? "NFCTEC — NFC 卡厂：标签、卡、手环、JavaCard"
+      : "NFCTEC — NFC Card Factory: Tags, Cards, Wristbands, JavaCard";
+    const description = zh
+      ? "卡厂定制 PVC、异形标签、手环。芯片含 NTAG213/215/216、Ultralight EV1/C、DESFire EV2/EV3 2K–8K、NTAG 424 DNA、JCOP。"
+      : "Card factory: custom PVC, die-cut tags, wristbands. ICs: NTAG213/215/216, Ultralight EV1/C, DESFire EV2/EV3 2K–8K, NTAG 424 DNA, JCOP.";
+    const products = loaderData?.products ?? [];
     return {
-      meta: [
-        { title: "NFCTEC — Full-Stack NFC & Smart Card Solutions" },
-        {
-          name: "description",
-          content:
-            "NFC hardware, software SDKs and an issuance & verification API — one partner for every NFC project.",
-        },
-        { property: "og:title", content: "NFCTEC — Full-Stack NFC & Smart Card Solutions" },
-        {
-          property: "og:description",
-          content: "Hardware, software, API — everything NFC, from one partner.",
-        },
-        { property: "og:url", content: url },
-        { property: "og:type", content: "website" },
-      ],
+      meta: socialMeta({ title, description, url, locale }),
       links: [{ rel: "canonical", href: url }, ...hreflangLinks("/")],
+      scripts:
+        products.length > 0
+          ? [
+              jsonLdScript(
+                itemListJsonLd(
+                  title,
+                  description,
+                  url,
+                  products.map((p) => ({
+                    name: p.name,
+                    url: absLocaleUrl(locale, p.hasDetailPage ? `/products/${p.slug}` : "/products"),
+                  })),
+                ),
+              ),
+            ]
+          : [],
     };
   },
   component: Home,

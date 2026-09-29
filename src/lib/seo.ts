@@ -26,7 +26,7 @@ export const organizationJsonLd = {
   url: SITE_URL,
   logo: `${SITE_URL}/og-default.jpg`,
   description:
-    "Full-stack NFC and smart card solutions: SDKs, JavaCard applets, EMV-certified readers, issuance & verification platform.",
+    "NFC card factory: custom PVC, die-cut tags and wristbands. NTAG213/215/216, Ultralight EV1/C, DESFire EV2/EV3 (2K/4K/8K), NTAG 424 DNA, JCOP J3R180/J3R452/J2A040.",
   email: "sale@nfctec.com",
   sameAs: [
     "https://www.amazon.com/s?k=SZLEJUN&ref=bl_dp_s_web_0",

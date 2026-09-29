@@ -10,7 +10,7 @@ export const t: Dict = {
   // Nav
   "nav.products": { en: "Products", zh: "产品" },
   "nav.products.sw": { en: "Software", zh: "软件方案" },
-  "nav.products.hw": { en: "Hardware", zh: "硬件设备" },
+  "nav.products.hw": { en: "Tags & cards", zh: "标签与卡" },
   "nav.solutions": { en: "Solutions", zh: "行业方案" },
   "nav.platform": { en: "Cloud Services", zh: "云服务" },
   "nav.downloads": { en: "Downloads", zh: "下载中心" },
@@ -24,8 +24,8 @@ export const t: Dict = {
   "home.stats.eyebrow": { en: "Trusted worldwide", zh: "全球客户信赖" },
   "home.featured.products": { en: "Featured products", zh: "精选产品" },
   "home.featured.products.sub": {
-    en: "SDKs, readers and modules ready to evaluate — samples available on request.",
-    zh: "SDK、读卡器与模组均可评估 — 样品可按需寄送。",
+    en: "NTAG tags, DESFire EV2/EV3, Ultralight, custom cards and wristbands — factory quote or Amazon.",
+    zh: "NTAG 标签、DESFire EV2/EV3、Ultralight、定制卡与手环 — 卡厂询价或 Amazon。",
   },
   "home.partners.title": {
     en: "Silicon, standards & wallets we work with",
@@ -88,8 +88,8 @@ export const t: Dict = {
 
   // Brand
   "brand.tagline": {
-    en: "Software · Hardware · Cloud — built with your team",
-    zh: "软件 · 硬件 · 云服务 — 与您的团队共建",
+    en: "NFC card factory: tags, cards and JavaCard",
+    zh: "NFC 卡厂：标签、卡与 JavaCard",
   },
 
   // Hero
@@ -250,14 +250,22 @@ export const t: Dict = {
   },
 
   // Products page
-  "ppage.title": { en: "Products", zh: "产品矩阵" },
+  "ppage.title": { en: "NFC card factory: tags, cards, wristbands", zh: "NFC 卡厂：标签、卡、手环" },
   "ppage.sub": {
-    en: "Reference designs, SDKs and devices — ready to integrate into your product, with engineering support from our team.",
-    zh: "参考设计、SDK 与设备 — 可直接集成到您的产品中，并由我们的工程师提供技术支持。",
+    en: "We laminate NTAG, Ultralight EV1/C, DESFire EV2/EV3 (2K–8K), NTAG 424 DNA and JCOP into the body you need — white PVC, print, die-cut tags, silicone wristbands. Send artwork and an IC.",
+    zh: "把 NTAG、Ultralight EV1/C、DESFire EV2/EV3（2K–8K）、NTAG 424 DNA、JCOP 做到你要的卡体上：白卡、彩印、异形标签、硅胶手环。给印刷文件和芯片型号即可询价。",
   },
   "ppage.empty": { en: "No products in this category yet.", zh: "该分类暂无产品。" },
   "ppage.sw": { en: "Software", zh: "软件方案" },
-  "ppage.hw": { en: "Hardware", zh: "硬件设备" },
+  "ppage.hw": { en: "ICs we embed", zh: "可入卡芯片" },
+  "ppage.hw.sub": {
+    en: "Chip first, then the plant: CR80, custom knife, wristband. DESFire EV2/EV3 2K–8K, Ultralight EV1/C, NTAG, 424 DNA, J3R180 / J3R452 / J2A040.",
+    zh: "先定芯片再开模：CR80、异形刀模、手环。DESFire EV2/EV3 2K–8K、Ultralight EV1/C、NTAG、424 DNA、J3R180 / J3R452 / J2A040。",
+  },
+  "ppage.sw.sub": {
+    en: "Issuance and reader software. Hardware SKUs are listed above.",
+    zh: "发卡与读卡软件。硬件 SKU 见上方。",
+  },
 
   // Software items
   "sw.1.t": { en: "ePassport Reader Software", zh: "电子护照阅读软件" },

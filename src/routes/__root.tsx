@@ -4,6 +4,7 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useRouterState,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
@@ -15,6 +16,7 @@ import { I18nProvider } from "@/lib/i18n";
 import { ThemeProvider } from "@/lib/theme";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { organizationJsonLd, websiteJsonLd } from "@/lib/seo";
 
 function NotFoundComponent() {
   return (
@@ -81,8 +83,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "NFCTEC — Full-Stack NFC & Smart Card Solutions" },
-      { name: "description", content: "Software SDKs, reader hardware, JavaCard applets and free developer tools. 15+ years, 50+ protocols, 500+ projects." },
+      { title: "NFCTEC — NFC Card Factory: Tags, Cards, Wristbands" },
+      { name: "description", content: "Custom NFC cards, die-cut tags and wristbands. NTAG, Ultralight EV1/C, DESFire EV2/EV3 2K–8K, NTAG 424 DNA, JCOP." },
       { name: "author", content: "NFCTEC" },
       { name: "theme-color", content: "#0a0e1a" },
       { property: "og:type", content: "website" },
@@ -108,23 +110,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     scripts: [
       {
         type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Organization",
-          name: "NFCTEC",
-          url: "https://www.nfctec.com",
-          logo: "https://www.nfctec.com/og-default.jpg",
-          description: "Full-stack NFC and smart card solutions: SDKs, JavaCard applets, EMV-certified readers, issuance & verification platform.",
-          email: "sale@nfctec.com",
-          sameAs: [
-            "https://www.amazon.com/s?k=SZLEJUN&ref=bl_dp_s_web_0",
-            "https://youtube.com/@lejuntech",
-          ],
-          contactPoint: [
-            { "@type": "ContactPoint", contactType: "sales", email: "sale@nfctec.com", availableLanguage: ["en", "zh"] },
-            { "@type": "ContactPoint", contactType: "customer support", email: "support@nfctec.com", availableLanguage: ["en", "zh"] },
-          ],
-        }),
+        children: JSON.stringify(organizationJsonLd),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify(websiteJsonLd),
       },
     ],
   }),
@@ -135,8 +125,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootShell({ children }: { children: ReactNode }) {
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const lang = pathname === "/zh" || pathname.startsWith("/zh/") ? "zh-CN" : "en";
   return (
-    <html lang="en">
+    <html lang={lang}>
       <head>
         <HeadContent />
       </head>

@@ -7,6 +7,7 @@ type PageSectionProps = {
   spacing?: "main" | "tight" | "band";
   className?: string;
   containerClassName?: string;
+  id?: string;
 };
 
 export function PageSection({
@@ -15,9 +16,11 @@ export function PageSection({
   spacing = "main",
   className,
   containerClassName,
+  id,
 }: PageSectionProps) {
   return (
     <section
+      id={id}
       className={cn(
         spacing === "main" && "section-main",
         spacing === "tight" && "section-tight",

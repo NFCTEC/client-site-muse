@@ -1,7 +1,15 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { fetchDisplayConfig, fetchProduct } from "@/lib/cms";
 import { absLocaleUrl, type Locale } from "@/lib/locale";
-import { hreflangLinks, SITE_URL } from "@/lib/seo";
+import { hreflangLinks } from "@/lib/seo";
+import {
+  breadcrumbJsonLd,
+  jsonLdScript,
+  productFaqJsonLd,
+  productJsonLd,
+  resolveProductImage,
+  socialMeta,
+} from "@/lib/product-seo";
 import { isModuleEnabled } from "@/lib/display-config";
 import { ProductDetailPage } from "@/components/ProductDetailPage";
 
@@ -22,55 +30,32 @@ export const Route = createFileRoute("/$locale/products/$slug")({
     const url = absLocaleUrl(locale, `/products/${params.slug}`);
     const title = product?.seoTitle ?? (product ? `${product.name} — NFCTEC` : "Product — NFCTEC");
     const desc = product?.seoDescription ?? product?.description ?? "";
-    const imageSrc = product?.ogImage ?? product?.images[0]?.src;
-    const image = imageSrc
-      ? imageSrc.startsWith("http")
-        ? imageSrc
-        : `${SITE_URL}${imageSrc.startsWith("/") ? imageSrc : `/${imageSrc}`}`
-      : undefined;
+    const image = product ? resolveProductImage(product) : undefined;
     const offerUrl =
       product?.ctaUrl && /^https?:\/\//.test(product.ctaUrl)
         ? product.ctaUrl
         : absLocaleUrl(locale, "/contact");
+    const faq = product ? productFaqJsonLd(product.slug, locale) : null;
     return {
-      meta: [
-        { title },
-        { name: "description", content: desc },
-        { property: "og:title", content: product?.name ?? title },
-        { property: "og:description", content: desc },
-        { property: "og:url", content: url },
-        { property: "og:type", content: "product" },
-        ...(product?.ogImage ? [{ property: "og:image", content: product.ogImage }] : []),
-      ],
-      links: [
-        { rel: "canonical", href: url },
-        ...hreflangLinks(`/products/${params.slug}`),
-      ],
+      meta: socialMeta({
+        title,
+        description: desc,
+        url,
+        locale,
+        type: "product",
+        image,
+      }),
+      links: [{ rel: "canonical", href: url }, ...hreflangLinks(`/products/${params.slug}`)],
       scripts: product
         ? [
-            {
-              type: "application/ld+json",
-              children: JSON.stringify({
-                "@context": "https://schema.org",
-                "@type": "Product",
-                name: product.name,
-                description: desc,
-                url,
-                image,
-                sku: product.slug,
-                brand: { "@type": "Brand", name: "NFCTEC" },
-                manufacturer: { "@type": "Organization", name: "NFCTEC", url: SITE_URL },
-                category: product.category ?? undefined,
-                offers: {
-                  "@type": "Offer",
-                  url: offerUrl,
-                  availability: "https://schema.org/InStock",
-                  itemCondition: "https://schema.org/NewCondition",
-                  priceCurrency: "USD",
-                  price: "0",
-                },
-              }),
-            },
+            jsonLdScript(productJsonLd(product, locale, url, image, offerUrl)),
+            jsonLdScript(
+              breadcrumbJsonLd(locale, [
+                { name: locale === "zh" ? "产品" : "Products", path: "/products" },
+                { name: product.name, path: `/products/${product.slug}` },
+              ]),
+            ),
+            ...(faq ? [jsonLdScript(faq)] : []),
           ]
         : [],
     };

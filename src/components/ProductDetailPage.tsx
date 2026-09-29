@@ -2,7 +2,6 @@ import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import * as LucideIcons from "lucide-react";
 import {
-  ArrowLeft,
   ArrowRight,
   CheckCircle2,
   Radio,
@@ -11,6 +10,7 @@ import {
 } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 import type { CmsProduct } from "@/lib/cms";
+import { PRODUCT_FAQS } from "@/lib/product-seo";
 import { PostBody } from "@/components/PostBody";
 
 function getIcon(name: string): LucideIcon {
@@ -75,19 +75,30 @@ export function ProductDetailPage({ product, locale }: { product: CmsProduct; lo
       ? { url: product.secondaryCtaUrl, label: product.secondaryCtaLabel }
       : null;
 
+  const faqs = PRODUCT_FAQS[product.slug]?.[lang === "zh" ? "zh" : "en"] ?? [];
   const isAmazon = primaryCta.url.includes("amazon.com");
 
   return (
     <>
       <section className="pt-6 pb-4">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
-          <Link
-            to="/$locale/products"
-            params={{ locale }}
-            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
-          >
-            <ArrowLeft size={14} /> {tr("product.back")}
-          </Link>
+          <nav aria-label={t("Breadcrumb", "面包屑")} className="text-sm text-muted-foreground">
+            <ol className="flex flex-wrap items-center gap-2">
+              <li>
+                <Link to="/$locale" params={{ locale }} className="hover:text-primary transition-colors">
+                  {t("Home", "首页")}
+                </Link>
+              </li>
+              <li aria-hidden="true">/</li>
+              <li>
+                <Link to="/$locale/products" params={{ locale }} className="hover:text-primary transition-colors">
+                  {tr("nav.products")}
+                </Link>
+              </li>
+              <li aria-hidden="true">/</li>
+              <li className="text-foreground">{product.name}</li>
+            </ol>
+          </nav>
         </div>
       </section>
 
@@ -227,6 +238,24 @@ export function ProductDetailPage({ product, locale }: { product: CmsProduct; lo
                 </ul>
               </div>
             )}
+          </div>
+        </section>
+      )}
+
+      {faqs.length > 0 && (
+        <section className="py-16 lg:py-24 border-t border-border">
+          <div className="mx-auto max-w-3xl px-6 lg:px-10">
+            <h2 className="font-display text-3xl tracking-tight mb-8">
+              {t("Questions", "常见问题")}
+            </h2>
+            <dl className="space-y-6">
+              {faqs.map((item) => (
+                <div key={item.q} className="rounded-2xl border border-border bg-surface/40 p-6">
+                  <dt className="font-display text-lg font-semibold">{item.q}</dt>
+                  <dd className="mt-2 text-sm text-muted-foreground leading-relaxed">{item.a}</dd>
+                </div>
+              ))}
+            </dl>
           </div>
         </section>
       )}

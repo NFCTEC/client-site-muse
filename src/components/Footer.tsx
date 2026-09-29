@@ -13,7 +13,7 @@ export function Footer() {
   const locale = useLocale();
 
   type FooterLink =
-    | { to: "/$locale/products"; label: string; search: { tab: "sw" | "hw" } }
+    | { to: "/$locale/products/$slug"; label: string; slug: string }
     | { to: "/$locale/solutions/$slug"; label: string; slug: string }
     | { to: string; label: string };
 
@@ -21,8 +21,12 @@ export function Footer() {
     {
       title: tr("foot.product"),
       links: [
-        { to: "/$locale/products", label: tr("nav.products.sw"), search: { tab: "sw" } },
-        { to: "/$locale/products", label: tr("nav.products.hw"), search: { tab: "hw" } },
+        { to: "/$locale/products/$slug", label: "Custom cards & wristbands", slug: "nfc-labels-and-cards" },
+        { to: "/$locale/products/$slug", label: "NTAG213 / 215 / 216", slug: "ntag213-215-216" },
+        { to: "/$locale/products/$slug", label: "Ultralight EV1 / C", slug: "mifare-ultralight" },
+        { to: "/$locale/products/$slug", label: "DESFire EV2 / EV3", slug: "mifare-desfire-ev3" },
+        { to: "/$locale/products/$slug", label: "J3R452 JavaCard", slug: "j3r452-javacard" },
+        { to: "/$locale/products/$slug", label: "J3R180 JavaCard", slug: "j3r180-javacard" },
         { to: "/$locale/platform", label: tr("nav.platform") },
       ],
     },
@@ -88,15 +92,6 @@ export function Footer() {
                       <Link
                         to={l.to}
                         params={{ locale, slug: l.slug }}
-                        className="hover:text-primary transition-colors"
-                      >
-                        {l.label}
-                      </Link>
-                    ) : "search" in l ? (
-                      <Link
-                        to={l.to}
-                        params={{ locale }}
-                        search={l.search}
                         className="hover:text-primary transition-colors"
                       >
                         {l.label}
