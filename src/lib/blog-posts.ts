@@ -1,5 +1,18 @@
+import { engineeringNotes } from "./engineering-notes";
+
 // Blog posts data. Swap this for a CMS/API fetch later — keep the BlogPost shape stable.
-export type BlogBody = { heading?: string; text: string }[];
+export type DiagramLane = { name: string; nodes: string[] };
+
+export type BlogSection = {
+  heading?: string;
+  text?: string;
+  paragraphs?: string[];
+  items?: string[];
+  code?: string;
+  figure?: { title: string; lanes: DiagramLane[] };
+};
+
+export type BlogBody = BlogSection[];
 
 export type BlogCopy = {
   title: string;
@@ -21,102 +34,7 @@ export type BlogPost = {
 };
 
 export const posts: BlogPost[] = [
-  {
-    slug: "emv-card-application-and-personalization",
-    cat: "EMV",
-    date: "2026-10-12",
-    title: "EMV card applications, APDUs and personalization",
-    excerpt: "An EMV project needs a card application, a reader that can exchange payment APDUs, and a personalization path before issuance.",
-    readMinutes: 8,
-    body: [
-      { text: "Payment work on this stack is EMV card engineering: the application on the card, the reader that talks to it, and the data that is injected before issuance." },
-      { heading: "What has to line up", text: "A payment card application typically runs on Java Card and GlobalPlatform. The reader exposes PC/SC or an SDK so a host can exchange EMV and smart-card APDUs. Personalization tools prepare the card data. Issuance can be driven from a backend API when the project needs a central control path." },
-      { heading: "Contactless still starts at ISO/IEC 14443", text: "Contactless taps still use ISO/IEC 14443. The EMV application sits on top of that radio path. A Reader SDK that can discover a reader and send APDUs is the first integration layer. It is not a complete kernel, and it is not a finished issuance system." },
-      { heading: "Personalization before production", text: "Secure channel protocols such as SCP02 or SCP03 belong in issuance. Keys stay with the card, an HSM or the key-management service. This page describes the engineering sequence. It does not state an EMV approval or a certification level." },
-    ],
-    zh: {
-      title: "EMV 卡应用、APDU 与个人化",
-      excerpt: "EMV 项目需要卡应用、能够交换支付 APDU 的读卡器，以及发行前的个人化路径。",
-      body: [
-        { text: "这套工程里的支付工作是 EMV 卡工程：卡上的应用、与卡片通信的读卡器，以及发行前注入的数据。" },
-        { heading: "需要对齐的部分", text: "支付卡应用通常跑在 Java Card 和 GlobalPlatform 上。读卡器通过 PC/SC 或 SDK 暴露接口，让主机交换 EMV 和智能卡 APDU。个人化工具准备卡片数据。需要集中控制时，可以由后台 API 驱动发行。" },
-        { heading: "非接仍然从 ISO/IEC 14443 开始", text: "非接贴卡仍然走 ISO/IEC 14443。EMV 应用叠在这条射频路径上面。能够发现读卡器并发送 APDU 的读卡器 SDK 是第一层集成，它不是完整的内核，也不是完成的发行系统。" },
-        { heading: "量产前的个人化", text: "SCP02 或 SCP03 这类安全通道属于发行。密钥留在卡片、HSM 或密钥管理服务中。本页说明工程顺序，不宣称 EMV 批准或认证等级。" },
-      ],
-    },
-  },
-  {
-    slug: "hardware-wallets-cold-storage-cards",
-    cat: "Crypto",
-    date: "2026-10-12",
-    title: "Hardware wallets and cold-storage cards on the NFC stack",
-    excerpt: "Crypto wallets are part of the same card, secure-element and reader work. Keys stay on the card. Signing happens on the card.",
-    readMinutes: 7,
-    body: [
-      { text: "Hardware wallets, cold-storage cards and on-card signing sit in the NFC and smart-card stack. They are not a separate website theme." },
-      { heading: "What stays on the card", text: "Common wallet engineering uses secp256k1, ed25519, BIP-32 and BIP-39. The seed and private key stay in the card or secure element. The host sends a signing request. The card returns a signature." },
-      { heading: "Host and cloud", text: "NFC or a PC/SC reader can be the host interface. A cloud service can later check a public credential. It should not receive the private key." },
-      { heading: "Same rule as identity work", text: "FIDO2, ePassport and wallet signing share one constraint: the secret does not leave the card, the secure element or an HSM. Software, hardware and cloud around that secret are the same three delivery layers used for payment and access projects." },
-    ],
-    zh: {
-      title: "NFC 工程栈上的硬件钱包与冷存储卡",
-      excerpt: "加密货币钱包属于同一套卡片、安全元件和读卡器工程。密钥留在卡上，签名在卡内完成。",
-      body: [
-        { text: "硬件钱包、冷存储卡和卡内签名属于 NFC 与智能卡工程栈，不是另一套网站栏目。" },
-        { heading: "什么留在卡上", text: "常见钱包工程使用 secp256k1、ed25519、BIP-32 和 BIP-39。种子和私钥留在卡片或安全元件里。主机发送签名请求。卡片返回签名。" },
-        { heading: "主机与云", text: "主机接口可以是 NFC 或 PC/SC 读卡器。云服务之后可以核验公开凭证，但不应该收到私钥。" },
-        { heading: "与身份工程同一条规则", text: "FIDO2、ePassport 和钱包签名有同一条约束：秘密不离开卡片、安全元件或 HSM。围绕这个秘密的软件、硬件和云，与支付、门禁项目使用同一套交付层。" },
-      ],
-    },
-  },
-  {
-    slug: "reader-sdk-apdu-exchange",
-    cat: "SDK",
-    date: "2026-10-12",
-    title: "Reader SDK: discovery, card detection and APDU exchange",
-    excerpt: "How a Reader SDK finds a reader, waits for a card and exchanges APDUs over USB, serial or PC/SC.",
-    readMinutes: 6,
-    body: [
-      { text: "A reader integration starts with three steps: find the reader, wait until a card is in the field, then send APDUs." },
-      { heading: "Host interfaces", text: "The Reader SDK is used on Windows, Linux and Android. Host links are USB, serial or PC/SC. The same application sequence applies on each host: enumerate the reader, open a session, then talk to the card." },
-      { heading: "What the SDK actually does", text: "Reader discovery, card detection on ISO/IEC 14443 and ISO/IEC 15693, APDU exchange, NDEF read and write when the card supports it, and diagnostics for field, ATR and transport errors. The first SELECT APDU is only a header. It is not a product credential and it is not a complete payment or identity transaction." },
-      { heading: "Where this is used", text: "Payment, access control and transit projects all need a stable APDU path before personalization, OSDP or a cloud API is added. Firmware and SDK work belong in that same path, not as a later add-on." },
-    ],
-    zh: {
-      title: "读卡器 SDK：发现读卡器、检测卡片并交换 APDU",
-      excerpt: "读卡器 SDK 如何发现设备、等待卡片进入场强，并通过 USB、串口或 PC/SC 交换 APDU。",
-      body: [
-        { text: "读卡器集成通常只有三步：找到读卡器，等到卡片进入射频场，然后发送 APDU。" },
-        { heading: "主机接口", text: "读卡器 SDK 用于 Windows、Linux 和 Android。主机连接是 USB、串口或 PC/SC。各平台上的顺序相同：枚举读卡器、打开会话，再与卡片通信。" },
-        { heading: "SDK 实际覆盖的工作", text: "读卡器发现、ISO/IEC 14443 和 ISO/IEC 15693 的卡片检测、APDU 交换、卡片支持时的 NDEF 读写，以及场强、ATR 和传输错误诊断。第一条 SELECT APDU 只是报文头，不是产品凭证，也不是完整的支付或身份交易。" },
-        { heading: "用在哪里", text: "支付、门禁和交通项目都需要先把 APDU 路径跑稳，再接个人化、OSDP 或云 API。固件和 SDK 属于同一条路径，不是事后补上的附件。" },
-      ],
-    },
-  },
-  {
-    slug: "fido2-nfc-and-secure-elements",
-    cat: "Security",
-    date: "2026-10-12",
-    title: "FIDO2, NFC authenticators and keys on a secure element",
-    excerpt: "FIDO2 registration and assertion can use a card or a secure element. The private key does not belong on a web page.",
-    readMinutes: 7,
-    body: [
-      { text: "Identity projects issue a credential, then verify it. FIDO2 and WebAuthn are one verification path. ePassport and PIV are other paths." },
-      { heading: "Where the key lives", text: "The authenticator can be a card, a USB or NFC key, or a secure element such as SE050 or SE051. The reader or API checks the assertion. The private key stays in the authenticator. Verification does not copy it into the browser." },
-      { heading: "What NFCTEC engineers", text: "The reader or embedded NFC path, the credential on the card or secure element, and the verification step behind it. A prototype proves the credential and the reader together, then issuance and verification services are connected." },
-      { heading: "Same rule for wallets", text: "Cryptography here is key and protocol engineering. Crypto wallets use the same rule: signing stays on the card or element." },
-    ],
-    zh: {
-      title: "FIDO2、NFC 认证器与安全元件密钥",
-      excerpt: "FIDO2 注册和登录可以使用卡片或安全元件。私钥不属于网页。",
-      body: [
-        { text: "身份项目要先发行凭证，再完成核验。FIDO2 和 WebAuthn 是其中一条核验路径。ePassport 和 PIV 是另外的路径。" },
-        { heading: "密钥放在哪里", text: "认证器可以是卡片、USB 或 NFC 密钥，也可以是 SE050、SE051 这类安全元件。读卡器或 API 检查断言。私钥留在认证器里。核验不会把它复制到浏览器。" },
-        { heading: "NFCTEC 负责的部分", text: "读卡器或嵌入式 NFC 路径、卡片或安全元件上的凭证，以及后面的核验步骤。原型要把凭证和读卡器一起跑通，再接上发行与核验服务。" },
-        { heading: "钱包同一条规则", text: "这里的密码学是密钥和协议工程。加密货币钱包遵循同一条规则：签名留在卡片或安全元件上。" },
-      ],
-    },
-  },
+  ...engineeringNotes,
   {
     slug: "emv-contactless-aid-selection",
     cat: "EMV",

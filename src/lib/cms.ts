@@ -3,7 +3,7 @@ import { isNoIndexPath } from "./seo";
 import { mergeDisplayConfig, type SiteDisplayConfig } from "./display-config";
 import { mergeSolutionContent } from "./solutions-content";
 import { getCatalogProduct, HIDDEN_PRODUCT_SLUGS, mergeCatalogProducts } from "./products-catalog";
-import { posts as localBlogPosts, type BlogPost } from "./blog-posts";
+import { posts as localBlogPosts, type BlogPost, type BlogSection } from "./blog-posts";
 
 export type CmsPost = {
   id: string;
@@ -11,7 +11,7 @@ export type CmsPost = {
   slug: string;
   title: string;
   excerpt: string;
-  body: string | { heading?: string; text: string }[];
+  body: string | BlogSection[];
   category: string;
   readMinutes: number;
   viewCount: number;
@@ -129,6 +129,7 @@ async function cmsFetch<T>(path: string, init?: RequestInit): Promise<T> {
   try {
     const res = await fetch(`${base}${path}`, {
       ...init,
+      signal: init?.signal ?? AbortSignal.timeout(4000),
       headers: {
         Accept: "application/json",
         ...(init?.headers ?? {}),
@@ -207,10 +208,19 @@ export function getLocalPost(locale: Locale, slug: string): CmsPost | null {
 }
 
 /** CMS rows first; local engineering notes fill any missing slugs so Google can index them. */
+function localNoteReplacesCms(slug: string) {
+  const post = localBlogPosts.find((item) => item.slug === slug);
+  const bodies = [post?.body, post?.zh?.body];
+  return bodies.some((body) => Array.isArray(body) && body.some((section) => section.figure));
+}
+
 export function mergeLocalPosts(rows: CmsPost[], locale: Locale): CmsPost[] {
   const have = new Set(rows.map((row) => row.slug));
-  const extras = localBlogPosts.filter((p) => !have.has(p.slug)).map((p) => localPostToCms(p, locale));
-  return [...extras, ...rows].sort((a, b) => (b.publishedAt ?? "").localeCompare(a.publishedAt ?? ""));
+  const kept = rows.filter((row) => !localNoteReplacesCms(row.slug));
+  const extras = localBlogPosts
+    .filter((post) => !have.has(post.slug) || localNoteReplacesCms(post.slug))
+    .map((post) => localPostToCms(post, locale));
+  return [...extras, ...kept].sort((a, b) => (b.publishedAt ?? "").localeCompare(a.publishedAt ?? ""));
 }
 
 export async function fetchPosts(locale: Locale): Promise<CmsPost[]> {
@@ -222,6 +232,7 @@ export async function fetchPosts(locale: Locale): Promise<CmsPost[]> {
 
 export async function fetchPost(locale: Locale, slug: string): Promise<CmsPost | null> {
   const local = getLocalPost(locale, slug);
+  if (local && localNoteReplacesCms(slug)) return local;
   try {
     const row = await cmsFetch<Omit<CmsPost, "body"> & { body: unknown }>(
       `/public/posts/${slug}?locale=${locale}`,
