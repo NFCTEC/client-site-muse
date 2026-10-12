@@ -36,6 +36,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           name: "NFCTEC",
           url: siteUrl(),
           description: "NFC & Secure Technology Engineering",
+          sameAs: ["https://www.youtube.com/@NFCTEC"],
         }}
       />
       <HomePage locale={locale} data={data} labels={labels} />

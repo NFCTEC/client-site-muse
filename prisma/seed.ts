@@ -1,5 +1,6 @@
 import bcrypt from "bcryptjs";
 import { PrismaClient, type Prisma } from "@prisma/client";
+import { ensureArticles } from "./seed-articles";
 
 const prisma = new PrismaClient();
 
@@ -7,6 +8,7 @@ async function main() {
   await upsertAdmin();
   await ensureSocialLinks();
   if ((await prisma.technology.count()) > 0) {
+    await ensureArticles(prisma);
     console.log("Content already present, skipped catalog seed.");
     return;
   }
@@ -19,6 +21,7 @@ async function main() {
   await seedNavigation();
   await ensureSocialLinks();
   await seedHomepage();
+  await ensureArticles(prisma);
   console.log("Seeded NFCTEC catalog.");
 }
 

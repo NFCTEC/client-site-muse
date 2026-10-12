@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     path: article.canonicalUrl || path,
     image: article.ogImage || article.coverImage,
     robots: article.status === "PUBLISHED" ? article.robots : "noindex,nofollow",
-    languages: article.altSlug ? { [locale]: path, [other]: `/${other}/blog/${article.altSlug}` } : undefined,
+    languages: { [locale]: path, [other]: `/${other}/blog/${article.altSlug || article.slug}` },
   });
 }
 

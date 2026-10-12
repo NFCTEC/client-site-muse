@@ -845,6 +845,22 @@ export async function sitemapEntries() {
     { path: "/zh/blog" },
     { path: "/en/contact" },
     { path: "/zh/contact" },
+    { path: "/en/products/software" },
+    { path: "/zh/products/software" },
+    { path: "/en/products/hardware" },
+    { path: "/zh/products/hardware" },
+    { path: "/en/products/cloud" },
+    { path: "/zh/products/cloud" },
+    { path: "/en/developer/sdk" },
+    { path: "/zh/developer/sdk" },
+    { path: "/en/developer/tools" },
+    { path: "/zh/developer/tools" },
+    { path: "/en/developer/api" },
+    { path: "/zh/developer/api" },
+    { path: "/en/developer/documentation" },
+    { path: "/zh/developer/documentation" },
+    { path: "/en/developer/downloads" },
+    { path: "/zh/developer/downloads" },
   ];
   for (const item of products) paths.push({ path: `/${item.locale}/products/${item.slug}`, updatedAt: item.product.updatedAt });
   for (const item of solutions) paths.push({ path: `/${item.locale}/solutions/${item.slug}`, updatedAt: item.solution.updatedAt });

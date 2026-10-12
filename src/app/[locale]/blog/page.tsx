@@ -11,7 +11,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   if (!isLocale(locale)) return {};
   return pageMetadata({
     title: getDictionary(locale).blog,
-    description: locale === "zh" ? "NFCTEC 工程笔记" : "NFCTEC engineering notes",
+    description: locale === "zh" ? "NFC、智能卡、FIDO2、安全标签与硬件钱包的工程笔记。" : "Engineering notes on NFC, smart cards, FIDO2, secure tags and hardware wallets.",
     path: `/${locale}/blog`,
     languages: { en: "/en/blog", zh: "/zh/blog" },
   });
@@ -25,7 +25,17 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
   return (
     <>
       <Breadcrumb locale={locale} items={[{ label: labels.home, href: "/" }, { label: labels.blog }]} />
-      <PageHero eyebrow={labels.blog} title={locale === "zh" ? "工程笔记" : "Engineering notes"} description={labels.emptyBlog} />
+      <PageHero
+        eyebrow={labels.blog}
+        title={locale === "zh" ? "工程笔记" : "Engineering notes"}
+        description={
+          articles.length
+            ? locale === "zh"
+              ? "协议、读卡器、卡片、身份和钱包相关的已发布说明。"
+              : "Published notes on protocols, readers, cards, identity and wallets."
+            : labels.emptyBlog
+        }
+      />
       <div className="public-shell grid gap-x-10 py-14 md:grid-cols-2 md:py-20">
         {articles.map((article) => (
           <Link key={article.href} href={localizeHref(article.href, locale)} className="list-card min-h-52">
