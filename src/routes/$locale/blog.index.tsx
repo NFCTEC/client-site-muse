@@ -1,6 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
-import { fetchDisplayConfig, fetchPosts, toBlogPost } from "@/lib/cms";
+import { fetchDisplayConfig, fetchPosts, mergeLocalPosts, toBlogPost } from "@/lib/cms";
 type BlogItem = ReturnType<typeof toBlogPost>;
 import { filterByDisplayConfig } from "@/lib/display-config";
 import type { Locale } from "@/lib/locale";
@@ -18,12 +18,12 @@ export const Route = createFileRoute("/$locale/blog/")({
     const moduleConfig = config.modules.blog;
     if (!moduleConfig.enabled) throw notFound();
     const posts = await fetchPosts(locale);
-    return { posts: filterByDisplayConfig(posts, moduleConfig).map(toBlogPost) };
+    return { posts: mergeLocalPosts(filterByDisplayConfig(posts, moduleConfig), locale).map(toBlogPost) };
   },
   head: ({ params }) => ({
     meta: [
       { title: "Blog & Insights — NFCTEC" },
-      { name: "description", content: "Engineering deep-dives, protocol explainers and customer case studies on NFC and Smart Cards." },
+      { name: "description", content: "Engineering notes on EMV, APDU, JavaCard, NTAG 424 DNA, FIDO2, hardware wallets and NFC readers." },
       { property: "og:title", content: "Blog & Insights — NFCTEC" },
       { property: "og:description", content: "NFC engineering deep-dives and case studies." },
       { property: "og:url", content: absLocaleUrl(params.locale as Locale, "/blog") },

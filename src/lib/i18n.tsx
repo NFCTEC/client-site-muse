@@ -16,6 +16,8 @@ export const t: Dict = {
   "nav.downloads": { en: "Downloads", zh: "下载中心" },
   "nav.blog": { en: "Blog", zh: "博客" },
   "nav.about": { en: "About", zh: "关于" },
+  "nav.privacy": { en: "Privacy", zh: "隐私" },
+  "nav.terms": { en: "Terms", zh: "条款" },
   "nav.contact": { en: "Contact Us", zh: "联系我们" },
   "nav.home": { en: "Home", zh: "首页" },
   "nav.getQuote": { en: "Get a Quote", zh: "获取报价" },
@@ -429,8 +431,12 @@ export const t: Dict = {
 
   // Blog page
   "blog.title": { en: "Blog & Insights", zh: "博客与洞察" },
-  "blog.sub": { en: "Engineering deep-dives, protocol explainers and case studies.", zh: "工程深度解析、协议讲解与客户案例。" },
+  "blog.sub": {
+    en: "Engineering notes on EMV, APDU, JavaCard, NTAG 424 DNA, FIDO2, hardware wallets and NFC readers.",
+    zh: "EMV、APDU、JavaCard、NTAG 424 DNA、FIDO2、硬件钱包与 NFC 读卡器的工程笔记。",
+  },
   "blog.read": { en: "Read article →", zh: "阅读全文 →" },
+  "blog.back": { en: "All articles", zh: "全部文章" },
 
   // About
   "about.eyebrow": { en: "About NFCTEC", zh: "关于 NFCTEC" },
@@ -450,6 +456,30 @@ export const t: Dict = {
   "about.stats.projects": { en: "500+ projects shipped", zh: "已交付 500+ 项目" },
   "about.stats.countries": { en: "60+ countries", zh: "覆盖 60+ 国家" },
   "about.stats.team": { en: "12+ engineers", zh: "12+ 工程师" },
+  "about.profile": { en: "Company profile (PDF)", zh: "企业介绍（PDF）" },
+  "dl.profile.title": { en: "Company profile", zh: "企业介绍" },
+  "dl.profile.desc": {
+    en: "English landscape deck covering NFC, smart cards, security, identity and crypto wallets.",
+    zh: "英文横版介绍：NFC、智能卡、安全、身份与加密货币钱包。",
+  },
+  "legal.privacy.title": { en: "Privacy", zh: "隐私" },
+  "legal.privacy.sub": {
+    en: "How this website handles inquiries and technical logs.",
+    zh: "本网站如何处理询盘与技术日志。",
+  },
+  "legal.privacy.body": {
+    en: "Inquiry forms send name, company, email and the project description to NFCTEC so an engineer can reply. Server logs may keep IP, user-agent and the requested path for operations. This page does not describe a separate analytics product and it does not sell personal data.",
+    zh: "询盘表单会把姓名、公司、邮箱和项目说明发给 NFCTEC，方便工程师回复。服务器日志可能保留 IP、User-Agent 和请求路径，用于运维。本页不描述单独的分析产品，也不出售个人数据。",
+  },
+  "legal.terms.title": { en: "Terms", zh: "条款" },
+  "legal.terms.sub": {
+    en: "Public website terms for product pages, tools and downloads.",
+    zh: "产品页、工具与下载的网站使用说明。",
+  },
+  "legal.terms.body": {
+    en: "Pages, tools and files on this site are for evaluation. A project starts only after a separate written agreement. Datasheets, SDKs and sample code stay under their own licenses. Nothing on the public site is a certification, a warranty or a completed delivery.",
+    zh: "本站页面、工具和文件用于评估。项目只在另行书面约定后开始。规格书、SDK 和示例代码遵循各自许可。公开网站上的内容不是认证、保证或已完成的交付。",
+  },
 
   // Contact
   "contact.eyebrow": { en: "Contact", zh: "联系我们" },

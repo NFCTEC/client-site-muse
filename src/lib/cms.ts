@@ -3,6 +3,7 @@ import { isNoIndexPath } from "./seo";
 import { mergeDisplayConfig, type SiteDisplayConfig } from "./display-config";
 import { mergeSolutionContent } from "./solutions-content";
 import { getCatalogProduct, HIDDEN_PRODUCT_SLUGS, mergeCatalogProducts } from "./products-catalog";
+import { posts as localBlogPosts, type BlogPost } from "./blog-posts";
 
 export type CmsPost = {
   id: string;
@@ -181,21 +182,53 @@ export async function fetchProduct(locale: Locale, slug: string): Promise<CmsPro
   }
 }
 
+function localPostToCms(p: BlogPost, locale: Locale): CmsPost {
+  const copy = locale === "zh" && p.zh ? p.zh : p;
+  return {
+    id: p.slug,
+    locale,
+    slug: p.slug,
+    title: copy.title,
+    excerpt: copy.excerpt,
+    body: copy.body,
+    category: copy.cat ?? p.cat,
+    readMinutes: p.readMinutes,
+    viewCount: 0,
+    publishedAt: p.date,
+    seoTitle: copy.title,
+    seoDescription: copy.excerpt,
+    ogImage: null,
+  };
+}
+
+export function getLocalPost(locale: Locale, slug: string): CmsPost | null {
+  const post = localBlogPosts.find((p) => p.slug === slug);
+  return post ? localPostToCms(post, locale) : null;
+}
+
+/** CMS rows first; local engineering notes fill any missing slugs so Google can index them. */
+export function mergeLocalPosts(rows: CmsPost[], locale: Locale): CmsPost[] {
+  const have = new Set(rows.map((row) => row.slug));
+  const extras = localBlogPosts.filter((p) => !have.has(p.slug)).map((p) => localPostToCms(p, locale));
+  return [...extras, ...rows].sort((a, b) => (b.publishedAt ?? "").localeCompare(a.publishedAt ?? ""));
+}
+
 export async function fetchPosts(locale: Locale): Promise<CmsPost[]> {
   const rows = await cmsFetch<Array<Omit<CmsPost, "body"> & { body: unknown; category: string }>>(
     `/public/posts?locale=${locale}`,
   );
-  return rows.map(normalizePost);
+  return mergeLocalPosts(rows.map(normalizePost), locale);
 }
 
 export async function fetchPost(locale: Locale, slug: string): Promise<CmsPost | null> {
+  const local = getLocalPost(locale, slug);
   try {
     const row = await cmsFetch<Omit<CmsPost, "body"> & { body: unknown }>(
       `/public/posts/${slug}?locale=${locale}`,
     );
     return normalizePost(row);
   } catch {
-    return null;
+    return local;
   }
 }
 

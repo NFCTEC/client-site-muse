@@ -36,7 +36,7 @@ export const organizationJsonLd = {
   email: "sale@nfctec.com",
   sameAs: [
     "https://www.amazon.com/s?k=SZLEJUN&ref=bl_dp_s_web_0",
-    "https://youtube.com/@lejuntech",
+    "https://www.youtube.com/@NFCTEC",
   ],
   contactPoint: [
     {

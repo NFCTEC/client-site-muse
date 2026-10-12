@@ -1,7 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, Calendar, Clock } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
-import { fetchDisplayConfig, fetchPost, fetchPosts, toBlogPost } from "@/lib/cms";
+import { fetchDisplayConfig, fetchPost, fetchPosts, getLocalPost, mergeLocalPosts, toBlogPost } from "@/lib/cms";
 type BlogItem = ReturnType<typeof toBlogPost>;
 import { filterByDisplayConfig, isModuleEnabled } from "@/lib/display-config";
 import { absLocaleUrl, type Locale } from "@/lib/locale";
@@ -15,11 +15,12 @@ export const Route = createFileRoute("/$locale/blog/$slug")({
     const locale = params.locale as Locale;
     const config = await fetchDisplayConfig(locale);
     if (!isModuleEnabled(config, "blog")) throw notFound();
-    const post = await fetchPost(locale, params.slug);
+    const post = (await fetchPost(locale, params.slug)) ?? getLocalPost(locale, params.slug);
     if (!post) throw notFound();
     const all = await fetchPosts(locale);
-    const visible = filterByDisplayConfig(all, config.modules.blog);
-    if (config.modules.blog.mode === "selected" && !visible.some((p) => p.slug === params.slug)) {
+    const visible = mergeLocalPosts(filterByDisplayConfig(all, config.modules.blog), locale);
+    const local = getLocalPost(locale, params.slug);
+    if (config.modules.blog.mode === "selected" && !visible.some((p) => p.slug === params.slug) && !local) {
       throw notFound();
     }
     const others = visible.filter((p) => p.slug !== params.slug);

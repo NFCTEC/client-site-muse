@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
-import { Target, Heart } from "lucide-react";
+import { Target, Heart, Download } from "lucide-react";
 import { PageHero } from "@/components/PageHero";
 import { PageSection } from "@/components/PageSection";
 import { CtaBand } from "@/components/CtaBand";
@@ -60,6 +60,12 @@ function About() {
                 </span>
               ))}
             </div>
+            <a
+              href="/NFCTEC-Company-Profile.pdf"
+              className="mt-5 inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm text-primary hover:bg-primary hover:text-primary-foreground transition-colors"
+            >
+              <Download size={14} /> {tr("about.profile")}
+            </a>
           </div>
         }
       />

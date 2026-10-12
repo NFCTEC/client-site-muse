@@ -6,7 +6,7 @@ import { Logo } from "@/components/Logo";
 import { SUPPORT_EMAIL } from "@/lib/contact";
 
 const AMAZON_STORE = "https://www.amazon.com/s?k=SZLEJUN&ref=bl_dp_s_web_0";
-const YOUTUBE_URL = "https://youtube.com/@lejuntech";
+const YOUTUBE_URL = "https://www.youtube.com/@NFCTEC";
 
 export function Footer() {
   const { tr } = useI18n();
@@ -15,9 +15,22 @@ export function Footer() {
   type FooterLink =
     | { to: "/$locale/products/$slug"; label: string; slug: string }
     | { to: "/$locale/solutions/$slug"; label: string; slug: string }
-    | { to: string; label: string };
+    | { to: string; label: string }
+    | { href: string; label: string };
 
   const cols: { title: string; links: FooterLink[] }[] = [
+    {
+      title: tr("foot.company"),
+      links: [
+        { to: "/$locale/about", label: tr("nav.about") },
+        { to: "/$locale/blog", label: tr("nav.blog") },
+        { to: "/$locale/contact", label: tr("nav.contact") },
+        { to: "/$locale/privacy", label: tr("nav.privacy") },
+        { to: "/$locale/terms", label: tr("nav.terms") },
+        { href: YOUTUBE_URL, label: "YouTube" },
+        { href: AMAZON_STORE, label: "Amazon" },
+      ],
+    },
     {
       title: tr("foot.product"),
       links: [
@@ -48,18 +61,11 @@ export function Footer() {
         { to: "/$locale/tools/javacard-tool", label: tr("tools.javacard.t") },
       ],
     },
-    {
-      title: tr("foot.company"),
-      links: [
-        { to: "/$locale/about", label: tr("nav.about") },
-        { to: "/$locale/contact", label: tr("nav.contact") },
-      ],
-    },
   ];
 
   return (
     <footer className="border-t border-border bg-surface/40">
-      <div className="mx-auto max-w-7xl px-6 lg:px-10 py-16">
+      <div className="mx-auto max-w-7xl px-6 lg:px-10 pt-10 pb-16">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-5">
           <div className="lg:col-span-1">
             <Link to="/$locale" params={{ locale }}>
@@ -88,7 +94,11 @@ export function Footer() {
               <ul className="space-y-2.5 text-sm text-muted-foreground">
                 {c.links.map((l) => (
                   <li key={l.label}>
-                    {"slug" in l ? (
+                    {"href" in l ? (
+                      <a href={l.href} target="_blank" rel="noreferrer" className="hover:text-primary transition-colors">
+                        {l.label}
+                      </a>
+                    ) : "slug" in l ? (
                       <Link
                         to={l.to}
                         params={{ locale, slug: l.slug }}

@@ -1,9 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
 import { fetchSitemapUrls } from "@/lib/cms";
+import { posts as localBlogPosts } from "@/lib/blog-posts";
 import { SITE_URL, isNoIndexPath } from "@/lib/seo";
 
 const STATIC_URLS = ["en", "zh"].flatMap((locale) => [
+  { loc: `${SITE_URL}/${locale}/privacy`, lastmod: "2026-10-12" },
+  { loc: `${SITE_URL}/${locale}/terms`, lastmod: "2026-10-12" },
+  ...localBlogPosts.map((post) => ({
+    loc: `${SITE_URL}/${locale}/blog/${post.slug}`,
+    lastmod: post.date,
+  })),
   { loc: `${SITE_URL}/${locale}/tools/ntag424-tool`, lastmod: "2026-09-20" },
   { loc: `${SITE_URL}/${locale}/tools/javacard-tool`, lastmod: "2026-09-20" },
   { loc: `${SITE_URL}/${locale}/products/ntag213-215-216`, lastmod: "2026-09-29" },
@@ -33,8 +40,12 @@ export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
       GET: async () => {
+        const cmsUrls = await Promise.race([
+          fetchSitemapUrls(),
+          new Promise<{ loc: string; lastmod?: string }[]>((resolve) => setTimeout(() => resolve([]), 2500)),
+        ]).catch(() => [] as { loc: string; lastmod?: string }[]);
         const merged = new Map<string, { loc: string; lastmod?: string }>();
-        for (const entry of [...(await fetchSitemapUrls()), ...STATIC_URLS]) {
+        for (const entry of [...cmsUrls, ...STATIC_URLS]) {
           try {
             if (isNoIndexPath(new URL(entry.loc).pathname)) continue;
           } catch {

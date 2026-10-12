@@ -89,6 +89,20 @@ function Downloads() {
 
       <PageSection spacing="main" className="!pt-0">
         <div className="space-y-8">
+          <div className="rounded-2xl border border-border bg-card-gradient overflow-hidden">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 px-7 py-5">
+              <div>
+                <h2 className="font-display text-lg font-semibold">{tr("dl.profile.title")}</h2>
+                <p className="text-sm text-muted-foreground mt-1">{tr("dl.profile.desc")}</p>
+              </div>
+              <a
+                href="/NFCTEC-Company-Profile.pdf"
+                className="shrink-0 inline-flex items-center gap-2 rounded-full border border-border-strong px-4 py-2 text-xs text-primary hover:bg-primary hover:text-primary-foreground transition-colors"
+              >
+                <Download size={14} /> {tr("dl.download")}
+              </a>
+            </div>
+          </div>
           {groups.length === 0 ? (
             <div className="rounded-2xl border border-border bg-card-gradient p-12 lg:p-16 text-center">
               <FileArchive size={40} className="mx-auto text-muted-foreground mb-6" />

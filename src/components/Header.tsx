@@ -1,5 +1,5 @@
 import { Link, useMatches, useRouterState } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useI18n } from "@/lib/i18n";
 import { useTheme } from "@/lib/theme";
 import { useLocale } from "@/hooks/useLocale";
@@ -32,6 +32,12 @@ export function Header() {
   const [solOpen, setSolOpen] = useState(false);
   const [prodOpen, setProdOpen] = useState(false);
   const path = useRouterState({ select: (s) => s.location.pathname });
+
+  useEffect(() => {
+    setOpen(false);
+    setSolOpen(false);
+    setProdOpen(false);
+  }, [path]);
 
   type NavItem = { path: string; label: string; key: "plain" | "products" | "solutions" };
 
@@ -91,6 +97,7 @@ export function Header() {
                             key={item.slug}
                             to="/$locale/products/$slug"
                             params={{ locale, slug: item.slug }}
+                            onClick={() => setProdOpen(false)}
                             className="block px-3 py-2 text-sm rounded-lg hover:bg-surface-elevated hover:text-primary"
                           >
                             {item.name}
@@ -103,6 +110,7 @@ export function Header() {
                                 key={item.slug}
                                 to="/$locale/products/$slug"
                                 params={{ locale, slug: item.slug }}
+                                onClick={() => setProdOpen(false)}
                                 className="block px-3 py-2 text-sm rounded-lg hover:bg-surface-elevated hover:text-primary"
                               >
                                 {item.name}
@@ -182,12 +190,30 @@ export function Header() {
           >
             {theme === "dark" ? <Sun size={14} /> : <Moon size={14} />}
           </button>
-          <button
-            onClick={() => setLang(lang === "zh" ? "en" : "zh")}
-            className="text-xs font-mono text-muted-foreground hover:text-primary transition-colors border border-border rounded-full px-3 py-1.5"
-          >
-            {lang === "zh" ? "EN" : "中"}
-          </button>
+          <div className="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1.5 text-xs font-mono">
+            {(["en", "zh"] as const).map((code, index) => {
+              const label = code === "en" ? "EN" : "中";
+              const active = lang === code;
+              return (
+                <span key={code} className="inline-flex items-center gap-1.5">
+                  {index > 0 ? <span className="text-muted-foreground/70">/</span> : null}
+                  {active ? (
+                    <span className="text-foreground" aria-current="true">
+                      {label}
+                    </span>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => setLang(code)}
+                      className="text-muted-foreground hover:text-primary transition-colors"
+                    >
+                      {label}
+                    </button>
+                  )}
+                </span>
+              );
+            })}
+          </div>
           <button
             onClick={() => setOpen(!open)}
             className="lg:hidden p-2 -mr-2 text-foreground"
