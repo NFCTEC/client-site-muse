@@ -321,6 +321,7 @@ export async function submitInquiry(data: {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
+    signal: AbortSignal.timeout(20000),
   });
 }
 
