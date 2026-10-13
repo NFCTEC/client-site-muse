@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { useI18n, t as dict, type Lang } from "@/lib/i18n";
 import { SUPPORT_EMAIL } from "@/lib/contact";
@@ -95,7 +95,6 @@ export const Route = createFileRoute("/$locale/contact/")({
 
 function Contact() {
   const { tr, lang } = useI18n();
-  const { locale } = Route.useParams();
   const { sku, src } = Route.useSearch();
   const faqItems = buildContactFaq(lang);
   const presetProduct = productFromSku(sku);
@@ -141,16 +140,6 @@ function Contact() {
       <PageHero eyebrow={tr("contact.eyebrow")} title={tr("contact.title")} subtitle={tr("contact.sub")} />
 
       <PageSection spacing="main" className="!pt-0">
-        <div className="mb-8 rounded-2xl border border-border bg-card-gradient p-6 sm:p-8">
-          <h2 className="font-display text-lg font-semibold">{tr("contact.check.title")}</h2>
-          <ul className="mt-4 space-y-2 text-sm text-muted-foreground leading-relaxed list-disc pl-5">
-            <li>{tr("contact.check.nfc")}</li>
-            <li>{tr("contact.check.metal")}</li>
-            <li>{tr("contact.check.app")}</li>
-            <li>{tr("contact.check.reader")}</li>
-            <li>{tr("contact.check.damage")}</li>
-          </ul>
-        </div>
         <div className="grid lg:grid-cols-5 gap-8 lg:gap-12">
           <form
             onSubmit={handleSubmit}
@@ -249,12 +238,6 @@ function Contact() {
                 >
                   {loading ? tr("form.sending") : tr("contact.submit")}
                 </button>
-                <p className="mt-3 text-xs text-muted-foreground leading-relaxed">
-                  {tr("contact.privacy")}{" "}
-                  <Link to="/$locale/privacy" params={{ locale }} className="underline">
-                    {tr("nav.privacy")}
-                  </Link>
-                </p>
               </>
             )}
           </form>

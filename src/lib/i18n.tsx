@@ -488,27 +488,6 @@ export const t: Dict = {
     en: "This page is for a SZLEJUN product you already bought. We reply within one business day, Monday to Sunday, China time (UTC+8). Refunds, returns, and delivery stay in your Amazon order.",
     zh: "这一页处理已经买到的 SZLEJUN 产品怎么用。我们在一个工作日内回复，周一至周日，北京时间（UTC+8）。退款、退货和物流留在亚马逊订单里。",
   },
-  "contact.check.title": { en: "Try this first", zh: "先试这几步" },
-  "contact.check.nfc": {
-    en: "Tags: turn NFC on. iPhone reads near the top. Most Android phones read from the back. Hold the phone still for a second.",
-    zh: "标签：打开 NFC。iPhone 靠近顶部读取，多数安卓从背面读取。手机停稳一秒。",
-  },
-  "contact.check.metal": {
-    en: "A normal tag on metal will not read. Only a metal-mount tag is made for metal.",
-    zh: "普通标签贴在金属上读不到。只有抗金属标签是给金属表面做的。",
-  },
-  "contact.check.app": {
-    en: "If you were writing a tag, name the app in the message.",
-    zh: "如果是在写标签，在留言里写上用的是哪个 App。",
-  },
-  "contact.check.reader": {
-    en: "Readers, the signal detector card, and CAC: name the computer or phone, the system version, and what you expected to happen.",
-    zh: "读卡器、信号检测卡和 CAC：写上电脑或手机、系统版本，以及你预期它做什么。",
-  },
-  "contact.check.damage": {
-    en: "Damaged or missing parts are handled in your Amazon order. This page does not ship a replacement.",
-    zh: "损坏或缺件在亚马逊订单里办理退换。这个页面不另行补发。",
-  },
   "contact.order": { en: "Amazon order ID (optional)", zh: "亚马逊订单号（选填）" },
   "contact.product": { en: "Product", zh: "产品" },
   "contact.product.detector": { en: "NFC signal detector card", zh: "NFC 信号检测卡" },
@@ -532,10 +511,6 @@ export const t: Dict = {
   "contact.photo.after": {
     en: "and include the order id if you have one.",
     zh: "，有订单号请一并写上。",
-  },
-  "contact.privacy": {
-    en: "We only use your information to answer this request.",
-    zh: "这些信息只用来回复这一次问题。",
   },
   "contact.success": {
     en: "Received. We reply within one business day, Monday to Sunday, China time (UTC+8). Order changes stay in Amazon.",

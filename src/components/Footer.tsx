@@ -103,18 +103,7 @@ export function Footer() {
             </div>
           </div>
 
-          {(supportOnly
-            ? [
-                {
-                  title: tr("foot.company"),
-                  links: [
-                    { to: "/$locale/privacy", label: tr("nav.privacy") },
-                    { to: "/$locale/terms", label: tr("nav.terms") },
-                  ] as FooterLink[],
-                },
-              ]
-            : cols
-          ).map((c) => (
+          {(supportOnly ? [] : cols).map((c) => (
             <div key={c.title}>
               <h4 className="font-display text-sm font-semibold mb-4 text-foreground">{c.title}</h4>
               <ul className="space-y-2.5 text-sm text-muted-foreground">
