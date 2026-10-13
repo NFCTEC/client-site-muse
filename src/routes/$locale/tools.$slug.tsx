@@ -95,6 +95,16 @@ function ToolPage() {
             <Link to="/$locale/inquiry" params={{ locale }} className="inline-flex items-center gap-2 rounded-full border border-border-strong bg-surface/60 px-6 py-3 text-sm font-medium hover:border-primary hover:text-primary transition-colors">
               {isZh ? "咨询集成" : "Ask for integration"}
             </Link>
+            {tool.slug === "ntag424-tool" && (
+              <a
+                href="https://www.amazon.com/dp/B0FRL6BTJK"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-border-strong bg-surface/60 px-6 py-3 text-sm font-medium hover:border-primary hover:text-primary transition-colors"
+              >
+                {isZh ? "Amazon 购买标签" : "Buy tags on Amazon"}
+              </a>
+            )}
           </>
         }
       />

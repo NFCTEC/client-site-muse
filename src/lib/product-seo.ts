@@ -18,6 +18,7 @@ const SAME_AS: Record<string, string[]> = {
   "j3r180-javacard": [
     "https://www.amazon.com/J3R180-Magnetic-Stripe-Interface-EEPROM/dp/B0HD7Z44HJ",
   ],
+  "ntag424-dna": ["https://www.amazon.com/dp/B0FRL6BTJK"],
 };
 
 export const PRODUCT_FAQS: Record<string, Record<Locale, { q: string; a: string }[]>> = {
@@ -57,6 +58,10 @@ export const PRODUCT_FAQS: Record<string, Record<Locale, { q: string; a: string 
         q: "Can you encode SUN / SDM before shipping?",
         a: "Yes. We can set the NDEF template, SDM mirror offsets and per-UID AES keys, or ship blank wet inlay, sticker or PVC for your own line.",
       },
+      {
+        q: "Where can I buy a retail pack?",
+        a: "Retail packs are on Amazon, ASIN B0FRL6BTJK: https://www.amazon.com/dp/B0FRL6BTJK. Factory quantity and custom SUN encoding are a quote.",
+      },
     ],
     zh: [
       {
@@ -70,6 +75,10 @@ export const PRODUCT_FAQS: Record<string, Record<Locale, { q: string; a: string 
       {
         q: "能出厂做 SUN / SDM 编码吗？",
         a: "可以。可写 NDEF 模板、SDM 镜像偏移和按 UID 分散的 AES 密钥，也可交空白湿 Inlay、贴纸或 PVC，接到你们自己的产线。",
+      },
+      {
+        q: "零售装在哪里买？",
+        a: "零售装在亚马逊，ASIN B0FRL6BTJK：https://www.amazon.com/dp/B0FRL6BTJK。批量和定制 SUN 编码走询价。",
       },
     ],
   },

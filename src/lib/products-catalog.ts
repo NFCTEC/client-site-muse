@@ -3,6 +3,7 @@ import type { Locale } from "./locale";
 
 const AMAZON_J3R180 =
   "https://www.amazon.com/J3R180-Magnetic-Stripe-Interface-EEPROM/dp/B0HD7Z44HJ";
+const AMAZON_NTAG424 = "https://www.amazon.com/dp/B0FRL6BTJK";
 
 type Copy = {
   name: string;
@@ -140,7 +141,7 @@ const CATALOG: CatalogDef[] = [
     category: "hardware",
     icon: "Shield",
     sortOrder: 22,
-    ctaUrl: "/inquiry",
+    ctaUrl: AMAZON_NTAG424,
     secondaryCtaUrl: "/tools/ntag424-tool",
     en: {
       name: "NTAG 424 DNA tags",
@@ -151,7 +152,7 @@ const CATALOG: CatalogDef[] = [
         "NTAG 424 DNA is the NXP Type 4 tag for a URL that changes every tap. Secure Dynamic Messaging (SUN) mirrors the UID, a read counter and an AES-CMAC into the NDEF. The phone opens a normal link. Your server checks the CMAC and that the counter moved forward, so a photographed URL fails the next time.",
       body: `<p><strong>The phone does not verify anything.</strong> Stock NFC on iOS and Android opens the HTTPS link. NTAG 424 DNA (ISO/IEC 14443-4, NFC Forum Type 4, 7-byte UID) builds that link on the tag with AES-128 Secure Dynamic Messaging. TAM1 is a CMAC over the UID: the same URL still verifies if you only check the MAC. TAM2 folds in the SDM read counter, so a replay fails once the server has seen a higher counter for that UID. Encrypt the PICC data when the UID should not sit in the clear in the browser history.</p>
 <p>SUN only exists if SDM is turned on. A line that writes a static NDEF and skips the mirror offsets, CMAC offset and per-UID AES keys has shipped an <a href="/en/products/ntag213-215-216">NTAG21x</a> with a more expensive die. Keys are diversified from a master; one dumped tag must not open the batch. The NXP originality signature is a separate check that the silicon is genuine — it is not the SUN MAC. A broken seal in the URL is NTAG 424 DNA TagTamper, a different IC. Say so on the RFQ.</p>
-<p>User NDEF is up to about 416 bytes, depending on file layout. Interface is Type A, up to 848 kbit/s. We laminate wet inlay, sticker and PVC, and can set the NDEF template, SDM files and keys, or ship blank for your HSM. Lab check: <a href="/en/tools/ntag424-tool">NTAG 424 DNA tool</a>. Worked example: <a href="/en/blog/ntag424-dna-sun-url-authentication-example">SUN authentication</a>. Programme notes: <a href="/en/solutions/brand">brand protection</a>. Bodies: <a href="/en/products/nfc-labels-and-cards">card factory</a>.</p>`,
+<p>User NDEF is up to about 416 bytes, depending on file layout. Interface is Type A, up to 848 kbit/s. We laminate wet inlay, sticker and PVC, and can set the NDEF template, SDM files and keys, or ship blank for your HSM. Retail packs: <a href="${AMAZON_NTAG424}">Amazon ASIN B0FRL6BTJK</a>. Volume and custom SUN encoding stay on a factory quote. Lab check: <a href="/en/tools/ntag424-tool">NTAG 424 DNA tool</a>. Worked example: <a href="/en/blog/ntag424-dna-sun-url-authentication-example">SUN authentication</a>. Programme notes: <a href="/en/solutions/brand">brand protection</a>. Bodies: <a href="/en/products/nfc-labels-and-cards">card factory</a>.</p>`,
       features: [
         {
           title: "SUN URL with a counter",
@@ -191,7 +192,7 @@ const CATALOG: CatalogDef[] = [
       seoTitle: "NTAG 424 DNA Tags with SUN CMAC URLs | NFCTEC",
       seoDescription:
         "NXP NTAG 424 DNA Type 4 tags. Each tap builds a SUN URL with UID, read counter and AES-CMAC so a copied link fails. Wet inlay, sticker, PVC. Quote from NFCTEC.",
-      ctaLabel: "Request a quote",
+      ctaLabel: "Buy on Amazon",
       secondaryCtaLabel: "SUN tool",
     },
     zh: {
@@ -203,7 +204,7 @@ const CATALOG: CatalogDef[] = [
         "静态 NDEF 不够时用 NTAG 424 DNA。Secure Dynamic Messaging（SUN）把 UID、读计数器和 AES-CMAC 写进 NDEF。手机打开普通链接，服务器验 CMAC，并确认计数器往前走了，拍过照的链接下一次会失败。",
       body: `<p><strong>手机不做校验。</strong>iOS 和 Android 的系统 NFC 只打开 HTTPS。NTAG 424 DNA（ISO/IEC 14443-4、NFC Forum Type 4、7 字节 UID）在标签上用 AES-128 组这条链接。TAM1 的 CMAC 只覆盖 UID：服务器若只验 MAC，同一条链接仍然能过。TAM2 把 SDM 读计数器算进 CMAC，该 UID 已经见过更大的计数器之后，重放会失败。不希望 UID 明文留在浏览器记录里时，把 PICC 数据加密。</p>
 <p>没打开 SDM，就没有 SUN。产线只写了静态 NDEF，没设镜像偏移、CMAC 偏移和按 UID 分散的 AES 密钥，交出去的是更贵的 <a href="/zh/products/ntag213-215-216">NTAG21x</a>。密钥从主密钥分散，一张被读走的标签不能打开整批。NXP originality signature 只证明硅片是原厂，不是 SUN 的 MAC。链接里要带开封状态，那是 NTAG 424 DNA TagTamper，另一颗芯片，询价写明。</p>
-<p>用户 NDEF 最多约 416 字节，视文件布局而定。接口为 Type A，最高 848 kbit/s。湿 Inlay、贴纸、PVC 都做，可写 NDEF 模板、SDM 文件和密钥，也可空白交付进你们的 HSM。实验室核对：<a href="/zh/tools/ntag424-tool">NTAG 424 DNA 工具</a>。示例：<a href="/zh/blog/ntag424-dna-sun-url-authentication-example">SUN 验证</a>。项目说明：<a href="/zh/solutions/brand">品牌防伪</a>。卡体：<a href="/zh/products/nfc-labels-and-cards">卡厂</a>。</p>`,
+<p>用户 NDEF 最多约 416 字节，视文件布局而定。接口为 Type A，最高 848 kbit/s。湿 Inlay、贴纸、PVC 都做，可写 NDEF 模板、SDM 文件和密钥，也可空白交付进你们的 HSM。零售装：<a href="${AMAZON_NTAG424}">亚马逊 ASIN B0FRL6BTJK</a>。批量和定制 SUN 编码仍走卡厂询价。实验室核对：<a href="/zh/tools/ntag424-tool">NTAG 424 DNA 工具</a>。示例：<a href="/zh/blog/ntag424-dna-sun-url-authentication-example">SUN 验证</a>。项目说明：<a href="/zh/solutions/brand">品牌防伪</a>。卡体：<a href="/zh/products/nfc-labels-and-cards">卡厂</a>。</p>`,
       features: [
         {
           title: "带计数器的 SUN 链接",
@@ -236,7 +237,7 @@ const CATALOG: CatalogDef[] = [
       seoTitle: "NTAG 424 DNA 标签：SUN 动态 URL 与 CMAC | NFCTEC",
       seoDescription:
         "NXP NTAG 424 DNA Type 4 标签。每次拍卡生成带 UID、读计数器和 AES-CMAC 的 SUN 链接，复制后再打开会失败。湿 Inlay、贴纸、PVC。询 NFCTEC。",
-      ctaLabel: "询价",
+      ctaLabel: "Amazon 购买",
       secondaryCtaLabel: "SUN 工具",
     },
   },

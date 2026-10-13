@@ -202,6 +202,12 @@ export const posts: BlogPost[] = [
       { heading: "What a SUN URL contains", text: "On each tap the tag can assemble a URL from UID, read counter and AES-CMAC. The phone opens a normal HTTPS link, and the server decides whether the tap is authentic." },
       { heading: "Server-side verification", text: "Recompute the CMAC with the diversified AES key, then reject taps with a bad MAC or a counter that is not strictly increasing for that UID. The counter check is what defeats simple URL copying." },
       { heading: "Bring-up checklist", text: "Authenticate with EV2 keys, configure SDM/NDEF templates, generate a real SUN URL, verify it against your backend, then only move to batch personalization after the lab loop is stable." },
+      {
+        links: [
+          { label: "NTAG 424 DNA on Amazon (B0FRL6BTJK)", href: "https://www.amazon.com/dp/B0FRL6BTJK" },
+          { label: "NTAG 424 DNA tags", href: "/en/products/ntag424-dna" },
+        ],
+      },
     ],
   },
   {
