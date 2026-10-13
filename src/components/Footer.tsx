@@ -156,9 +156,11 @@ export function Footer() {
               </>
             )}
           </p>
-          <p className="text-xs text-muted-foreground font-mono">
-            ISO 9001 · PCI-PTS · EMV L1/L2 · NXP Partner
-          </p>
+          {!supportOnly && (
+            <p className="text-xs text-muted-foreground font-mono">
+              ISO 9001 · PCI-PTS · EMV L1/L2 · NXP Partner
+            </p>
+          )}
         </div>
       </div>
     </footer>

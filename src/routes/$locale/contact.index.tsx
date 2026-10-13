@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { useI18n, t as dict, type Lang } from "@/lib/i18n";
 import { SUPPORT_EMAIL } from "@/lib/contact";
@@ -10,6 +10,42 @@ import { PageHero } from "@/components/PageHero";
 import { PageSection } from "@/components/PageSection";
 import { FaqSection, faqJsonLd, type FaqItem } from "@/components/FaqSection";
 
+const PRODUCTS = [
+  { id: "ntag424", label: "NTAG 424 DNA" },
+  { id: "desfire", label: "DESFire" },
+  { id: "j3r180", label: "J3R180" },
+  { id: "j3r452", label: "J3R452" },
+  { id: "nfc-detector", label: "NFC signal detector card" },
+  { id: "nfc-reader", label: "NFC reader" },
+  { id: "cac-reader", label: "CAC reader" },
+  { id: "other", label: "Other" },
+] as const;
+
+const SKU_ALIAS: Record<string, (typeof PRODUCTS)[number]["id"]> = {
+  ntag424: "ntag424",
+  "ntag424-dna": "ntag424",
+  desfire: "desfire",
+  "mifare-desfire": "desfire",
+  j3r180: "j3r180",
+  "j3r180-javacard": "j3r180",
+  j3r452: "j3r452",
+  "j3r452-javacard": "j3r452",
+  "nfc-detector": "nfc-detector",
+  "nfc-field-detector": "nfc-detector",
+  detector: "nfc-detector",
+  "nfc-reader": "nfc-reader",
+  reader: "nfc-reader",
+  cac: "cac-reader",
+  "cac-reader": "cac-reader",
+  other: "other",
+};
+
+function productFromSku(sku: string | undefined) {
+  if (!sku) return "";
+  const id = SKU_ALIAS[sku.toLowerCase()];
+  return PRODUCTS.find((p) => p.id === id)?.label ?? "";
+}
+
 const CONTACT_FAQ_KEYS = ["c1", "c2", "c3", "c4"] as const;
 function buildContactFaq(lang: Lang): FaqItem[] {
   return CONTACT_FAQ_KEYS.map((k) => ({
@@ -19,14 +55,20 @@ function buildContactFaq(lang: Lang): FaqItem[] {
 }
 
 export const Route = createFileRoute("/$locale/contact/")({
+  validateSearch: (search: Record<string, unknown>) => {
+    const sku = typeof search.sku === "string" ? search.sku.slice(0, 40) : undefined;
+    const rawSrc = typeof search.src === "string" ? search.src : "";
+    const src = rawSrc.replace(/[^\w-]/g, "").slice(0, 24) || undefined;
+    return { sku, src };
+  },
   head: ({ params }) => {
     const locale = params.locale as Locale;
     const lang: Lang = locale === "zh" ? "zh" : "en";
-    const title = lang === "zh" ? "产品支持 — NFCTEC" : "Product support — NFCTEC";
+    const title = lang === "zh" ? "SZLEJUN 产品支持 — NFCTEC" : "SZLEJUN Product Support — NFCTEC";
     const description =
       lang === "zh"
-        ? "已经买到的产品，在这里问怎么用。一个工作日内邮件回复。订单退款和物流仍在亚马逊处理。"
-        : "Help for a product you already bought. We reply by email within one business day. Refunds and delivery stay in your Amazon order.";
+        ? "已经买到的 SZLEJUN 产品，在这里问怎么用。周一至周日、北京时间一个工作日内回复。退款、退货和物流留在亚马逊订单里。"
+        : "Help for a SZLEJUN product you already bought. We reply within one business day, Monday to Sunday, China time. Refunds, returns, and delivery stay in your Amazon order.";
     return {
       meta: [
         { title },
@@ -53,7 +95,10 @@ export const Route = createFileRoute("/$locale/contact/")({
 
 function Contact() {
   const { tr, lang } = useI18n();
+  const { locale } = Route.useParams();
+  const { sku, src } = Route.useSearch();
   const faqItems = buildContactFaq(lang);
+  const presetProduct = productFromSku(sku);
   const [done, setDone] = useState(false);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -65,16 +110,23 @@ function Contact() {
     const fd = new FormData(e.currentTarget);
     const get = (k: string) => String(fd.get(k) || "").trim();
     const issue = get("issue");
+    const product = get("product");
     const order = get("order");
-    const detail = get("desc");
-    const message = order ? `Amazon order: ${order}\n\n${detail}` : detail;
+    const lines = [
+      product && `Product: ${product}`,
+      get("asin") && `Package / ASIN: ${get("asin")}`,
+      get("device") && `Device: ${get("device")}`,
+      order && `Amazon order: ${order}`,
+      src && `Source: ${src}`,
+      "",
+      get("desc"),
+    ].filter((line) => line !== false && line !== "");
     try {
       await submitInquiry({
         name: get("name"),
         email: get("email"),
-        whatsapp: get("phone") || undefined,
-        subject: issue ? `[support] ${issue}` : "[support]",
-        message,
+        subject: `[support] ${product || "product"}${issue ? ` — ${issue}` : ""}`,
+        message: lines.join("\n"),
       });
       setDone(true);
     } catch {
@@ -89,6 +141,16 @@ function Contact() {
       <PageHero eyebrow={tr("contact.eyebrow")} title={tr("contact.title")} subtitle={tr("contact.sub")} />
 
       <PageSection spacing="main" className="!pt-0">
+        <div className="mb-8 rounded-2xl border border-border bg-card-gradient p-6 sm:p-8">
+          <h2 className="font-display text-lg font-semibold">{tr("contact.check.title")}</h2>
+          <ul className="mt-4 space-y-2 text-sm text-muted-foreground leading-relaxed list-disc pl-5">
+            <li>{tr("contact.check.nfc")}</li>
+            <li>{tr("contact.check.metal")}</li>
+            <li>{tr("contact.check.app")}</li>
+            <li>{tr("contact.check.reader")}</li>
+            <li>{tr("contact.check.damage")}</li>
+          </ul>
+        </div>
         <div className="grid lg:grid-cols-5 gap-8 lg:gap-12">
           <form
             onSubmit={handleSubmit}
@@ -120,10 +182,45 @@ function Contact() {
                       <option value={tr("contact.issue.other")}>{tr("contact.issue.other")}</option>
                     </select>
                   </div>
+                  <div className="sm:col-span-2">
+                    <label className="block text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">
+                      {tr("contact.product")}
+                      <span className="text-primary ml-1">*</span>
+                    </label>
+                    <select
+                      name="product"
+                      required
+                      defaultValue={presetProduct}
+                      className="w-full rounded-xl border border-border bg-background/60 px-4 py-3 text-sm outline-none focus:border-primary transition-colors"
+                    >
+                      <option value="">{tr("contact.product")}</option>
+                      {PRODUCTS.map((p) => (
+                        <option key={p.id} value={p.label}>
+                          {p.id === "nfc-detector"
+                            ? tr("contact.product.detector")
+                            : p.id === "nfc-reader"
+                              ? tr("contact.product.reader")
+                              : p.id === "cac-reader"
+                                ? tr("contact.product.cac")
+                                : p.id === "other"
+                                  ? tr("contact.product.other")
+                                  : p.label}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
                   <Field label={tr("form.name")} name="name" required />
                   <Field label={tr("form.email")} name="email" type="email" required />
-                  <Field label={tr("form.phone")} name="phone" />
+                  <Field
+                    label={tr("contact.device")}
+                    name="device"
+                    required
+                    placeholder={tr("contact.device.ph")}
+                  />
                   <Field label={tr("contact.order")} name="order" placeholder="111-0000000-0000000" />
+                  <div className="sm:col-span-2">
+                    <Field label={tr("contact.asin")} name="asin" placeholder="B0XXXXXXXX" />
+                  </div>
                 </div>
                 <div className="mt-5">
                   <label className="block text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">
@@ -138,23 +235,31 @@ function Contact() {
                     className="w-full rounded-xl border border-border bg-background/60 px-4 py-3 text-sm outline-none focus:border-primary transition-colors resize-none"
                   />
                 </div>
+                <p className="mt-4 text-xs text-muted-foreground leading-relaxed">
+                  {tr("contact.photo")}{" "}
+                  <a href={`mailto:${SUPPORT_EMAIL}`} className="underline">
+                    {SUPPORT_EMAIL}
+                  </a>{" "}
+                  {tr("contact.photo.after")}
+                </p>
                 <button
                   type="submit"
                   disabled={loading}
-                  className="mt-8 inline-flex items-center rounded-full bg-primary text-primary-foreground px-7 py-3.5 text-sm font-semibold hover:opacity-90 transition-opacity disabled:opacity-60"
+                  className="mt-5 inline-flex items-center rounded-full bg-primary text-primary-foreground px-7 py-3.5 text-sm font-semibold hover:opacity-90 transition-opacity disabled:opacity-60"
                 >
                   {loading ? tr("form.sending") : tr("contact.submit")}
                 </button>
+                <p className="mt-3 text-xs text-muted-foreground leading-relaxed">
+                  {tr("contact.privacy")}{" "}
+                  <Link to="/$locale/privacy" params={{ locale }} className="underline">
+                    {tr("nav.privacy")}
+                  </Link>
+                </p>
               </>
             )}
           </form>
 
           <aside className="lg:col-span-2 space-y-4">
-            <div className="rounded-2xl border border-border bg-card-gradient p-7">
-              <h2 className="font-display text-lg font-semibold mb-4">{tr("contact.help.title")}</h2>
-              <p className="text-sm text-muted-foreground leading-relaxed">{tr("contact.help.read")}</p>
-              <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{tr("contact.help.peel")}</p>
-            </div>
             <a
               href={`mailto:${SUPPORT_EMAIL}`}
               className="card-glow block rounded-2xl border border-border bg-card-gradient p-7 hover:border-primary/40 transition-colors"
