@@ -9,6 +9,22 @@ import { hreflangLinks } from "@/lib/seo";
 import { useLocale } from "@/hooks/useLocale";
 import { PostBody } from "@/components/PostBody";
 import { PostViewCounter } from "@/components/PostViewCounter";
+import type { BlogSection } from "@/lib/blog-posts";
+
+function videoObject(body: string | BlogSection[], description: string) {
+  if (!Array.isArray(body)) return undefined;
+  const video = body.find((section) => section.video)?.video;
+  if (!video || !/^[\w-]{11}$/.test(video.youtubeId)) return undefined;
+  return {
+    "@type": "VideoObject",
+    name: video.title,
+    description,
+    thumbnailUrl: `https://i.ytimg.com/vi/${video.youtubeId}/hqdefault.jpg`,
+    embedUrl: `https://www.youtube.com/embed/${video.youtubeId}`,
+    contentUrl: video.url,
+    publisher: { "@type": "Organization", name: "NFCTEC", url: "https://www.nfctec.com" },
+  };
+}
 
 export const Route = createFileRoute("/$locale/blog/$slug")({
   loader: async ({ params }) => {
@@ -76,6 +92,7 @@ export const Route = createFileRoute("/$locale/blog/$slug")({
             },
             mainEntityOfPage: { "@type": "WebPage", "@id": url },
             image: "https://www.nfctec.com/og-default.jpg",
+            video: videoObject(post.body, post.excerpt),
           }),
         },
       ] : [],
@@ -153,7 +170,7 @@ function PostPage() {
               </div>
             </Link>
             <Link
-              to="/$locale/contact"
+              to="/$locale/inquiry"
               params={{ locale }}
               className="card-glow group rounded-xl border border-border bg-card-gradient p-5"
             >

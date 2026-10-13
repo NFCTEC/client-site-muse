@@ -27,7 +27,7 @@ export function CtaBand() {
             <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
               {showContact && (
                 <Link
-                  to="/$locale/contact"
+                  to="/$locale/inquiry"
                   params={{ locale }}
                   className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-7 py-3.5 text-sm font-semibold hover:opacity-90 transition-opacity"
                 >

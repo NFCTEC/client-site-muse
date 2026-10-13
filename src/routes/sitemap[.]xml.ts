@@ -14,12 +14,12 @@ const STATIC_URLS = ["en", "zh"].flatMap((locale) => [
   { loc: `${SITE_URL}/${locale}/tools/ntag424-tool`, lastmod: "2026-09-20" },
   { loc: `${SITE_URL}/${locale}/tools/javacard-tool`, lastmod: "2026-09-20" },
   { loc: `${SITE_URL}/${locale}/products/ntag213-215-216`, lastmod: "2026-09-29" },
-  { loc: `${SITE_URL}/${locale}/products/ntag424-dna`, lastmod: "2026-09-29" },
+  { loc: `${SITE_URL}/${locale}/products/ntag424-dna`, lastmod: "2026-10-13" },
   { loc: `${SITE_URL}/${locale}/products/mifare-ultralight`, lastmod: "2026-09-29" },
   { loc: `${SITE_URL}/${locale}/products/mifare-desfire-ev3`, lastmod: "2026-09-29" },
   { loc: `${SITE_URL}/${locale}/products/nfc-labels-and-cards`, lastmod: "2026-09-29" },
-  { loc: `${SITE_URL}/${locale}/products/j3r452-javacard`, lastmod: "2026-09-29" },
-  { loc: `${SITE_URL}/${locale}/products/j3r180-javacard`, lastmod: "2026-09-29" },
+  { loc: `${SITE_URL}/${locale}/products/j3r452-javacard`, lastmod: "2026-10-13" },
+  { loc: `${SITE_URL}/${locale}/products/j3r180-javacard`, lastmod: "2026-10-13" },
   { loc: `${SITE_URL}/${locale}/products/j2a040-javacard`, lastmod: "2026-09-29" },
 ]);
 

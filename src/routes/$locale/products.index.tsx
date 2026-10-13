@@ -79,7 +79,7 @@ function ProductGrid({ items, locale }: { items: CmsProduct[]; locale: string })
         const Icon = getIcon(p.icon);
         const ctaTo = p.hasDetailPage
           ? { to: "/$locale/products/$slug" as const, params: { locale, slug: p.slug } }
-          : { to: "/$locale/contact" as const, params: { locale } };
+          : { to: "/$locale/inquiry" as const, params: { locale } };
         return (
           <div
             key={p.id}
@@ -140,7 +140,7 @@ function Products() {
               {tr("cloud.getStarted")} <ArrowRight size={16} />
             </Link>
             <Link
-              to="/$locale/contact"
+              to="/$locale/inquiry"
               params={{ locale }}
               className="inline-flex items-center gap-2 rounded-full border border-border-strong bg-background/60 px-6 py-3 text-sm font-medium hover:border-primary hover:text-primary transition-colors"
             >

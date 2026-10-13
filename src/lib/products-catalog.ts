@@ -37,7 +37,7 @@ const CATALOG: CatalogDef[] = [
     category: "hardware",
     icon: "Tag",
     sortOrder: 10,
-    ctaUrl: "/contact",
+    ctaUrl: "/inquiry",
     secondaryCtaUrl: "/blog/ntag213-vs-ntag215-vs-ntag216",
     en: {
       name: "NTAG213 / 215 / 216 tags",
@@ -140,92 +140,102 @@ const CATALOG: CatalogDef[] = [
     category: "hardware",
     icon: "Shield",
     sortOrder: 22,
-    ctaUrl: "/contact",
+    ctaUrl: "/inquiry",
     secondaryCtaUrl: "/tools/ntag424-tool",
     en: {
       name: "NTAG 424 DNA tags",
       description:
-        "NXP NTAG 424 DNA (Type 4). AES, SDM/SUN CMAC URLs, TAM1/TAM2. Wet inlay, sticker and PVC for brand protection and gated links.",
-      tagline: "AES-128 · SUN / SDM · NFC Forum Type 4",
+        "NXP NTAG 424 DNA, NFC Forum Type 4. Each tap can emit a SUN URL with UID, read counter and AES-CMAC. Wet inlay, sticker and PVC for brand protection.",
+      tagline: "SUN URL · AES-CMAC · read counter · Type 4",
       intro:
-        "NTAG 424 DNA is the NXP Type 4 tag used when a static NDEF URL is not enough. We supply inlays and cards, and can encode SDM files so each tap produces a unique, backend-checkable URL.",
-      body: `<p>NTAG 424 DNA speaks ISO/IEC 14443-4 (NFC Forum Type 4). Security features include AES-128, Secure Dynamic Messaging (SDM / SUN) with CMAC, and TAM1/TAM2 mirrored PICC data. User NDEF is typically 416 bytes depending on file layout.</p>
-<p>We sell the silicon in wet inlay, sticker and PVC, with optional SDM encoding. Decode and check a SUN URL with the <a href="/en/tools/ntag424-tool">NTAG 424 DNA tool</a>.</p>`,
+        "NTAG 424 DNA is the NXP Type 4 tag for a URL that changes every tap. Secure Dynamic Messaging (SUN) mirrors the UID, a read counter and an AES-CMAC into the NDEF. The phone opens a normal link. Your server checks the CMAC and that the counter moved forward, so a photographed URL fails the next time.",
+      body: `<p><strong>The phone does not verify anything.</strong> Stock NFC on iOS and Android opens the HTTPS link. NTAG 424 DNA (ISO/IEC 14443-4, NFC Forum Type 4, 7-byte UID) builds that link on the tag with AES-128 Secure Dynamic Messaging. TAM1 is a CMAC over the UID: the same URL still verifies if you only check the MAC. TAM2 folds in the SDM read counter, so a replay fails once the server has seen a higher counter for that UID. Encrypt the PICC data when the UID should not sit in the clear in the browser history.</p>
+<p>SUN only exists if SDM is turned on. A line that writes a static NDEF and skips the mirror offsets, CMAC offset and per-UID AES keys has shipped an <a href="/en/products/ntag213-215-216">NTAG21x</a> with a more expensive die. Keys are diversified from a master; one dumped tag must not open the batch. The NXP originality signature is a separate check that the silicon is genuine — it is not the SUN MAC. A broken seal in the URL is NTAG 424 DNA TagTamper, a different IC. Say so on the RFQ.</p>
+<p>User NDEF is up to about 416 bytes, depending on file layout. Interface is Type A, up to 848 kbit/s. We laminate wet inlay, sticker and PVC, and can set the NDEF template, SDM files and keys, or ship blank for your HSM. Lab check: <a href="/en/tools/ntag424-tool">NTAG 424 DNA tool</a>. Worked example: <a href="/en/blog/ntag424-dna-sun-url-authentication-example">SUN authentication</a>. Programme notes: <a href="/en/solutions/brand">brand protection</a>. Bodies: <a href="/en/products/nfc-labels-and-cards">card factory</a>.</p>`,
       features: [
         {
-          title: "SUN / SDM",
-          description: "Each tap can append a CMAC and mirrored PICC fields so the server can reject a copied URL.",
+          title: "SUN URL with a counter",
+          description:
+            "Each tap mirrors UID, SDM read counter and AES-CMAC. TAM2 makes a copied link fail. The phone only opens HTTPS.",
           icon: "Link",
         },
         {
-          title: "AES on tag",
-          description: "Authenticate the PICC before read/write. Not a Type 2 password bit.",
+          title: "AES-128, per UID",
+          description:
+            "Personalization uses AES mutual authentication. Diversify the SDM keys. A Type 2 password bit is not this.",
           icon: "Lock",
         },
         {
-          title: "Ready for encoding",
-          description: "We can set SDM files, keys and NDEF template, or ship blank for your HSM line.",
+          title: "Encoded or blank",
+          description:
+            "We set the NDEF template, mirror offsets and keys, or ship blank inlays, stickers and PVC for your line.",
           icon: "KeyRound",
         },
       ],
       specs: [
         { key: "Chip", value: "NXP NTAG 424 DNA" },
-        { key: "Standard", value: "ISO/IEC 14443-4, NFC Forum Type 4" },
-        { key: "Crypto", value: "AES-128, SDM/SUN CMAC, TAM1/TAM2" },
-        { key: "User NDEF", value: "Typically 416 bytes (file layout dependent)" },
-        { key: "Form factors", value: "Wet inlay, sticker, PVC" },
+        { key: "Interface", value: "ISO/IEC 14443-4 Type A, NFC Forum Type 4, up to 848 kbit/s" },
+        { key: "UID", value: "7 bytes" },
+        { key: "Crypto", value: "AES-128; originality signature separate from SUN" },
+        { key: "SUN / SDM", value: "UID and SDM read counter mirrored plain or encrypted; AES-CMAC. TAM1 is UID-only; TAM2 includes the counter" },
+        { key: "User NDEF", value: "Up to about 416 bytes (file layout dependent)" },
+        { key: "Not this IC", value: "NTAG213/215/216 (static Type 2). Tag tamper status is NTAG 424 DNA TagTamper" },
+        { key: "Form factors", value: "Wet inlay, sticker, PVC. SDM encoding or blank" },
       ],
       useCases: [
-        "Brand protection and scan-to-verify",
-        "Time-limited or one-time URLs",
-        "Access tokens bound to UID + CMAC",
-        "Product pages that must not be cloned from a photo of the tag",
+        "Brand protection where a photo of the tag must not replay",
+        "One-time or counted HTTPS links with no consumer app",
+        "UID-diversified AES keys and a server-side CMAC check",
       ],
-      highlights: ["Type 4 AES tag, not NTAG21x", "SUN encoding available", "Pairs with our NTAG 424 tool"],
-      seoTitle: "NTAG 424 DNA Tags & Cards | NFCTEC",
+      highlights: ["SUN CMAC URL, counter stops replay", "AES-128 Type 4, not NTAG21x", "Inlay, sticker, PVC, encoding or blank"],
+      seoTitle: "NTAG 424 DNA Tags with SUN CMAC URLs | NFCTEC",
       seoDescription:
-        "Buy NXP NTAG 424 DNA NFC tags and PVC. AES, SDM/SUN CMAC, TAM1/TAM2. Wet inlay and encoding. Quote from NFCTEC.",
+        "NXP NTAG 424 DNA Type 4 tags. Each tap builds a SUN URL with UID, read counter and AES-CMAC so a copied link fails. Wet inlay, sticker, PVC. Quote from NFCTEC.",
       ctaLabel: "Request a quote",
       secondaryCtaLabel: "SUN tool",
     },
     zh: {
       name: "NTAG 424 DNA 标签",
       description:
-        "NXP NTAG 424 DNA（Type 4）。AES、SDM/SUN CMAC URL、TAM1/TAM2。湿 Inlay、贴纸、PVC，用于防伪与受控链接。",
-      tagline: "AES-128 · SUN / SDM · NFC Forum Type 4",
+        "NXP NTAG 424 DNA，NFC Forum Type 4。每次拍卡可生成带 UID、读计数器和 AES-CMAC 的 SUN 链接。湿 Inlay、贴纸、PVC，用于防伪。",
+      tagline: "SUN 链接 · AES-CMAC · 读计数器 · Type 4",
       intro:
-        "静态 NDEF URL 不够时用 NTAG 424 DNA。我们提供 Inlay 与卡，并可按 SDM 文件布局编码，每次拍卡生成可后台校验的唯一 URL。",
-      body: `<p>NTAG 424 DNA 走 ISO/IEC 14443-4（NFC Forum Type 4）。安全特性包括 AES-128、带 CMAC 的 Secure Dynamic Messaging（SDM / SUN），以及 TAM1/TAM2 镜像 PICC 数据。用户 NDEF 常见约 416 字节，取决于文件布局。</p>
-<p>可供湿 Inlay、贴纸、PVC，可选 SDM 编码。用 <a href="/zh/tools/ntag424-tool">NTAG 424 DNA 工具</a>解析 SUN URL。</p>`,
+        "静态 NDEF 不够时用 NTAG 424 DNA。Secure Dynamic Messaging（SUN）把 UID、读计数器和 AES-CMAC 写进 NDEF。手机打开普通链接，服务器验 CMAC，并确认计数器往前走了，拍过照的链接下一次会失败。",
+      body: `<p><strong>手机不做校验。</strong>iOS 和 Android 的系统 NFC 只打开 HTTPS。NTAG 424 DNA（ISO/IEC 14443-4、NFC Forum Type 4、7 字节 UID）在标签上用 AES-128 组这条链接。TAM1 的 CMAC 只覆盖 UID：服务器若只验 MAC，同一条链接仍然能过。TAM2 把 SDM 读计数器算进 CMAC，该 UID 已经见过更大的计数器之后，重放会失败。不希望 UID 明文留在浏览器记录里时，把 PICC 数据加密。</p>
+<p>没打开 SDM，就没有 SUN。产线只写了静态 NDEF，没设镜像偏移、CMAC 偏移和按 UID 分散的 AES 密钥，交出去的是更贵的 <a href="/zh/products/ntag213-215-216">NTAG21x</a>。密钥从主密钥分散，一张被读走的标签不能打开整批。NXP originality signature 只证明硅片是原厂，不是 SUN 的 MAC。链接里要带开封状态，那是 NTAG 424 DNA TagTamper，另一颗芯片，询价写明。</p>
+<p>用户 NDEF 最多约 416 字节，视文件布局而定。接口为 Type A，最高 848 kbit/s。湿 Inlay、贴纸、PVC 都做，可写 NDEF 模板、SDM 文件和密钥，也可空白交付进你们的 HSM。实验室核对：<a href="/zh/tools/ntag424-tool">NTAG 424 DNA 工具</a>。示例：<a href="/zh/blog/ntag424-dna-sun-url-authentication-example">SUN 验证</a>。项目说明：<a href="/zh/solutions/brand">品牌防伪</a>。卡体：<a href="/zh/products/nfc-labels-and-cards">卡厂</a>。</p>`,
       features: [
         {
-          title: "SUN / SDM",
-          description: "每次拍卡可附加 CMAC 与镜像 PICC 字段，服务器可拒绝被复制的 URL。",
+          title: "带计数器的 SUN 链接",
+          description: "每次拍卡镜像 UID、SDM 读计数器和 AES-CMAC。TAM2 让复制的链接失败。手机只负责打开 HTTPS。",
           icon: "Link",
         },
         {
-          title: "卡上 AES",
-          description: "读写前认证 PICC，不是 Type 2 的密码位。",
+          title: "AES-128，按 UID 分散",
+          description: "个人化走 AES 互认证。SDM 密钥按 UID 分散。这不是 Type 2 的密码位。",
           icon: "Lock",
         },
         {
-          title: "可代编码",
-          description: "可配置 SDM 文件、密钥与 NDEF 模板，或空白交付接入你们的 HSM 线。",
+          title: "可编码，也可空白",
+          description: "可写 NDEF 模板、镜像偏移和密钥，也可交空白 Inlay、贴纸和 PVC，接到你们自己的产线。",
           icon: "KeyRound",
         },
       ],
       specs: [
         { key: "芯片", value: "NXP NTAG 424 DNA" },
-        { key: "标准", value: "ISO/IEC 14443-4，NFC Forum Type 4" },
-        { key: "密码", value: "AES-128，SDM/SUN CMAC，TAM1/TAM2" },
-        { key: "用户 NDEF", value: "常见约 416 字节（取决于文件布局）" },
-        { key: "形态", value: "湿 Inlay、贴纸、PVC" },
+        { key: "接口", value: "ISO/IEC 14443-4 Type A，NFC Forum Type 4，最高 848 kbit/s" },
+        { key: "UID", value: "7 字节" },
+        { key: "算法", value: "AES-128；originality signature 与 SUN 分开" },
+        { key: "SUN / SDM", value: "UID 与 SDM 读计数器可明文或加密镜像，带 AES-CMAC。TAM1 只含 UID；TAM2 含计数器" },
+        { key: "用户 NDEF", value: "最多约 416 字节（取决于文件布局）" },
+        { key: "不是这颗", value: "NTAG213/215/216（静态 Type 2）。开封状态是 NTAG 424 DNA TagTamper" },
+        { key: "形态", value: "湿 Inlay、贴纸、PVC。可 SDM 编码或空白" },
       ],
-      useCases: ["品牌防伪扫码验真", "限时或一次性 URL", "绑定 UID + CMAC 的访问令牌", "避免标签照片被克隆的商品页"],
-      highlights: ["Type 4 AES，不是 NTAG21x", "可做 SUN 编码", "配套 NTAG 424 工具"],
-      seoTitle: "NTAG 424 DNA 标签与卡 | NFCTEC",
+      useCases: ["标签被拍照也不能重放的品牌防伪", "不需要消费者 App 的一次性或计数 HTTPS 链接", "按 UID 分散的 AES 与服务端 CMAC 校验"],
+      highlights: ["SUN CMAC 链接，计数器挡住重放", "AES-128 Type 4，不是 NTAG21x", "Inlay、贴纸、PVC，可编码或空白"],
+      seoTitle: "NTAG 424 DNA 标签：SUN 动态 URL 与 CMAC | NFCTEC",
       seoDescription:
-        "采购 NXP NTAG 424 DNA NFC 标签与 PVC。AES、SDM/SUN CMAC、TAM1/TAM2。湿 Inlay 与编码。NFCTEC 报价。",
+        "NXP NTAG 424 DNA Type 4 标签。每次拍卡生成带 UID、读计数器和 AES-CMAC 的 SUN 链接，复制后再打开会失败。湿 Inlay、贴纸、PVC。询 NFCTEC。",
       ctaLabel: "询价",
       secondaryCtaLabel: "SUN 工具",
     },
@@ -235,7 +245,7 @@ const CATALOG: CatalogDef[] = [
     category: "hardware",
     icon: "CreditCard",
     sortOrder: 12,
-    ctaUrl: "/contact",
+    ctaUrl: "/inquiry",
     secondaryCtaUrl: "/products/nfc-labels-and-cards",
     en: {
       name: "MIFARE DESFire EV2 / EV3",
@@ -325,7 +335,7 @@ const CATALOG: CatalogDef[] = [
     category: "hardware",
     icon: "Tag",
     sortOrder: 15,
-    ctaUrl: "/contact",
+    ctaUrl: "/inquiry",
     secondaryCtaUrl: "/products/nfc-labels-and-cards",
     en: {
       name: "MIFARE Ultralight EV1 / Ultralight C",
@@ -415,7 +425,7 @@ const CATALOG: CatalogDef[] = [
     category: "hardware",
     icon: "Factory",
     sortOrder: 8,
-    ctaUrl: "/contact",
+    ctaUrl: "/inquiry",
     secondaryCtaUrl: "/products/ntag213-215-216",
     en: {
       name: "Custom NFC cards, tags & wristbands",
@@ -511,95 +521,112 @@ const CATALOG: CatalogDef[] = [
     category: "hardware",
     icon: "Cpu",
     sortOrder: 24,
-    ctaUrl: "/contact",
+    ctaUrl: "/inquiry",
     secondaryCtaUrl: "/products/j3r180-javacard",
     en: {
       name: "JCOP 4.5 J3R452 JavaCard",
       description:
-        "NXP JCOP 4.5 on SmartMX3 P71D600 (J3R452). Java Card 3.0.5 Classic, GlobalPlatform 2.3.1, dual-interface, FLASH ~450 KB class before add-ons. Factory PVC / SIM form factors on quote.",
-      tagline: "JCOP 4.5 · P71D600 · JC 3.0.5 · GP 2.3.1 · ~450 KB NVM",
+        "NXP JCOP 4.5 on SmartMX3 P71D600 (J3R452) with on-card Ed25519 (RFC 8032) and X25519. Java Card 3.0.5 and JCOP 4, including J3R180, do not expose Ed25519. Also AES, RSA to 4096, ECC to 521-bit, ~450 KB FLASH, dual-interface Type A and Type B.",
+      tagline: "On-card Ed25519 · JCOP 4.5 · P71D600 · ~450 KB",
       intro:
-        "J3R452 is not a larger J3R180. It is JCOP 4.5 on P71D600 (ID2 family). Usable FLASH is about 450 KB before MIFARE applets or OS add-ons are loaded. Dual-interface: ISO/IEC 7816 T=0/T=1 and ISO/IEC 14443 Type A and Type B.",
-      body: `<p><strong>Do not mix with J3R180.</strong> J3R180 is JCOP 4 on the P71D321 SECID line, 180 kB memory class. J3R452 is JCOP 4.5 on P71D600, ~450 KB FLASH class (NXP: available before loading MIFARE, applets, OS add-ons). Both run Java Card 3.0.5 Classic; GP on 4.5 is 2.3.1 (SCP01 / SCP02 / SCP03). CMOS040. PUF, Secure Box, delegated management.</p>
-<p>Contactless on J3R452 is Type A and Type B, up to 848 kbit/s. Contact up to ~688 kbit/s. Optional MIFARE Plus EV2 or DESFire EV3 implementations eat NVM — quote the configuration. Bodies: ID-1 PVC, and SIM sizes if you need them. Tooling: <a href="/en/products/nfc-labels-and-cards">card factory</a>. Smaller JCOP 4 lab card: <a href="/en/products/j3r180-javacard">J3R180</a>. CAP load: <a href="/en/tools/javacard-tool">JavaCard tool</a>.</p>`,
+        "J3R452 is the JCOP 4.5 part you pick when the applet must sign Ed25519 inside the secure element. Java Card 3.0.5 Classic has no standard Ed25519 constant; JCOP 4.5 adds it through the NXP crypto extension (RFC 8032), plus X25519 and Curve448 key agreement (RFC 7748). JCOP 4 J3R180 stops at NIST and Brainpool ECDSA/ECDH. FLASH is about 450 KB before MIFARE or OS add-ons. Dual-interface: ISO/IEC 7816 and ISO/IEC 14443 Type A and Type B.",
+      body: `<p><strong>Ed25519 is why this is not a bigger J3R180.</strong> J3R452 is JCOP 4.5 on P71D600 (ID2). The card can generate an Ed25519 key and sign or verify per RFC 8032. The same library does Montgomery Diffie–Hellman on Curve25519 (X25519) and Curve448. Call sites are the NXP JCOP extension, not a Java Card 3.0.5 <code>Signature</code> algorithm id — a CAP written only against <code>javacard.security</code> NIST curves will not grow an Ed25519 path by itself. <a href="/en/products/j3r180-javacard">J3R180</a> (JCOP 4, P71D321, 180 kB) and J2A040 (JCOP 2.4.1) do not offer Ed25519.</p>
+<p>Alongside that: AES-128/192/256, DES and 2-key/3-key TDES, RSA 512–4096 with on-card key generation, ECC over GF(p) up to 521 bits (NIST and Brainpool) for ECDSA and ECDH, SHA-1 and SHA-2 (224/256/384/512). GlobalPlatform 2.3.1, SCP01 / SCP02 / SCP03. CMOS040. PUF, Secure Box, delegated management. FLASH class is ~450 KB before MIFARE, applets and OS add-ons; free heap on a loaded card is lower.</p>
+<p>Contactless is Type A and Type B, up to 848 kbit/s. Contact up to about 688 kbit/s. J3R180 contactless in the P71 short data sheet is Type A only. Optional MIFARE Plus EV2 or DESFire EV3 implementations consume NVM — quote the configuration and say if the applet needs Ed25519. Bodies: ID-1 PVC, SIM sizes on request. Tooling: <a href="/en/products/nfc-labels-and-cards">card factory</a>. CAP load: <a href="/en/tools/javacard-tool">JavaCard tool</a>.</p>`,
       features: [
         {
-          title: "JCOP 4.5, not JCOP 4",
-          description: "P71D600 / ID2. Same JC 3.0.5 Classic as J3R180, newer OS generation and larger NVM class.",
-          icon: "Cpu",
+          title: "On-card Ed25519",
+          description:
+            "RFC 8032 key generation, sign and verify in the SE. Java Card 3.0.5 and JCOP 4 do not include it. Use the NXP extension, not a standard Signature constant.",
+          icon: "KeyRound",
         },
         {
-          title: "~450 KB FLASH class",
-          description: "NXP figure before MIFARE / applets / add-ons. Free heap on a loaded card is lower — measure the piece you receive.",
+          title: "X25519, Curve448, and classic PKI",
+          description:
+            "Montgomery key agreement (RFC 7748), NIST and Brainpool ECDSA/ECDH to 521 bits, RSA to 4096, AES-128/192/256, SHA-2.",
+          icon: "Shield",
+        },
+        {
+          title: "~450 KB, Type A and Type B",
+          description:
+            "P71D600 FLASH class before MIFARE / applets / add-ons. J3R180 is the 180 kB Type A JCOP 4 card. Measure free NVM on the piece you receive.",
           icon: "Database",
-        },
-        {
-          title: "Type A and Type B CL",
-          description: "ISO/IEC 14443 A/B plus ISO/IEC 7816. J3R180 contactless in the P71 SDS is Type A.",
-          icon: "Radio",
         },
       ],
       specs: [
         { key: "Commercial type", value: "J3R452" },
         { key: "OS / silicon", value: "JCOP 4.5 on SmartMX3 P71D600" },
-        { key: "Java Card", value: "3.0.5 Classic" },
+        { key: "Java Card", value: "3.0.5 Classic (Ed25519 via NXP extension)" },
         { key: "GlobalPlatform", value: "2.3.1; SCP01 / SCP02 / SCP03" },
+        { key: "EdDSA / MontDH", value: "Ed25519 (RFC 8032); X25519 and Curve448 (RFC 7748)" },
+        { key: "Other crypto", value: "AES-128/192/256; DES / TDES; RSA to 4096; ECDSA/ECDH to 521-bit NIST and Brainpool; SHA-1; SHA-224/256/384/512" },
         { key: "NVM", value: "~450 KB FLASH (before MIFARE / applets / add-ons)" },
-        { key: "Contact", value: "ISO/IEC 7816 T=0 / T=1" },
+        { key: "Contact", value: "ISO/IEC 7816 T=0 / T=1, up to ~688 kbit/s" },
         { key: "Contactless", value: "ISO/IEC 14443 Type A and Type B, up to 848 kbit/s" },
         { key: "Optional", value: "MIFARE Plus EV2 or DESFire EV3 implementations" },
       ],
-      useCases: ["Multi-applet ID / PKI that does not fit 180 kB class", "GP 2.3.1 dual-interface production", "Labs that specified JCOP 4.5 / P71D600"],
-      highlights: ["JCOP 4.5 P71D600 — not J3R180", "~450 KB NVM class, not 180 kB", "Type A and Type B contactless"],
-      seoTitle: "JCOP 4.5 J3R452 JavaCard P71D600 450 KB | NFCTEC",
+      useCases: [
+        "On-card Ed25519: hardware wallets, SSH, and PKI that cannot fall back to NIST P-256",
+        "Multi-applet ID that does not fit the 180 kB class",
+        "GP 2.3.1 dual-interface lines that also talk to Type B readers",
+      ],
+      highlights: ["On-card Ed25519 — absent on JCOP 4 and most JavaCards", "X25519 / Curve448 plus RSA and NIST ECC", "JCOP 4.5 P71D600, ~450 KB, Type A and Type B"],
+      seoTitle: "J3R452 JavaCard with On-Card Ed25519 | NFCTEC",
       seoDescription:
-        "NXP J3R452 JCOP 4.5 P71D600, Java Card 3.0.5 Classic, GP 2.3.1, dual-interface, ~450 KB FLASH class. Not J3R180. Factory quote from NFCTEC.",
+        "NXP J3R452 runs JCOP 4.5 on P71D600 with on-card Ed25519 and X25519. About 450 KB FLASH, dual-interface Type A and B. Quote from NFCTEC.",
       ctaLabel: "Request a factory quote",
-      secondaryCtaLabel: "J3R180 (JCOP 4)",
+      secondaryCtaLabel: "J3R180 (no Ed25519)",
     },
     zh: {
       name: "JCOP 4.5 J3R452 JavaCard",
       description:
-        "NXP JCOP 4.5，硅片 SmartMX3 P71D600（J3R452）。Java Card 3.0.5 Classic、GlobalPlatform 2.3.1、双界面，加载插件前 FLASH 约 450 KB 档。PVC / SIM 形态询价。",
-      tagline: "JCOP 4.5 · P71D600 · JC 3.0.5 · GP 2.3.1 · 约 450 KB NVM",
+        "NXP JCOP 4.5，硅片 SmartMX3 P71D600（J3R452），片上 Ed25519（RFC 8032）与 X25519。Java Card 3.0.5 与 JCOP 4（含 J3R180）没有 Ed25519。另有 AES、RSA 至 4096、ECC 至 521 位、FLASH 约 450 KB、双界面 Type A 与 Type B。",
+      tagline: "片上 Ed25519 · JCOP 4.5 · P71D600 · 约 450 KB",
       intro:
-        "J3R452 不是更大的 J3R180。它是 P71D600（ID2）上的 JCOP 4.5。可用 FLASH 约 450 KB（加载 MIFARE、应用、OS 插件之前）。双界面：ISO/IEC 7816 T=0/T=1 与 ISO/IEC 14443 Type A 和 Type B。",
-      body: `<p><strong>不要和 J3R180 混用。</strong>J3R180 是 P71D321 SECID 线上的 JCOP 4，180 kB 容量档。J3R452 是 P71D600 上的 JCOP 4.5，FLASH 约 450 KB 档（NXP：加载 MIFARE、应用、OS 插件之前）。两者都是 Java Card 3.0.5 Classic；4.5 的 GP 为 2.3.1（SCP01 / SCP02 / SCP03）。CMOS040。PUF、Secure Box、委托管理。</p>
-<p>J3R452 非接为 Type A 和 Type B，最高 848 kbit/s。接触约 688 kbit/s。可选 MIFARE Plus EV2 或 DESFire EV3 实现会占 NVM，询价写配置。卡体：ID-1 PVC，需要可做 SIM 尺寸。开模见 <a href="/zh/products/nfc-labels-and-cards">卡厂</a>。JCOP 4 实验室卡见 <a href="/zh/products/j3r180-javacard">J3R180</a>。装 CAP：<a href="/zh/tools/javacard-tool">JavaCard 工具</a>。</p>`,
+        "应用必须在安全元件里做 Ed25519 签名时选 J3R452。Java Card 3.0.5 Classic 没有标准 Ed25519 常量，JCOP 4.5 通过 NXP 密码扩展提供（RFC 8032），并带 X25519 与 Curve448 密钥协商（RFC 7748）。JCOP 4 的 J3R180 停在 NIST 与 Brainpool 的 ECDSA/ECDH。加载 MIFARE 或 OS 插件前 FLASH 约 450 KB。双界面：ISO/IEC 7816 与 ISO/IEC 14443 Type A、Type B。",
+      body: `<p><strong>Ed25519 才是它和更大容量的 J3R180 之间的差别。</strong>J3R452 是 P71D600（ID2）上的 JCOP 4.5。卡内可生成 Ed25519 密钥，并按 RFC 8032 签名、验签。同一套库支持 Curve25519（X25519）与 Curve448 上的 Montgomery Diffie–Hellman。调用走 NXP JCOP 扩展，不是 Java Card 3.0.5 的 <code>Signature</code> 算法号——只对着 <code>javacard.security</code> NIST 曲线写的 CAP，不会自动多出 Ed25519。<a href="/zh/products/j3r180-javacard">J3R180</a>（JCOP 4、P71D321、180 kB）和 J2A040（JCOP 2.4.1）都没有 Ed25519。</p>
+<p>其余协处理器：AES-128/192/256，DES 与 2-key/3-key TDES，RSA 512–4096 且可片上生成密钥，ECC GF(p) 最高 521 位（NIST 与 Brainpool）做 ECDSA 与 ECDH，SHA-1 与 SHA-2（224/256/384/512）。GlobalPlatform 2.3.1，SCP01 / SCP02 / SCP03。CMOS040。PUF、Secure Box、委托管理。FLASH 约 450 KB 是加载 MIFARE、应用、OS 插件之前的档位，装载后空闲堆更小。</p>
+<p>非接为 Type A 与 Type B，最高 848 kbit/s。接触约 688 kbit/s。J3R180 在 P71 短手册里非接只有 Type A。可选 MIFARE Plus EV2 或 DESFire EV3 会占 NVM，询价写配置，并写明应用是否要 Ed25519。卡体：ID-1 PVC，需要可做 SIM 尺寸。开模见 <a href="/zh/products/nfc-labels-and-cards">卡厂</a>。装 CAP：<a href="/zh/tools/javacard-tool">JavaCard 工具</a>。</p>`,
       features: [
         {
-          title: "JCOP 4.5，不是 JCOP 4",
-          description: "P71D600 / ID2。与 J3R180 同为 JC 3.0.5 Classic，OS 代数更新、NVM 档更大。",
-          icon: "Cpu",
+          title: "片上 Ed25519",
+          description: "安全元件内按 RFC 8032 生成密钥、签名、验签。Java Card 3.0.5 与 JCOP 4 没有。走 NXP 扩展，不是标准 Signature 常量。",
+          icon: "KeyRound",
         },
         {
-          title: "约 450 KB FLASH 档",
-          description: "NXP 数字是加载 MIFARE/应用/插件之前。装载后空闲堆更小，以到货卡实测为准。",
+          title: "X25519、Curve448 与常规 PKI",
+          description: "Montgomery 密钥协商（RFC 7748），NIST 与 Brainpool ECDSA/ECDH 至 521 位，RSA 至 4096，AES-128/192/256，SHA-2。",
+          icon: "Shield",
+        },
+        {
+          title: "约 450 KB，Type A 与 Type B",
+          description: "P71D600 在加载 MIFARE / 应用 / 插件前的 FLASH 档。J3R180 是 180 kB、仅 Type A 的 JCOP 4。空闲 NVM 以到货卡实测为准。",
           icon: "Database",
-        },
-        {
-          title: "非接 Type A 与 Type B",
-          description: "ISO/IEC 14443 A/B + ISO/IEC 7816。J3R180 在 P71 短手册里非接是 Type A。",
-          icon: "Radio",
         },
       ],
       specs: [
         { key: "订货型号", value: "J3R452" },
         { key: "系统 / 硅片", value: "JCOP 4.5，SmartMX3 P71D600" },
-        { key: "Java Card", value: "3.0.5 Classic" },
+        { key: "Java Card", value: "3.0.5 Classic（Ed25519 走 NXP 扩展）" },
         { key: "GlobalPlatform", value: "2.3.1；SCP01 / SCP02 / SCP03" },
+        { key: "EdDSA / MontDH", value: "Ed25519（RFC 8032）；X25519 与 Curve448（RFC 7748）" },
+        { key: "其他算法", value: "AES-128/192/256；DES / TDES；RSA 至 4096；ECDSA/ECDH 至 521 位 NIST 与 Brainpool；SHA-1；SHA-224/256/384/512" },
         { key: "NVM", value: "FLASH 约 450 KB（加载 MIFARE / 应用 / 插件之前）" },
-        { key: "接触", value: "ISO/IEC 7816 T=0 / T=1" },
+        { key: "接触", value: "ISO/IEC 7816 T=0 / T=1，约 688 kbit/s" },
         { key: "非接", value: "ISO/IEC 14443 Type A 与 Type B，最高 848 kbit/s" },
         { key: "可选", value: "MIFARE Plus EV2 或 DESFire EV3 实现" },
       ],
-      useCases: ["180 kB 档装不下的多应用 ID / PKI", "GP 2.3.1 双界面量产", "规范写明 JCOP 4.5 / P71D600 的实验室"],
-      highlights: ["JCOP 4.5 P71D600，不是 J3R180", "NVM 约 450 KB 档，不是 180 kB", "非接 Type A 与 Type B"],
-      seoTitle: "JCOP 4.5 J3R452 JavaCard P71D600 450 KB | NFCTEC",
+      useCases: [
+        "片上 Ed25519：硬件钱包、SSH，以及不能退回 NIST P-256 的 PKI",
+        "180 kB 档装不下的多应用身份",
+        "还要对接 Type B 读卡器的 GP 2.3.1 双界面产线",
+      ],
+      highlights: ["片上 Ed25519，JCOP 4 和多数 JavaCard 没有", "X25519 / Curve448，外加 RSA 与 NIST ECC", "JCOP 4.5 P71D600，约 450 KB，Type A 与 Type B"],
+      seoTitle: "J3R452 JavaCard：片上 Ed25519 | NFCTEC",
       seoDescription:
-        "NXP J3R452 JCOP 4.5 P71D600，Java Card 3.0.5 Classic、GP 2.3.1、双界面，FLASH 约 450 KB 档。不是 J3R180。NFCTEC 卡厂询价。",
+        "NXP J3R452，JCOP 4.5，P71D600，片上 Ed25519 与 X25519。FLASH 约 450 KB，双界面 Type A 与 Type B。询 NFCTEC。",
       ctaLabel: "卡厂询价",
-      secondaryCtaLabel: "J3R180（JCOP 4）",
+      secondaryCtaLabel: "J3R180（无 Ed25519）",
     },
   },
   {
@@ -612,27 +639,31 @@ const CATALOG: CatalogDef[] = [
     en: {
       name: "JCOP 4 J3R180 JavaCard",
       description:
-        "NXP JCOP 4 P71 SECID (J3R180) on SmartMX3 P71D321 family. Java Card 3.0.5 Classic, GlobalPlatform 2.3, dual-interface, FLASH 180 kB class before add-ons. Amazon samples; volume by quote.",
-      tagline: "JCOP 4 · P71D321 · JC 3.0.5 · GP 2.3 · 180 kB class",
+        "NXP JCOP 4 P71 SECID (J3R180) on SmartMX3 P71D321. Java Card 3.0.5, GP 2.3, SCP03, AES, RSA to 4096, NIST/Brainpool ECC. Dual-interface Type A, 180 kB FLASH class. No Ed25519 — that is J3R452. Amazon samples; volume by quote.",
+      tagline: "JCOP 4 · AES / RSA / NIST ECC · 180 kB · no Ed25519",
       intro:
-        "J3R180 is the JCOP 4 SECID 180 kB dual-interface part. Contact ISO/IEC 7816 T=0/T=1 and contactless ISO/IEC 14443 Type A. SCP01/SCP02/SCP03. 180 kB is the NXP memory class, not free heap after Config Module or DESFire/Plus add-ons.",
-      body: `<p>Aligned to NXP JCOP 4 P71 short data sheet (SECID): OS JCOP 4 on SmartMX3 P71 (P71D321 family). Java Card 3.0.5 Classic. GlobalPlatform 2.3 (ID configuration / CIC), SCP01, SCP02 and SCP03. Dual-interface. FLASH available before MIFARE, applets and OS add-ons: <strong>180 kB class</strong>. Persistent heap on a typical empty SECID config is lower (SDS examples ~157–175 kB; DESFire EV2 8k add-on example ~129 kB).</p>
-<p><strong>Not J3R452</strong> (that is JCOP 4.5 / P71D600 / ~450 KB). <strong>Not J2A040</strong> (JCOP 2.4.1 / P5CC040 / contact / ~40 KB EEPROM). Contact-only 180 kB cousin is J2R180, not this SKU. Comparison: <a href="/en/blog/jcop-j3r180-vs-j2a040">J3R180 vs J2A040</a>. Larger NVM: <a href="/en/products/j3r452-javacard">J3R452</a>.</p>
+        "J3R180 is the JCOP 4 SECID card for applets that stay on AES, RSA and NIST or Brainpool ECDSA. Contact ISO/IEC 7816 T=0/T=1, contactless ISO/IEC 14443 Type A, SCP01/SCP02/SCP03. It does not implement Ed25519 or X25519. 180 kB is the NXP memory class before Config Module or DESFire/Plus add-ons, not free heap after they are loaded.",
+      body: `<p>Aligned to the NXP JCOP 4 P71 short data sheet (SECID): OS JCOP 4 on SmartMX3 P71 (P71D321 family). Java Card 3.0.5 Classic. GlobalPlatform 2.3 (ID configuration / CIC), SCP01, SCP02 and SCP03. Dual-interface, contactless Type A only, up to 848 kbit/s. FLASH before MIFARE, applets and OS add-ons: <strong>180 kB class</strong>. Persistent heap on a typical empty SECID config is lower (SDS examples ~157–175 kB; DESFire EV2 8k add-on example ~129 kB).</p>
+<p>Crypto on this OS: AES-128/192/256, DES and 2-key/3-key TDES, RSA up to 4096 with on-card key generation, ECC over GF(p) up to 521 bits on NIST and Brainpool curves (ECDSA and ECDH), SHA-1 and SHA-2 (224/256/384/512). There is no Ed25519 (RFC 8032) and no X25519 / Curve448. Those land on <a href="/en/products/j3r452-javacard">J3R452</a> (JCOP 4.5, P71D600, ~450 KB, Type A and Type B) via the NXP extension — Java Card 3.0.5 itself still has no standard Ed25519 constant.</p>
+<p>J2A040 is the previous generation: JCOP 2.4.1, P5CC040, Java Card 2.2.2, contact only, ~40 KB EEPROM, no SCP03. The contact-only 180 kB cousin is J2R180, not this SKU. Comparison: <a href="/en/blog/jcop-j3r180-vs-j2a040">J3R180 vs J2A040</a>.</p>
 <p>Lab packs (US Amazon, dual-interface, no magstripe on that listing): <a href="${AMAZON_J3R180}">ASIN B0HD7Z44HJ</a>. Factory PVC with print or stripe is a body option, not a JCOP feature.</p>`,
       features: [
         {
-          title: "JCOP 4 dual-interface",
-          description: "ISO/IEC 7816 T=0/T=1 and ISO/IEC 14443 Type A T=CL on one module.",
-          icon: "Radio",
+          title: "AES, RSA, NIST ECC",
+          description:
+            "AES-128/192/256, RSA to 4096, ECDSA/ECDH on NIST and Brainpool up to 521 bits, SHA-2. Ed25519 and X25519 are on J3R452.",
+          icon: "KeyRound",
         },
         {
-          title: "GP 2.3, SCP03 capable",
-          description: "ISD may still come up SCP02. INITIALIZE UPDATE decides. OS implements SCP03.",
+          title: "GP 2.3, SCP03, Type A",
+          description:
+            "ISO/IEC 7816 T=0/T=1 and ISO/IEC 14443 Type A on one module. ISD may still open SCP02; INITIALIZE UPDATE decides. OS implements SCP03.",
           icon: "Shield",
         },
         {
-          title: "180 kB class, not 450 KB",
-          description: "SECID memory class. J3R452 is the 4.5 / ~450 KB SKU. Measure free NVM on the card in hand.",
+          title: "180 kB class",
+          description:
+            "SECID memory class before add-ons. Empty-config heap in the SDS is about 157–175 kB. J3R452 is the ~450 KB JCOP 4.5 card.",
           icon: "Database",
         },
       ],
@@ -641,43 +672,50 @@ const CATALOG: CatalogDef[] = [
         { key: "OS / silicon", value: "JCOP 4 P71 on SmartMX3 P71D321 family" },
         { key: "Java Card", value: "3.0.5 Classic" },
         { key: "GlobalPlatform", value: "2.3; SCP01 / SCP02 / SCP03" },
+        { key: "Crypto", value: "AES-128/192/256; DES / TDES; RSA to 4096; ECDSA/ECDH to 521-bit NIST and Brainpool; SHA-1; SHA-2" },
+        { key: "Not on this OS", value: "Ed25519, X25519, Curve448 (use J3R452)" },
         { key: "NVM", value: "FLASH 180 kB class (before MIFARE / applets / add-ons)" },
         { key: "Contact", value: "ISO/IEC 7816 T=0 / T=1" },
-        { key: "Contactless", value: "ISO/IEC 14443 Type A, up to 848 kbit/s" },
+        { key: "Contactless", value: "ISO/IEC 14443 Type A only, up to 848 kbit/s" },
         { key: "Sample", value: "Amazon US B0HD7Z44HJ (DIF, no magstripe on that pack)" },
       ],
-      useCases: ["JCOP 4 applet development", "SCP03 dual-interface pilots", "Moving off JCOP 2.4.1 when 180 kB class is enough"],
-      highlights: ["JCOP 4 P71D321, 180 kB class", "Dual-interface Type A", "Not JCOP 4.5 J3R452"],
-      seoTitle: "JCOP 4 J3R180 JavaCard P71 180 kB | Amazon | NFCTEC",
+      useCases: [
+        "Applets on AES, RSA or NIST/Brainpool ECDSA that fit the 180 kB class",
+        "SCP03 dual-interface Type A pilots",
+        "Leaving JCOP 2.4.1 when Ed25519 is not required",
+      ],
+      highlights: ["AES, RSA 4096, NIST/Brainpool ECC", "Dual-interface Type A, SCP03", "Ed25519 is J3R452, not this card"],
+      seoTitle: "J3R180 JavaCard: AES, RSA, NIST ECC | NFCTEC",
       seoDescription:
-        "NXP J3R180 JCOP 4 P71 (P71D321), Java Card 3.0.5 Classic, GP 2.3, dual-interface Type A, 180 kB FLASH class. Not J3R452. Amazon B0HD7Z44HJ. Volume from NFCTEC.",
+        "NXP J3R180, JCOP 4 on P71D321: AES, RSA to 4096, NIST and Brainpool ECC, Type A, 180 kB. Ed25519 is J3R452. Amazon samples and volume from NFCTEC.",
       ctaLabel: "Buy on Amazon",
-      secondaryCtaLabel: "J3R452 (JCOP 4.5)",
+      secondaryCtaLabel: "J3R452 (Ed25519)",
     },
     zh: {
       name: "JCOP 4 J3R180 JavaCard",
       description:
-        "NXP JCOP 4 P71 SECID（J3R180），SmartMX3 P71D321 系列。Java Card 3.0.5 Classic、GlobalPlatform 2.3、双界面，加载插件前 FLASH 180 kB 档。Amazon 样品，批量询价。",
-      tagline: "JCOP 4 · P71D321 · JC 3.0.5 · GP 2.3 · 180 kB 档",
+        "NXP JCOP 4 P71 SECID（J3R180），SmartMX3 P71D321。Java Card 3.0.5、GP 2.3、SCP03、AES、RSA 至 4096、NIST/Brainpool ECC。双界面 Type A，FLASH 180 kB 档。无 Ed25519，那是 J3R452。Amazon 样品，批量询价。",
+      tagline: "JCOP 4 · AES / RSA / NIST ECC · 180 kB · 无 Ed25519",
       intro:
-        "J3R180 是 JCOP 4 SECID 180 kB 双界面。接触 ISO/IEC 7816 T=0/T=1，非接 ISO/IEC 14443 Type A。SCP01/SCP02/SCP03。180 kB 是 NXP 容量档，不是扣掉 Config Module 或 DESFire/Plus 之后的空闲堆。",
-      body: `<p>对齐 NXP JCOP 4 P71 短数据手册（SECID）：操作系统 JCOP 4，硅片 SmartMX3 P71（P71D321 系列）。Java Card 3.0.5 Classic。GlobalPlatform 2.3，SCP01、SCP02、SCP03。双界面。加载 MIFARE、应用、OS 插件前的 FLASH：<strong>180 kB 档</strong>。典型空 SECID 配置持久堆更低（手册示例约 157–175 kB；DESFire EV2 8k 插件示例约 129 kB）。</p>
-<p><strong>不是 J3R452</strong>（JCOP 4.5 / P71D600 / 约 450 KB）。<strong>不是 J2A040</strong>（JCOP 2.4.1 / P5CC040 / 仅接触 / 约 40 KB EEPROM）。接触式 180 kB 近亲是 J2R180，不是本 SKU。对照：<a href="/zh/blog/jcop-j3r180-vs-j2a040">J3R180 vs J2A040</a>。更大 NVM：<a href="/zh/products/j3r452-javacard">J3R452</a>。</p>
+        "J3R180 是给停在 AES、RSA、NIST 或 Brainpool ECDSA 上的应用用的 JCOP 4 SECID。接触 ISO/IEC 7816 T=0/T=1，非接 ISO/IEC 14443 Type A，SCP01/SCP02/SCP03。没有 Ed25519，也没有 X25519。180 kB 是加载 Config Module 或 DESFire/Plus 之前的 NXP 容量档，不是加载之后的空闲堆。",
+      body: `<p>对齐 NXP JCOP 4 P71 短数据手册（SECID）：操作系统 JCOP 4，硅片 SmartMX3 P71（P71D321 系列）。Java Card 3.0.5 Classic。GlobalPlatform 2.3，SCP01、SCP02、SCP03。双界面，非接仅 Type A，最高 848 kbit/s。加载 MIFARE、应用、OS 插件前的 FLASH：<strong>180 kB 档</strong>。典型空 SECID 配置持久堆更低（手册示例约 157–175 kB；DESFire EV2 8k 插件示例约 129 kB）。</p>
+<p>本 OS 的算法：AES-128/192/256，DES 与 2-key/3-key TDES，RSA 最高 4096 且可片上生成密钥，ECC GF(p) 最高 521 位，曲线为 NIST 与 Brainpool（ECDSA、ECDH），SHA-1 与 SHA-2（224/256/384/512）。没有 Ed25519（RFC 8032），也没有 X25519 / Curve448。这些在 <a href="/zh/products/j3r452-javacard">J3R452</a>（JCOP 4.5、P71D600、约 450 KB、Type A 与 Type B）上，通过 NXP 扩展提供。Java Card 3.0.5 本身仍然没有标准 Ed25519 常量。</p>
+<p>J2A040 是上一代：JCOP 2.4.1、P5CC040、Java Card 2.2.2、仅接触、EEPROM 约 40 KB、无 SCP03。接触式 180 kB 近亲是 J2R180，不是本 SKU。对照：<a href="/zh/blog/jcop-j3r180-vs-j2a040">J3R180 vs J2A040</a>。</p>
 <p>实验室用卡（美国 Amazon，双界面，该链接无磁条）：<a href="${AMAZON_J3R180}">ASIN B0HD7Z44HJ</a>。彩印或磁条是卡体选项，不是 JCOP 功能。</p>`,
       features: [
         {
-          title: "JCOP 4 双界面",
-          description: "ISO/IEC 7816 T=0/T=1 与 ISO/IEC 14443 Type A T=CL 同一模块。",
-          icon: "Radio",
+          title: "AES、RSA、NIST ECC",
+          description: "AES-128/192/256，RSA 至 4096，NIST 与 Brainpool 上 ECDSA/ECDH 至 521 位，SHA-2。Ed25519 与 X25519 在 J3R452。",
+          icon: "KeyRound",
         },
         {
-          title: "GP 2.3，具备 SCP03",
-          description: "出厂 ISD 仍可能是 SCP02。以 INITIALIZE UPDATE 为准。OS 实现 SCP03。",
+          title: "GP 2.3、SCP03、Type A",
+          description: "ISO/IEC 7816 T=0/T=1 与 ISO/IEC 14443 Type A 同一模块。出厂 ISD 仍可能开 SCP02，以 INITIALIZE UPDATE 为准。OS 实现 SCP03。",
           icon: "Shield",
         },
         {
-          title: "180 kB 档，不是 450 KB",
-          description: "SECID 容量档。J3R452 才是 4.5 / 约 450 KB。以手头卡测空闲 NVM。",
+          title: "180 kB 档",
+          description: "加载插件前的 SECID 容量档。手册里空配置堆大约 157–175 kB。J3R452 才是约 450 KB 的 JCOP 4.5。",
           icon: "Database",
         },
       ],
@@ -686,18 +724,20 @@ const CATALOG: CatalogDef[] = [
         { key: "系统 / 硅片", value: "JCOP 4 P71，SmartMX3 P71D321 系列" },
         { key: "Java Card", value: "3.0.5 Classic" },
         { key: "GlobalPlatform", value: "2.3；SCP01 / SCP02 / SCP03" },
+        { key: "算法", value: "AES-128/192/256；DES / TDES；RSA 至 4096；ECDSA/ECDH 至 521 位 NIST 与 Brainpool；SHA-1；SHA-2" },
+        { key: "本 OS 没有", value: "Ed25519、X25519、Curve448（用 J3R452）" },
         { key: "NVM", value: "FLASH 180 kB 档（加载 MIFARE / 应用 / 插件之前）" },
         { key: "接触", value: "ISO/IEC 7816 T=0 / T=1" },
-        { key: "非接", value: "ISO/IEC 14443 Type A，最高 848 kbit/s" },
+        { key: "非接", value: "仅 ISO/IEC 14443 Type A，最高 848 kbit/s" },
         { key: "样品", value: "Amazon US B0HD7Z44HJ（双界面，该包装无磁条）" },
       ],
-      useCases: ["JCOP 4 应用开发", "SCP03 双界面试点", "离开 JCOP 2.4.1 且 180 kB 档够用"],
-      highlights: ["JCOP 4 P71D321，180 kB 档", "双界面 Type A", "不是 JCOP 4.5 J3R452"],
-      seoTitle: "JCOP 4 J3R180 JavaCard P71 180 kB | Amazon | NFCTEC",
+      useCases: ["停在 AES、RSA 或 NIST/Brainpool ECDSA、且放得进 180 kB 档的应用", "SCP03 双界面 Type A 试点", "离开 JCOP 2.4.1，且不需要 Ed25519"],
+      highlights: ["AES、RSA 4096、NIST/Brainpool ECC", "双界面 Type A，SCP03", "Ed25519 在 J3R452，不在这张卡"],
+      seoTitle: "J3R180 JavaCard：AES、RSA、NIST ECC | NFCTEC",
       seoDescription:
-        "NXP J3R180 JCOP 4 P71（P71D321），Java Card 3.0.5 Classic、GP 2.3、双界面 Type A，FLASH 180 kB 档。不是 J3R452。Amazon B0HD7Z44HJ。批量询 NFCTEC。",
+        "NXP J3R180，JCOP 4，P71D321：AES、RSA 至 4096、NIST 与 Brainpool ECC、Type A、180 kB。Ed25519 在 J3R452。Amazon 样品，批量询 NFCTEC。",
       ctaLabel: "Amazon 购买",
-      secondaryCtaLabel: "J3R452（JCOP 4.5）",
+      secondaryCtaLabel: "J3R452（Ed25519）",
     },
   },
   {
@@ -705,7 +745,7 @@ const CATALOG: CatalogDef[] = [
     category: "hardware",
     icon: "Cpu",
     sortOrder: 60,
-    ctaUrl: "/contact",
+    ctaUrl: "/inquiry",
     secondaryCtaUrl: "/blog/jcop-j3r180-vs-j2a040",
     en: {
       name: "JCOP 2.4.1 J2A040 JavaCard",

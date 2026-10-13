@@ -47,7 +47,7 @@ function PlatformEntry() {
             Launching Soon <ArrowRight className="h-4 w-4" />
           </button>
           <Link
-            to="/$locale/contact"
+            to="/$locale/inquiry"
             params={{ locale }}
             className="inline-flex items-center gap-2 rounded-full border border-border bg-card/60 px-8 py-3 font-semibold backdrop-blur transition hover:bg-card"
           >

@@ -14,6 +14,7 @@ import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PlatformRouteImport } from './routes/platform'
+import { Route as InquiryRouteImport } from './routes/inquiry'
 import { Route as DownloadsRouteImport } from './routes/downloads'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BlogRouteImport } from './routes/blog'
@@ -27,6 +28,7 @@ import { Route as ProductsIndexRouteImport } from './routes/products.index'
 import { Route as LocaleIndexRouteImport } from './routes/$locale/index'
 import { Route as SolutionsSlugRouteImport } from './routes/solutions.$slug'
 import { Route as ProductsNfcFieldDetectorRouteImport } from './routes/products.nfc-field-detector'
+import { Route as ContactProjectRouteImport } from './routes/contact.project'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as LocaleTermsRouteImport } from './routes/$locale/terms'
@@ -34,6 +36,7 @@ import { Route as LocaleSolutionsRouteImport } from './routes/$locale/solutions'
 import { Route as LocaleProductsRouteImport } from './routes/$locale/products'
 import { Route as LocalePrivacyRouteImport } from './routes/$locale/privacy'
 import { Route as LocalePlatformRouteImport } from './routes/$locale/platform'
+import { Route as LocaleInquiryRouteImport } from './routes/$locale/inquiry'
 import { Route as LocaleDownloadsRouteImport } from './routes/$locale/downloads'
 import { Route as LocaleContactRouteImport } from './routes/$locale/contact'
 import { Route as LocaleBlogRouteImport } from './routes/$locale/blog'
@@ -41,10 +44,12 @@ import { Route as LocaleAuthRouteImport } from './routes/$locale/auth'
 import { Route as LocaleAboutRouteImport } from './routes/$locale/about'
 import { Route as LocaleSolutionsIndexRouteImport } from './routes/$locale/solutions.index'
 import { Route as LocaleProductsIndexRouteImport } from './routes/$locale/products.index'
+import { Route as LocaleContactIndexRouteImport } from './routes/$locale/contact.index'
 import { Route as LocaleBlogIndexRouteImport } from './routes/$locale/blog.index'
 import { Route as LocaleToolsSlugRouteImport } from './routes/$locale/tools.$slug'
 import { Route as LocaleSolutionsSlugRouteImport } from './routes/$locale/solutions.$slug'
 import { Route as LocaleProductsSlugRouteImport } from './routes/$locale/products.$slug'
+import { Route as LocaleContactProjectRouteImport } from './routes/$locale/contact.project'
 import { Route as LocaleBlogSlugRouteImport } from './routes/$locale/blog.$slug'
 
 const TermsRoute = TermsRouteImport.update({
@@ -70,6 +75,11 @@ const PrivacyRoute = PrivacyRouteImport.update({
 const PlatformRoute = PlatformRouteImport.update({
   id: '/platform',
   path: '/platform',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InquiryRoute = InquiryRouteImport.update({
+  id: '/inquiry',
+  path: '/inquiry',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DownloadsRoute = DownloadsRouteImport.update({
@@ -137,6 +147,11 @@ const ProductsNfcFieldDetectorRoute =
     path: '/products/nfc-field-detector',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ContactProjectRoute = ContactProjectRouteImport.update({
+  id: '/project',
+  path: '/project',
+  getParentRoute: () => ContactRoute,
+} as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -170,6 +185,11 @@ const LocalePrivacyRoute = LocalePrivacyRouteImport.update({
 const LocalePlatformRoute = LocalePlatformRouteImport.update({
   id: '/platform',
   path: '/platform',
+  getParentRoute: () => LocaleRouteRoute,
+} as any)
+const LocaleInquiryRoute = LocaleInquiryRouteImport.update({
+  id: '/inquiry',
+  path: '/inquiry',
   getParentRoute: () => LocaleRouteRoute,
 } as any)
 const LocaleDownloadsRoute = LocaleDownloadsRouteImport.update({
@@ -207,6 +227,11 @@ const LocaleProductsIndexRoute = LocaleProductsIndexRouteImport.update({
   path: '/',
   getParentRoute: () => LocaleProductsRoute,
 } as any)
+const LocaleContactIndexRoute = LocaleContactIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => LocaleContactRoute,
+} as any)
 const LocaleBlogIndexRoute = LocaleBlogIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -227,6 +252,11 @@ const LocaleProductsSlugRoute = LocaleProductsSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => LocaleProductsRoute,
 } as any)
+const LocaleContactProjectRoute = LocaleContactProjectRouteImport.update({
+  id: '/project',
+  path: '/project',
+  getParentRoute: () => LocaleContactRoute,
+} as any)
 const LocaleBlogSlugRoute = LocaleBlogSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -239,8 +269,9 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
   '/blog': typeof BlogRouteWithChildren
-  '/contact': typeof ContactRoute
+  '/contact': typeof ContactRouteWithChildren
   '/downloads': typeof DownloadsRoute
+  '/inquiry': typeof InquiryRoute
   '/platform': typeof PlatformRoute
   '/privacy': typeof PrivacyRoute
   '/robots.txt': typeof RobotsDottxtRoute
@@ -249,8 +280,9 @@ export interface FileRoutesByFullPath {
   '/$locale/about': typeof LocaleAboutRoute
   '/$locale/auth': typeof LocaleAuthRoute
   '/$locale/blog': typeof LocaleBlogRouteWithChildren
-  '/$locale/contact': typeof LocaleContactRoute
+  '/$locale/contact': typeof LocaleContactRouteWithChildren
   '/$locale/downloads': typeof LocaleDownloadsRoute
+  '/$locale/inquiry': typeof LocaleInquiryRoute
   '/$locale/platform': typeof LocalePlatformRoute
   '/$locale/privacy': typeof LocalePrivacyRoute
   '/$locale/products': typeof LocaleProductsRouteWithChildren
@@ -258,16 +290,19 @@ export interface FileRoutesByFullPath {
   '/$locale/terms': typeof LocaleTermsRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/contact/project': typeof ContactProjectRoute
   '/products/nfc-field-detector': typeof ProductsNfcFieldDetectorRoute
   '/solutions/$slug': typeof SolutionsSlugRoute
   '/$locale/': typeof LocaleIndexRoute
   '/products/': typeof ProductsIndexRoute
   '/solutions/': typeof SolutionsIndexRoute
   '/$locale/blog/$slug': typeof LocaleBlogSlugRoute
+  '/$locale/contact/project': typeof LocaleContactProjectRoute
   '/$locale/products/$slug': typeof LocaleProductsSlugRoute
   '/$locale/solutions/$slug': typeof LocaleSolutionsSlugRoute
   '/$locale/tools/$slug': typeof LocaleToolsSlugRoute
   '/$locale/blog/': typeof LocaleBlogIndexRoute
+  '/$locale/contact/': typeof LocaleContactIndexRoute
   '/$locale/products/': typeof LocaleProductsIndexRoute
   '/$locale/solutions/': typeof LocaleSolutionsIndexRoute
 }
@@ -276,8 +311,9 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
   '/blog': typeof BlogRouteWithChildren
-  '/contact': typeof ContactRoute
+  '/contact': typeof ContactRouteWithChildren
   '/downloads': typeof DownloadsRoute
+  '/inquiry': typeof InquiryRoute
   '/platform': typeof PlatformRoute
   '/privacy': typeof PrivacyRoute
   '/robots.txt': typeof RobotsDottxtRoute
@@ -285,23 +321,26 @@ export interface FileRoutesByTo {
   '/terms': typeof TermsRoute
   '/$locale/about': typeof LocaleAboutRoute
   '/$locale/auth': typeof LocaleAuthRoute
-  '/$locale/contact': typeof LocaleContactRoute
   '/$locale/downloads': typeof LocaleDownloadsRoute
+  '/$locale/inquiry': typeof LocaleInquiryRoute
   '/$locale/platform': typeof LocalePlatformRoute
   '/$locale/privacy': typeof LocalePrivacyRoute
   '/$locale/terms': typeof LocaleTermsRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/contact/project': typeof ContactProjectRoute
   '/products/nfc-field-detector': typeof ProductsNfcFieldDetectorRoute
   '/solutions/$slug': typeof SolutionsSlugRoute
   '/$locale': typeof LocaleIndexRoute
   '/products': typeof ProductsIndexRoute
   '/solutions': typeof SolutionsIndexRoute
   '/$locale/blog/$slug': typeof LocaleBlogSlugRoute
+  '/$locale/contact/project': typeof LocaleContactProjectRoute
   '/$locale/products/$slug': typeof LocaleProductsSlugRoute
   '/$locale/solutions/$slug': typeof LocaleSolutionsSlugRoute
   '/$locale/tools/$slug': typeof LocaleToolsSlugRoute
   '/$locale/blog': typeof LocaleBlogIndexRoute
+  '/$locale/contact': typeof LocaleContactIndexRoute
   '/$locale/products': typeof LocaleProductsIndexRoute
   '/$locale/solutions': typeof LocaleSolutionsIndexRoute
 }
@@ -313,8 +352,9 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
   '/blog': typeof BlogRouteWithChildren
-  '/contact': typeof ContactRoute
+  '/contact': typeof ContactRouteWithChildren
   '/downloads': typeof DownloadsRoute
+  '/inquiry': typeof InquiryRoute
   '/platform': typeof PlatformRoute
   '/privacy': typeof PrivacyRoute
   '/robots.txt': typeof RobotsDottxtRoute
@@ -323,8 +363,9 @@ export interface FileRoutesById {
   '/$locale/about': typeof LocaleAboutRoute
   '/$locale/auth': typeof LocaleAuthRoute
   '/$locale/blog': typeof LocaleBlogRouteWithChildren
-  '/$locale/contact': typeof LocaleContactRoute
+  '/$locale/contact': typeof LocaleContactRouteWithChildren
   '/$locale/downloads': typeof LocaleDownloadsRoute
+  '/$locale/inquiry': typeof LocaleInquiryRoute
   '/$locale/platform': typeof LocalePlatformRoute
   '/$locale/privacy': typeof LocalePrivacyRoute
   '/$locale/products': typeof LocaleProductsRouteWithChildren
@@ -332,16 +373,19 @@ export interface FileRoutesById {
   '/$locale/terms': typeof LocaleTermsRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/contact/project': typeof ContactProjectRoute
   '/products/nfc-field-detector': typeof ProductsNfcFieldDetectorRoute
   '/solutions/$slug': typeof SolutionsSlugRoute
   '/$locale/': typeof LocaleIndexRoute
   '/products/': typeof ProductsIndexRoute
   '/solutions/': typeof SolutionsIndexRoute
   '/$locale/blog/$slug': typeof LocaleBlogSlugRoute
+  '/$locale/contact/project': typeof LocaleContactProjectRoute
   '/$locale/products/$slug': typeof LocaleProductsSlugRoute
   '/$locale/solutions/$slug': typeof LocaleSolutionsSlugRoute
   '/$locale/tools/$slug': typeof LocaleToolsSlugRoute
   '/$locale/blog/': typeof LocaleBlogIndexRoute
+  '/$locale/contact/': typeof LocaleContactIndexRoute
   '/$locale/products/': typeof LocaleProductsIndexRoute
   '/$locale/solutions/': typeof LocaleSolutionsIndexRoute
 }
@@ -355,6 +399,7 @@ export interface FileRouteTypes {
     | '/blog'
     | '/contact'
     | '/downloads'
+    | '/inquiry'
     | '/platform'
     | '/privacy'
     | '/robots.txt'
@@ -365,6 +410,7 @@ export interface FileRouteTypes {
     | '/$locale/blog'
     | '/$locale/contact'
     | '/$locale/downloads'
+    | '/$locale/inquiry'
     | '/$locale/platform'
     | '/$locale/privacy'
     | '/$locale/products'
@@ -372,16 +418,19 @@ export interface FileRouteTypes {
     | '/$locale/terms'
     | '/dashboard'
     | '/blog/$slug'
+    | '/contact/project'
     | '/products/nfc-field-detector'
     | '/solutions/$slug'
     | '/$locale/'
     | '/products/'
     | '/solutions/'
     | '/$locale/blog/$slug'
+    | '/$locale/contact/project'
     | '/$locale/products/$slug'
     | '/$locale/solutions/$slug'
     | '/$locale/tools/$slug'
     | '/$locale/blog/'
+    | '/$locale/contact/'
     | '/$locale/products/'
     | '/$locale/solutions/'
   fileRoutesByTo: FileRoutesByTo
@@ -392,6 +441,7 @@ export interface FileRouteTypes {
     | '/blog'
     | '/contact'
     | '/downloads'
+    | '/inquiry'
     | '/platform'
     | '/privacy'
     | '/robots.txt'
@@ -399,23 +449,26 @@ export interface FileRouteTypes {
     | '/terms'
     | '/$locale/about'
     | '/$locale/auth'
-    | '/$locale/contact'
     | '/$locale/downloads'
+    | '/$locale/inquiry'
     | '/$locale/platform'
     | '/$locale/privacy'
     | '/$locale/terms'
     | '/dashboard'
     | '/blog/$slug'
+    | '/contact/project'
     | '/products/nfc-field-detector'
     | '/solutions/$slug'
     | '/$locale'
     | '/products'
     | '/solutions'
     | '/$locale/blog/$slug'
+    | '/$locale/contact/project'
     | '/$locale/products/$slug'
     | '/$locale/solutions/$slug'
     | '/$locale/tools/$slug'
     | '/$locale/blog'
+    | '/$locale/contact'
     | '/$locale/products'
     | '/$locale/solutions'
   id:
@@ -428,6 +481,7 @@ export interface FileRouteTypes {
     | '/blog'
     | '/contact'
     | '/downloads'
+    | '/inquiry'
     | '/platform'
     | '/privacy'
     | '/robots.txt'
@@ -438,6 +492,7 @@ export interface FileRouteTypes {
     | '/$locale/blog'
     | '/$locale/contact'
     | '/$locale/downloads'
+    | '/$locale/inquiry'
     | '/$locale/platform'
     | '/$locale/privacy'
     | '/$locale/products'
@@ -445,16 +500,19 @@ export interface FileRouteTypes {
     | '/$locale/terms'
     | '/_authenticated/dashboard'
     | '/blog/$slug'
+    | '/contact/project'
     | '/products/nfc-field-detector'
     | '/solutions/$slug'
     | '/$locale/'
     | '/products/'
     | '/solutions/'
     | '/$locale/blog/$slug'
+    | '/$locale/contact/project'
     | '/$locale/products/$slug'
     | '/$locale/solutions/$slug'
     | '/$locale/tools/$slug'
     | '/$locale/blog/'
+    | '/$locale/contact/'
     | '/$locale/products/'
     | '/$locale/solutions/'
   fileRoutesById: FileRoutesById
@@ -466,8 +524,9 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   AuthRoute: typeof AuthRoute
   BlogRoute: typeof BlogRouteWithChildren
-  ContactRoute: typeof ContactRoute
+  ContactRoute: typeof ContactRouteWithChildren
   DownloadsRoute: typeof DownloadsRoute
+  InquiryRoute: typeof InquiryRoute
   PlatformRoute: typeof PlatformRoute
   PrivacyRoute: typeof PrivacyRoute
   RobotsDottxtRoute: typeof RobotsDottxtRoute
@@ -514,6 +573,13 @@ declare module '@tanstack/react-router' {
       path: '/platform'
       fullPath: '/platform'
       preLoaderRoute: typeof PlatformRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/inquiry': {
+      id: '/inquiry'
+      path: '/inquiry'
+      fullPath: '/inquiry'
+      preLoaderRoute: typeof InquiryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/downloads': {
@@ -607,6 +673,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProductsNfcFieldDetectorRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/contact/project': {
+      id: '/contact/project'
+      path: '/project'
+      fullPath: '/contact/project'
+      preLoaderRoute: typeof ContactProjectRouteImport
+      parentRoute: typeof ContactRoute
+    }
     '/blog/$slug': {
       id: '/blog/$slug'
       path: '/$slug'
@@ -654,6 +727,13 @@ declare module '@tanstack/react-router' {
       path: '/platform'
       fullPath: '/$locale/platform'
       preLoaderRoute: typeof LocalePlatformRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
+    '/$locale/inquiry': {
+      id: '/$locale/inquiry'
+      path: '/inquiry'
+      fullPath: '/$locale/inquiry'
+      preLoaderRoute: typeof LocaleInquiryRouteImport
       parentRoute: typeof LocaleRouteRoute
     }
     '/$locale/downloads': {
@@ -705,6 +785,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LocaleProductsIndexRouteImport
       parentRoute: typeof LocaleProductsRoute
     }
+    '/$locale/contact/': {
+      id: '/$locale/contact/'
+      path: '/'
+      fullPath: '/$locale/contact/'
+      preLoaderRoute: typeof LocaleContactIndexRouteImport
+      parentRoute: typeof LocaleContactRoute
+    }
     '/$locale/blog/': {
       id: '/$locale/blog/'
       path: '/'
@@ -733,6 +820,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LocaleProductsSlugRouteImport
       parentRoute: typeof LocaleProductsRoute
     }
+    '/$locale/contact/project': {
+      id: '/$locale/contact/project'
+      path: '/project'
+      fullPath: '/$locale/contact/project'
+      preLoaderRoute: typeof LocaleContactProjectRouteImport
+      parentRoute: typeof LocaleContactRoute
+    }
     '/$locale/blog/$slug': {
       id: '/$locale/blog/$slug'
       path: '/$slug'
@@ -755,6 +849,20 @@ const LocaleBlogRouteChildren: LocaleBlogRouteChildren = {
 
 const LocaleBlogRouteWithChildren = LocaleBlogRoute._addFileChildren(
   LocaleBlogRouteChildren,
+)
+
+interface LocaleContactRouteChildren {
+  LocaleContactProjectRoute: typeof LocaleContactProjectRoute
+  LocaleContactIndexRoute: typeof LocaleContactIndexRoute
+}
+
+const LocaleContactRouteChildren: LocaleContactRouteChildren = {
+  LocaleContactProjectRoute: LocaleContactProjectRoute,
+  LocaleContactIndexRoute: LocaleContactIndexRoute,
+}
+
+const LocaleContactRouteWithChildren = LocaleContactRoute._addFileChildren(
+  LocaleContactRouteChildren,
 )
 
 interface LocaleProductsRouteChildren {
@@ -789,8 +897,9 @@ interface LocaleRouteRouteChildren {
   LocaleAboutRoute: typeof LocaleAboutRoute
   LocaleAuthRoute: typeof LocaleAuthRoute
   LocaleBlogRoute: typeof LocaleBlogRouteWithChildren
-  LocaleContactRoute: typeof LocaleContactRoute
+  LocaleContactRoute: typeof LocaleContactRouteWithChildren
   LocaleDownloadsRoute: typeof LocaleDownloadsRoute
+  LocaleInquiryRoute: typeof LocaleInquiryRoute
   LocalePlatformRoute: typeof LocalePlatformRoute
   LocalePrivacyRoute: typeof LocalePrivacyRoute
   LocaleProductsRoute: typeof LocaleProductsRouteWithChildren
@@ -804,8 +913,9 @@ const LocaleRouteRouteChildren: LocaleRouteRouteChildren = {
   LocaleAboutRoute: LocaleAboutRoute,
   LocaleAuthRoute: LocaleAuthRoute,
   LocaleBlogRoute: LocaleBlogRouteWithChildren,
-  LocaleContactRoute: LocaleContactRoute,
+  LocaleContactRoute: LocaleContactRouteWithChildren,
   LocaleDownloadsRoute: LocaleDownloadsRoute,
+  LocaleInquiryRoute: LocaleInquiryRoute,
   LocalePlatformRoute: LocalePlatformRoute,
   LocalePrivacyRoute: LocalePrivacyRoute,
   LocaleProductsRoute: LocaleProductsRouteWithChildren,
@@ -840,6 +950,17 @@ const BlogRouteChildren: BlogRouteChildren = {
 
 const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
 
+interface ContactRouteChildren {
+  ContactProjectRoute: typeof ContactProjectRoute
+}
+
+const ContactRouteChildren: ContactRouteChildren = {
+  ContactProjectRoute: ContactProjectRoute,
+}
+
+const ContactRouteWithChildren =
+  ContactRoute._addFileChildren(ContactRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   LocaleRouteRoute: LocaleRouteRouteWithChildren,
@@ -847,8 +968,9 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   AuthRoute: AuthRoute,
   BlogRoute: BlogRouteWithChildren,
-  ContactRoute: ContactRoute,
+  ContactRoute: ContactRouteWithChildren,
   DownloadsRoute: DownloadsRoute,
+  InquiryRoute: InquiryRoute,
   PlatformRoute: PlatformRoute,
   PrivacyRoute: PrivacyRoute,
   RobotsDottxtRoute: RobotsDottxtRoute,

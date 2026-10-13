@@ -10,6 +10,8 @@ export type BlogSection = {
   items?: string[];
   code?: string;
   figure?: { title: string; lanes: DiagramLane[] };
+  video?: { youtubeId: string; title: string; url: string };
+  links?: { label: string; href: string }[];
 };
 
 export type BlogBody = BlogSection[];
@@ -201,6 +203,115 @@ export const posts: BlogPost[] = [
       { heading: "Server-side verification", text: "Recompute the CMAC with the diversified AES key, then reject taps with a bad MAC or a counter that is not strictly increasing for that UID. The counter check is what defeats simple URL copying." },
       { heading: "Bring-up checklist", text: "Authenticate with EV2 keys, configure SDM/NDEF templates, generate a real SUN URL, verify it against your backend, then only move to batch personalization after the lab loop is stable." },
     ],
+  },
+  {
+    slug: "fragile-antenna-nfc-label",
+    cat: "Security",
+    date: "2026-10-13",
+    title: "Fragile-Antenna NFC Labels Break When Peeled",
+    excerpt:
+      "Fragile-antenna NFC labels open the coil when peeled. The same build takes NTAG213/215/216, MIFARE or NTAG 424 DNA. The phone then sees nothing.",
+    readMinutes: 5,
+    body: [
+      {
+        text: "A fragile-antenna NFC label is a sticker whose coil is the weak part. The same antenna takes NTAG213, NTAG215, NTAG216, MIFARE Ultralight, DESFire, NTAG 424 DNA, or another 13.56 MHz die. The adhesive holds harder than the traces. Peel it, tear it, or lift a corner, and the loop opens. A phone that read the tag a second earlier now sees nothing.",
+      },
+      {
+        video: {
+          youtubeId: "e6aD4nxIWqw",
+          title: "Peel this NFC label and the antenna opens. The phone stops seeing the tag.",
+          url: "https://www.youtube.com/shorts/e6aD4nxIWqw",
+        },
+      },
+      {
+        heading: "What actually breaks",
+        paragraphs: [
+          "The chip is a small die on a 13.56 MHz loop. The phone powers that die through the loop. Open the loop and there is no resonance, no power, and no answer. The silicon can still be intact. The NFC function is gone because the antenna is gone.",
+          "This is a one-way mechanical cut. It is not a locked NDEF page and it is not a SUN reject. Those tags still answer the phone; the server then refuses the URL. A torn antenna never gets that far. Read it before the peel. Read it after. The second tap should fail on a phone, the way a customer peels a bottle, not only on a lab reader held 1 cm away.",
+        ],
+      },
+      {
+        heading: "Where the construction belongs",
+        paragraphs: [
+          "Use it on a seal that must not move onto another bottle, carton, or asset. The face stock is weak, the adhesive is strong, and the antenna crosses the tear path. Name the surface in the RFQ — glass, PET, or carton. On oil or dust the whole label can lift and the coil survives, which misses the point.",
+        ],
+      },
+      {
+        heading: "Same antenna, pick the IC",
+        paragraphs: [
+          "The fragile coil does not care which die is bonded to it. NTAG213, NTAG215 and NTAG216 are the usual static-URL parts; pick the memory size and keep the same tear pattern. MIFARE Ultralight covers cheap tickets and short NDEF. MIFARE DESFire is the same label when the job is AES files instead of a URL. NTAG 424 DNA is the same label again when each tap must carry a SUN counter and AES-CMAC, so a photo of the link fails on the server. MIFARE Classic and other 13.56 MHz parts sit on this antenna too — name the IC on the RFQ.",
+          "The antenna stops someone moving the real sticker onto another pack. The IC decides what a successful tap means. A wet inlay built to survive lamination is a different stack. If the label has to die on peel, write fragile antenna, then the chip.",
+        ],
+      },
+      {
+        heading: "What to send with the quote",
+        items: [
+          "Where it sticks, and whether the peel is a customer opening or a transfer onto another pack.",
+          "Which IC: NTAG213 / 215 / 216, MIFARE Ultralight, DESFire, NTAG 424 DNA, or another 13.56 MHz part.",
+          "A sample of the real surface. Read on a phone before the peel and after.",
+        ],
+        links: [
+          { label: "NTAG213 / 215 / 216", href: "/en/products/ntag213-215-216" },
+          { label: "MIFARE Ultralight", href: "/en/products/mifare-ultralight" },
+          { label: "MIFARE DESFire EV2 / EV3", href: "/en/products/mifare-desfire-ev3" },
+          { label: "NTAG 424 DNA tags", href: "/en/products/ntag424-dna" },
+          { label: "Card factory: labels and cards", href: "/en/products/nfc-labels-and-cards" },
+        ],
+      },
+    ],
+    zh: {
+      title: "防撕天线 NFC 标签：撕开线圈就断",
+      excerpt:
+        "防撕天线 NFC 标签一撕线圈就断，可配 NTAG213/215/216、MIFARE 或 NTAG 424 DNA。手机随后读不到。",
+      cat: "Security",
+      body: [
+        {
+          text: "防撕天线 NFC 标签把线圈做成整张贴纸里最弱的部分。同一套天线可以焊 NTAG213、NTAG215、NTAG216、MIFARE Ultralight、DESFire、NTAG 424 DNA，或其他 13.56 MHz 芯片。胶比走线更牢。揭开、撕扯、掀一个角，回路就开路。一秒前还能读到的手机，现在什么都看不到。",
+        },
+        {
+          video: {
+            youtubeId: "e6aD4nxIWqw",
+            title: "揭开这张 NFC 标签，天线断开，手机不再读到。",
+            url: "https://www.youtube.com/shorts/e6aD4nxIWqw",
+          },
+        },
+        {
+          heading: "断的是天线",
+          paragraphs: [
+            "芯片是 13.56 MHz 回路上的一颗小硅片。手机靠这个回路给芯片供电。回路一开，没有谐振，没有能量，也没有应答。硅片可以还是完好的。NFC 坏掉，是因为天线没了。",
+            "这是一次性的机械切断。不是锁住的 NDEF，也不是 SUN 校验失败。后两种标签手机仍然读得到，然后服务器拒绝链接。天线撕断之后，会话根本开始不了。撕之前用手机读一次，按消费者开瓶的方式撕开，再读一次。第二次应该失败。不要只拿实验室读头贴在 1 厘米处当结论。",
+          ],
+        },
+        {
+          heading: "用在不能被揭走的封口上",
+          paragraphs: [
+            "瓶、纸箱、资产标，凡是这张标签不能被揭下来贴到另一件东西上，就用这种结构。面材弱，胶强，天线穿过撕裂路径。询价写明表面：玻璃、PET 还是纸箱。油和灰上整张标可能被揭起来，线圈还在，那就没起到作用。",
+          ],
+        },
+        {
+          heading: "同一套天线，芯片另选",
+          paragraphs: [
+            "防撕线圈不挑焊在上面的芯片。NTAG213、NTAG215、NTAG216 是常见的静态 URL，按容量选，撕裂路径不变。MIFARE Ultralight 做低成本票和短 NDEF。要的是 AES 文件而不是一条网址时，同一张标签换 MIFARE DESFire。每次读取要带 SUN 计数器和 AES-CMAC、拍下来的链接过不了服务器，就换 NTAG 424 DNA。MIFARE Classic 和其他 13.56 MHz 芯片也走这套天线，询价写明型号。",
+            "天线挡住的是把真贴纸揭去贴到另一包。芯片决定一次成功读取代表什么。为了过层压而做的湿 Inlay 是另一种结构。要一撕就坏，询价先写防撕天线，再写芯片。",
+          ],
+        },
+        {
+          heading: "询价时写上这些",
+          items: [
+            "贴在什么上面，撕开是消费者开启，还是有人想把标签挪到另一包。",
+            "芯片：NTAG213 / 215 / 216、MIFARE Ultralight、DESFire、NTAG 424 DNA，或其他 13.56 MHz 型号。",
+            "寄一片真实表面。用手机在撕开前、撕开后各读一次。",
+          ],
+          links: [
+            { label: "NTAG213 / 215 / 216", href: "/zh/products/ntag213-215-216" },
+            { label: "MIFARE Ultralight", href: "/zh/products/mifare-ultralight" },
+            { label: "MIFARE DESFire EV2 / EV3", href: "/zh/products/mifare-desfire-ev3" },
+            { label: "NTAG 424 DNA 标签", href: "/zh/products/ntag424-dna" },
+            { label: "卡厂：标签与卡", href: "/zh/products/nfc-labels-and-cards" },
+          ],
+        },
+      ],
+    },
   },
 ];
 

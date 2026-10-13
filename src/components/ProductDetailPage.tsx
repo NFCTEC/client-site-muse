@@ -45,7 +45,7 @@ function CtaLink({
     );
   }
   return (
-    <Link to="/$locale/contact" params={{ locale }} className={className}>
+    <Link to="/$locale/inquiry" params={{ locale }} className={className}>
       {label}
     </Link>
   );
@@ -68,7 +68,7 @@ export function ProductDetailPage({ product, locale }: { product: CmsProduct; lo
 
   const primaryCta = product.ctaUrl
     ? { url: product.ctaUrl, label: product.ctaLabel ?? t("Learn more", "了解更多") }
-    : { url: "/contact", label: t("Request a Quote", "获取报价") };
+    : { url: "/inquiry", label: t("Request a Quote", "获取报价") };
 
   const secondaryCta =
     product.secondaryCtaUrl && product.secondaryCtaLabel
@@ -275,7 +275,7 @@ export function ProductDetailPage({ product, locale }: { product: CmsProduct; lo
           </h2>
           <div className="mt-8 flex justify-center gap-3 flex-wrap">
             <Link
-              to="/$locale/contact"
+              to="/$locale/inquiry"
               params={{ locale }}
               className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3 text-sm font-medium shadow-glow hover:opacity-90 transition-opacity"
             >

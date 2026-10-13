@@ -355,26 +355,26 @@ export const t: Dict = {
     zh: "支持。针对银行、政府等受监管行业,我们以容器化本地一体机形式交付完整技术栈,可对接客户自有 HSM。",
   },
 
-  // Contact FAQ
-  "faq.c1.q": { en: "How fast will I get a reply?", zh: "多久能收到回复?" },
+  // Contact FAQ — product support for items already purchased
+  "faq.c1.q": { en: "How fast will I get a reply?", zh: "多久能收到回复？" },
   "faq.c1.a": {
-    en: "Engineering inquiries submitted through the contact form are answered by email within one business day (China Standard Time).",
-    zh: "通过联系表单提交的工程咨询，我们将在一个工作日内（北京时间）通过邮件回复。",
+    en: "Support mail sent from this form is answered within one business day (China Standard Time).",
+    zh: "从这个表单发出的支持邮件，我们在一个工作日内回复（北京时间）。",
   },
-  "faq.c2.q": { en: "Can I request samples?", zh: "可以申请样品吗?" },
+  "faq.c2.q": { en: "The product does not work. What should I send?", zh: "产品用不了，要写什么？" },
   "faq.c2.a": {
-    en: "Yes. Evaluation samples of readers, cards and modules are available. Mention the target application and quantity in the message field.",
-    zh: "可以。读卡器、卡片、模组均可提供评估样品。请在留言中说明目标应用和数量。",
+    en: "The name printed on the package, and what happens when you use it. If the box included an instruction sheet, say which step failed.",
+    zh: "包装上印的名称，以及使用时发生了什么。盒子里如果有说明书，写明卡在哪一步。",
   },
-  "faq.c3.q": { en: "Do you sign NDAs?", zh: "是否签署保密协议?" },
+  "faq.c3.q": { en: "Where do I ask about an Amazon order?", zh: "亚马逊订单问题在哪里问？" },
   "faq.c3.a": {
-    en: "Standard mutual NDA on request before we exchange chip specs, key material or firmware source.",
-    zh: "在交换芯片规格、密钥材料或固件源码前,可根据需要签署双向 NDA。",
+    en: "Refunds, returns, and delivery stay in Your Orders on Amazon. This page is only for how the product works.",
+    zh: "退款、退货和物流在亚马逊的“我的订单”里处理。这个页面只回答产品怎么用。",
   },
-  "faq.c4.q": { en: "Where do you ship from?", zh: "从哪里发货?" },
+  "faq.c4.q": { en: "What should I include?", zh: "留言里写什么？" },
   "faq.c4.a": {
-    en: "Hardware ships from Shenzhen, China with DHL / FedEx / UPS. Amazon-fulfilled options are available for US and EU buyers.",
-    zh: "硬件从中国深圳发货,支持 DHL / FedEx / UPS。美国与欧洲客户可选择 Amazon 直送。",
+    en: "The name printed on the package, and what happens when you use it. An Amazon order ID is optional and helps us match the item.",
+    zh: "包装上印的名称，以及使用时发生了什么。亚马逊订单号可以不填，填了便于对上具体那一件。",
   },
   "cloud.getStarted": { en: "Get Started Free", zh: "免费开始" },
   "cloud.s1.title": { en: "Connect any hardware", zh: "连接任意硬件" },
@@ -481,12 +481,33 @@ export const t: Dict = {
     zh: "本站页面、工具和文件用于评估。项目只在另行书面约定后开始。规格书、SDK 和示例代码遵循各自许可。公开网站上的内容不是认证、保证或已完成的交付。",
   },
 
-  // Contact
-  "contact.eyebrow": { en: "Contact", zh: "联系我们" },
-  "contact.title": { en: "Tell us what\nyou're building.", zh: "告诉我们\n您要做什么产品。" },
+  // Contact — support entrance printed on products
+  "contact.eyebrow": { en: "Product support", zh: "产品支持" },
+  "contact.title": { en: "Help with a product\nyou already have.", zh: "已经买到的产品，\n在这里问。" },
   "contact.sub": {
-    en: "Software, hardware or cloud — submit your project details and our engineers will reply by email within one business day.",
-    zh: "软件、硬件或云服务 — 提交项目信息后，我们的工程师将在 1 个工作日内通过邮件回复。",
+    en: "This page is for a product you already bought. We reply by email within one business day. Refunds, returns, and delivery stay in your Amazon order.",
+    zh: "这一页处理已经买到的产品怎么用。我们在一个工作日内用邮件回复。退款、退货和物流留在亚马逊订单里。",
+  },
+  "contact.help.title": { en: "Before you write", zh: "写信之前" },
+  "contact.help.read": {
+    en: "Use the name printed on the package. Describe what you expected, and what the product does instead.",
+    zh: "用包装上印的名称。写明你预期它做什么，以及实际发生了什么。",
+  },
+  "contact.help.peel": {
+    en: "If the box included an instruction sheet, follow those steps first. Write to us when those steps do not fix it.",
+    zh: "盒子里如果有说明书，先按上面的步骤做。步骤做完仍不行，再写到这里。",
+  },
+  "contact.order": { en: "Amazon order ID (optional)", zh: "亚马逊订单号（选填）" },
+  "contact.issue": { en: "What do you need help with?", zh: "需要哪一类帮助？" },
+  "contact.issue.read": { en: "It does not work", zh: "无法使用" },
+  "contact.issue.use": { en: "How to use it", zh: "怎么使用" },
+  "contact.issue.damage": { en: "Damaged or incomplete", zh: "损坏或缺件" },
+  "contact.issue.other": { en: "Something else about this product", zh: "这件产品的其他问题" },
+  "contact.desc": { en: "What happened", zh: "发生了什么" },
+  "contact.submit": { en: "Email support", zh: "发给支持" },
+  "contact.success": {
+    en: "Received. We reply by email within one business day. Order changes stay in Amazon.",
+    zh: "已收到。我们在一个工作日内用邮件回复。订单变更仍在亚马逊处理。",
   },
   "form.projectType": { en: "Project type", zh: "项目类型" },
   "form.type.sw": { en: "Software development", zh: "软件开发" },
@@ -514,7 +535,33 @@ export const t: Dict = {
     zh: "感谢提交！我们已收到您的需求，将在 1 个工作日内通过邮件回复。",
   },
   "form.mailto.hint": { en: "If nothing opened, email us directly at", zh: "如未自动打开，请直接发送邮件至" },
-  "contact.support": { en: "Support / Inquiries", zh: "客服 / 询盘" },
+  "project.eyebrow": { en: "Contact", zh: "联系" },
+  "project.title": { en: "Tell us what\nyou're building.", zh: "告诉我们\n您要做什么产品。" },
+  "project.sub": {
+    en: "Software, hardware or cloud — submit your project details and our engineers will reply by email within one business day.",
+    zh: "软件、硬件或云端项目，提交需求后工程师会在一个工作日内用邮件回复。",
+  },
+  "faq.in1.q": { en: "How fast will I get a reply?", zh: "多久能收到回复？" },
+  "faq.in1.a": {
+    en: "Inquiries from this form are answered by email within one business day (China Standard Time).",
+    zh: "从这个表单提交的询盘，我们在一个工作日内用邮件回复（北京时间）。",
+  },
+  "faq.in2.q": { en: "Can I request samples?", zh: "可以要样品吗？" },
+  "faq.in2.a": {
+    en: "Yes. Include the chip, form factor and quantity in the description.",
+    zh: "可以。在项目描述里写上芯片、形态和数量。",
+  },
+  "faq.in3.q": { en: "Do you sign NDAs?", zh: "可以签保密协议吗？" },
+  "faq.in3.a": {
+    en: "Yes. We sign an NDA before drawings, keys or unreleased designs are exchanged.",
+    zh: "可以。图纸、密钥或未公开设计交换之前，我们签保密协议。",
+  },
+  "faq.in4.q": { en: "Where do you ship from?", zh: "从哪里发货？" },
+  "faq.in4.a": {
+    en: "Factory shipments leave from Shenzhen, China.",
+    zh: "工厂发货从中国深圳发出。",
+  },
+  "contact.support": { en: "Product support", zh: "产品支持" },
   "contact.sales": { en: "Sales", zh: "销售" },
   "contact.addr": { en: "Headquarters", zh: "总部地址" },
 };

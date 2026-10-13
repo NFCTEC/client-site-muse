@@ -15,6 +15,7 @@ const PATH_MODULE: Record<string, ModuleKey | undefined> = {
   "/downloads": "downloads",
   "/blog": "blog",
   "/contact": "contact",
+  "/inquiry": "contact",
 };
 
 export function Header() {
@@ -41,6 +42,8 @@ export function Header() {
 
   type NavItem = { path: string; label: string; key: "plain" | "products" | "solutions" };
 
+  const supportOnly = path === `/${locale}/contact` || path === `/${locale}/contact/`;
+
   const navItems = ([
     { path: "/", label: tr("nav.home"), key: "plain" },
     { path: "/products", label: tr("nav.products"), key: "products" },
@@ -49,13 +52,13 @@ export function Header() {
     { path: "/downloads", label: tr("nav.downloads"), key: "plain" },
     { path: "/blog", label: tr("nav.blog"), key: "plain" },
     { path: "/about", label: tr("nav.about"), key: "plain" },
-    { path: "/contact", label: tr("nav.contact"), key: "plain" },
+    { path: "/inquiry", label: tr("nav.contact"), key: "plain" },
   ] as NavItem[]).filter((item) => {
     if (item.path === "/") return true;
     const mod = PATH_MODULE[item.path];
     if (!mod || !displayConfig) return true;
     return isModuleInNav(displayConfig, mod);
-  });
+  }).filter((item) => !supportOnly);
 
   const isActive = (p: string) => {
     const full = localePath(locale, p);
@@ -65,9 +68,15 @@ export function Header() {
   return (
     <header className="fixed top-0 inset-x-0 z-50 backdrop-blur-xl bg-background/80 border-b border-border">
       <div className="mx-auto max-w-7xl px-6 lg:px-10 h-[4.25rem] flex items-center justify-between">
-        <Link to="/$locale" params={{ locale }} className="flex items-center shrink-0" aria-label="NFCTEC home">
-          <Logo className="h-11 sm:h-12 w-auto max-w-[min(100vw-8rem,280px)]" />
-        </Link>
+        {supportOnly ? (
+          <span className="flex items-center shrink-0" aria-label="NFCTEC">
+            <Logo className="h-11 sm:h-12 w-auto max-w-[min(100vw-8rem,280px)]" />
+          </span>
+        ) : (
+          <Link to="/$locale" params={{ locale }} className="flex items-center shrink-0" aria-label="NFCTEC home">
+            <Logo className="h-11 sm:h-12 w-auto max-w-[min(100vw-8rem,280px)]" />
+          </Link>
+        )}
 
         <nav className="hidden lg:flex items-center gap-7">
           {navItems.map((l) => {
@@ -214,13 +223,15 @@ export function Header() {
               );
             })}
           </div>
-          <button
-            onClick={() => setOpen(!open)}
-            className="lg:hidden p-2 -mr-2 text-foreground"
-            aria-label="Menu"
-          >
-            {open ? <X size={20} /> : <Menu size={20} />}
-          </button>
+          {!supportOnly && (
+            <button
+              onClick={() => setOpen(!open)}
+              className="lg:hidden p-2 -mr-2 text-foreground"
+              aria-label="Menu"
+            >
+              {open ? <X size={20} /> : <Menu size={20} />}
+            </button>
+          )}
         </div>
       </div>
 

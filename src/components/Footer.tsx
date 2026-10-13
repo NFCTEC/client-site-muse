@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useRouterState } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
 import { useLocale } from "@/hooks/useLocale";
 import { Youtube, ShoppingBag, Mail } from "lucide-react";
@@ -11,6 +11,8 @@ const YOUTUBE_URL = "https://www.youtube.com/@NFCTEC";
 export function Footer() {
   const { tr } = useI18n();
   const locale = useLocale();
+  const path = useRouterState({ select: (s) => s.location.pathname });
+  const supportOnly = path === `/${locale}/contact` || path === `/${locale}/contact/`;
 
   type FooterLink =
     | { to: "/$locale/products/$slug"; label: string; slug: string }
@@ -24,7 +26,7 @@ export function Footer() {
       links: [
         { to: "/$locale/about", label: tr("nav.about") },
         { to: "/$locale/blog", label: tr("nav.blog") },
-        { to: "/$locale/contact", label: tr("nav.contact") },
+        { to: "/$locale/inquiry", label: tr("nav.contact") },
         { to: "/$locale/privacy", label: tr("nav.privacy") },
         { to: "/$locale/terms", label: tr("nav.terms") },
         { href: YOUTUBE_URL, label: "YouTube" },
@@ -36,6 +38,7 @@ export function Footer() {
       links: [
         { to: "/$locale/products/$slug", label: "Custom cards & wristbands", slug: "nfc-labels-and-cards" },
         { to: "/$locale/products/$slug", label: "NTAG213 / 215 / 216", slug: "ntag213-215-216" },
+        { to: "/$locale/products/$slug", label: "NTAG 424 DNA", slug: "ntag424-dna" },
         { to: "/$locale/products/$slug", label: "Ultralight EV1 / C", slug: "mifare-ultralight" },
         { to: "/$locale/products/$slug", label: "DESFire EV2 / EV3", slug: "mifare-desfire-ev3" },
         { to: "/$locale/products/$slug", label: "J3R452 JavaCard", slug: "j3r452-javacard" },
@@ -68,27 +71,50 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-6 lg:px-10 pt-10 pb-16">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-5">
           <div className="lg:col-span-1">
-            <Link to="/$locale" params={{ locale }}>
-              <Logo className="h-12 w-auto max-w-[260px]" />
-            </Link>
-            <p className="mt-4 text-sm text-muted-foreground max-w-xs leading-relaxed">
-              {tr("brand.tagline")}
-            </p>
+            {supportOnly ? (
+              <span>
+                <Logo className="h-12 w-auto max-w-[260px]" />
+              </span>
+            ) : (
+              <Link to="/$locale" params={{ locale }}>
+                <Logo className="h-12 w-auto max-w-[260px]" />
+              </Link>
+            )}
+            {!supportOnly && (
+              <p className="mt-4 text-sm text-muted-foreground max-w-xs leading-relaxed">
+                {tr("brand.tagline")}
+              </p>
+            )}
             <p className="mt-6 text-xs font-mono text-muted-foreground">{tr("foot.addr")}</p>
             <div className="mt-5 flex items-center gap-2.5">
               <a href={`mailto:${SUPPORT_EMAIL}`} aria-label="Email Support" className="w-9 h-9 grid place-items-center rounded-full border border-border bg-surface/60 text-muted-foreground hover:text-primary hover:border-primary/40 transition-colors">
                 <Mail size={15} />
               </a>
-              <a href={AMAZON_STORE} target="_blank" rel="noreferrer" aria-label="Amazon Store" className="w-9 h-9 grid place-items-center rounded-full border border-border bg-surface/60 text-muted-foreground hover:text-[#FF9900] hover:border-[#FF9900]/40 transition-colors">
-                <ShoppingBag size={15} />
-              </a>
-              <a href={YOUTUBE_URL} target="_blank" rel="noreferrer" aria-label="YouTube" className="w-9 h-9 grid place-items-center rounded-full border border-border bg-surface/60 text-muted-foreground hover:text-[#FF0000] hover:border-[#FF0000]/40 transition-colors">
-                <Youtube size={15} />
-              </a>
+              {!supportOnly && (
+                <>
+                  <a href={AMAZON_STORE} target="_blank" rel="noreferrer" aria-label="Amazon Store" className="w-9 h-9 grid place-items-center rounded-full border border-border bg-surface/60 text-muted-foreground hover:text-[#FF9900] hover:border-[#FF9900]/40 transition-colors">
+                    <ShoppingBag size={15} />
+                  </a>
+                  <a href={YOUTUBE_URL} target="_blank" rel="noreferrer" aria-label="YouTube" className="w-9 h-9 grid place-items-center rounded-full border border-border bg-surface/60 text-muted-foreground hover:text-[#FF0000] hover:border-[#FF0000]/40 transition-colors">
+                    <Youtube size={15} />
+                  </a>
+                </>
+              )}
             </div>
           </div>
 
-          {cols.map((c) => (
+          {(supportOnly
+            ? [
+                {
+                  title: tr("foot.company"),
+                  links: [
+                    { to: "/$locale/privacy", label: tr("nav.privacy") },
+                    { to: "/$locale/terms", label: tr("nav.terms") },
+                  ] as FooterLink[],
+                },
+              ]
+            : cols
+          ).map((c) => (
             <div key={c.title}>
               <h4 className="font-display text-sm font-semibold mb-4 text-foreground">{c.title}</h4>
               <ul className="space-y-2.5 text-sm text-muted-foreground">
@@ -119,7 +145,17 @@ export function Footer() {
         </div>
 
         <div className="mt-12 pt-6 border-t border-border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-          <p className="text-xs text-muted-foreground font-mono">{tr("foot.rights")}</p>
+          <p className="text-xs text-muted-foreground font-mono">
+            {tr("foot.rights")}
+            {!supportOnly && (
+              <>
+                <span className="mx-2 text-muted-foreground/40">·</span>
+                <Link to="/$locale/contact" params={{ locale }} className="hover:text-foreground">
+                  {tr("contact.support")}
+                </Link>
+              </>
+            )}
+          </p>
           <p className="text-xs text-muted-foreground font-mono">
             ISO 9001 · PCI-PTS · EMV L1/L2 · NXP Partner
           </p>

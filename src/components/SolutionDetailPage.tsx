@@ -192,7 +192,7 @@ export function SolutionDetailPage({
           <div className="relative rounded-3xl border border-primary/30 bg-card-gradient p-10 lg:p-12 text-center overflow-hidden shadow-glow">
             <h2 className="font-display text-2xl lg:text-3xl tracking-tight">{zh ? "技术对接" : "Technical enquiry"}</h2>
             <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-              <Link to="/$locale/contact" params={{ locale }} className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3 text-sm font-semibold hover:shadow-glow-strong transition-all">
+              <Link to="/$locale/inquiry" params={{ locale }} className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3 text-sm font-semibold hover:shadow-glow-strong transition-all">
                 {tr("cta.btn")} <ArrowRight size={16} />
               </Link>
               <Link to="/$locale/solutions" params={{ locale }} className="inline-flex items-center gap-2 rounded-full border border-border-strong bg-background/60 backdrop-blur px-6 py-3 text-sm font-medium hover:border-primary hover:text-primary transition-colors">

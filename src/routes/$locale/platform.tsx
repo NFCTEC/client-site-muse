@@ -78,7 +78,7 @@ function Platform() {
 
   const primaryActions = (
     <Link
-      to="/$locale/contact"
+      to="/$locale/inquiry"
       params={{ locale }}
       className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3 text-sm font-semibold hover:opacity-90 transition-opacity"
     >

@@ -47,21 +47,29 @@ export const PRODUCT_FAQS: Record<string, Record<Locale, { q: string; a: string 
     en: [
       {
         q: "Is NTAG 424 DNA the same as NTAG215?",
-        a: "No. NTAG215 is Type 2 with a static NDEF. NTAG 424 DNA is Type 4 with AES-128 and SDM/SUN CMAC URLs so a copied link can be rejected on the server.",
+        a: "No. NTAG215 is a Type 2 tag with a static NDEF URL. NTAG 424 DNA is Type 4: each tap can build a SUN URL with the UID, a read counter and an AES-CMAC. A photo of an NTAG215 link still works. A replayed NTAG 424 DNA link fails if the server checks the counter.",
+      },
+      {
+        q: "Does NTAG 424 DNA SUN need an app?",
+        a: "No. The phone's built-in NFC opens the HTTPS link. The tag creates the CMAC. Your server verifies it. The phone does not.",
       },
       {
         q: "Can you encode SUN / SDM before shipping?",
-        a: "Yes. We can set SDM files, keys and the NDEF template, or ship blank for your own HSM line.",
+        a: "Yes. We can set the NDEF template, SDM mirror offsets and per-UID AES keys, or ship blank wet inlay, sticker or PVC for your own line.",
       },
     ],
     zh: [
       {
         q: "NTAG 424 DNA 和 NTAG215 一样吗？",
-        a: "不一样。NTAG215 是 Type 2 静态 NDEF。NTAG 424 DNA 是 Type 4，带 AES-128 和 SDM/SUN CMAC，服务器可拒绝被复制的链接。",
+        a: "不一样。NTAG215 是 Type 2，NDEF URL 是静态的。NTAG 424 DNA 是 Type 4，每次拍卡可以生成带 UID、读计数器和 AES-CMAC 的 SUN 链接。NTAG215 的链接拍下来还能用。NTAG 424 DNA 的链接如果服务器核对了计数器，再打开就会失败。",
+      },
+      {
+        q: "NTAG 424 DNA 的 SUN 要装 App 吗？",
+        a: "不用。手机自带 NFC 打开 HTTPS。CMAC 由标签生成，由你们的服务器验证。手机不验证。",
       },
       {
         q: "能出厂做 SUN / SDM 编码吗？",
-        a: "可以。可配置 SDM 文件、密钥和 NDEF 模板，或空白交付接入你们的 HSM 线。",
+        a: "可以。可写 NDEF 模板、SDM 镜像偏移和按 UID 分散的 AES 密钥，也可交空白湿 Inlay、贴纸或 PVC，接到你们自己的产线。",
       },
     ],
   },
@@ -134,44 +142,52 @@ export const PRODUCT_FAQS: Record<string, Record<Locale, { q: string; a: string 
   "j3r452-javacard": {
     en: [
       {
-        q: "Is J3R452 the same as J3R180 with more memory?",
-        a: "No. J3R452 is JCOP 4.5 on SmartMX3 P71D600, FLASH ~450 KB class before add-ons, GP 2.3.1, contactless Type A and Type B. J3R180 is JCOP 4 on the P71D321 SECID line, 180 kB class, contactless Type A.",
+        q: "Does J3R452 support Ed25519?",
+        a: "Yes. JCOP 4.5 on P71D600 can generate an Ed25519 key and sign or verify per RFC 8032, and do X25519 / Curve448 key agreement. Java Card 3.0.5 has no standard Ed25519 algorithm id, so the applet calls the NXP extension. JCOP 4 J3R180 does not have Ed25519.",
       },
       {
-        q: "What is the 450 KB figure?",
-        a: "NXP’s available FLASH before MIFARE implementations, applets and OS add-ons. Loaded cards have less free NVM. Quote the configuration.",
+        q: "Is J3R452 just a larger J3R180?",
+        a: "No. J3R452 is JCOP 4.5 on P71D600: on-card Ed25519, ~450 KB FLASH class, GP 2.3.1, contactless Type A and Type B. J3R180 is JCOP 4 on P71D321: AES / RSA / NIST ECC only, 180 kB class, Type A.",
       },
     ],
     zh: [
       {
-        q: "J3R452 就是容量更大的 J3R180 吗？",
-        a: "不是。J3R452 是 P71D600 上的 JCOP 4.5，加载插件前 FLASH 约 450 KB，GP 2.3.1，非接 Type A 和 Type B。J3R180 是 P71D321 SECID 线上的 JCOP 4，180 kB 档，非接 Type A。",
+        q: "J3R452 支持 Ed25519 吗？",
+        a: "支持。P71D600 上的 JCOP 4.5 可片上生成 Ed25519 密钥，并按 RFC 8032 签名、验签，也可做 X25519 / Curve448 密钥协商。Java Card 3.0.5 没有标准 Ed25519 算法号，应用要调 NXP 扩展。JCOP 4 的 J3R180 没有 Ed25519。",
       },
       {
-        q: "450 KB 是空闲空间吗？",
-        a: "是 NXP 在加载 MIFARE 实现、应用、OS 插件之前的 FLASH。装载后空闲 NVM 更小。询价请写配置。",
+        q: "J3R452 就是容量更大的 J3R180 吗？",
+        a: "不是。J3R452 是 P71D600 上的 JCOP 4.5：片上 Ed25519、FLASH 约 450 KB、GP 2.3.1、非接 Type A 和 Type B。J3R180 是 P71D321 上的 JCOP 4：只有 AES / RSA / NIST ECC，180 kB 档，非接 Type A。",
       },
     ],
   },
   "j3r180-javacard": {
     en: [
       {
+        q: "Does J3R180 support Ed25519?",
+        a: "No. JCOP 4 gives AES-128/192/256, RSA to 4096, and ECDSA/ECDH on NIST and Brainpool curves up to 521 bits. Ed25519 and X25519 are on J3R452 (JCOP 4.5).",
+      },
+      {
         q: "Where can I buy J3R180?",
-        a: "Lab packs: Amazon US B0HD7Z44HJ (dual-interface, that listing has no magstripe). Volume PVC from NFCTEC. J3R180 is JCOP 4 P71 / P71D321, JC 3.0.5 Classic, GP 2.3, 180 kB FLASH class, Type A contactless.",
+        a: "Lab packs: Amazon US B0HD7Z44HJ (dual-interface, that listing has no magstripe). Volume PVC from NFCTEC.",
       },
       {
         q: "J3R180 vs J3R452 vs J2A040?",
-        a: "J2A040: JCOP 2.4.1, P5CC040, JC 2.2.2, GP 2.1.1, contact only, ~40 KB EEPROM. J3R180: JCOP 4, 180 kB class, DIF Type A. J3R452: JCOP 4.5, P71D600, ~450 KB class, DIF Type A+B.",
+        a: "J2A040: JCOP 2.4.1, P5CC040, JC 2.2.2, contact only, ~40 KB, no SCP03. J3R180: JCOP 4, 180 kB, Type A, AES/RSA/NIST ECC, no Ed25519. J3R452: JCOP 4.5, ~450 KB, Type A+B, on-card Ed25519.",
       },
     ],
     zh: [
       {
+        q: "J3R180 支持 Ed25519 吗？",
+        a: "不支持。JCOP 4 提供 AES-128/192/256、RSA 至 4096，以及 NIST 与 Brainpool 上最高 521 位的 ECDSA/ECDH。Ed25519 和 X25519 在 J3R452（JCOP 4.5）。",
+      },
+      {
         q: "J3R180 在哪买？",
-        a: "实验室用卡：美国 Amazon B0HD7Z44HJ（双界面，该链接无磁条）。批量 PVC 询 NFCTEC。J3R180 是 JCOP 4 P71 / P71D321，JC 3.0.5 Classic，GP 2.3，FLASH 180 kB 档，非接 Type A。",
+        a: "实验室用卡：美国 Amazon B0HD7Z44HJ（双界面，该链接无磁条）。批量 PVC 询 NFCTEC。",
       },
       {
         q: "J3R180、J3R452、J2A040 怎么分？",
-        a: "J2A040：JCOP 2.4.1、P5CC040、JC 2.2.2、GP 2.1.1、仅接触、EEPROM 约 40 KB。J3R180：JCOP 4、180 kB 档、双界面 Type A。J3R452：JCOP 4.5、P71D600、约 450 KB 档、双界面 Type A+B。",
+        a: "J2A040：JCOP 2.4.1、P5CC040、JC 2.2.2、仅接触、约 40 KB、无 SCP03。J3R180：JCOP 4、180 kB、Type A、AES/RSA/NIST ECC、无 Ed25519。J3R452：JCOP 4.5、约 450 KB、Type A+B、片上 Ed25519。",
       },
     ],
   },

@@ -108,7 +108,7 @@ function Downloads() {
               <FileArchive size={40} className="mx-auto text-muted-foreground mb-6" />
               <p className="text-muted-foreground max-w-md mx-auto leading-relaxed">{tr("dl.empty")}</p>
               <Link
-                to="/$locale/contact"
+                to="/$locale/inquiry"
                 params={{ locale }}
                 className="mt-8 inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3 text-sm font-semibold hover:opacity-90 transition-opacity"
               >

@@ -285,7 +285,7 @@ function Home() {
       : modules.products
         ? { to: "/$locale/products" as const, label: tr("hero.cta1"), params: { locale } }
         : modules.contact
-          ? { to: "/$locale/contact" as const, label: tr("nav.getQuote"), params: { locale } }
+          ? { to: "/$locale/inquiry" as const, label: tr("nav.getQuote"), params: { locale } }
           : null;
 
   const pillarGridClass =
@@ -336,7 +336,7 @@ function Home() {
                 )}
                 {modules.contact && (
                   <Link
-                    to="/$locale/contact"
+                    to="/$locale/inquiry"
                     params={{ locale }}
                     className="inline-flex items-center gap-2 rounded-full border border-border-strong bg-surface/60 backdrop-blur px-6 py-3 text-sm font-medium hover:border-primary hover:text-primary transition-colors"
                   >
@@ -560,7 +560,7 @@ function Home() {
                 const linkProps = p.hasDetailPage
                   ? { to: "/$locale/products/$slug" as const, params: { locale, slug: p.slug } }
                   : modules.contact
-                    ? { to: "/$locale/contact" as const, params: { locale } }
+                    ? { to: "/$locale/inquiry" as const, params: { locale } }
                     : { to: "/$locale/products" as const, params: { locale } };
                 return (
                   <Link

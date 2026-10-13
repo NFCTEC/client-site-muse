@@ -2,11 +2,37 @@ import type { BlogSection } from "@/lib/blog-posts";
 import type { CmsPost } from "@/lib/cms";
 import { SolutionDiagram } from "@/components/SolutionDiagram";
 
+function YoutubeShort({ video }: { video: NonNullable<BlogSection["video"]> }) {
+  const id = /^[\w-]{11}$/.test(video.youtubeId) ? video.youtubeId : "";
+  if (!id) return null;
+  return (
+    <figure className="my-8 mx-auto w-full max-w-[280px]">
+      <div className="relative aspect-[9/16] overflow-hidden rounded-2xl border border-border bg-black">
+        <iframe
+          className="absolute inset-0 h-full w-full"
+          src={`https://www.youtube-nocookie.com/embed/${id}`}
+          title={video.title}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerPolicy="strict-origin-when-cross-origin"
+          allowFullScreen
+        />
+      </div>
+      <figcaption className="mt-3 text-center text-sm leading-relaxed text-muted-foreground">
+        {video.title}{" "}
+        <a href={video.url} className="text-primary hover:underline" rel="noopener noreferrer">
+          YouTube
+        </a>
+      </figcaption>
+    </figure>
+  );
+}
+
 function SectionBlock({ section }: { section: BlogSection }) {
   const paragraphs = section.paragraphs ?? (section.text ? [section.text] : []);
   return (
     <div>
       {section.figure ? <SolutionDiagram title={section.figure.title} lanes={section.figure.lanes} /> : null}
+      {section.video ? <YoutubeShort video={section.video} /> : null}
       {section.heading ? <h2 className="font-display text-2xl font-semibold mt-10 mb-3">{section.heading}</h2> : null}
       {paragraphs.map((paragraph) => (
         <p key={paragraph.slice(0, 48)} className="mb-4 text-base leading-relaxed text-foreground/90">
@@ -25,6 +51,17 @@ function SectionBlock({ section }: { section: BlogSection }) {
           <code>{section.code}</code>
         </pre>
       ) : null}
+      {section.links ? (
+        <ul className="mb-4 space-y-2 text-base leading-relaxed">
+          {section.links.map((link) => (
+            <li key={link.href}>
+              <a href={link.href} className="text-primary hover:underline">
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      ) : null}
     </div>
   );
 }
@@ -42,7 +79,7 @@ export function PostBody({ body }: { body: CmsPost["body"] }) {
   return (
     <div className="max-w-none">
       {(body as BlogSection[]).map((section, index) => (
-        <SectionBlock key={section.heading ?? section.figure?.title ?? index} section={section} />
+        <SectionBlock key={section.heading ?? section.video?.youtubeId ?? section.figure?.title ?? index} section={section} />
       ))}
     </div>
   );

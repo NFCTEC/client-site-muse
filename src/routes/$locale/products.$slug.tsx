@@ -31,10 +31,12 @@ export const Route = createFileRoute("/$locale/products/$slug")({
     const title = product?.seoTitle ?? (product ? `${product.name} — NFCTEC` : "Product — NFCTEC");
     const desc = product?.seoDescription ?? product?.description ?? "";
     const image = product ? resolveProductImage(product) : undefined;
+    const offerPath =
+      product?.ctaUrl && product.ctaUrl.startsWith("/") ? product.ctaUrl : "/contact";
     const offerUrl =
       product?.ctaUrl && /^https?:\/\//.test(product.ctaUrl)
         ? product.ctaUrl
-        : absLocaleUrl(locale, "/contact");
+        : absLocaleUrl(locale, offerPath);
     const faq = product ? productFaqJsonLd(product.slug, locale) : null;
     return {
       meta: socialMeta({
