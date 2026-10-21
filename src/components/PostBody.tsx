@@ -33,18 +33,32 @@ function SectionBlock({ section }: { section: BlogSection }) {
     <div>
       {section.figure ? <SolutionDiagram title={section.figure.title} lanes={section.figure.lanes} /> : null}
       {section.video ? <YoutubeShort video={section.video} /> : null}
-      {section.heading ? <h2 className="font-display text-2xl font-semibold mt-10 mb-3">{section.heading}</h2> : null}
+      {section.heading ? (
+        section.level === 3 ? (
+          <h3 className="font-display text-xl font-semibold mt-8 mb-2">{section.heading}</h3>
+        ) : (
+          <h2 className="font-display text-2xl font-semibold mt-10 mb-3">{section.heading}</h2>
+        )
+      ) : null}
       {paragraphs.map((paragraph) => (
         <p key={paragraph.slice(0, 48)} className="mb-4 text-base leading-relaxed text-foreground/90">
           {paragraph}
         </p>
       ))}
       {section.items ? (
-        <ul className="mb-4 list-disc space-y-2 pl-6 text-base leading-relaxed text-foreground/90">
-          {section.items.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
+        section.ordered ? (
+          <ol className="mb-4 list-decimal space-y-2 pl-6 text-base leading-relaxed text-foreground/90">
+            {section.items.map((item) => (
+              <li key={item} className="pl-1">{item}</li>
+            ))}
+          </ol>
+        ) : (
+          <ul className="mb-4 list-disc space-y-2 pl-6 text-base leading-relaxed text-foreground/90">
+            {section.items.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        )
       ) : null}
       {section.code ? (
         <pre className="mb-6 overflow-x-auto rounded-xl border border-border bg-background p-4 text-xs leading-relaxed font-mono text-foreground/90">

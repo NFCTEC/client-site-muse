@@ -173,7 +173,7 @@ export const EN: Record<string, SolutionEnrichment> = {
     body: `<h2>What the phone actually opens</h2>
 <p>QR has no counter and no CMAC. Putting a geo-fence on a static link does not prove the tag is real. The useful URL looks like this:</p>
 <pre><code>https://verify.example.com/a/{picc_data}?c={cmac}</code></pre>
-<p>The converter has to write NDEF <em>and</em> set SDM access rights. One AES key per UID. Wet inlay vs break-on-open is a packaging conversation before you order 200k, not after. We check mirrors and CMAC offset on phones sold in that market. Lab notes: <a href="/en/tools/ntag424-tool">NTAG424 DNA Tool</a>, <a href="/en/blog/ntag424-dna-sun-url-authentication-example">SUN authentication</a>.</p>
+<p>The converter has to write NDEF <em>and</em> set SDM access rights. One AES key per UID. Wet inlay vs break-on-open is a packaging conversation before you order 200k, not after. We check mirrors and CMAC offset on phones sold in that market. Lab notes: <a href="/en/tools/ntag424-tool">NTAG424 DNA Tool</a>, <a href="/en/blog/ntag424-dna-sun-url-authentication-example">SUN authentication</a>, <a href="/en/blog/encode-ntag424-dna-sun-keys-and-verification">SUN setup and key management</a>.</p>
 <h2>The server’s job</h2>
 <p>Load the key for that UID, recompute CMAC, confirm the counter increased. Replay of the same query string has to fail. Encoder “OK” without a passing phone tap and a failing replay is not a sample. Sampling hits the live API, not a second key that only exists in the lab.</p>
 <p>You do not need a consumer app — system NFC opens the browser. We still tap both major phone brands. Warranty or landing copy should follow that tap’s pass/fail, not a pretty 200 from the CDN.</p>`,
@@ -196,6 +196,7 @@ export const EN: Record<string, SolutionEnrichment> = {
     relatedLinks: [
       { title: "NTAG424 DNA Tool", href: "/en/tools/ntag424-tool" },
       { title: "SUN authentication", href: "/en/blog/ntag424-dna-sun-url-authentication-example" },
+      { title: "SUN setup and key management", href: "/en/blog/encode-ntag424-dna-sun-keys-and-verification" },
       { title: "NTAG 424 DNA", href: "/en/products/ntag424-dna" },
     ],
   },
@@ -657,7 +658,7 @@ export const ZH: Record<string, SolutionEnrichment> = {
     body: `<h2>手机到底打开什么</h2>
 <p>二维码没有计数器，也没有 CMAC。在静态链接上加个地理围栏，证明不了标签是真的。有用的地址大概长这样：</p>
 <pre><code>https://verify.example.com/a/{picc_data}?c={cmac}</code></pre>
-<p>转换厂要写 NDEF，还要把 SDM 权限打开。密钥按 UID 分散。湿法还是开瓶即毁，下 20 万之前谈，别下完再改。镜像和 CMAC 偏移用当地能买到的手机测。<a href="/zh/tools/ntag424-tool">NTAG424 DNA 工具</a>，<a href="/zh/blog/ntag424-dna-sun-url-authentication-example">SUN 验证</a>。</p>
+<p>转换厂要写 NDEF，还要把 SDM 权限打开。密钥按 UID 分散。湿法还是开瓶即毁，下 20 万之前谈，别下完再改。镜像和 CMAC 偏移用当地能买到的手机测。<a href="/zh/tools/ntag424-tool">NTAG424 DNA 工具</a>，<a href="/zh/blog/ntag424-dna-sun-url-authentication-example">SUN 验证</a>，<a href="/zh/blog/encode-ntag424-dna-sun-keys-and-verification">SUN 配置与密钥管理</a>。</p>
 <h2>服务器做什么</h2>
 <p>按 UID 取密钥，重算 CMAC，看计数器有没有加。同一查询串再来一次必须失败。编码机显示 OK，却没有一次真机通过、一次重放失败，那不叫抽检。抽检打线上接口，别用实验室里另一套密钥。</p>
 <p>不必做消费者 App，系统 NFC 会开浏览器。两大品牌的手机还是要点。保修文案跟着这次轻触的过/不过走，别只看 CDN 返回了个漂亮的 200。</p>`,
@@ -680,6 +681,7 @@ export const ZH: Record<string, SolutionEnrichment> = {
     relatedLinks: [
       { title: "NTAG424 DNA 工具", href: "/zh/tools/ntag424-tool" },
       { title: "SUN 验证", href: "/zh/blog/ntag424-dna-sun-url-authentication-example" },
+      { title: "SUN 配置与密钥管理", href: "/zh/blog/encode-ntag424-dna-sun-keys-and-verification" },
       { title: "NTAG 424 DNA", href: "/zh/products/ntag424-dna" },
     ],
   },

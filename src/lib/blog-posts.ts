@@ -5,9 +5,13 @@ export type DiagramLane = { name: string; nodes: string[] };
 
 export type BlogSection = {
   heading?: string;
+  /** 3 renders an h3 under the previous h2. Default is h2. */
+  level?: 2 | 3;
   text?: string;
   paragraphs?: string[];
   items?: string[];
+  /** Render items as a numbered list. */
+  ordered?: boolean;
   code?: string;
   figure?: { title: string; lanes: DiagramLane[] };
   video?: { youtubeId: string; title: string; url: string };
@@ -37,6 +41,237 @@ export type BlogPost = {
 
 export const posts: BlogPost[] = [
   ...engineeringNotes,
+  {
+    slug: "encode-ntag424-dna-sun-keys-and-verification",
+    cat: "Security",
+    date: "2026-10-21",
+    title: "How to Encode NTAG424 DNA Tags: SUN Setup, Key Management, and Server-Side Verification",
+    excerpt:
+      "Encode NTAG 424 DNA from a blank tag: where the AES keys live, how SDM offsets sit in the NDEF file, and how the server checks the SUN CMAC and counter.",
+    readMinutes: 11,
+    body: [
+      {
+        paragraphs: [
+          "Most NTAG 424 DNA tutorials end when the phone shows a URL with a CMAC in it. That is enough for a demo. It does not say where the keys live, how to derive them, or what happens when someone replays a captured URL. This note walks the chain in the order you would actually do it, from a blank tag to a verified tap.",
+          "The vectors below follow NXP AN12196. Session-key bytes and the CMAC truncation are the parts that fail a working tag when they are even slightly off.",
+        ],
+      },
+      {
+        heading: "Start by identifying the chip",
+        paragraphs: [
+          "Read the 7-byte UID and run GetVersion. Confirm the silicon is an NTAG 424 DNA before you write keys. A fresh tag has all five application keys, Key 0 through Key 4, set to sixteen zero bytes. Anyone with a reader can authenticate and rewrite it. The job of issuance is to leave that state.",
+        ],
+      },
+      {
+        heading: "Don't use one key for every tag",
+        paragraphs: [
+          "Derive a unique file-read key per tag from a master key and the tag's UID. That is key diversification. If someone extracts the keys from one tag, they get that tag and nothing else.",
+          "One key is the exception. When the PICC data is encrypted, the server does not know the UID until it decrypts that blob. AN12196 therefore says the SDM meta-read key must not be diversified on the UID. Keep that key as a system key, in the same place as the master, and diversify the SDM file-read key that produces the CMAC. Diversifying all five keys the same way makes the encrypted URL unverifiable.",
+          "The remaining question is where the master lives. Two setups cover it.",
+        ],
+      },
+      {
+        heading: "Cloud KMS as the root",
+        level: 3,
+        paragraphs: [
+          "Store the master as an HMAC key inside the KMS. To get a tag's file-read key, send a fixed label, the UID and the key number to the KMS, take the first 16 bytes of the HMAC, and run the AES operations in your own code. The KMS does not need AES-CMAC. It only protects the master. Issuer and verifier must call the same function. This is an application KDF, not the session vector in AN12196.",
+          "The cost is one network call per derivation. Measure latency, quotas and what you are willing to cache before you put this on a high-traffic verify path. Caching a per-tag key means that key now lives outside the KMS. Decide that on purpose.",
+        ],
+      },
+      {
+        heading: "A JavaCard key-management applet",
+        level: 3,
+        paragraphs: [
+          "This is the better fit for offline issuance. Generate the master inside the applet. It never leaves the card. If the card has no native CMAC, build CMAC on single-block AES. The key object stays on the card either way. The issuance workstation receives only the derived keys for the tag in front of it. The applet can go further and run the EV2 handshake itself, and hand the workstation session keys only. Throughput is the limit, so plan on several readers in parallel.",
+          "The two can be combined: issue with the JavaCard, verify with the KMS. That requires a key ceremony to put the same master in both places. Split shares, more than one person present, nothing written to disk. Skip the ceremony and the two sides will not derive the same tag keys.",
+        ],
+      },
+      {
+        heading: "The order of operations matters",
+        paragraphs: [
+          "AuthenticateEV2First uses Key 0. Changing that key ends the session. Anything still unwritten after that point needs the new Key 0, and a mistake in the new key is a tag you cannot open again.",
+        ],
+        ordered: true,
+        items: [
+          "Authenticate with the default Key 0 (AuthenticateEV2First).",
+          "Change Keys 1 to 4 first. Put the meta-read key and the diversified file-read key in the slots SDM will use.",
+          "Configure SDM on the NDEF file and write the NDEF template.",
+          "Change Key 0 last.",
+          "Re-authenticate with the new Key 0, read back the file settings and key versions, then tap with a phone and confirm the server accepts it.",
+        ],
+      },
+      {
+        paragraphs: [
+          "Do that readback before the tag leaves the bench. A wrong SDM offset is not visible on the tag. The phone still opens a URL. The server rejects every tap, and you only get another chance if you still have the new Key 0.",
+        ],
+      },
+      {
+        heading: "SDM and the NDEF template",
+        paragraphs: [
+          "Write a URL with two placeholders. On every read the chip overwrites both with live values. ChangeFileSettings takes the byte offset of each placeholder.",
+        ],
+        code: "https://example.com/v?p=00000000000000000000000000000000&m=0000000000000000",
+      },
+      {
+        paragraphs: [
+          "p is the encrypted PICC data, 16 bytes, 32 hex characters. m is the truncated CMAC, 8 bytes, 16 hex characters.",
+          "Offsets are counted from byte 0 of the NDEF file, not from the start of the URL string. The file begins with the 2-byte NLEN, then the NDEF record header, then the URI payload. An offset that points at the URL in a text editor is short by that prefix. The CMAC input is then the wrong bytes, the MAC never matches, and the chip returns no error to explain it.",
+        ],
+      },
+      {
+        heading: "Verifying on the server",
+        paragraphs: [
+          "Treat p and m as hex. Reject odd lengths and wrong lengths before any crypto.",
+        ],
+        ordered: true,
+        items: [
+          "Decrypt p with the SDM meta-read key. AES-128-CBC, IV sixteen zero bytes, no padding. Do not use a per-UID key for this step.",
+          "Parse the plaintext. Byte 0 is the PICC data tag. 0xC7 means a 7-byte UID and the read counter are both present. The next 7 bytes are the UID. The next 3 bytes are SDMReadCtr, little-endian. The rest is padding the chip generated.",
+          "Derive that tag's SDM file-read key from the UID.",
+          "Build the SUN MAC session key the way AN12196 specifies, CMAC the mirrored file bytes, and keep the eight odd-indexed bytes of the 16-byte CMAC. Compare with m.",
+          "Turn the 3-byte counter into an integer. Accept the tap only if it is greater than the last counter stored for this UID, then store it.",
+        ],
+        code: "SV2 = 3C C3 00 01 00 80 || UID || SDMReadCtr || 00..00\nKSesSDMFileReadMAC = CMAC(SDMFileReadKey, SV2)\nMAC input = file bytes from SDMMACInputOffset up to, not including, SDMMACOffset\nSDMMAC = bytes 1, 3, 5, 7, 9, 11, 13, 15 of CMAC(KSesSDMFileReadMAC, MAC input)",
+      },
+      {
+        paragraphs: [
+          "SV2 is zero-padded to a 16-byte boundary. SDMReadCtr in that vector is the same three little-endian bytes you just parsed, not the counter printed as a big-endian hex string. This session key is only for SUN. It is not the session key from AuthenticateEV2First.",
+          "The MAC input is the file as the phone receives it, after the chip has replaced the placeholders. If SDMMACInputOffset equals SDMMACOffset, that input is empty. An empty message is still a real CMAC. It is a different result from CMAC over the URL.",
+          "Byte numbering is where verifiers disagree with the chip. AN12196 keeps the even-numbered bytes in most-significant-byte-first order, written S14 || S12 || … || S0. In a 16-byte buffer whose index 0 is the first byte, those are indices 1, 3, 5, 7, 9, 11, 13 and 15. The first eight bytes are wrong. Indices 0, 2, 4, 6, 8, 10, 12 and 14 are also wrong.",
+          "Step 5 is the replay check. A valid CMAC on a captured link stays valid forever if you skip it. The counter is 3 bytes, so the largest value is 16,777,215. For a tag that is tapped often, work out when you will get there and what the server should do at the top.",
+        ],
+      },
+      {
+        heading: "Closing the loop",
+        paragraphs: [
+          "Blank tag, key derivation, issuance, readback, shipping, user tap, server derivation, CMAC check, counter check, answer.",
+          "Issuance and verification share the derivation rules and not the privileges. The verification service can derive per-tag file-read keys. It does not need Key 0, and it should not have it. If that server is compromised, an attacker can lie about verification results. They still cannot rewrite or clone the tags. That separation is the point of the design.",
+          "NFCTEC laminates NTAG 424 DNA as wet inlay, sticker and PVC, and can set the NDEF template, SDM offsets and per-UID keys, or ship the tags blank for your own issuance line.",
+        ],
+        links: [
+          { label: "NTAG 424 DNA tags", href: "/en/products/ntag424-dna" },
+          { label: "NTAG 424 DNA tool", href: "/en/tools/ntag424-tool" },
+          { label: "Shorter SUN authentication note", href: "/en/blog/ntag424-dna-sun-url-authentication-example" },
+          { label: "NTAG 424 DNA on Amazon (B0FRL6BTJK)", href: "https://www.amazon.com/dp/B0FRL6BTJK" },
+          { label: "NXP AN12196", href: "https://www.nxp.com/docs/en/application-note/AN12196.pdf" },
+        ],
+      },
+    ],
+    zh: {
+      title: "如何编码 NTAG 424 DNA：SUN 配置、密钥管理与服务器校验",
+      excerpt:
+        "从空白 NTAG 424 DNA 写到可校验：AES 密钥放在哪、SDM 偏移怎么落在 NDEF 文件里、服务器如何核对 SUN 的 CMAC 和计数器。",
+      cat: "Security",
+      body: [
+        {
+          paragraphs: [
+            "多数 NTAG 424 DNA 教程停在手机打开一条带 CMAC 的链接。演示够了。它没写密钥放在哪、怎么派生、别人重放截到的链接时会发生什么。这篇按实际操作的顺序写完整条链路：空白标签，到一次校验通过的轻触。",
+            "下面的向量按 NXP AN12196。会话密钥的字节和 CMAC 截断差一位，芯片是对的，服务器也会一直拒绝。",
+          ],
+        },
+        {
+          heading: "先确认芯片",
+          paragraphs: [
+            "读 7 字节 UID，再跑 GetVersion，确认是 NTAG 424 DNA，然后再写密钥。新标签的五把应用密钥 Key 0 到 Key 4 都是 16 个 0。有读头的人都能认证并改写。发卡要离开这个状态。",
+          ],
+        },
+        {
+          heading: "不要所有标签共用一把密钥",
+          paragraphs: [
+            "用主密钥和标签 UID 为每张标签派生一把文件读密钥。这是密钥分散。别人从一张标签里取出密钥，只能用这一张。",
+            "有一把密钥不能这么做。PICC 数据加密之后，服务器在解开这段密文之前不知道 UID。AN12196 因此要求 SDM meta-read 密钥不要按 UID 分散。它是系统密钥，和主密钥放在同一处。用于计算 CMAC 的 SDM file-read 密钥才按 UID 分散。五把密钥用同一种分散，加密后的链接就无法校验。",
+            "剩下的问题是主密钥放在哪。两种做法够用。",
+          ],
+        },
+        {
+          heading: "用云 KMS 当根",
+          level: 3,
+          paragraphs: [
+            "把主密钥做成 KMS 里的 HMAC 密钥。要某张标签的 file-read 密钥时，把固定标签、UID 和密钥号送给 KMS，取 HMAC 的前 16 字节，AES 运算放在你自己的代码里。KMS 不必支持 AES-CMAC，它只保护主密钥。发卡和校验必须调用同一个函数。这是应用层 KDF，不是 AN12196 里的会话向量。",
+            "代价是每次派生一次网络调用。上大流量校验之前，先量延迟、配额，以及你准备缓存什么。缓存单标签密钥，等于这把密钥离开了 KMS。要当成明确的决定，而不是顺手加上。",
+          ],
+        },
+        {
+          heading: "用 JavaCard 密钥管理应用",
+          level: 3,
+          paragraphs: [
+            "离线发卡更合适。主密钥在应用内生成，不出卡。卡没有原生 CMAC，就用单块 AES 组出来。密钥对象始终在卡上。发卡工位只拿到眼前这张标签的派生密钥。应用还可以自己跑 EV2 握手，只把会话密钥交给工位。瓶颈是吞吐，并行多台读头来摊。",
+            "两者可以合用：JavaCard 发卡，KMS 校验。这要求一场密钥仪式，把同一把主密钥放进两边。分片、多人在场、不落盘。跳过仪式，两边派生出的标签密钥对不上。",
+          ],
+        },
+        {
+          heading: "操作顺序不能换",
+          paragraphs: [
+            "AuthenticateEV2First 用的是 Key 0。改掉这把密钥，会话就结束。此后还没写完的步骤都要用新的 Key 0。新密钥写错，这张标签就打不开了。",
+          ],
+          ordered: true,
+          items: [
+            "用默认 Key 0 做 AuthenticateEV2First。",
+            "先改 Key 1 到 Key 4。把 meta-read 密钥和分散后的 file-read 密钥放进 SDM 要用的槽。",
+            "在 NDEF 文件上配置 SDM，并写入 NDEF 模板。",
+            "最后改 Key 0。",
+            "用新的 Key 0 重新认证，读回文件设置和密钥版本，再用手机轻触，确认服务器接受。",
+          ],
+        },
+        {
+          paragraphs: [
+            "读回要在标签离开台面之前做。SDM 偏移写错，标签上看不出来。手机照样打开链接。服务器拒绝每一次轻触。你还留着新的 Key 0，才有机会改。",
+          ],
+        },
+        {
+          heading: "SDM 和 NDEF 模板",
+          paragraphs: [
+            "URL 里放两段占位。每次读取，芯片用实时值覆盖它们。ChangeFileSettings 要的是每段占位的字节偏移。",
+          ],
+          code: "https://example.com/v?p=00000000000000000000000000000000&m=0000000000000000",
+        },
+        {
+          paragraphs: [
+            "p 是加密的 PICC 数据，16 字节，32 个十六进制字符。m 是截断后的 CMAC，8 字节，16 个十六进制字符。",
+            "偏移从 NDEF 文件的第 0 字节算起，不是从 URL 字符串算起。文件开头是 2 字节 NLEN，然后是 NDEF 记录头，然后才是 URI。把文本编辑器里 URL 的位置当成偏移，会短掉这个前缀。CMAC 的输入就错了，MAC 永远对不上，芯片也不会返回一个错误告诉你原因。",
+          ],
+        },
+        {
+          heading: "在服务器上校验",
+          paragraphs: [
+            "把 p 和 m 当十六进制。长度不是偶数，或长度不对，先拒绝，再谈密码运算。",
+          ],
+          ordered: true,
+          items: [
+            "用 SDM meta-read 密钥解密 p。AES-128-CBC，IV 为 16 个 0，不要填充。这一步不要用按 UID 分散的密钥。",
+            "解析明文。第 0 字节是 PICC 数据标签。0xC7 表示 7 字节 UID 和读计数器都在。接下来 7 字节是 UID。再接下来 3 字节是 SDMReadCtr，小端。其余是芯片生成的填充。",
+            "用 UID 派生这张标签的 SDM file-read 密钥。",
+            "按 AN12196 生成 SUN 的 MAC 会话密钥，对镜像后的文件字节做 CMAC，取 16 字节结果里奇数下标的 8 个字节，与 m 比较。",
+            "把 3 字节计数器转成整数。只有它大于该 UID 已保存的计数器才接受，然后写入。",
+          ],
+          code: "SV2 = 3C C3 00 01 00 80 || UID || SDMReadCtr || 00..00\nKSesSDMFileReadMAC = CMAC(SDMFileReadKey, SV2)\nMAC 输入 = 文件中从 SDMMACInputOffset 到 SDMMACOffset 之前的字节\nSDMMAC = CMAC(KSesSDMFileReadMAC, MAC 输入) 的第 1、3、5、7、9、11、13、15 字节",
+        },
+        {
+          paragraphs: [
+            "SV2 用 0 填到 16 字节边界。向量里的 SDMReadCtr 就是刚解析出的那 3 个小端字节，不是把计数器印成大端十六进制。这把会话密钥只用于 SUN，不是 AuthenticateEV2First 的会话密钥。",
+            "MAC 输入是手机收到的文件内容，占位已经被芯片换掉。SDMMACInputOffset 等于 SDMMACOffset 时，输入为空。空消息也是一次正式的 CMAC，结果和对整段 URL 做 CMAC 不同。",
+            "字节编号是校验程序和芯片对不上的地方。AN12196 按最高有效字节在前，保留偶数编号的字节，写成 S14 || S12 || … || S0。在下标 0 为第一字节的 16 字节缓冲区里，这是下标 1、3、5、7、9、11、13、15。取前 8 字节是错的。取下标 0、2、4、6、8、10、12、14 也是错的。",
+            "第 5 步是防重放。跳过它，一条截获的链接只要 CMAC 正确就可以一直用。计数器是 3 字节，最大值 16,777,215。轻触很频繁的标签，先算会在什么时候到顶，以及到顶之后服务器怎么处理。",
+          ],
+        },
+        {
+          heading: "把链路合上",
+          paragraphs: [
+            "空白标签、密钥派生、发卡、读回、出货、用户轻触、服务器派生、CMAC 核对、计数器核对、给出结果。",
+            "发卡和校验共用派生规则，不共用权限。校验服务可以派生每张标签的 file-read 密钥。它不需要 Key 0，也不应该持有 Key 0。这台服务器被攻破，攻击者可以谎报校验结果，仍然不能改写或克隆标签。这个隔离才是这套设计要的东西。",
+            "NFCTEC 把 NTAG 424 DNA 做成湿 Inlay、贴纸和 PVC，可以写 NDEF 模板、SDM 偏移和按 UID 分散的密钥，也可以空白交付，接到你们自己的发卡线。",
+          ],
+          links: [
+            { label: "NTAG 424 DNA 标签", href: "/zh/products/ntag424-dna" },
+            { label: "NTAG 424 DNA 工具", href: "/zh/tools/ntag424-tool" },
+            { label: "较短的 SUN 验证说明", href: "/zh/blog/ntag424-dna-sun-url-authentication-example" },
+            { label: "亚马逊上的 NTAG 424 DNA（B0FRL6BTJK）", href: "https://www.amazon.com/dp/B0FRL6BTJK" },
+            { label: "NXP AN12196", href: "https://www.nxp.com/docs/en/application-note/AN12196.pdf" },
+          ],
+        },
+      ],
+    },
+  },
   {
     slug: "emv-contactless-aid-selection",
     cat: "EMV",
