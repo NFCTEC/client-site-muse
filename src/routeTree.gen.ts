@@ -18,6 +18,7 @@ import { Route as InquiryRouteImport } from './routes/inquiry'
 import { Route as DownloadsRouteImport } from './routes/downloads'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BlogRouteImport } from './routes/blog'
+import { Route as Baidu_verify_codevaPSQwoIXzauDothtmlRouteImport } from './routes/baidu_verify_codeva-pSQwoIXzau[.]html'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
@@ -97,6 +98,12 @@ const BlogRoute = BlogRouteImport.update({
   path: '/blog',
   getParentRoute: () => rootRouteImport,
 } as any)
+const Baidu_verify_codevaPSQwoIXzauDothtmlRoute =
+  Baidu_verify_codevaPSQwoIXzauDothtmlRouteImport.update({
+    id: '/baidu_verify_codeva-pSQwoIXzau.html',
+    path: '/baidu_verify_codeva-pSQwoIXzau.html',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
@@ -268,6 +275,7 @@ export interface FileRoutesByFullPath {
   '/$locale': typeof LocaleRouteRouteWithChildren
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
+  '/baidu_verify_codeva-pSQwoIXzau.html': typeof Baidu_verify_codevaPSQwoIXzauDothtmlRoute
   '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRouteWithChildren
   '/downloads': typeof DownloadsRoute
@@ -310,6 +318,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
+  '/baidu_verify_codeva-pSQwoIXzau.html': typeof Baidu_verify_codevaPSQwoIXzauDothtmlRoute
   '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRouteWithChildren
   '/downloads': typeof DownloadsRoute
@@ -351,6 +360,7 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
+  '/baidu_verify_codeva-pSQwoIXzau.html': typeof Baidu_verify_codevaPSQwoIXzauDothtmlRoute
   '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRouteWithChildren
   '/downloads': typeof DownloadsRoute
@@ -396,6 +406,7 @@ export interface FileRouteTypes {
     | '/$locale'
     | '/about'
     | '/auth'
+    | '/baidu_verify_codeva-pSQwoIXzau.html'
     | '/blog'
     | '/contact'
     | '/downloads'
@@ -438,6 +449,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/auth'
+    | '/baidu_verify_codeva-pSQwoIXzau.html'
     | '/blog'
     | '/contact'
     | '/downloads'
@@ -478,6 +490,7 @@ export interface FileRouteTypes {
     | '/_authenticated'
     | '/about'
     | '/auth'
+    | '/baidu_verify_codeva-pSQwoIXzau.html'
     | '/blog'
     | '/contact'
     | '/downloads'
@@ -523,6 +536,7 @@ export interface RootRouteChildren {
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AboutRoute: typeof AboutRoute
   AuthRoute: typeof AuthRoute
+  Baidu_verify_codevaPSQwoIXzauDothtmlRoute: typeof Baidu_verify_codevaPSQwoIXzauDothtmlRoute
   BlogRoute: typeof BlogRouteWithChildren
   ContactRoute: typeof ContactRouteWithChildren
   DownloadsRoute: typeof DownloadsRoute
@@ -601,6 +615,13 @@ declare module '@tanstack/react-router' {
       path: '/blog'
       fullPath: '/blog'
       preLoaderRoute: typeof BlogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/baidu_verify_codeva-pSQwoIXzau.html': {
+      id: '/baidu_verify_codeva-pSQwoIXzau.html'
+      path: '/baidu_verify_codeva-pSQwoIXzau.html'
+      fullPath: '/baidu_verify_codeva-pSQwoIXzau.html'
+      preLoaderRoute: typeof Baidu_verify_codevaPSQwoIXzauDothtmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth': {
@@ -967,6 +988,8 @@ const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AboutRoute: AboutRoute,
   AuthRoute: AuthRoute,
+  Baidu_verify_codevaPSQwoIXzauDothtmlRoute:
+    Baidu_verify_codevaPSQwoIXzauDothtmlRoute,
   BlogRoute: BlogRouteWithChildren,
   ContactRoute: ContactRouteWithChildren,
   DownloadsRoute: DownloadsRoute,
