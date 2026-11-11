@@ -5,7 +5,6 @@ import { fetchDisplayConfig } from "@/lib/cms";
 import { isModuleEnabled } from "@/lib/display-config";
 import { absLocaleUrl, type Locale } from "@/lib/locale";
 import { hreflangLinks } from "@/lib/seo";
-import { PageHero } from "@/components/PageHero";
 import { PageSection } from "@/components/PageSection";
 import { SectionHeader } from "@/components/SectionHeader";
 import { CtaBand } from "@/components/CtaBand";
@@ -31,10 +30,14 @@ export const Route = createFileRoute("/$locale/platform")({
     const lang: Lang = locale === "zh" ? "zh" : "en";
     return {
       meta: [
-        { title: "Cloud Services — NFCTEC" },
-        { name: "description", content: "Cloud personalization & verification for NTAG424 DNA and MIFARE DESFire. Simple REST API, HSM-backed keys." },
-        { property: "og:title", content: "NFCTEC Cloud Services" },
-        { property: "og:description", content: "Issue and verify NFC credentials via REST API." },
+        { title: lang === "zh" ? "NTAG424 DNA 发行与校验 — NFCTEC" : "NTAG424 DNA Issuance & Verification — NFCTEC" },
+        { name: "description", content: lang === "zh"
+          ? "真标签，轻触即可验证。酒类、医药、奢侈品、电子。工厂发行，轻触校验，密钥留在服务器。"
+          : "Authentic tags, verified with a tap. Spirits, pharma, luxury, electronics. Issue in the factory, verify with a tap. Keys stay on the server." },
+        { property: "og:title", content: lang === "zh" ? "NTAG424 DNA 发行与校验" : "NTAG424 DNA Issuance & Verification" },
+        { property: "og:description", content: lang === "zh"
+          ? "工厂发行，轻触校验。密钥留在服务器。"
+          : "Issue in the factory, verify with a tap. Keys stay on the server." },
         { property: "og:url", content: url },
         { property: "og:type", content: "website" },
       ],
@@ -59,6 +62,14 @@ const steps = [
   { icon: Sparkles, n: "03", title: "cloud.s3.title", desc: "cloud.s3.desc" },
 ] as const;
 
+const issuance = [
+  { n: "01", title: "ntag.issue.s1.title", desc: "ntag.issue.s1.desc" },
+  { n: "02", title: "ntag.issue.s2.title", desc: "ntag.issue.s2.desc" },
+  { n: "03", title: "ntag.issue.s3.title", desc: "ntag.issue.s3.desc" },
+] as const;
+
+const PLATFORM_URL = "https://platform.nfctec.com/";
+
 const trust = [
   { icon: Lock, title: "cloud.t1.title", desc: "cloud.t1.desc" },
   { icon: ShieldCheck, title: "cloud.t2.title", desc: "cloud.t2.desc" },
@@ -76,27 +87,63 @@ function Platform() {
   const { showDownloads } = Route.useLoaderData();
   const faqItems = buildFaq(lang);
 
-  const primaryActions = (
+  const platformLink = (
+    <a
+      href={PLATFORM_URL}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3 text-sm font-semibold hover:opacity-90 transition-opacity"
+    >
+      {tr("ntag.issue.cta")} <ArrowRight size={16} />
+    </a>
+  );
+
+  const engineerLink = (
     <Link
       to="/$locale/inquiry"
       params={{ locale }}
-      className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3 text-sm font-semibold hover:opacity-90 transition-opacity"
+      className="inline-flex items-center gap-2 rounded-full border border-border-strong bg-surface/60 px-6 py-3 text-sm font-medium hover:border-primary hover:text-primary transition-colors"
     >
-      {tr("hero.cta2")} <ArrowRight size={16} />
+      {tr("hero.cta2")}
     </Link>
   );
 
   return (
     <>
-      <PageHero
-        eyebrow={tr("cloud.eyebrow")}
-        title={tr("cloud.title")}
-        subtitle={tr("cloud.sub")}
-        actions={primaryActions}
-      />
+      <section className="relative page-hero overflow-hidden" id="ntag424-issuance">
+        <div className="absolute inset-0 bg-hero-glow pointer-events-none" />
+        <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
+          <p className="section-label">{tr("ntag.issue.eyebrow")}</p>
+          <h1 className="section-hero-title font-display font-semibold whitespace-pre-line text-balance max-w-4xl mt-3">
+            {tr("ntag.issue.title")}
+          </h1>
+          <p className="mt-5 text-lg text-muted-foreground leading-relaxed max-w-2xl">
+            {tr("ntag.issue.sub")}
+          </p>
+          <div className="mt-8 flex flex-wrap items-center gap-3">
+            {platformLink}
+            {engineerLink}
+          </div>
+          <p className="mt-3 text-xs font-mono tracking-wide text-muted-foreground">{tr("ntag.issue.tagline")}</p>
+          <div className="mt-10 grid md:grid-cols-3 gap-5">
+            {issuance.map((s) => (
+              <div key={s.n} className="card-glow rounded-2xl border border-border bg-card-gradient p-7 min-h-[11rem]">
+                <span className="text-xs font-mono text-muted-foreground">{s.n}</span>
+                <h2 className="font-display text-lg font-semibold mt-4 mb-2">{tr(s.title)}</h2>
+                <p className="text-sm text-muted-foreground leading-relaxed">{tr(s.desc)}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       <PageSection tone="muted" spacing="main">
-        <SectionHeader eyebrow={tr("cloud.eyebrow")} title={tr("cloud.steps.title")} />
+        <div className="mb-10 max-w-3xl">
+          <p className="section-label mb-3">{tr("cloud.eyebrow")}</p>
+          <h2 className="font-display text-2xl lg:text-3xl tracking-tight whitespace-pre-line">{tr("cloud.title")}</h2>
+          <p className="mt-3 text-muted-foreground leading-relaxed">{tr("cloud.sub")}</p>
+        </div>
+        <h2 className="font-display text-2xl tracking-tight mb-8">{tr("cloud.steps.title")}</h2>
         <div className="grid md:grid-cols-3 gap-5">
           {steps.map((s) => {
             const Icon = s.icon;
@@ -161,7 +208,10 @@ function Platform() {
         <div className="mx-auto max-w-4xl px-6 lg:px-10 text-center">
           <h2 className="font-display text-3xl lg:text-4xl tracking-tight text-balance">{tr("cloud.cta.title")}</h2>
           <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">{tr("cloud.cta.sub")}</p>
-          <div className="mt-8 flex flex-wrap gap-3 justify-center">{primaryActions}</div>
+          <div className="mt-8 flex flex-wrap gap-3 justify-center">
+            {platformLink}
+            {engineerLink}
+          </div>
         </div>
       </section>
 
