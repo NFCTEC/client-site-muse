@@ -1,9 +1,21 @@
+import { Link } from "@tanstack/react-router";
 import { PageSection } from "@/components/PageSection";
 import { FaqSection } from "@/components/FaqSection";
 import { PlatformFrame, PlatformLink, StatusBadge } from "@/components/platform/PlatformChrome";
-import { PlatformInquiryForm } from "@/components/platform/PlatformInquiryForm";
 import { useLocale } from "@/hooks/useLocale";
-import { PLATFORM_FAQS } from "@/lib/platform-site";
+import {
+  ACTIVATE_REQUEST_EXAMPLE,
+  BIND_REQUEST_EXAMPLE,
+  OPEN_API_ENDPOINTS,
+  PLATFORM_API_ORIGIN,
+  REVOKE_REQUEST_EXAMPLE,
+  VERIFY_NODE_EXAMPLE,
+  VERIFY_PHP_EXAMPLE,
+  VERIFY_PYTHON_EXAMPLE,
+  VERIFY_REQUEST_EXAMPLE,
+  VERIFY_RESPONSE_EXAMPLE,
+} from "@/lib/platform-api";
+import { PLATFORM_FAQS, platformRoute } from "@/lib/platform-site";
 
 function BulletList({ items }: { items: string[] }) {
   return (
@@ -22,13 +34,13 @@ export function PlatformFeatures() {
     ? [
         ["安全发行", "已提供", ["NTAG424 DNA 个人化", "KEY0–KEY4 配置", "NDEF URL", "SDM 设置", "文件访问权限", "发行模板", "生产任务", "发行数量上限", "发行记录", "Windows / macOS / Linux / Android 客户端"]],
         ["验真", "已提供", ["AES-128 CMAC 校验", "SDM / SUN 验真", "动态计数器校验", "重放识别", "标签识别", "作废与过期", "产品信息回传", "验真 API"]],
-        ["产品生命周期", "已提供", ["已发行", "已绑定", "使用中", "已作废", "已过期"]],
+        ["产品生命周期", "已提供", ["已发行", "已绑定", "使用中", "已作废", "已过期", "按需导出印刷/产线数据（含 UID 与绑定字段，格式可约定）"]],
         ["企业管理", "已提供", ["组织管理", "操作员与角色", "发行任务", "安全策略", "审计日志", "API 访问控制"]],
       ]
     : [
         ["Secure Provisioning", "Available", ["NTAG424 DNA personalization", "KEY0–KEY4 configuration", "NDEF URL configuration", "SDM settings", "File access permissions", "Issuance templates", "Production tasks", "Issuance quantity limits", "Issuance records", "Windows / macOS / Linux / Android clients"]],
         ["Authentication", "Available", ["AES-128 CMAC verification", "SDM / SUN verification", "Dynamic counter validation", "Replay detection", "Tag identification", "Revocation and expiration", "Product information lookup", "Authentication API"]],
-        ["Product Lifecycle", "Available", ["Issued", "Bound", "Active", "Revoked", "Expired"]],
+        ["Product Lifecycle", "Available", ["Issued", "Bound", "Active", "Revoked", "Expired", "Print-line / shop-floor exports on request (UID + binding fields, format by agreement)"]],
         ["Enterprise Management", "Available", ["Organization management", "Operators and roles", "Provisioning tasks", "Security policies", "Audit logs", "API access control"]],
       ];
 
@@ -37,8 +49,12 @@ export function PlatformFeatures() {
       locale={locale}
       page="features"
       eyebrow={zh ? "功能" : "Features"}
-      title={zh ? "已经在平台里的能力，和仍在规划的能力。" : "What the platform does today, and what is still planned."}
-      subtitle={zh ? "下面四块是当前云平台能力。私有部署和外部 KMS/HSM 单独标成规划中。" : "The four blocks below are the current cloud product. Private deployment and external KMS/HSM are marked as planned."}
+      title={zh ? "NTAG424 编码、个人化、认证与数字身份。" : "NTAG424 encoding, personalization, authentication, and digital identity."}
+      subtitle={
+        zh
+          ? "覆盖工厂读写、SUN/SDM 个人化、产品数字身份绑定与云端认证防伪。"
+          : "Factory read/write, SUN/SDM personalization, product digital identity binding, and cloud authentication for anti-counterfeiting."
+      }
     >
       <PageSection spacing="tight" className="!pt-0">
         <div className="grid lg:grid-cols-2 gap-5">
@@ -53,19 +69,6 @@ export function PlatformFeatures() {
           ))}
         </div>
       </PageSection>
-      <PageSection tone="muted">
-        <div className="flex items-center gap-3">
-          <h2 className="font-display text-2xl tracking-tight">{zh ? "规划中" : "Planned"}</h2>
-          <StatusBadge tone="planned">{zh ? "规划中" : "Planned"}</StatusBadge>
-        </div>
-        <BulletList
-          items={
-            zh
-              ? ["私有部署与独立数据库", "客户环境中的外部 KMS / HSM", "企业套餐的自助在线购买"]
-              : ["Private deployment and an independent database", "External KMS / HSM in the customer environment", "Self-serve checkout for enterprise plans"]
-          }
-        />
-      </PageSection>
     </PlatformFrame>
   );
 }
@@ -78,8 +81,12 @@ export function PlatformProvisioning() {
       locale={locale}
       page="provisioning"
       eyebrow={zh ? "发行" : "Provisioning"}
-      title={zh ? "工厂写卡。密钥不进产线设备。" : "Issue tags in the factory. Keys stay off the line."}
-      subtitle={zh ? "操作员领取任务并贴卡。客户端把报文原样送回服务器，由服务器完成密钥和会话。" : "Operators take a task and tap a tag. The client relays messages. The server holds the keys and the secure session."}
+      title={zh ? "NTAG424 产线个人化：安全读写，密钥不上线。" : "NTAG424 personalization on the line: secure read/write, keys stay off the device."}
+      subtitle={
+        zh
+          ? "云端编码与密钥会话；客户端只做 NFC 读写转发。每次成功写卡形成 UID 记录，支撑产品数字身份。"
+          : "Cloud encoding and crypto sessions; clients only read/write and relay NFC. Each successful write records the UID for product digital identity."
+      }
       actions={<PlatformLink locale={locale} intent="start">{zh ? "免费开始" : "Start Free"}</PlatformLink>}
     >
       <PageSection spacing="tight" className="!pt-0">
@@ -96,8 +103,8 @@ export function PlatformProvisioning() {
             <h2 className="font-display text-xl font-semibold">{zh ? "服务器" : "The server"}</h2>
             <BulletList
               items={zh
-                ? ["AES 密钥与 EV2 会话", "按模板写 NDEF、SDM 和文件权限", "只统计成功张数，达到任务上限后不再新开", "每次写卡留下记录和失败原因"]
-                : ["AES keys and the EV2 session", "NDEF, SDM, and file permissions from the template", "Counts successful writes and stops at the task limit", "Keeps the result and the failure reason"]}
+                ? ["AES 密钥与 EV2 会话", "按模板写 NDEF、SDM 和文件权限", "只统计成功张数，达到任务上限后不再新开", "每次写卡留下记录和失败原因", "发行记录含 UID，可与产品绑定并按要求导出给印刷或产线"]
+                : ["AES keys and the EV2 session", "NDEF, SDM, and file permissions from the template", "Counts successful writes and stops at the task limit", "Keeps the result and the failure reason", "Issuance records include UID; bind to products and export for print or line systems on request"]}
             />
           </article>
         </div>
@@ -114,8 +121,12 @@ export function PlatformAuthentication() {
       locale={locale}
       page="authentication"
       eyebrow={zh ? "验真" : "Authentication"}
-      title={zh ? "每次贴卡都回到当初写过的那张标签。" : "Every tap is checked against the tag you actually issued."}
-      subtitle={zh ? "云端用发行时的密钥校验 AES-128 CMAC，认出重放，并带上绑定、作废和过期状态。" : "The cloud checks the AES-128 CMAC with the keys from issuance, detects replay, and applies binding, revocation, and expiry."}
+      title={zh ? "贴卡认证：SUN 动态报文与密码学防伪。" : "Tap authentication: SUN messages and cryptographic anti-counterfeiting."}
+      subtitle={
+        zh
+          ? "用发行时的密钥校验 AES-128 CMAC，识别重放，返回产品数字身份与绑定、作废、过期状态。"
+          : "Authenticate with AES-128 CMAC keys from personalization, detect replay, and return product digital identity with bind, revoke, and expiry state."
+      }
     >
       <PageSection spacing="tight" className="!pt-0">
         <BulletList
@@ -123,62 +134,6 @@ export function PlatformAuthentication() {
             ? ["提交贴卡后的动态报文", "按该标签的发行模板校验 CMAC", "拒绝已经见过的计数器", "返回真品、无效、未找到、重放、已作废、已过期或配额用尽", "已绑定时带回产品编号、品名和批次"]
             : ["Submit the dynamic message from the tap", "Check the CMAC against that tag's issuance template", "Reject a counter that was already accepted", "Return authentic, invalid, not found, replay, revoked, expired, or quota exhausted", "Return the product number, name, and batch when the tag is bound"]}
         />
-      </PageSection>
-    </PlatformFrame>
-  );
-}
-
-export function PlatformEnterprise() {
-  const locale = useLocale();
-  const zh = locale === "zh";
-  return (
-    <PlatformFrame
-      locale={locale}
-      page="enterprise"
-      eyebrow={zh ? "企业版 · 拟定" : "Enterprise · Proposed"}
-      title={zh ? "给品牌和工厂的企业级 NFC 基础设施。" : "Enterprise NFC Infrastructure for Brands and Manufacturers."}
-      subtitle={zh ? "把安全发行扩展到多个品牌、多家工厂和现有业务系统。套餐价格需销售确认，不能在本页直接购买。" : "Scale secure NFC provisioning across multiple brands, factories, and business systems. Prices are confirmed with sales. There is no buy button on this page."}
-    >
-      <PageSection spacing="tight" className="!pt-0">
-        <BulletList
-          items={zh
-            ? ["多品牌工作区", "多工厂管理", "按角色授权", "集中的安全策略", "企业级密钥隔离", "发行任务管理", "大批量发行", "API 集成", "审计与报表", "定制技术支持"]
-            : ["Multi-brand workspaces", "Multi-factory management", "Role-based access", "Centralized security policies", "Enterprise key isolation", "Provisioning task management", "High-volume issuance", "API integration", "Audit and reporting", "Custom technical support"]}
-        />
-        <p className="mt-6 text-sm text-muted-foreground">
-          {zh ? "Indicative pricing — Subject to confirmation. 月费与配额见价格页的企业表。" : "Indicative pricing — subject to confirmation. Monthly figures and quotas are on the pricing page."}
-        </p>
-      </PageSection>
-      <PageSection tone="muted">
-        <h2 className="font-display text-2xl tracking-tight mb-6">{zh ? "企业询价" : "Request a quote"}</h2>
-        <PlatformInquiryForm locale={locale} intent="enterprise" />
-      </PageSection>
-    </PlatformFrame>
-  );
-}
-
-export function PlatformPrivate() {
-  const locale = useLocale();
-  const zh = locale === "zh";
-  return (
-    <PlatformFrame
-      locale={locale}
-      page="private"
-      eyebrow={zh ? "规划中 · 可做可行性评估" : "Planned · Available for Feasibility Assessment"}
-      title={zh ? "你的环境，你的安全策略，你的 NFC 平台。" : "Your Infrastructure. Your Security Policies. Your NFC Platform."}
-      subtitle={zh ? "NFCTEC 正在规划私有部署，面向需要独立环境、独立数据库和客户自行掌控密钥管理的企业。这还不是已经交付的标准产品，本页也不给出固定报价。" : "NFCTEC is planning private deployment for enterprises that need dedicated infrastructure, an independent database, and customer-controlled key management. It is not a shipped standard product, and this page has no fixed price."}
-    >
-      <PageSection spacing="tight" className="!pt-0">
-        <StatusBadge tone="planned">{zh ? "规划中" : "Planned"}</StatusBadge>
-        <BulletList
-          items={zh
-            ? ["客户自管云", "独立应用环境", "独立数据库", "外部 KMS / HSM 集成", "企业访问管理", "软件授权", "技术支持与维护", "从 NFCTEC Cloud 迁出"]
-            : ["Customer-managed cloud", "Dedicated application environment", "Independent database", "External KMS/HSM integration", "Enterprise access management", "Software licensing", "Technical support and maintenance", "Migration from NFCTEC Cloud"]}
-        />
-      </PageSection>
-      <PageSection tone="muted">
-        <h2 className="font-display text-2xl tracking-tight mb-6">{zh ? "讨论私有部署" : "Discuss Private Deployment"}</h2>
-        <PlatformInquiryForm locale={locale} intent="private" />
       </PageSection>
     </PlatformFrame>
   );
@@ -195,6 +150,7 @@ export function PlatformDevelopers() {
         ["4", "启用、设置有效期或作废"],
         ["5", "提交贴卡报文，取得验真结果"],
         ["6", "用 Webhook 接收写卡和状态变更"],
+        ["7", "需要印刷或产线对接时，按约定字段导出 UID 与绑定数据（或通过开放 API 拉取）"],
       ]
     : [
         ["1", "Create API credentials in the platform"],
@@ -203,6 +159,7 @@ export function PlatformDevelopers() {
         ["4", "Activate, set a validity window, or revoke"],
         ["5", "Submit the tap message and read the verification result"],
         ["6", "Receive issuance and lifecycle events on a webhook"],
+        ["7", "For label print or line integration, export UID and binding fields in the layout you specify—or pull them via the open API"],
       ];
 
   return (
@@ -211,7 +168,7 @@ export function PlatformDevelopers() {
       page="developers"
       eyebrow={zh ? "开发者" : "Developers"}
       title={zh ? "把安全 NFC 接到你的系统里。" : "Integrate Secure NFC into Your Applications."}
-      subtitle={zh ? "发行结果、标签库存、绑定、启用、作废、验真和 Webhook 都从同一套凭证进入。请求路径和字段在平台内查看，这里不放一份猜测出来的示例代码。" : "Issuance results, tag inventory, binding, activation, revocation, verification, and webhooks use the same credentials. Paths and fields are shown in the platform. This page does not invent a sample contract."}
+      subtitle={zh ? "下面的路径、字段和示例响应来自 platform.nfctec.com 控制台里的开放接口说明。凭证在平台创建，完整内容只显示一次。" : "The paths, fields, and sample response below are taken from the open API guide in the platform.nfctec.com console. Create the credential there. The full secret is shown once."}
       actions={<PlatformLink locale={locale} intent="start">{zh ? "打开平台" : "Open the platform"}</PlatformLink>}
     >
       <PageSection spacing="tight" className="!pt-0">
@@ -223,13 +180,52 @@ export function PlatformDevelopers() {
             </li>
           ))}
         </ol>
-        <p className="mt-6 text-sm text-muted-foreground max-w-3xl">
+      </PageSection>
+      <PageSection tone="muted">
+        <h2 className="font-display text-2xl tracking-tight">{zh ? "已公布的路径" : "Published paths"}</h2>
+        <p className="mt-2 text-sm text-muted-foreground">
+          {zh ? `同源地址 ${PLATFORM_API_ORIGIN}。请求头 Authorization: Bearer，加上平台里创建的凭证。` : `Same origin as ${PLATFORM_API_ORIGIN}. Header Authorization: Bearer, using the credential created in the platform.`}
+        </p>
+        <ul className="mt-4 space-y-2 text-sm font-mono">
+          {OPEN_API_ENDPOINTS.map((item) => (
+            <li key={item.path} className="rounded-xl border border-border px-4 py-3">
+              <span className="text-primary">{item.method}</span> {item.path}
+            </li>
+          ))}
+        </ul>
+        <div className="mt-8 grid lg:grid-cols-2 gap-5">
+          <Sample title={zh ? "验真请求" : "Verify request"} code={VERIFY_REQUEST_EXAMPLE} />
+          <Sample title={zh ? "验真响应示例" : "Verify response example"} code={VERIFY_RESPONSE_EXAMPLE} />
+          <Sample title={zh ? "绑定" : "Bind"} code={BIND_REQUEST_EXAMPLE} />
+          <Sample title={zh ? "启用" : "Activate"} code={ACTIVATE_REQUEST_EXAMPLE} />
+          <Sample title={zh ? "作废" : "Revoke"} code={REVOKE_REQUEST_EXAMPLE} />
+        </div>
+        <p className="mt-4 text-sm text-muted-foreground leading-relaxed max-w-3xl">
           {zh
-            ? "PHP、Node.js 或 Python 的调用方式，以平台里看到的真实接口为准。官网仓库里没有另一份可引用的 API 文档。"
-            : "PHP, Node.js, and Python calls should follow the live contract in the platform. This website repository does not contain a separate API reference to quote."}
+            ? "验真可以传 url，或一起传 uid、ctr、cmac。uid 为 14 位十六进制。绑定必填 uid 和 productCode。启用可选 validDays。作废可选 reason。示例里的 UID 和产品来自平台文档，不是客户数据。"
+            : "Verify accepts url, or uid, ctr, and cmac together. uid is 14 hex characters. Bind requires uid and productCode. Activate may include validDays. Revoke may include reason. The UID and product in the samples are the ones in the platform guide, not a customer record."}
+        </p>
+        <div className="mt-8 space-y-5">
+          <Sample title="Node.js" code={VERIFY_NODE_EXAMPLE} />
+          <Sample title="PHP" code={VERIFY_PHP_EXAMPLE} />
+          <Sample title="Python" code={VERIFY_PYTHON_EXAMPLE} />
+        </div>
+        <p className="mt-6 text-sm">
+          <a href={PLATFORM_API_ORIGIN} className="font-medium text-primary">
+            {zh ? "在平台里打开接口说明" : "Open the API guide in the platform"}
+          </a>
         </p>
       </PageSection>
     </PlatformFrame>
+  );
+}
+
+function Sample({ title, code }: { title: string; code: string }) {
+  return (
+    <figure>
+      <figcaption className="text-sm font-medium mb-2">{title}</figcaption>
+      <pre className="overflow-x-auto rounded-xl border border-border bg-background/70 p-4 text-xs leading-relaxed"><code>{code}</code></pre>
+    </figure>
   );
 }
 
@@ -241,7 +237,7 @@ export function PlatformFaq() {
       locale={locale}
       page="faq"
       eyebrow="FAQ"
-      title={zh ? "发行、密钥、价格和部署。" : "Provisioning, keys, pricing, and deployment."}
+      title={zh ? "NTAG424 编码、个人化、认证与防伪问答。" : "NTAG424 encoding, personalization, authentication, and anti-counterfeiting FAQ."}
     >
       <FaqSection title={zh ? "问答" : "Questions"} items={PLATFORM_FAQS[locale]} />
     </PlatformFrame>

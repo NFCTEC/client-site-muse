@@ -163,10 +163,6 @@ const protocolGroups = [
       "NXP SE050 / SE051",
     ],
   },
-  {
-    label: "proto.g9",
-    items: ["ISO 9001", "PCI-PTS", "EMV L1 / L2", "NXP Partner", "GSMA SAS-SM", "Common Criteria"],
-  },
 ] as const;
 
 const industries = [

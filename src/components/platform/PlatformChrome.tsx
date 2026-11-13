@@ -8,6 +8,7 @@ import {
   PLATFORM_APP_URL,
   PLATFORM_PAGES,
   platformPage,
+  platformRoute,
   tx,
   type PlatformPageId,
 } from "@/lib/platform-site";
@@ -18,7 +19,7 @@ export function PlatformLink({
   children,
 }: {
   locale: Locale;
-  intent: "start" | "pricing" | "features" | "sales" | "private";
+  intent: "start" | "pricing" | "features" | "sales";
   children: ReactNode;
 }) {
   const className =
@@ -28,23 +29,24 @@ export function PlatformLink({
 
   if (intent === "start") {
     return (
-      <a href={PLATFORM_APP_URL} className={className}>
+      <a href={PLATFORM_APP_URL} target="_blank" rel="noopener noreferrer" className={className}>
         {children} <ArrowRight size={16} />
       </a>
     );
   }
 
-  const path =
-    intent === "pricing"
-      ? "/cloud-services/platform/pricing"
-      : intent === "features"
-        ? "/cloud-services/platform/features"
-        : intent === "private"
-          ? "/cloud-services/platform/private-deployment"
-          : "/cloud-services/platform/enterprise";
+  if (intent === "sales") {
+    return (
+      <Link to="/$locale/inquiry" params={{ locale }} className={className}>
+        {children}
+      </Link>
+    );
+  }
+
+  const page: PlatformPageId = intent === "pricing" ? "pricing" : "features";
 
   return (
-    <Link to={`/$locale${path}`} params={{ locale }} className={className}>
+    <Link to={platformRoute(page)} params={{ locale }} className={className}>
       {children}
     </Link>
   );
@@ -57,6 +59,9 @@ export function PlatformFrame({
   eyebrow,
   subtitle,
   actions,
+  heroAside,
+  heroMeta,
+  conversionFooter,
   children,
 }: {
   locale: Locale;
@@ -65,6 +70,10 @@ export function PlatformFrame({
   eyebrow?: string;
   subtitle?: string;
   actions?: ReactNode;
+  heroAside?: ReactNode;
+  heroMeta?: ReactNode;
+  /** Home landing: shorter footer CTA per conversion spec */
+  conversionFooter?: boolean;
   children: ReactNode;
 }) {
   const zh = locale === "zh";
@@ -72,7 +81,7 @@ export function PlatformFrame({
 
   return (
     <>
-      <PageHero eyebrow={eyebrow} title={title} subtitle={subtitle} actions={actions} />
+      <PageHero eyebrow={eyebrow} title={title} subtitle={subtitle} actions={actions} aside={heroAside} meta={heroMeta} />
       <div className="border-b border-border bg-background">
         <div className="mx-auto max-w-7xl px-6 lg:px-10 py-4">
           <nav aria-label="Breadcrumb" className="text-xs text-muted-foreground mb-4">
@@ -112,7 +121,7 @@ export function PlatformFrame({
               return (
                 <Link
                   key={item.id}
-                  to={`/$locale${item.path}`}
+                  to={platformRoute(item.id)}
                   params={{ locale }}
                   aria-current={active ? "page" : undefined}
                   className={`shrink-0 rounded-full px-3 py-1.5 text-xs font-medium border transition-colors ${
@@ -132,25 +141,39 @@ export function PlatformFrame({
       <PageSection spacing="tight">
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="font-display text-3xl lg:text-4xl tracking-tight text-balance">
-            {zh ? "准备用 NFC 保护你的产品了吗？" : "Ready to Secure Your Products with NFC?"}
+            {conversionFooter
+              ? zh
+                ? "准备保护你的 NFC 产品了吗？"
+                : "Ready to Secure Your NFC Products?"
+              : zh
+                ? "准备用 NFC 保护你的产品了吗？"
+                : "Ready to Secure Your Products with NFC?"}
           </h2>
           <p className="mt-4 text-muted-foreground">
-            {zh
-              ? "从 NTAG424 DNA 安全发行开始，在同一套平台上接上验真。"
-              : "Start with NTAG424 DNA secure provisioning and build your authentication workflow on one integrated platform."}
+            {conversionFooter
+              ? zh
+                ? "今天就开始发行 NTAG424 DNA，或有定制需求请联系我们。"
+                : "Start provisioning NTAG424 DNA tags today, or contact us for custom requirements."
+              : zh
+                ? "从 NTAG424 DNA 安全发行开始，在同一套平台上接上验真。"
+                : "Start with NTAG424 DNA secure provisioning and build your authentication workflow on one integrated platform."}
           </p>
           <div className="mt-8 flex flex-wrap gap-3 justify-center">
             <PlatformLink locale={locale} intent="start">
               {zh ? "免费开始" : "Start Free"}
             </PlatformLink>
-            <a
-              href={PLATFORM_APP_URL}
-              className="inline-flex items-center gap-2 rounded-full border border-border-strong bg-surface/60 px-6 py-3 text-sm font-medium hover:border-primary hover:text-primary transition-colors"
-            >
-              {zh ? "登录" : "Sign In"}
-            </a>
+            {!conversionFooter && (
+              <a
+                href={PLATFORM_APP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-border-strong bg-surface/60 px-6 py-3 text-sm font-medium hover:border-primary hover:text-primary transition-colors"
+              >
+                {zh ? "登录" : "Sign In"}
+              </a>
+            )}
             <PlatformLink locale={locale} intent="sales">
-              {zh ? "联系企业销售" : "Contact Enterprise Sales"}
+              {zh ? "联系销售" : "Contact Sales"}
             </PlatformLink>
           </div>
         </div>

@@ -30,14 +30,33 @@ export const Route = createFileRoute("/$locale/platform")({
     const lang: Lang = locale === "zh" ? "zh" : "en";
     return {
       meta: [
-        { title: lang === "zh" ? "NTAG424 DNA 发行与校验 — NFCTEC" : "NTAG424 DNA Issuance & Verification — NFCTEC" },
-        { name: "description", content: lang === "zh"
-          ? "真标签，轻触即可验证。酒类、医药、奢侈品、电子。工厂发行，轻触校验，密钥留在服务器。"
-          : "Authentic tags, verified with a tap. Spirits, pharma, luxury, electronics. Issue in the factory, verify with a tap. Keys stay on the server." },
-        { property: "og:title", content: lang === "zh" ? "NTAG424 DNA 发行与校验" : "NTAG424 DNA Issuance & Verification" },
-        { property: "og:description", content: lang === "zh"
-          ? "工厂发行，轻触校验。密钥留在服务器。"
-          : "Issue in the factory, verify with a tap. Keys stay on the server." },
+        {
+          title:
+            lang === "zh"
+              ? "NTAG424 DNA 编码、个人化、认证与防伪 — NFCTEC"
+              : "NTAG424 DNA Encoding, Personalization & Anti-Counterfeiting — NFCTEC",
+        },
+        {
+          name: "description",
+          content:
+            lang === "zh"
+              ? "云端 NTAG424 DNA 编码与个人化，工厂安全读写，产品数字身份与贴卡认证，支撑品牌 NFC 防伪。"
+              : "Cloud NTAG424 DNA encoding and personalization, secure factory read/write, product digital identity, and tap authentication for brand anti-counterfeiting.",
+        },
+        {
+          property: "og:title",
+          content:
+            lang === "zh"
+              ? "NTAG424 DNA 编码、个人化与产品数字身份防伪"
+              : "NTAG424 DNA encoding, personalization & product digital identity",
+        },
+        {
+          property: "og:description",
+          content:
+            lang === "zh"
+              ? "编码、个人化、读写、认证—密钥留在云端。"
+              : "Encoding, personalization, read/write, authentication—keys stay in the cloud.",
+        },
         { property: "og:url", content: url },
         { property: "og:type", content: "website" },
       ],

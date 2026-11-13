@@ -4,14 +4,31 @@ import { faqJsonLd, type FaqItem } from "@/components/FaqSection";
 
 export const PLATFORM_APP_URL = "https://platform.nfctec.com/";
 
+export function platformRoute(id: PlatformPageId) {
+  switch (id) {
+    case "home":
+      return "/$locale/cloud-services/platform" as const;
+    case "features":
+      return "/$locale/cloud-services/platform/features" as const;
+    case "provisioning":
+      return "/$locale/cloud-services/platform/provisioning" as const;
+    case "authentication":
+      return "/$locale/cloud-services/platform/authentication" as const;
+    case "pricing":
+      return "/$locale/cloud-services/platform/pricing" as const;
+    case "developers":
+      return "/$locale/cloud-services/platform/developers" as const;
+    case "faq":
+      return "/$locale/cloud-services/platform/faq" as const;
+  }
+}
+
 export type PlatformPageId =
   | "home"
   | "features"
   | "provisioning"
   | "authentication"
   | "pricing"
-  | "enterprise"
-  | "private"
   | "developers"
   | "faq";
 
@@ -31,12 +48,12 @@ export const PLATFORM_PAGES: PlatformPageMeta[] = [
     path: "/cloud-services/platform",
     nav: { en: "Overview", zh: "概览" },
     title: {
-      en: "NFCTEC Platform | NTAG424 DNA Provisioning & NFC Authentication",
-      zh: "NFCTEC 平台 | NTAG424 DNA 安全发行与 NFC 验真",
+      en: "NTAG424 DNA Encoding & Personalization | Product Digital Identity & Anti-Counterfeiting",
+      zh: "NTAG424 DNA 编码与个人化 | 产品数字身份与 NFC 防伪认证",
     },
     description: {
-      en: "Securely provision NTAG424 DNA tags, manage product identities, and verify NFC authenticity with server-side AES key management and cloud APIs.",
-      zh: "安全发行 NTAG424 DNA 标签，管理产品身份，并用留在服务器上的 AES 密钥与云端 API 完成验真。",
+      en: "Cloud NTAG424 DNA encoding and personalization with secure factory read/write. Build product digital identity, authenticate every tap, and fight counterfeiting with SUN and AES-128 CMAC.",
+      zh: "NTAG424 DNA 云端编码与个人化，工厂安全读写。建立产品数字身份，贴卡密码学认证，SUN 与 CMAC 支撑 NFC 防伪。",
     },
   },
   {
@@ -44,38 +61,38 @@ export const PLATFORM_PAGES: PlatformPageMeta[] = [
     path: "/cloud-services/platform/features",
     nav: { en: "Features", zh: "功能" },
     title: {
-      en: "NFCTEC Platform Features | Provisioning, Identity, Authentication",
-      zh: "NFCTEC 平台功能 | 发行、身份与验真",
+      en: "NTAG424 DNA Features | Encoding, Personalization, Read/Write, Digital Identity",
+      zh: "NTAG424 DNA 功能 | 编码、个人化、读写与数字身份",
     },
     description: {
-      en: "NTAG424 DNA provisioning templates, product lifecycle, server-side keys, and cryptographic authentication in one NFCTEC Platform feature map.",
-      zh: "一张功能地图看清 NTAG424 DNA 发行模板、产品生命周期、服务器端密钥和密码学验真。",
+      en: "NTAG424 DNA encoding templates, SUN/SDM personalization, authorized tag read/write, UID binding, product digital identity, and authentication for anti-counterfeiting.",
+      zh: "NTAG424 编码模板、SUN/SDM 个人化、授权读写、UID 绑定、产品数字身份与认证防伪能力一览。",
     },
   },
   {
     id: "provisioning",
     path: "/cloud-services/platform/provisioning",
-    nav: { en: "Provisioning", zh: "发行" },
+    nav: { en: "Provisioning", zh: "个人化" },
     title: {
-      en: "NTAG424 DNA Secure Provisioning | NFCTEC Platform",
-      zh: "NTAG424 DNA 安全发行 | NFCTEC 平台",
+      en: "NTAG424 DNA Encoding & Personalization | Secure Read/Write in Production",
+      zh: "NTAG424 DNA 编码与个人化 | 产线安全读写",
     },
     description: {
-      en: "Provision NTAG424 DNA tags from Windows, macOS, Linux, or Android. The client relays NFC messages. Cryptography stays on the server.",
-      zh: "用 Windows、macOS、Linux 或 Android 发行 NTAG424 DNA。客户端转发 NFC 报文，密码学运算留在服务器。",
+      en: "Personalize NTAG424 DNA in the factory: cloud encoding, PC/SC or Android read/write, server-side AES keys, UID records for product digital identity and label data export.",
+      zh: "工厂 NTAG424 DNA 个人化：云端编码，PC/SC 或 Android 读写，服务器保管密钥，UID 建档与产品数字身份、印刷数据导出。",
     },
   },
   {
     id: "authentication",
     path: "/cloud-services/platform/authentication",
-    nav: { en: "Authentication", zh: "验真" },
+    nav: { en: "Authentication", zh: "认证" },
     title: {
-      en: "NTAG424 DNA Authentication API | NFCTEC Platform",
-      zh: "NTAG424 DNA 验真 API | NFCTEC 平台",
+      en: "NTAG424 DNA Authentication & Anti-Counterfeiting API | SUN CMAC Verify",
+      zh: "NTAG424 DNA 认证与防伪 API | SUN / CMAC 校验",
     },
     description: {
-      en: "Verify NTAG424 DNA dynamic messages in the cloud with AES-128 CMAC checks, replay detection, and tag lifecycle rules.",
-      zh: "在云端校验 NTAG424 DNA 动态报文：AES-128 CMAC、重放识别，以及标签生命周期规则。",
+      en: "Authenticate NTAG424 DNA taps in the cloud: AES-128 CMAC, SUN dynamic messages, replay detection, and lifecycle rules for product digital identity and brand protection.",
+      zh: "云端 NTAG424 DNA 认证：AES-128 CMAC、SUN 动态报文、防重放与生命周期，支撑产品数字身份与品牌防伪。",
     },
   },
   {
@@ -83,38 +100,12 @@ export const PLATFORM_PAGES: PlatformPageMeta[] = [
     path: "/cloud-services/platform/pricing",
     nav: { en: "Pricing", zh: "价格" },
     title: {
-      en: "NFCTEC Platform Pricing | Issuance Quota & Authentication API",
-      zh: "NFCTEC 平台价格 | 发行额度与验真 API",
+      en: "NTAG424 DNA Encoding Pricing | Personalization Quota & Authentication API",
+      zh: "NTAG424 编码价格 | 个人化额度与认证 API",
     },
     description: {
-      en: "Buy NTAG424 issuance quota once and subscribe to authentication API plans. Confirmed public prices: 1,000 issuances for $69, API from $39/month.",
-      zh: "发行额度一次买断，验真 API 按月订阅。已确认标价：1,000 张发行 $69，API 自 $39/月起。",
-    },
-  },
-  {
-    id: "enterprise",
-    path: "/cloud-services/platform/enterprise",
-    nav: { en: "Enterprise", zh: "企业版" },
-    title: {
-      en: "Enterprise NFC Infrastructure | NFCTEC Platform",
-      zh: "企业级 NFC 基础设施 | NFCTEC 平台",
-    },
-    description: {
-      en: "Proposed enterprise plans for multi-brand, multi-factory NTAG424 DNA provisioning. Indicative pricing, confirmed with sales.",
-      zh: "面向多品牌、多工厂的 NTAG424 DNA 发行。企业套餐为拟定价格，以销售确认为准。",
-    },
-  },
-  {
-    id: "private",
-    path: "/cloud-services/platform/private-deployment",
-    nav: { en: "Private Deployment", zh: "私有部署" },
-    title: {
-      en: "Private Deployment (Planned) | NFCTEC Platform",
-      zh: "私有部署（规划中）| NFCTEC 平台",
-    },
-    description: {
-      en: "NFCTEC is planning private deployment for dedicated infrastructure and customer-controlled key policies. Available now for a feasibility assessment.",
-      zh: "NFCTEC 正在规划私有部署，面向需要独立环境和自有密钥策略的企业。现在可以做可行性评估。",
+      en: "Pricing for NTAG424 DNA encoding volume and monthly authentication API—support anti-counterfeiting and product digital identity programs. One order, tax at checkout.",
+      zh: "NTAG424 编码发行量与认证 API 月费，支撑防伪与产品数字身份项目。一笔订单计价，税金在收银台处理。",
     },
   },
   {
@@ -122,12 +113,12 @@ export const PLATFORM_PAGES: PlatformPageMeta[] = [
     path: "/cloud-services/platform/developers",
     nav: { en: "Developers", zh: "开发者" },
     title: {
-      en: "NFCTEC Platform API | Bind, Activate, Verify NFC Tags",
-      zh: "NFCTEC 平台 API | 绑定、启用与验真",
+      en: "NTAG424 DNA API | Digital Identity, Bind, Authenticate & Anti-Counterfeiting",
+      zh: "NTAG424 DNA API | 数字身份、绑定与认证防伪",
     },
     description: {
-      en: "Integrate tag inventory, product binding, activation, revocation, verification, and webhooks. Credentials and field contracts are issued inside the platform.",
-      zh: "对接标签库存、产品绑定、启用、作废、验真和 Webhook。凭证和字段约定在平台内发放。",
+      en: "Open API for NTAG424 DNA: issued inventory, UID–product binding, tap authentication, webhooks—integrate encoding, personalization, and anti-counterfeiting apps.",
+      zh: "NTAG424 开放 API：发行库存、UID 产品绑定、贴卡认证、Webhook，对接编码个人化与防伪系统。",
     },
   },
   {
@@ -135,12 +126,12 @@ export const PLATFORM_PAGES: PlatformPageMeta[] = [
     path: "/cloud-services/platform/faq",
     nav: { en: "FAQ", zh: "常见问题" },
     title: {
-      en: "NFCTEC Platform FAQ | NTAG424 DNA Provisioning",
-      zh: "NFCTEC 平台常见问题 | NTAG424 DNA 发行",
+      en: "NTAG424 DNA FAQ | Encoding, Personalization, Authentication & Anti-Counterfeiting",
+      zh: "NTAG424 DNA 常见问题 | 编码、个人化、认证与防伪",
     },
     description: {
-      en: "Answers on NTAG424 DNA provisioning, where AES keys live, readers, Android clients, pricing, ERP integration, and private deployment.",
-      zh: "关于 NTAG424 DNA 发行、AES 密钥放在哪里、读卡器、Android 客户端、价格、ERP 对接和私有部署的问答。",
+      en: "FAQ on NTAG424 DNA encoding, personalization, secure read/write, authentication, product digital identity, anti-counterfeiting, pricing, and ERP integration.",
+      zh: "NTAG424 编码、个人化、读写、认证、产品数字身份、防伪、价格与 ERP 对接常见问题。",
     },
   },
 ];
@@ -155,30 +146,23 @@ export function tx(locale: Locale, copy: Copy) {
   return locale === "zh" ? copy.zh : copy.en;
 }
 
-/** Confirmed public issuance price. Other quantities are quoted in the platform, not invented here. */
-export const ISSUANCE_TIERS = [500, 1000, 5000, 10000, 25000, 50000] as const;
+export { API_PLANS as API_PLANS_PRICING, ISSUANCE_SNAP_QUANTITIES, issuanceCents, orderTotalCents } from "@/lib/platform-pricing";
+
+/** @deprecated Use issuanceCents from platform-pricing; kept for marketing anchors. */
 export const CONFIRMED_ISSUANCE = { quantity: 1000, priceUsd: 69 } as const;
 
+/** Legacy shape for home cards (USD dollars, not cents). */
 export const API_PLANS = [
   { id: "standard", name: "Standard", monthlyUsd: 39, checks: 50_000 },
   { id: "growth", name: "Growth", monthlyUsd: 99, checks: 500_000 },
   { id: "scale", name: "Scale", monthlyUsd: 299, checks: 5_000_000 },
 ] as const;
 
-export const API_PREPAY_MONTHS = [0, 1, 3, 6, 12, 24, 60] as const;
-
-/** Indicative only. Not a live checkout SKU. */
-export const ENTERPRISE_PLANS = [
-  { id: "business", name: "Business", monthlyUsd: 499, issuance: 10_000, checks: 500_000 },
-  { id: "pro", name: "Enterprise Pro", monthlyUsd: 1299, issuance: 50_000, checks: 5_000_000 },
-  { id: "scale", name: "Enterprise Scale", monthlyUsd: 2999, issuance: 200_000, checks: 20_000_000, plus: true },
-] as const;
-
 export const PLATFORM_FAQS: Record<Locale, FaqItem[]> = {
   en: [
     {
-      q: "What is NTAG424 DNA?",
-      a: "NTAG424 DNA is an NXP NFC chip that can emit a different message on every tap, protected by AES. NFCTEC Platform personalizes those tags in the factory and checks the message later in the cloud.",
+      q: "What is NTAG424 DNA encoding and personalization on NFCTEC Platform?",
+      a: "NTAG424 DNA is an NXP NFC chip with AES-protected dynamic messages (SUN). NFCTEC Platform handles cloud encoding and personalization with secure factory read/write, then links each UID to product digital identity and authenticates taps for anti-counterfeiting.",
     },
     {
       q: "How does secure NFC provisioning work?",
@@ -202,11 +186,15 @@ export const PLATFORM_FAQS: Record<Locale, FaqItem[]> = {
     },
     {
       q: "What is the difference between issuance quota and the API subscription?",
-      a: "Issuance quota is a one-time purchase, counted on successful writes, and it does not expire into a monthly plan. The authentication API is a monthly allowance for binding, activation, revocation, and verification. The confirmed public issuance price is 1,000 successful writes for $69. API plans are $39, $99, and $299 per month.",
+      a: "Issuance quota is a one-time purchase, counted on successful writes only, and it does not expire. The verify API is prepaid months × monthly fee for bind, activate, revoke, and verify. You can buy either or both in one order. Issuance uses a continuous price curve (for example 1,000 cards for $69); API tiers are $39, $99, and $299 per month with no annual discount.",
     },
     {
       q: "Can I integrate NFCTEC with ERP or MES?",
       a: "Yes. After you create API credentials in the platform, your system can pull issued tags, bind products, activate or revoke them, and receive webhooks. Field-level documentation is shown in the platform, not duplicated as an unverified sample on this site.",
+    },
+    {
+      q: "Can we export UID and binding data for label printing?",
+      a: "Yes. Successful issuance stores the UID. Bind product code, name, batch, or other fields in the console or through the API. For print shops or packaging lines, export files can match the columns and format you specify. Issued or bound tags are also available through the open API.",
     },
     {
       q: "How does CMAC verification work?",
@@ -218,17 +206,17 @@ export const PLATFORM_FAQS: Record<Locale, FaqItem[]> = {
     },
     {
       q: "Is Enterprise Cloud available to buy online?",
-      a: "Not as a self-serve checkout item. The Business, Enterprise Pro, and Enterprise Scale figures on this site are indicative and subject to confirmation. Use the sales form to request a quote.",
+      a: "No. Use the site inquiry form or contact sales for custom deployment and volume requirements.",
     },
     {
       q: "Can NFCTEC be deployed on my own server?",
-      a: "Private deployment is planned. It is open for a feasibility assessment, covering dedicated infrastructure, an independent database, and customer-controlled key management. It is not a standard product you can switch on today.",
+      a: "Yes. Describe your requirements in the inquiry form and we will follow up by email.",
     },
   ],
   zh: [
     {
-      q: "NTAG424 DNA 是什么？",
-      a: "NTAG424 DNA 是 NXP 的 NFC 芯片，每次贴卡都可以给出不同的、由 AES 保护的报文。NFCTEC 平台负责在工厂完成个人化，并在之后于云端校验这张报文。",
+      q: "NFCTEC 平台上的 NTAG424 DNA 编码与个人化是什么？",
+      a: "NTAG424 DNA 是 NXP 芯片，可用 AES 保护动态报文（SUN）。NFCTEC 在云端做编码与个人化，工厂设备安全读写写卡，再将 UID 关联产品数字身份，并在云端认证贴卡以支撑防伪。",
     },
     {
       q: "安全发行是怎么进行的？",
@@ -252,11 +240,15 @@ export const PLATFORM_FAQS: Record<Locale, FaqItem[]> = {
     },
     {
       q: "发行额度和 API 订阅有什么区别？",
-      a: "发行额度一次购买，按写卡成功张数计算，不是按月订阅。验真 API 是按月的调用额度，用于绑定、启用、作废和验真。已确认的公开标价是 1,000 张成功发行 $69。API 为每月 $39、$99 和 $299。",
+      a: "发行额度一次购买，只计写卡成功，不会过期。验真 API 按预付月数 × 月费，用于 bind、activate、verify 等。一笔订单可以只买其一或一起买。发行按连续曲线计价（例如 1,000 张 $69）；API 三档月费 $39、$99、$299，没有年付折扣。",
     },
     {
       q: "能对接 ERP 或 MES 吗？",
       a: "可以。在平台里创建 API 凭证后，业务系统可以拉取已发行标签、绑定产品、启用或作废，并接收 Webhook。字段级说明在平台内查看，本站不放一份未经核对的示例契约。",
+    },
+    {
+      q: "可以导出印刷用的 UID 和绑定数据吗？",
+      a: "可以。写卡成功会记录 UID；在控制台或通过 API 绑定产品编号、名称、批次等。面向标签印刷或包装产线，可按你要求的列和文件格式导出；也可用开放接口拉取已发行或已绑定标签。",
     },
     {
       q: "CMAC 验真在做什么？",
@@ -268,11 +260,11 @@ export const PLATFORM_FAQS: Record<Locale, FaqItem[]> = {
     },
     {
       q: "企业云可以在线直接购买吗？",
-      a: "还不能。页面上的 Business、Enterprise Pro、Enterprise Scale 都是拟定价格，需要销售确认。请通过商务表单询价。",
+      a: "不能自助购买。定制规模或部署方式请通过网站询价表单联系销售。",
     },
     {
       q: "可以部署到我们自己的服务器吗？",
-      a: "私有部署处于规划中，现在可以做可行性评估，范围包括独立环境、独立数据库和客户自行掌控的密钥管理。它还不是今天就能开通的标准产品。",
+      a: "可以。在询价表单中说明需求，我们会通过邮件跟进。",
     },
   ],
 };
@@ -309,6 +301,26 @@ export function platformHead(locale: Locale, id: PlatformPageId) {
     scripts.push({
       type: "application/ld+json",
       children: JSON.stringify(faqJsonLd(PLATFORM_FAQS[locale])),
+    });
+  }
+
+  if (id === "home") {
+    scripts.push({
+      type: "application/ld+json",
+      children: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        name: "NFCTEC Platform",
+        applicationCategory: "BusinessApplication",
+        operatingSystem: "Web",
+        url,
+        description,
+        offers: {
+          "@type": "Offer",
+          url: absLocaleUrl(locale, "/cloud-services/platform/pricing"),
+          priceCurrency: "USD",
+        },
+      }),
     });
   }
 

@@ -42,6 +42,83 @@ export type BlogPost = {
 export const posts: BlogPost[] = [
   ...engineeringNotes,
   {
+    slug: "nfctec-platform-ntag424-cloud-launch",
+    cat: "Product",
+    date: "2026-11-13",
+    title: "NFCTEC Platform Is Live: NTAG424 DNA in the Cloud",
+    excerpt:
+      "Cloud encoding and personalization for NTAG424 DNA, secure factory read/write, product digital identity, and tap authentication—without putting AES keys on the production PC.",
+    readMinutes: 4,
+    body: [
+      {
+        paragraphs: [
+          "NFCTEC Platform is now available at platform.nfctec.com. It is aimed at brands and factories that need NTAG424 DNA encoding and personalization on the line, then cryptographic authentication on every tap for anti-counterfeiting.",
+          "AES keys and the EV2 secure session stay on the server. The provisioning client on Windows, macOS, Linux, or Android only reads and writes NFC—it forwards APDUs. Operators personalize tags from issued tasks without receiving your secret keys.",
+        ],
+      },
+      {
+        heading: "What you can do today",
+        items: [
+          "Encode and personalize NTAG424 DNA from templates: NDEF, SDM, and file permissions.",
+          "Bind each UID to product code, name, and batch for a product digital identity.",
+          "Authenticate taps in the cloud with AES-128 CMAC, SUN, and replay detection.",
+          "Use the open API for bind, activate, revoke, and verify—or export UID and binding data for label printing when you need it.",
+        ],
+      },
+      {
+        heading: "Start small",
+        text: "Registration includes trial issuance and verification quotas so you can run a real task before you buy volume. Issuance quota is a one-time purchase on a published curve; the verify API is prepaid by month. Details are on the pricing page.",
+      },
+      {
+        heading: "Where to go next",
+        links: [
+          { label: "Platform overview", href: "/en/cloud-services/platform" },
+          { label: "Pricing", href: "/en/cloud-services/platform/pricing" },
+          { label: "Open the platform", href: "https://platform.nfctec.com/" },
+          { label: "NTAG 424 DNA tags", href: "/en/products/ntag424-dna" },
+          { label: "Encoding SUN and keys (technical)", href: "/en/blog/encode-ntag424-dna-sun-keys-and-verification" },
+        ],
+      },
+    ],
+    zh: {
+      title: "NFCTEC 平台上线：NTAG424 DNA 云端编码与个人化",
+      excerpt:
+        "NTAG424 DNA 云端编码与个人化，工厂安全读写，产品数字身份与贴卡认证——AES 密钥不落在产线电脑上。",
+      cat: "Product",
+      body: [
+        {
+          paragraphs: [
+            "NFCTEC Platform 已在 platform.nfctec.com 开放使用，面向需要在产线完成 NTAG424 DNA 编码与个人化、并在每次贴卡时做密码学认证以支撑防伪的品牌与工厂。",
+            "AES 密钥与 EV2 安全会话留在服务器。Windows、macOS、Linux 或 Android 上的写卡客户端只做 NFC 读写、转发 APDU，操作员领任务写卡，拿不到品牌密钥。",
+          ],
+        },
+        {
+          heading: "现在能做什么",
+          items: [
+            "按模板编码与个人化 NTAG424 DNA：NDEF、SDM 与文件权限。",
+            "将 UID 绑定产品编号、名称与批次，形成产品数字身份。",
+            "在云端用 AES-128 CMAC、SUN 与防重放做贴卡认证。",
+            "通过开放 API 做绑定、启用、作废与验真；需要时可按需导出 UID 与绑定数据供标签印刷。",
+          ],
+        },
+        {
+          heading: "小规模起步",
+          text: "注册即含体验发行与验真额度，可先做真实任务再购买批量。发行额度按公开曲线一次买断；认证 API 按预付月数计费。详见价格页。",
+        },
+        {
+          heading: "延伸阅读",
+          links: [
+            { label: "平台概览", href: "/zh/cloud-services/platform" },
+            { label: "价格", href: "/zh/cloud-services/platform/pricing" },
+            { label: "进入平台", href: "https://platform.nfctec.com/" },
+            { label: "NTAG 424 DNA 标签", href: "/zh/products/ntag424-dna" },
+            { label: "SUN 编码与密钥（技术文）", href: "/zh/blog/encode-ntag424-dna-sun-keys-and-verification" },
+          ],
+        },
+      ],
+    },
+  },
+  {
     slug: "encode-ntag424-dna-sun-keys-and-verification",
     cat: "Security",
     date: "2026-10-21",

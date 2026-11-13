@@ -6,6 +6,7 @@ type PageHeroProps = {
   subtitle?: string;
   meta?: ReactNode;
   actions?: ReactNode;
+  aside?: ReactNode;
   align?: "left" | "center";
   compact?: boolean;
 };
@@ -16,6 +17,7 @@ export function PageHero({
   subtitle,
   meta,
   actions,
+  aside,
   align = "left",
   compact = false,
 }: PageHeroProps) {
@@ -24,7 +26,8 @@ export function PageHero({
   return (
     <section className={`relative page-hero overflow-hidden ${compact ? "page-hero--compact" : ""}`}>
       <div className="absolute inset-0 bg-hero-glow pointer-events-none" />
-      <div className={`relative mx-auto max-w-7xl px-6 lg:px-10 ${alignClass}`}>
+      <div className={`relative mx-auto max-w-7xl px-6 lg:px-10 ${aside ? "grid items-center gap-10 lg:grid-cols-2" : alignClass}`}>
+        <div className={aside ? alignClass : undefined}>
         {eyebrow && <p className="section-label">{eyebrow}</p>}
         <h1
           className={`section-hero-title font-display font-semibold whitespace-pre-line text-balance max-w-4xl ${
@@ -48,6 +51,8 @@ export function PageHero({
             {actions}
           </div>
         )}
+        </div>
+        {aside}
       </div>
     </section>
   );

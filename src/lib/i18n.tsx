@@ -126,8 +126,8 @@ export const t: Dict = {
   },
   "pillar.sol.title": { en: "Cloud Services", zh: "云服务" },
   "pillar.sol.desc": {
-    en: "Issuance & verification APIs, HSM-backed keys and SaaS consoles — connect your hardware to the cloud without crypto complexity.",
-    zh: "发卡与验证 API、HSM 托管密钥与 SaaS 控制台 — 无需深入密码学，即可让硬件对接云端。",
+    en: "NTAG424 DNA issuance and verification on a SaaS console. AES keys stay on the server. DESFire is a card product, not this cloud API.",
+    zh: "NTAG424 DNA 的发行与验真 SaaS。AES 密钥留在服务器。DESFire 是卡片产品，不是这套云接口。",
   },
   "pillar.dev.title": { en: "Industry Solutions", zh: "行业方案" },
   "pillar.dev.desc": {
@@ -301,10 +301,10 @@ export const t: Dict = {
 
   // API / How it works
   "api.eyebrow": { en: "Issuance & Verification API", zh: "发卡与验证 API" },
-  "api.title": { en: "Issue or verify any credential\nin one API call.", zh: "一个 API 调用,\n发行或验证任意凭证。" },
+  "api.title": { en: "Issue and verify NTAG424 DNA\nin one API call.", zh: "一个 API 调用,\n发行并验证 NTAG424 DNA。" },
   "api.sub": {
-    en: "NTAG 424 DNA, DESFire EV2/EV3, MIFARE, EMV bank cards, national ID and ICAO ePassports — one platform, one REST endpoint. We handle the AES keys, CMAC, SUN URLs, PACE/BAC sessions and HSM. You just POST and read JSON.",
-    zh: "NTAG 424 DNA、DESFire EV2/EV3、MIFARE、EMV 银行卡、身份证与 ICAO 电子护照 —— 一个平台、一个 REST 接口。AES 密钥、CMAC、SUN URL、PACE/BAC 会话与 HSM 全部由我们处理,您只需 POST 调用并读取 JSON。",
+    en: "The live cloud API issues and verifies NTAG424 DNA. AES keys and the secure session stay on the server. DESFire, EMV, and ePassport work are separate products.",
+    zh: "现有云接口负责 NTAG424 DNA 的发行和验真。AES 密钥和安全会话留在服务器。DESFire、EMV 和电子护照是另外的产品。",
   },
   "api.issue": { en: "Issue any chip", zh: "发行任意芯片" },
   "api.verify": { en: "Verify any scan", zh: "验证任意扫描" },
@@ -313,14 +313,17 @@ export const t: Dict = {
   "cloud.eyebrow": { en: "Cloud Services", zh: "云服务" },
   "cloud.title": { en: "Issue & verify NFC credentials\nwithout crypto complexity.", zh: "发卡与验证 NFC 凭证\n无需处理复杂密码学。" },
   "cloud.sub": {
-    en: "Cloud personalization and verification for NTAG424 DNA and MIFARE DESFire. Simple REST API — we handle keys, HSM and secure messaging.",
-    zh: "面向 NTAG424 DNA 与 MIFARE DESFire 的云端个性化与验证。简洁 REST API — 密钥、HSM 与安全报文由我们处理。",
+    en: "NTAG424 DNA cloud encoding, personalization, read/write, authentication, and product digital identity for anti-counterfeiting.",
+    zh: "NTAG424 DNA 云端编码、个人化、读写、认证与产品数字身份，支撑 NFC 防伪。",
   },
-  "ntag.issue.eyebrow": { en: "NTAG424 DNA issuance & verification", zh: "NTAG424 DNA 发行与校验" },
+  "ntag.issue.eyebrow": {
+    en: "NTAG424 DNA encoding · personalization · authentication",
+    zh: "NTAG424 DNA 编码 · 个人化 · 认证",
+  },
   "ntag.issue.title": { en: "Authentic tags.\nVerified with a tap.", zh: "真标签。\n轻触即可验证。" },
   "ntag.issue.sub": {
-    en: "Spirits, pharma, luxury, electronics. Issue in the factory, verify with a tap. Keys stay on the server.",
-    zh: "酒类、医药、奢侈品、电子。工厂发行，轻触校验。密钥留在服务器。",
+    en: "Encode and personalize NTAG424 DNA in the factory with secure read/write. Build product digital identity and authenticate taps for brand anti-counterfeiting.",
+    zh: "工厂安全读写完成 NTAG424 编码与个人化，建立产品数字身份，贴卡认证支撑品牌防伪。",
   },
   "ntag.issue.s1.title": { en: "Controlled issuance", zh: "受控发行" },
   "ntag.issue.s1.desc": {
@@ -352,20 +355,20 @@ export const t: Dict = {
   "faq.title": { en: "Frequently asked questions", zh: "常见问题解答" },
 
   // Platform FAQ
-  "faq.p1.q": { en: "Do I need cryptography knowledge to issue NTAG424 DNA or DESFire cards?", zh: "发行 NTAG424 DNA 或 DESFire 卡片需要懂密码学吗？" },
+  "faq.p1.q": { en: "Do I need cryptography knowledge to issue NTAG424 DNA tags?", zh: "发行 NTAG424 DNA 标签需要懂密码学吗？" },
   "faq.p1.a": {
-    en: "No. Our cloud performs all AES/CMAC/CBC-MAC operations, key diversification and session-key handling. You send a plain REST request; we return the ready-to-write payload or the verification result.",
-    zh: "不需要。所有 AES/CMAC/CBC-MAC 运算、密钥分散与会话密钥管理都在云端完成。您只需发送一个普通的 REST 请求，我们返回可直接写卡的数据或验证结果。",
+    en: "No. The cloud runs the AES session and CMAC checks for NTAG424 DNA. The factory client forwards the card messages. DESFire personalization is not this cloud product.",
+    zh: "不需要。云端处理 NTAG424 DNA 的 AES 会话和 CMAC 校验。工厂客户端转发卡片报文。DESFire 个人化不是这套云产品。",
   },
   "faq.p2.q": { en: "Which readers and hardware are supported?", zh: "支持哪些读卡器和硬件？" },
   "faq.p2.a": {
-    en: "Anything that can exchange APDUs — PC/SC desktop readers, Android/iOS phones, embedded modules, POS terminals or our own NFCTEC hardware. The API is transport-agnostic.",
-    zh: "任何能收发 APDU 的设备均可 — PC/SC 桌面读卡器、安卓/iOS 手机、嵌入式模组、POS 终端或我们自研的 NFCTEC 硬件。API 与传输方式无关。",
+    en: "PC/SC readers on Windows, macOS, and Linux, and NFC Android phones, tablets, and POS devices. iOS provisioning is not part of the current client list.",
+    zh: "Windows、macOS、Linux 上的 PC/SC 读卡器，以及带 NFC 的 Android 手机、平板和 POS。当前客户端清单不包含 iOS 写卡。",
   },
   "faq.p3.q": { en: "How are the master keys protected?", zh: "主密钥如何保护？" },
   "faq.p3.a": {
-    en: "Master keys never leave the HSM cluster. Card keys are derived per-UID using AES-128 diversification; only session keys transit the API, and all traffic is TLS 1.3.",
-    zh: "主密钥永不出 HSM。卡片密钥基于 UID 使用 AES-128 分散派生;仅会话密钥在 API 中传输,全程 TLS 1.3 加密。",
+    en: "AES keys and the secure session stay on the server. They are not copied onto the factory computer.",
+    zh: "AES 密钥和安全会话留在服务器，不会拷到工厂电脑上。",
   },
   "faq.p4.q": { en: "Can I test before signing anything?", zh: "可以先测试再签约吗?" },
   "faq.p4.a": {
@@ -374,8 +377,8 @@ export const t: Dict = {
   },
   "faq.p5.q": { en: "Do you offer on-premise deployment?", zh: "是否提供本地部署?" },
   "faq.p5.a": {
-    en: "Yes, for regulated industries (banking, government) we deliver the same stack as a containerised on-premise appliance with your own HSM.",
-    zh: "支持。针对银行、政府等受监管行业,我们以容器化本地一体机形式交付完整技术栈,可对接客户自有 HSM。",
+    en: "Yes. Use the inquiry form on this site and describe your requirements.",
+    zh: "可以。请使用本站询价表单说明需求。",
   },
 
   // Contact FAQ — product support for items already purchased
@@ -412,13 +415,13 @@ export const t: Dict = {
   },
   "cloud.s3.title": { en: "We handle the crypto", zh: "加密由我们处理" },
   "cloud.s3.desc": {
-    en: "Key derivation, authentication and secure messaging run in our HSM. Your product relays bytes.",
-    zh: "密钥派生、认证与安全报文在 HSM 中完成，您的产品只负责传输数据。",
+    en: "Key handling and the secure session run on the server. The reader forwards APDUs. This cloud path is not an HSM.",
+    zh: "密钥和安全会话在服务器上处理。读卡器转发 APDU。这条云路径不是 HSM。",
   },
-  "cloud.t1.title": { en: "HSM-backed keys", zh: "HSM 托管密钥" },
+  "cloud.t1.title": { en: "Keys stay on the server", zh: "密钥留在服务器" },
   "cloud.t1.desc": {
-    en: "Card keys never leave hardware security modules — not exposed in plaintext.",
-    zh: "卡密钥存放于硬件安全模块，不以明文暴露。",
+    en: "AES keys stay on the server and are not handed to the operator. This is not a claim that the keys sit in an HSM.",
+    zh: "AES 密钥留在服务器，不交给操作员。这不是在说密钥已经放进 HSM。",
   },
   "cloud.t2.title": { en: "Encrypted in transit", zh: "传输全程加密" },
   "cloud.t2.desc": { en: "All device ↔ cloud traffic is encrypted end-to-end.", zh: "设备与云端之间的流量全程加密。" },

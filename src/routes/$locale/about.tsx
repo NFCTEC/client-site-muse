@@ -36,8 +36,6 @@ const stats = [
   "about.stats.team",
 ];
 
-const certifications = ["ISO 9001", "PCI-PTS", "EMV L1/L2", "NXP Partner"];
-
 function About() {
   const { tr } = useI18n();
 
@@ -49,17 +47,6 @@ function About() {
         subtitle={tr("about.intro")}
         meta={
           <div className="mt-6">
-            <p className="section-label mb-3">{tr("about.certs")}</p>
-            <div className="flex flex-wrap gap-2">
-              {certifications.map((cert) => (
-                <span
-                  key={cert}
-                  className="rounded-full border border-border bg-background px-4 py-2 text-sm text-muted-foreground"
-                >
-                  {cert}
-                </span>
-              ))}
-            </div>
             <a
               href="/NFCTEC-Company-Profile.pdf"
               className="mt-5 inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm text-primary hover:bg-primary hover:text-primary-foreground transition-colors"

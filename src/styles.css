@@ -211,6 +211,16 @@
     padding-top: 1.5rem;
     padding-bottom: 2rem;
   }
+  @keyframes platform-rise {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: none; }
+  }
+  .platform-rise {
+    animation: platform-rise 0.45s ease;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .platform-rise { animation: none; }
+  }
 
   .section-hero {
     min-height: min(88vh, 44rem);
