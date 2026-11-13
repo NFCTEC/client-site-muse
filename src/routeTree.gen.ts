@@ -30,6 +30,7 @@ import { Route as LocaleIndexRouteImport } from './routes/$locale/index'
 import { Route as SolutionsSlugRouteImport } from './routes/solutions.$slug'
 import { Route as ProductsNfcFieldDetectorRouteImport } from './routes/products.nfc-field-detector'
 import { Route as ContactProjectRouteImport } from './routes/contact.project'
+import { Route as CloudServicesPlatformRouteImport } from './routes/cloud-services.platform'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as LocaleTermsRouteImport } from './routes/$locale/terms'
@@ -52,6 +53,15 @@ import { Route as LocaleSolutionsSlugRouteImport } from './routes/$locale/soluti
 import { Route as LocaleProductsSlugRouteImport } from './routes/$locale/products.$slug'
 import { Route as LocaleContactProjectRouteImport } from './routes/$locale/contact.project'
 import { Route as LocaleBlogSlugRouteImport } from './routes/$locale/blog.$slug'
+import { Route as LocaleCloudServicesPlatformIndexRouteImport } from './routes/$locale/cloud-services.platform.index'
+import { Route as LocaleCloudServicesPlatformProvisioningRouteImport } from './routes/$locale/cloud-services.platform.provisioning'
+import { Route as LocaleCloudServicesPlatformPrivateDeploymentRouteImport } from './routes/$locale/cloud-services.platform.private-deployment'
+import { Route as LocaleCloudServicesPlatformPricingRouteImport } from './routes/$locale/cloud-services.platform.pricing'
+import { Route as LocaleCloudServicesPlatformFeaturesRouteImport } from './routes/$locale/cloud-services.platform.features'
+import { Route as LocaleCloudServicesPlatformFaqRouteImport } from './routes/$locale/cloud-services.platform.faq'
+import { Route as LocaleCloudServicesPlatformEnterpriseRouteImport } from './routes/$locale/cloud-services.platform.enterprise'
+import { Route as LocaleCloudServicesPlatformDevelopersRouteImport } from './routes/$locale/cloud-services.platform.developers'
+import { Route as LocaleCloudServicesPlatformAuthenticationRouteImport } from './routes/$locale/cloud-services.platform.authentication'
 
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
@@ -158,6 +168,11 @@ const ContactProjectRoute = ContactProjectRouteImport.update({
   id: '/project',
   path: '/project',
   getParentRoute: () => ContactRoute,
+} as any)
+const CloudServicesPlatformRoute = CloudServicesPlatformRouteImport.update({
+  id: '/cloud-services/platform',
+  path: '/cloud-services/platform',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
   id: '/$slug',
@@ -269,6 +284,60 @@ const LocaleBlogSlugRoute = LocaleBlogSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => LocaleBlogRoute,
 } as any)
+const LocaleCloudServicesPlatformIndexRoute =
+  LocaleCloudServicesPlatformIndexRouteImport.update({
+    id: '/cloud-services/platform/',
+    path: '/cloud-services/platform/',
+    getParentRoute: () => LocaleRouteRoute,
+  } as any)
+const LocaleCloudServicesPlatformProvisioningRoute =
+  LocaleCloudServicesPlatformProvisioningRouteImport.update({
+    id: '/cloud-services/platform/provisioning',
+    path: '/cloud-services/platform/provisioning',
+    getParentRoute: () => LocaleRouteRoute,
+  } as any)
+const LocaleCloudServicesPlatformPrivateDeploymentRoute =
+  LocaleCloudServicesPlatformPrivateDeploymentRouteImport.update({
+    id: '/cloud-services/platform/private-deployment',
+    path: '/cloud-services/platform/private-deployment',
+    getParentRoute: () => LocaleRouteRoute,
+  } as any)
+const LocaleCloudServicesPlatformPricingRoute =
+  LocaleCloudServicesPlatformPricingRouteImport.update({
+    id: '/cloud-services/platform/pricing',
+    path: '/cloud-services/platform/pricing',
+    getParentRoute: () => LocaleRouteRoute,
+  } as any)
+const LocaleCloudServicesPlatformFeaturesRoute =
+  LocaleCloudServicesPlatformFeaturesRouteImport.update({
+    id: '/cloud-services/platform/features',
+    path: '/cloud-services/platform/features',
+    getParentRoute: () => LocaleRouteRoute,
+  } as any)
+const LocaleCloudServicesPlatformFaqRoute =
+  LocaleCloudServicesPlatformFaqRouteImport.update({
+    id: '/cloud-services/platform/faq',
+    path: '/cloud-services/platform/faq',
+    getParentRoute: () => LocaleRouteRoute,
+  } as any)
+const LocaleCloudServicesPlatformEnterpriseRoute =
+  LocaleCloudServicesPlatformEnterpriseRouteImport.update({
+    id: '/cloud-services/platform/enterprise',
+    path: '/cloud-services/platform/enterprise',
+    getParentRoute: () => LocaleRouteRoute,
+  } as any)
+const LocaleCloudServicesPlatformDevelopersRoute =
+  LocaleCloudServicesPlatformDevelopersRouteImport.update({
+    id: '/cloud-services/platform/developers',
+    path: '/cloud-services/platform/developers',
+    getParentRoute: () => LocaleRouteRoute,
+  } as any)
+const LocaleCloudServicesPlatformAuthenticationRoute =
+  LocaleCloudServicesPlatformAuthenticationRouteImport.update({
+    id: '/cloud-services/platform/authentication',
+    path: '/cloud-services/platform/authentication',
+    getParentRoute: () => LocaleRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -298,6 +367,7 @@ export interface FileRoutesByFullPath {
   '/$locale/terms': typeof LocaleTermsRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/cloud-services/platform': typeof CloudServicesPlatformRoute
   '/contact/project': typeof ContactProjectRoute
   '/products/nfc-field-detector': typeof ProductsNfcFieldDetectorRoute
   '/solutions/$slug': typeof SolutionsSlugRoute
@@ -313,6 +383,15 @@ export interface FileRoutesByFullPath {
   '/$locale/contact/': typeof LocaleContactIndexRoute
   '/$locale/products/': typeof LocaleProductsIndexRoute
   '/$locale/solutions/': typeof LocaleSolutionsIndexRoute
+  '/$locale/cloud-services/platform/authentication': typeof LocaleCloudServicesPlatformAuthenticationRoute
+  '/$locale/cloud-services/platform/developers': typeof LocaleCloudServicesPlatformDevelopersRoute
+  '/$locale/cloud-services/platform/enterprise': typeof LocaleCloudServicesPlatformEnterpriseRoute
+  '/$locale/cloud-services/platform/faq': typeof LocaleCloudServicesPlatformFaqRoute
+  '/$locale/cloud-services/platform/features': typeof LocaleCloudServicesPlatformFeaturesRoute
+  '/$locale/cloud-services/platform/pricing': typeof LocaleCloudServicesPlatformPricingRoute
+  '/$locale/cloud-services/platform/private-deployment': typeof LocaleCloudServicesPlatformPrivateDeploymentRoute
+  '/$locale/cloud-services/platform/provisioning': typeof LocaleCloudServicesPlatformProvisioningRoute
+  '/$locale/cloud-services/platform/': typeof LocaleCloudServicesPlatformIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -337,6 +416,7 @@ export interface FileRoutesByTo {
   '/$locale/terms': typeof LocaleTermsRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/cloud-services/platform': typeof CloudServicesPlatformRoute
   '/contact/project': typeof ContactProjectRoute
   '/products/nfc-field-detector': typeof ProductsNfcFieldDetectorRoute
   '/solutions/$slug': typeof SolutionsSlugRoute
@@ -352,6 +432,15 @@ export interface FileRoutesByTo {
   '/$locale/contact': typeof LocaleContactIndexRoute
   '/$locale/products': typeof LocaleProductsIndexRoute
   '/$locale/solutions': typeof LocaleSolutionsIndexRoute
+  '/$locale/cloud-services/platform/authentication': typeof LocaleCloudServicesPlatformAuthenticationRoute
+  '/$locale/cloud-services/platform/developers': typeof LocaleCloudServicesPlatformDevelopersRoute
+  '/$locale/cloud-services/platform/enterprise': typeof LocaleCloudServicesPlatformEnterpriseRoute
+  '/$locale/cloud-services/platform/faq': typeof LocaleCloudServicesPlatformFaqRoute
+  '/$locale/cloud-services/platform/features': typeof LocaleCloudServicesPlatformFeaturesRoute
+  '/$locale/cloud-services/platform/pricing': typeof LocaleCloudServicesPlatformPricingRoute
+  '/$locale/cloud-services/platform/private-deployment': typeof LocaleCloudServicesPlatformPrivateDeploymentRoute
+  '/$locale/cloud-services/platform/provisioning': typeof LocaleCloudServicesPlatformProvisioningRoute
+  '/$locale/cloud-services/platform': typeof LocaleCloudServicesPlatformIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -383,6 +472,7 @@ export interface FileRoutesById {
   '/$locale/terms': typeof LocaleTermsRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/cloud-services/platform': typeof CloudServicesPlatformRoute
   '/contact/project': typeof ContactProjectRoute
   '/products/nfc-field-detector': typeof ProductsNfcFieldDetectorRoute
   '/solutions/$slug': typeof SolutionsSlugRoute
@@ -398,6 +488,15 @@ export interface FileRoutesById {
   '/$locale/contact/': typeof LocaleContactIndexRoute
   '/$locale/products/': typeof LocaleProductsIndexRoute
   '/$locale/solutions/': typeof LocaleSolutionsIndexRoute
+  '/$locale/cloud-services/platform/authentication': typeof LocaleCloudServicesPlatformAuthenticationRoute
+  '/$locale/cloud-services/platform/developers': typeof LocaleCloudServicesPlatformDevelopersRoute
+  '/$locale/cloud-services/platform/enterprise': typeof LocaleCloudServicesPlatformEnterpriseRoute
+  '/$locale/cloud-services/platform/faq': typeof LocaleCloudServicesPlatformFaqRoute
+  '/$locale/cloud-services/platform/features': typeof LocaleCloudServicesPlatformFeaturesRoute
+  '/$locale/cloud-services/platform/pricing': typeof LocaleCloudServicesPlatformPricingRoute
+  '/$locale/cloud-services/platform/private-deployment': typeof LocaleCloudServicesPlatformPrivateDeploymentRoute
+  '/$locale/cloud-services/platform/provisioning': typeof LocaleCloudServicesPlatformProvisioningRoute
+  '/$locale/cloud-services/platform/': typeof LocaleCloudServicesPlatformIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -429,6 +528,7 @@ export interface FileRouteTypes {
     | '/$locale/terms'
     | '/dashboard'
     | '/blog/$slug'
+    | '/cloud-services/platform'
     | '/contact/project'
     | '/products/nfc-field-detector'
     | '/solutions/$slug'
@@ -444,6 +544,15 @@ export interface FileRouteTypes {
     | '/$locale/contact/'
     | '/$locale/products/'
     | '/$locale/solutions/'
+    | '/$locale/cloud-services/platform/authentication'
+    | '/$locale/cloud-services/platform/developers'
+    | '/$locale/cloud-services/platform/enterprise'
+    | '/$locale/cloud-services/platform/faq'
+    | '/$locale/cloud-services/platform/features'
+    | '/$locale/cloud-services/platform/pricing'
+    | '/$locale/cloud-services/platform/private-deployment'
+    | '/$locale/cloud-services/platform/provisioning'
+    | '/$locale/cloud-services/platform/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -468,6 +577,7 @@ export interface FileRouteTypes {
     | '/$locale/terms'
     | '/dashboard'
     | '/blog/$slug'
+    | '/cloud-services/platform'
     | '/contact/project'
     | '/products/nfc-field-detector'
     | '/solutions/$slug'
@@ -483,6 +593,15 @@ export interface FileRouteTypes {
     | '/$locale/contact'
     | '/$locale/products'
     | '/$locale/solutions'
+    | '/$locale/cloud-services/platform/authentication'
+    | '/$locale/cloud-services/platform/developers'
+    | '/$locale/cloud-services/platform/enterprise'
+    | '/$locale/cloud-services/platform/faq'
+    | '/$locale/cloud-services/platform/features'
+    | '/$locale/cloud-services/platform/pricing'
+    | '/$locale/cloud-services/platform/private-deployment'
+    | '/$locale/cloud-services/platform/provisioning'
+    | '/$locale/cloud-services/platform'
   id:
     | '__root__'
     | '/'
@@ -513,6 +632,7 @@ export interface FileRouteTypes {
     | '/$locale/terms'
     | '/_authenticated/dashboard'
     | '/blog/$slug'
+    | '/cloud-services/platform'
     | '/contact/project'
     | '/products/nfc-field-detector'
     | '/solutions/$slug'
@@ -528,6 +648,15 @@ export interface FileRouteTypes {
     | '/$locale/contact/'
     | '/$locale/products/'
     | '/$locale/solutions/'
+    | '/$locale/cloud-services/platform/authentication'
+    | '/$locale/cloud-services/platform/developers'
+    | '/$locale/cloud-services/platform/enterprise'
+    | '/$locale/cloud-services/platform/faq'
+    | '/$locale/cloud-services/platform/features'
+    | '/$locale/cloud-services/platform/pricing'
+    | '/$locale/cloud-services/platform/private-deployment'
+    | '/$locale/cloud-services/platform/provisioning'
+    | '/$locale/cloud-services/platform/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -546,6 +675,7 @@ export interface RootRouteChildren {
   RobotsDottxtRoute: typeof RobotsDottxtRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TermsRoute: typeof TermsRoute
+  CloudServicesPlatformRoute: typeof CloudServicesPlatformRoute
   ProductsNfcFieldDetectorRoute: typeof ProductsNfcFieldDetectorRoute
   SolutionsSlugRoute: typeof SolutionsSlugRoute
   ProductsIndexRoute: typeof ProductsIndexRoute
@@ -701,6 +831,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactProjectRouteImport
       parentRoute: typeof ContactRoute
     }
+    '/cloud-services/platform': {
+      id: '/cloud-services/platform'
+      path: '/cloud-services/platform'
+      fullPath: '/cloud-services/platform'
+      preLoaderRoute: typeof CloudServicesPlatformRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/blog/$slug': {
       id: '/blog/$slug'
       path: '/$slug'
@@ -855,6 +992,69 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LocaleBlogSlugRouteImport
       parentRoute: typeof LocaleBlogRoute
     }
+    '/$locale/cloud-services/platform/': {
+      id: '/$locale/cloud-services/platform/'
+      path: '/cloud-services/platform'
+      fullPath: '/$locale/cloud-services/platform/'
+      preLoaderRoute: typeof LocaleCloudServicesPlatformIndexRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
+    '/$locale/cloud-services/platform/provisioning': {
+      id: '/$locale/cloud-services/platform/provisioning'
+      path: '/cloud-services/platform/provisioning'
+      fullPath: '/$locale/cloud-services/platform/provisioning'
+      preLoaderRoute: typeof LocaleCloudServicesPlatformProvisioningRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
+    '/$locale/cloud-services/platform/private-deployment': {
+      id: '/$locale/cloud-services/platform/private-deployment'
+      path: '/cloud-services/platform/private-deployment'
+      fullPath: '/$locale/cloud-services/platform/private-deployment'
+      preLoaderRoute: typeof LocaleCloudServicesPlatformPrivateDeploymentRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
+    '/$locale/cloud-services/platform/pricing': {
+      id: '/$locale/cloud-services/platform/pricing'
+      path: '/cloud-services/platform/pricing'
+      fullPath: '/$locale/cloud-services/platform/pricing'
+      preLoaderRoute: typeof LocaleCloudServicesPlatformPricingRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
+    '/$locale/cloud-services/platform/features': {
+      id: '/$locale/cloud-services/platform/features'
+      path: '/cloud-services/platform/features'
+      fullPath: '/$locale/cloud-services/platform/features'
+      preLoaderRoute: typeof LocaleCloudServicesPlatformFeaturesRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
+    '/$locale/cloud-services/platform/faq': {
+      id: '/$locale/cloud-services/platform/faq'
+      path: '/cloud-services/platform/faq'
+      fullPath: '/$locale/cloud-services/platform/faq'
+      preLoaderRoute: typeof LocaleCloudServicesPlatformFaqRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
+    '/$locale/cloud-services/platform/enterprise': {
+      id: '/$locale/cloud-services/platform/enterprise'
+      path: '/cloud-services/platform/enterprise'
+      fullPath: '/$locale/cloud-services/platform/enterprise'
+      preLoaderRoute: typeof LocaleCloudServicesPlatformEnterpriseRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
+    '/$locale/cloud-services/platform/developers': {
+      id: '/$locale/cloud-services/platform/developers'
+      path: '/cloud-services/platform/developers'
+      fullPath: '/$locale/cloud-services/platform/developers'
+      preLoaderRoute: typeof LocaleCloudServicesPlatformDevelopersRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
+    '/$locale/cloud-services/platform/authentication': {
+      id: '/$locale/cloud-services/platform/authentication'
+      path: '/cloud-services/platform/authentication'
+      fullPath: '/$locale/cloud-services/platform/authentication'
+      preLoaderRoute: typeof LocaleCloudServicesPlatformAuthenticationRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
   }
 }
 
@@ -928,6 +1128,15 @@ interface LocaleRouteRouteChildren {
   LocaleTermsRoute: typeof LocaleTermsRoute
   LocaleIndexRoute: typeof LocaleIndexRoute
   LocaleToolsSlugRoute: typeof LocaleToolsSlugRoute
+  LocaleCloudServicesPlatformAuthenticationRoute: typeof LocaleCloudServicesPlatformAuthenticationRoute
+  LocaleCloudServicesPlatformDevelopersRoute: typeof LocaleCloudServicesPlatformDevelopersRoute
+  LocaleCloudServicesPlatformEnterpriseRoute: typeof LocaleCloudServicesPlatformEnterpriseRoute
+  LocaleCloudServicesPlatformFaqRoute: typeof LocaleCloudServicesPlatformFaqRoute
+  LocaleCloudServicesPlatformFeaturesRoute: typeof LocaleCloudServicesPlatformFeaturesRoute
+  LocaleCloudServicesPlatformPricingRoute: typeof LocaleCloudServicesPlatformPricingRoute
+  LocaleCloudServicesPlatformPrivateDeploymentRoute: typeof LocaleCloudServicesPlatformPrivateDeploymentRoute
+  LocaleCloudServicesPlatformProvisioningRoute: typeof LocaleCloudServicesPlatformProvisioningRoute
+  LocaleCloudServicesPlatformIndexRoute: typeof LocaleCloudServicesPlatformIndexRoute
 }
 
 const LocaleRouteRouteChildren: LocaleRouteRouteChildren = {
@@ -944,6 +1153,22 @@ const LocaleRouteRouteChildren: LocaleRouteRouteChildren = {
   LocaleTermsRoute: LocaleTermsRoute,
   LocaleIndexRoute: LocaleIndexRoute,
   LocaleToolsSlugRoute: LocaleToolsSlugRoute,
+  LocaleCloudServicesPlatformAuthenticationRoute:
+    LocaleCloudServicesPlatformAuthenticationRoute,
+  LocaleCloudServicesPlatformDevelopersRoute:
+    LocaleCloudServicesPlatformDevelopersRoute,
+  LocaleCloudServicesPlatformEnterpriseRoute:
+    LocaleCloudServicesPlatformEnterpriseRoute,
+  LocaleCloudServicesPlatformFaqRoute: LocaleCloudServicesPlatformFaqRoute,
+  LocaleCloudServicesPlatformFeaturesRoute:
+    LocaleCloudServicesPlatformFeaturesRoute,
+  LocaleCloudServicesPlatformPricingRoute:
+    LocaleCloudServicesPlatformPricingRoute,
+  LocaleCloudServicesPlatformPrivateDeploymentRoute:
+    LocaleCloudServicesPlatformPrivateDeploymentRoute,
+  LocaleCloudServicesPlatformProvisioningRoute:
+    LocaleCloudServicesPlatformProvisioningRoute,
+  LocaleCloudServicesPlatformIndexRoute: LocaleCloudServicesPlatformIndexRoute,
 }
 
 const LocaleRouteRouteWithChildren = LocaleRouteRoute._addFileChildren(
@@ -999,6 +1224,7 @@ const rootRouteChildren: RootRouteChildren = {
   RobotsDottxtRoute: RobotsDottxtRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TermsRoute: TermsRoute,
+  CloudServicesPlatformRoute: CloudServicesPlatformRoute,
   ProductsNfcFieldDetectorRoute: ProductsNfcFieldDetectorRoute,
   SolutionsSlugRoute: SolutionsSlugRoute,
   ProductsIndexRoute: ProductsIndexRoute,

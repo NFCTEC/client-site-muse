@@ -32,15 +32,32 @@ export function Header() {
   const [open, setOpen] = useState(false);
   const [solOpen, setSolOpen] = useState(false);
   const [prodOpen, setProdOpen] = useState(false);
+  const [cloudOpen, setCloudOpen] = useState(false);
   const path = useRouterState({ select: (s) => s.location.pathname });
 
   useEffect(() => {
     setOpen(false);
     setSolOpen(false);
     setProdOpen(false);
+    setCloudOpen(false);
   }, [path]);
 
-  type NavItem = { path: string; label: string; key: "plain" | "products" | "solutions" };
+  type NavItem = { path: string; label: string; key: "plain" | "products" | "solutions" | "cloud" };
+
+  const cloudItems = [
+    {
+      to: "/$locale/platform" as const,
+      path: "/platform",
+      title: lang === "zh" ? "概览" : "Overview",
+      desc: lang === "zh" ? "现有云服务" : "Current cloud services",
+    },
+    {
+      to: "/$locale/cloud-services/platform" as const,
+      path: "/cloud-services/platform",
+      title: lang === "zh" ? "NFCTEC 平台" : "NFCTEC Platform",
+      desc: lang === "zh" ? "NFC 安全发行与验真平台" : "Secure NFC Provisioning & Authentication",
+    },
+  ];
 
   const supportOnly = path === `/${locale}/contact` || path === `/${locale}/contact/`;
 
@@ -48,7 +65,7 @@ export function Header() {
     { path: "/", label: tr("nav.home"), key: "plain" },
     { path: "/products", label: tr("nav.products"), key: "products" },
     { path: "/solutions", label: tr("nav.solutions"), key: "solutions" },
-    { path: "/platform", label: tr("nav.platform"), key: "plain" },
+    { path: "/platform", label: tr("nav.platform"), key: "cloud" },
     { path: "/downloads", label: tr("nav.downloads"), key: "plain" },
     { path: "/blog", label: tr("nav.blog"), key: "plain" },
     { path: "/about", label: tr("nav.about"), key: "plain" },
@@ -127,6 +144,47 @@ export function Header() {
                             ))}
                           </div>
                         )}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            }
+            if (l.key === "cloud") {
+              const active = cloudItems.some((item) => isActive(item.path));
+              return (
+                <div
+                  key={l.path}
+                  className="relative"
+                  onMouseEnter={() => setCloudOpen(true)}
+                  onMouseLeave={() => setCloudOpen(false)}
+                >
+                  <Link
+                    to="/$locale/platform"
+                    params={{ locale }}
+                    className={`inline-flex items-center gap-1 text-sm transition-colors ${
+                      active ? "text-foreground font-medium" : "text-muted-foreground hover:text-foreground"
+                    }`}
+                  >
+                    {l.label} <ChevronDown size={14} />
+                  </Link>
+                  {cloudOpen && (
+                    <div className="absolute top-full left-0 pt-3">
+                      <div className="rounded-xl border border-border bg-popover shadow-float p-2 min-w-[280px]">
+                        {cloudItems.map((item) => (
+                          <Link
+                            key={item.path}
+                            to={item.to}
+                            params={{ locale }}
+                            onClick={() => setCloudOpen(false)}
+                            className={`block px-3 py-2 rounded-lg hover:bg-surface-elevated ${
+                              isActive(item.path) ? "text-foreground" : "text-muted-foreground hover:text-primary"
+                            }`}
+                          >
+                            <span className="block text-sm">{item.title}</span>
+                            <span className="block text-xs mt-0.5 text-muted-foreground">{item.desc}</span>
+                          </Link>
+                        ))}
                       </div>
                     </div>
                   )}
@@ -239,6 +297,25 @@ export function Header() {
         <div className="lg:hidden border-t border-border bg-background">
           <div className="px-6 py-4 flex flex-col gap-3">
             {navItems.map((l) => {
+              if (l.key === "cloud") {
+                return (
+                  <div key={l.path} className="flex flex-col gap-1">
+                    <p className="text-sm text-foreground py-1">{l.label}</p>
+                    {cloudItems.map((item) => (
+                      <Link
+                        key={item.path}
+                        to={item.to}
+                        params={{ locale }}
+                        onClick={() => setOpen(false)}
+                        className="pl-3 py-1"
+                      >
+                        <span className="block text-sm text-foreground">{item.title}</span>
+                        <span className="block text-xs text-muted-foreground">{item.desc}</span>
+                      </Link>
+                    ))}
+                  </div>
+                );
+              }
               const mobileTo =
                 l.path === "/"
                   ? { to: "/$locale" as const, params: { locale } }

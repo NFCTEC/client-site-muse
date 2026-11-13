@@ -123,6 +123,13 @@ function Platform() {
           <div className="mt-8 flex flex-wrap items-center gap-3">
             {platformLink}
             {engineerLink}
+            <Link
+              to="/$locale/cloud-services/platform"
+              params={{ locale }}
+              className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:opacity-80"
+            >
+              NFCTEC Platform <ArrowRight size={16} />
+            </Link>
           </div>
           <p className="mt-3 text-xs font-mono tracking-wide text-muted-foreground">{tr("ntag.issue.tagline")}</p>
           <div className="mt-10 grid md:grid-cols-3 gap-5">

@@ -3,6 +3,7 @@ import type {} from "@tanstack/react-start";
 import { fetchSitemapUrls } from "@/lib/cms";
 import { posts as localBlogPosts } from "@/lib/blog-posts";
 import { SITE_URL, isNoIndexPath } from "@/lib/seo";
+import { platformSitemapEntries } from "@/lib/platform-site";
 
 const STATIC_URLS = ["en", "zh"].flatMap((locale) => [
   { loc: `${SITE_URL}/${locale}/privacy`, lastmod: "2026-10-12" },
@@ -21,7 +22,7 @@ const STATIC_URLS = ["en", "zh"].flatMap((locale) => [
   { loc: `${SITE_URL}/${locale}/products/j3r452-javacard`, lastmod: "2026-10-13" },
   { loc: `${SITE_URL}/${locale}/products/j3r180-javacard`, lastmod: "2026-10-13" },
   { loc: `${SITE_URL}/${locale}/products/j2a040-javacard`, lastmod: "2026-09-29" },
-]);
+]).concat(platformSitemapEntries());
 
 function xhtmlAlternates(loc: string) {
   const match = loc.match(`^${SITE_URL.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}/(en|zh)(/.*)?$`);
