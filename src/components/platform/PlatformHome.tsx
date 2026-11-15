@@ -2,6 +2,7 @@ import { KeyRound, Layers, Link2, Tags } from "lucide-react";
 import { PageSection } from "@/components/PageSection";
 import { PlatformFrame, PlatformLink } from "@/components/platform/PlatformChrome";
 import { PlatformHeroFlow } from "@/components/platform/PlatformHeroFlow";
+import { MobileAppStoreComingSoon } from "@/components/platform/MobileAppStoreComingSoon";
 import { PlatformProductDemo } from "@/components/platform/PlatformProductDemo";
 import { useLocale } from "@/hooks/useLocale";
 import { formatUsdFromCents, issuanceCents, orderTotalCents } from "@/lib/platform-pricing";
@@ -133,10 +134,16 @@ export function PlatformHome() {
         <div className="mt-10">
           <PlatformProductDemo locale={locale} />
         </div>
-        <div className="mt-6 text-sm">
+        <div className="mt-6 flex flex-wrap gap-3 text-sm">
           <PlatformLink locale={locale} intent="features">
             {zh ? "查看完整功能" : "View all features"}
           </PlatformLink>
+          <PlatformLink locale={locale} intent="downloads">
+            {zh ? "下载写卡客户端（下载中心）" : "Download provisioning client (download center)"}
+          </PlatformLink>
+        </div>
+        <div className="mt-8 max-w-2xl">
+          <MobileAppStoreComingSoon locale={locale} />
         </div>
       </PageSection>
 

@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { PageSection } from "@/components/PageSection";
 import { FaqSection } from "@/components/FaqSection";
 import { PlatformFrame, PlatformLink, StatusBadge } from "@/components/platform/PlatformChrome";
+import { MobileAppStoreComingSoon } from "@/components/platform/MobileAppStoreComingSoon";
 import { useLocale } from "@/hooks/useLocale";
 import {
   ACTIVATE_REQUEST_EXAMPLE,
@@ -87,7 +88,14 @@ export function PlatformProvisioning() {
           ? "云端编码与密钥会话；客户端只做 NFC 读写转发。每次成功写卡形成 UID 记录，支撑产品数字身份。"
           : "Cloud encoding and crypto sessions; clients only read/write and relay NFC. Each successful write records the UID for product digital identity."
       }
-      actions={<PlatformLink locale={locale} intent="start">{zh ? "免费开始" : "Start Free"}</PlatformLink>}
+      actions={
+        <div className="flex flex-wrap gap-3">
+          <PlatformLink locale={locale} intent="start">{zh ? "免费开始" : "Start Free"}</PlatformLink>
+          <PlatformLink locale={locale} intent="downloads">
+            {zh ? "下载写卡客户端" : "Download provisioning client"}
+          </PlatformLink>
+        </div>
+      }
     >
       <PageSection spacing="tight" className="!pt-0">
         <div className="grid md:grid-cols-2 gap-5">
@@ -107,6 +115,17 @@ export function PlatformProvisioning() {
                 : ["AES keys and the EV2 session", "NDEF, SDM, and file permissions from the template", "Counts successful writes and stops at the task limit", "Keeps the result and the failure reason", "Issuance records include UID; bind to products and export for print or line systems on request"]}
             />
           </article>
+        </div>
+        <p className="mt-6 text-sm text-muted-foreground leading-relaxed max-w-2xl">
+          {zh
+            ? "产线安装包（Windows x64、macOS 等）在下载中心更新，与 SaaS 控制台版本分开发布。注册云账号后下载对应平台的 Issuance Workbench / 写卡客户端。"
+            : "Line installers (Windows x64, macOS, and more) live in the download center and ship on their own release cadence. Register in the cloud, then grab the Issuance Workbench for your platform."}
+        </p>
+        <div className="mt-4 flex flex-wrap gap-3 items-center">
+          <PlatformLink locale={locale} intent="downloads">{zh ? "前往下载中心" : "Open download center"}</PlatformLink>
+        </div>
+        <div className="mt-8">
+          <MobileAppStoreComingSoon locale={locale} />
         </div>
       </PageSection>
     </PlatformFrame>

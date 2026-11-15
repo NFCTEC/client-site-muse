@@ -9,6 +9,7 @@ import { PageHero } from "@/components/PageHero";
 import { PageSection } from "@/components/PageSection";
 import { SectionHeader } from "@/components/SectionHeader";
 import { CtaBand } from "@/components/CtaBand";
+import { MobileAppStoreComingSoon } from "@/components/platform/MobileAppStoreComingSoon";
 
 const iconForGroup = (name: string) => {
   const n = name.toLowerCase();
@@ -103,6 +104,7 @@ function Downloads() {
               </a>
             </div>
           </div>
+          <MobileAppStoreComingSoon locale={locale as Locale} />
           {groups.length === 0 ? (
             <div className="rounded-2xl border border-border bg-card-gradient p-12 lg:p-16 text-center">
               <FileArchive size={40} className="mx-auto text-muted-foreground mb-6" />

@@ -4,6 +4,9 @@ import { faqJsonLd, type FaqItem } from "@/components/FaqSection";
 
 export const PLATFORM_APP_URL = "https://platform.nfctec.com/";
 
+/** Issuance Workbench / provisioning clients — listed in CMS download center, not in this repo. */
+export const PLATFORM_PROVISIONING_DOWNLOADS_PATH = "/downloads" as const;
+
 export function platformRoute(id: PlatformPageId) {
   switch (id) {
     case "home":
@@ -185,6 +188,10 @@ export const PLATFORM_FAQS: Record<Locale, FaqItem[]> = {
       a: "Yes. NFC-capable Android phones, tablets, and POS devices can run the provisioning client. The phone relays NFC messages. It does not receive the AES keys.",
     },
     {
+      q: "Where do I download the provisioning client?",
+      a: "Windows and macOS Issuance Workbench installers are in the site download center under /en/downloads or /zh/downloads. The mobile provisioning app for iOS and Android is coming to the App Store and Google Play soon. The SaaS console is at platform.nfctec.com.",
+    },
+    {
       q: "What is the difference between issuance quota and the API subscription?",
       a: "Issuance quota is a one-time purchase, counted on successful writes only, and it does not expire. The verify API is prepaid months × monthly fee for bind, activate, revoke, and verify. You can buy either or both in one order. Issuance uses a continuous price curve (for example 1,000 cards for $69); API tiers are $39, $99, and $299 per month with no annual discount.",
     },
@@ -237,6 +244,10 @@ export const PLATFORM_FAQS: Record<Locale, FaqItem[]> = {
     {
       q: "Android 手机可以写卡吗？",
       a: "可以。带 NFC 的 Android 手机、平板和 POS 可以运行写卡客户端。手机只转发 NFC 报文，不会拿到 AES 密钥。",
+    },
+    {
+      q: "写卡客户端在哪里下载？",
+      a: "Windows、macOS 的 Issuance Workbench 安装包在网站下载中心（/zh/downloads 或 /en/downloads）。iOS / Android 写卡 App 即将上架 App Store 与 Google Play。云端控制台入口为 platform.nfctec.com。",
     },
     {
       q: "发行额度和 API 订阅有什么区别？",
