@@ -7,6 +7,9 @@ export const PLATFORM_APP_URL = "https://platform.nfctec.com/";
 /** Issuance Workbench / provisioning clients — listed in CMS download center, not in this repo. */
 export const PLATFORM_PROVISIONING_DOWNLOADS_PATH = "/downloads" as const;
 
+/** B2B product overview deck (English PDF, in /public). */
+export const PLATFORM_OVERVIEW_PDF = "/NFCTEC-NTAG424-DNA-Platform-Overview.pdf" as const;
+
 export function platformRoute(id: PlatformPageId) {
   switch (id) {
     case "home":

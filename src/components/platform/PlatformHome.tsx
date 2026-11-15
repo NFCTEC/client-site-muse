@@ -1,6 +1,7 @@
 import { KeyRound, Layers, Link2, Tags } from "lucide-react";
 import { PageSection } from "@/components/PageSection";
 import { PlatformFrame, PlatformLink } from "@/components/platform/PlatformChrome";
+import { PlatformOverviewPdfLink } from "@/components/platform/PlatformOverviewPdfLink";
 import { PlatformHeroFlow } from "@/components/platform/PlatformHeroFlow";
 import { MobileAppStoreComingSoon } from "@/components/platform/MobileAppStoreComingSoon";
 import { PlatformProductDemo } from "@/components/platform/PlatformProductDemo";
@@ -94,6 +95,7 @@ export function PlatformHome() {
           >
             {zh ? "了解如何运作" : "See How It Works"}
           </a>
+          <PlatformOverviewPdfLink locale={locale} />
         </>
       }
       heroAside={<PlatformHeroFlow locale={locale} />}

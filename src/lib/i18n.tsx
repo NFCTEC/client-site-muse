@@ -488,6 +488,14 @@ export const t: Dict = {
     en: "English landscape deck covering NFC, smart cards, security, identity and crypto wallets.",
     zh: "英文横版介绍：NFC、智能卡、安全、身份与加密货币钱包。",
   },
+  "dl.platformPdf.title": {
+    en: "NTAG424 DNA Issuance & Verification Platform",
+    zh: "NTAG424 DNA 发行与验真平台",
+  },
+  "dl.platformPdf.desc": {
+    en: "3-page product overview: secure provisioning, web console, operator workbench, and traceable issuance.",
+    zh: "英文 3 页产品概览：安全发行、Web 控制台、操作员工作台与可追溯写卡。",
+  },
   "legal.privacy.title": { en: "Privacy", zh: "隐私" },
   "legal.privacy.sub": {
     en: "How this website handles inquiries and technical logs.",

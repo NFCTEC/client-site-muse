@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { PageHero } from "@/components/PageHero";
 import { PageSection } from "@/components/PageSection";
 import type { Locale } from "@/lib/locale";
+import { PlatformOverviewPdfLink } from "@/components/platform/PlatformOverviewPdfLink";
 import {
   PLATFORM_APP_URL,
   PLATFORM_PAGES,
@@ -170,6 +171,7 @@ export function PlatformFrame({
             <PlatformLink locale={locale} intent="start">
               {zh ? "免费开始" : "Start Free"}
             </PlatformLink>
+            {conversionFooter && <PlatformOverviewPdfLink locale={locale} />}
             {!conversionFooter && (
               <a
                 href={PLATFORM_APP_URL}

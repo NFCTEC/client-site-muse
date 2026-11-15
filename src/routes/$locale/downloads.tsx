@@ -10,6 +10,7 @@ import { PageSection } from "@/components/PageSection";
 import { SectionHeader } from "@/components/SectionHeader";
 import { CtaBand } from "@/components/CtaBand";
 import { MobileAppStoreComingSoon } from "@/components/platform/MobileAppStoreComingSoon";
+import { PLATFORM_OVERVIEW_PDF } from "@/lib/platform-site";
 
 const iconForGroup = (name: string) => {
   const n = name.toLowerCase();
@@ -91,6 +92,20 @@ function Downloads() {
       <PageSection spacing="main" className="!pt-0">
         <div className="space-y-8">
           <div className="rounded-2xl border border-border bg-card-gradient overflow-hidden">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 px-7 py-5 border-b border-border">
+              <div>
+                <h2 className="font-display text-lg font-semibold">{tr("dl.platformPdf.title")}</h2>
+                <p className="text-sm text-muted-foreground mt-1">{tr("dl.platformPdf.desc")}</p>
+              </div>
+              <a
+                href={PLATFORM_OVERVIEW_PDF}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="shrink-0 inline-flex items-center gap-2 rounded-full border border-border-strong px-4 py-2 text-xs text-primary hover:bg-primary hover:text-primary-foreground transition-colors"
+              >
+                <Download size={14} /> PDF
+              </a>
+            </div>
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 px-7 py-5">
               <div>
                 <h2 className="font-display text-lg font-semibold">{tr("dl.profile.title")}</h2>
