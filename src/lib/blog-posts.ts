@@ -45,111 +45,106 @@ export const posts: BlogPost[] = [
     slug: "ntag424-dna-platform-provisioning-client-download",
     cat: "Product",
     date: "2026-11-15",
-    title:
-      "NTAG424 DNA Platform: Encoding, Personalization, Authentication—and Where to Download the Client",
+    title: "Ship NTAG424 DNA Faster: Cloud Issuance, Factory Client, Tap-to-Verify",
     excerpt:
-      "Use NFCTEC Platform for NTAG424 DNA encoding, secure factory personalization, product digital identity, and tap authentication. Open the cloud console, download the Issuance Workbench, and read the overview PDF.",
-    readMinutes: 6,
+      "NTAG424 DNA encoding and personalization without handing AES keys to the line. Register free, install Issuance Workbench, bind each UID to product identity, and verify every tap in the cloud.",
+    readMinutes: 5,
     body: [
       {
         paragraphs: [
-          "NTAG424 DNA is the common choice when each tap must carry a fresh SUN message and an AES-protected CMAC. Encoding and personalization belong in a controlled workflow: templates for NDEF and SDM, KEY0–KEY4 handled on the server, and operators who never receive plaintext AES keys. NFCTEC Platform is built for that split—cloud cryptography, factory read/write, and a verification API for anti-counterfeiting.",
-          "If you are comparing build-your-own versus a hosted platform, start from the marketing overview, install the desktop client from the download center, and register in the cloud. The links below are the canonical entry points.",
+          "You already picked NTAG424 DNA because every tap can carry a fresh SUN URL and a CMAC a copier cannot replay. What slows teams down is everything around the chip: KEY0–KEY4, SDM offsets, who is allowed to write, and how you prove a scan is genuine in production—not in a lab demo.",
+          "NFCTEC Platform keeps cryptography on the server. Operators use a normal workstation or NFC phone on the line; they never receive your brand keys. The same account ties issuance, UID binding, and verification API together—so product digital identity and anti-counterfeiting are one workflow, not three vendors.",
         ],
       },
       {
-        heading: "Open the NFCTEC Platform (cloud console)",
+        heading: "Try the cloud console first",
         paragraphs: [
-          "Create an account, define issuance templates, assign tasks to operators, bind UIDs to product codes, and run verify API calls from your own systems.",
+          "Sign up takes minutes. New accounts include trial issuance and verification quota so you can run a real task before you buy volume. From the console you publish templates, cap tasks, bind product codes, and issue API credentials for your ERP or anti-counterfeit app.",
         ],
         links: [
-          { label: "NFCTEC Platform — sign up and sign in", href: "https://platform.nfctec.com/" },
-          { label: "Platform marketing overview", href: "/en/cloud-services/platform" },
-          { label: "Pricing calculator (issuance + verify API)", href: "/en/cloud-services/platform/pricing" },
+          { label: "Open NFCTEC Platform (register / sign in)", href: "https://platform.nfctec.com/" },
+          { label: "What the platform does — overview", href: "/en/cloud-services/platform" },
+          { label: "Issuance + verify API pricing", href: "/en/cloud-services/platform/pricing" },
         ],
       },
       {
-        heading: "Download the provisioning client (Issuance Workbench)",
+        heading: "Install the factory client",
         paragraphs: [
-          "Production personalization uses the Issuance Workbench on Windows x64, macOS, or Linux (PC/SC readers) or supported NFC mobile workflows. Installers are not attached to this blog post—they are versioned in the download center so you always get the current build.",
+          "Personalization runs in Issuance Workbench on Windows x64 or macOS (PC/SC readers), with Android/iOS apps arriving on the stores soon. Installers are always the latest builds on the download center—pick your OS, sign in with the same cloud account, take a task, and tap tags.",
         ],
         links: [
-          { label: "Download center — Windows & macOS clients", href: "/en/downloads" },
-          { label: "3-page product overview (PDF)", href: "/NFCTEC-NTAG424-DNA-Platform-Overview.pdf" },
-          { label: "Provisioning and read/write details", href: "/en/cloud-services/platform/provisioning" },
+          { label: "Download center — Issuance Workbench & tools", href: "/en/downloads" },
+          { label: "Shareable product overview (PDF)", href: "/NFCTEC-NTAG424-DNA-Platform-Overview.pdf" },
         ],
       },
       {
-        heading: "Encoding, personalization, and authentication in one flow",
-        ordered: true,
-        items: [
-          "Configure keys, SDM/NDEF, and file permissions in the web console.",
-          "Download the client, sign in, and take an issuance task.",
-          "Read and write tags on the line; the server holds the EV2 session.",
-          "Bind the UID to SKU, lot, and product identity; export print-line data if needed.",
-          "Authenticate every tap with the verify API (AES-128 CMAC, replay detection).",
+        heading: "From blank tag to trusted product in one afternoon",
+        paragraphs: [
+          "Most pilots follow the same rhythm: template in the browser, client on the bench, first successful UID in the audit log, then a verify call that returns GENUINE on a phone tap. When you go live, export UID and binding data for label printing if your print shop needs a file—not a second database.",
+        ],
+        links: [
+          { label: "How provisioning and read/write work", href: "/en/cloud-services/platform/provisioning" },
+          { label: "Authentication API and SUN verification", href: "/en/cloud-services/platform/authentication" },
         ],
       },
       {
-        heading: "Related NTAG424 resources",
+        heading: "Go deeper when you are ready",
         links: [
-          { label: "NTAG 424 DNA tags (hardware)", href: "/en/products/ntag424-dna" },
-          { label: "SUN encoding and server verification (technical)", href: "/en/blog/encode-ntag424-dna-sun-keys-and-verification" },
-          { label: "Platform launch note", href: "/en/blog/nfctec-platform-ntag424-cloud-launch" },
-          { label: "Open API for developers", href: "/en/cloud-services/platform/developers" },
+          { label: "NTAG 424 DNA tags from NFCTEC", href: "/en/products/ntag424-dna" },
+          { label: "SUN keys and server verification (technical)", href: "/en/blog/encode-ntag424-dna-sun-keys-and-verification" },
+          { label: "Developer API reference on this site", href: "/en/cloud-services/platform/developers" },
         ],
       },
     ],
     zh: {
-      title: "NTAG424 DNA 平台：编码、个人化、认证——客户端下载与控制台入口",
+      title: "NTAG424 DNA 量产更快：云端发行、产线客户端、贴卡验真",
       excerpt:
-        "用 NFCTEC Platform 做 NTAG424 DNA 编码、工厂安全个人化、产品数字身份与贴卡防伪。云端注册、下载中心安装 Issuance Workbench、产品概览 PDF。",
+        "工厂不接触 AES 密钥，完成 NTAG424 编码与个人化。免费注册云端，安装 Issuance Workbench，绑定 UID 与产品身份，云端校验每次贴卡。",
       cat: "Product",
       body: [
         {
           paragraphs: [
-            "NTAG424 DNA 适合每次贴卡都带 SUN 动态报文与 AES-CMAC 的场景。编码与个人化需要受控流程：NDEF/SDM 模板、KEY0–KEY4 留在服务器、操作员不接触明文 AES 密钥。NFCTEC Platform 按这一分工设计——云端密码学、工厂安全读写、验真 API 支撑防伪。",
-            "若在「自研」与「托管平台」之间评估，建议先看营销概览，再从下载中心安装桌面客户端，并在云端注册。下列链接为固定入口。",
+            "选 NTAG424 DNA，是因为每次轻触都能带出新的 SUN 链接和密码学 CMAC，复制品难以为继。真正拖慢项目的是密钥、SDM 偏移、产线权限，以及「量产里如何验真」——不是实验室里那一次演示。",
+            "NFCTEC Platform 把密码学留在服务器：操作员在工位或手机上读写标签，但拿不到品牌密钥。同一套账号贯穿发行、UID 绑定和验真 API，产品数字身份与防伪是一条链路，而不是三套系统拼凑。",
           ],
         },
         {
-          heading: "打开 NFCTEC Platform（云端控制台）",
-          paragraphs: ["注册后可配置发行模板、分配任务、绑定 UID 与产品编号，并通过验真 API 对接业务系统。"],
-          links: [
-            { label: "NFCTEC Platform — 注册与登录", href: "https://platform.nfctec.com/" },
-            { label: "平台营销概览", href: "/zh/cloud-services/platform" },
-            { label: "价格页（发行 + 验真 API）", href: "/zh/cloud-services/platform/pricing" },
-          ],
-        },
-        {
-          heading: "下载写卡客户端（Issuance Workbench）",
+          heading: "先登录云端控制台",
           paragraphs: [
-            "量产个人化使用 Issuance Workbench：Windows x64、macOS、Linux（PC/SC 读卡器）或支持的 NFC 移动流程。安装包在下载中心维护版本，不在博客附件中固定更新。",
+            "注册几分钟即可完成。新账号含体验发行与验真额度，可先跑通真实任务再采购批量。在控制台发布模板、限制任务、绑定产品编号，并为 ERP 或防伪应用创建 API 凭证。",
           ],
           links: [
-            { label: "下载中心 — Windows / macOS 客户端", href: "/zh/downloads" },
-            { label: "3 页产品介绍（PDF）", href: "/NFCTEC-NTAG424-DNA-Platform-Overview.pdf" },
+            { label: "打开 NFCTEC Platform（注册 / 登录）", href: "https://platform.nfctec.com/" },
+            { label: "平台能做什么 — 功能概览", href: "/zh/cloud-services/platform" },
+            { label: "发行额度 + 验真 API 价格", href: "/zh/cloud-services/platform/pricing" },
+          ],
+        },
+        {
+          heading: "安装产线写卡客户端",
+          paragraphs: [
+            "个人化在 Issuance Workbench 中完成：Windows x64、macOS（PC/SC 读卡器），手机端 App 即将上架应用商店。请始终在下载中心获取最新安装包，用同一云账号登录、领取任务并贴卡写卡。",
+          ],
+          links: [
+            { label: "下载中心 — Issuance Workbench 与工具", href: "/zh/downloads" },
+            { label: "可转发的产品介绍（PDF）", href: "/NFCTEC-NTAG424-DNA-Platform-Overview.pdf" },
+          ],
+        },
+        {
+          heading: "一下午就能跑通：空白标签到可信身份",
+          paragraphs: [
+            "多数试点都走同一条路：浏览器里配好模板，工位装上客户端，日志里出现第一张成功 UID，再用手机贴卡看到验真返回真品。量产时若印厂要文件，可按约定导出 UID 与绑定字段，无需再维护一份平行表格。",
+          ],
+          links: [
             { label: "个人化与读写说明", href: "/zh/cloud-services/platform/provisioning" },
+            { label: "验真 API 与 SUN 校验", href: "/zh/cloud-services/platform/authentication" },
           ],
         },
         {
-          heading: "编码、个人化、认证一条链路",
-          ordered: true,
-          items: [
-            "在 Web 控制台配置密钥、SDM/NDEF 与文件权限。",
-            "安装客户端、登录并领取发行任务。",
-            "产线读写标签，EV2 会话在服务器完成。",
-            "UID 绑定 SKU、批次与产品身份；需要时导出印刷数据。",
-            "用验真 API 校验每次贴卡（AES-128 CMAC、防重放）。",
-          ],
-        },
-        {
-          heading: "更多 NTAG424 资料",
+          heading: "需要时再往下读",
           links: [
-            { label: "NTAG 424 DNA 标签（硬件）", href: "/zh/products/ntag424-dna" },
-            { label: "SUN 编码与服务器验真（技术）", href: "/zh/blog/encode-ntag424-dna-sun-keys-and-verification" },
-            { label: "平台上线说明", href: "/zh/blog/nfctec-platform-ntag424-cloud-launch" },
-            { label: "开放 API（开发者）", href: "/zh/cloud-services/platform/developers" },
+            { label: "NFCTEC NTAG 424 DNA 标签", href: "/zh/products/ntag424-dna" },
+            { label: "SUN 密钥与服务器验真（技术）", href: "/zh/blog/encode-ntag424-dna-sun-keys-and-verification" },
+            { label: "站内开发者 API 说明", href: "/zh/cloud-services/platform/developers" },
           ],
         },
       ],
