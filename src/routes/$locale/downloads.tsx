@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
 import { Download, FileArchive, FileText, Cpu, Code2, ShieldCheck, Sparkles, ArrowRight } from "lucide-react";
@@ -70,8 +71,28 @@ export const Route = createFileRoute("/$locale/downloads")({
 
 function Downloads() {
   const { tr, lang } = useI18n();
-  const { groups, showPlatform } = Route.useLoaderData();
+  const { groups: loaderGroups, showPlatform } = Route.useLoaderData();
   const { locale } = Route.useParams();
+  const [groups, setGroups] = useState(loaderGroups);
+
+  useEffect(() => {
+    setGroups(loaderGroups);
+  }, [loaderGroups]);
+
+  // First SSR paint can still be empty when the server cannot reach loopback CMS; the browser can.
+  useEffect(() => {
+    if (loaderGroups.length > 0) return;
+    let cancelled = false;
+    fetchDownloads(locale as Locale)
+      .then((data) => {
+        if (!cancelled && data.length > 0) setGroups(data);
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, [locale, loaderGroups.length]);
+
   const totalFiles = groups.reduce((n: number, g: CmsDownloadGroup) => n + g.items.length, 0);
 
   return (
@@ -123,7 +144,7 @@ function Downloads() {
           {groups.length === 0 ? (
             <div className="rounded-2xl border border-border bg-card-gradient p-12 lg:p-16 text-center">
               <FileArchive size={40} className="mx-auto text-muted-foreground mb-6" />
-              <p className="text-muted-foreground max-w-md mx-auto leading-relaxed">{tr("dl.empty")}</p>
+              <p className="text-muted-foreground max-w-md mx-auto leading-relaxed">{tr("dl.emptyPage")}</p>
               <Link
                 to="/$locale/inquiry"
                 params={{ locale }}

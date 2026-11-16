@@ -124,32 +124,54 @@ export function getPublicCmsApiBase(): string {
   return "https://web.nfctec.com/api";
 }
 
+function cmsApiBases(): string[] {
+  const primary = getCmsApiBase().replace(/\/$/, "");
+  const pub = getPublicCmsApiBase().replace(/\/$/, "");
+  const loopback = /^https?:\/\/(127\.0\.0\.1|localhost)(:\d+)?/i;
+  // SSR often has CMS_API_URL=http://127.0.0.1:3000/api while the app node cannot reach it.
+  // Try the public API first so the first paint matches what the browser would get on retry.
+  const order =
+    typeof process !== "undefined" && loopback.test(primary) && primary !== pub
+      ? [pub, primary]
+      : [primary, pub];
+  const seen = new Set<string>();
+  return order.filter((base) => {
+    if (seen.has(base)) return false;
+    seen.add(base);
+    return true;
+  });
+}
+
 async function cmsFetch<T>(path: string, init?: RequestInit): Promise<T> {
-  const base = getCmsApiBase();
-  try {
-    const res = await fetch(`${base}${path}`, {
-      ...init,
-      signal: init?.signal ?? AbortSignal.timeout(4000),
-      headers: {
-        Accept: "application/json",
-        ...(init?.headers ?? {}),
-      },
-    });
-    if (!res.ok) {
-      throw new Error(`CMS ${path} failed: ${res.status}`);
-    }
-    return (await res.json()) as T;
-  } catch (err) {
-    const { mockResponse } = await import("./cms-mock");
-    const mock = mockResponse(path);
-    if (mock !== null && mock !== undefined) {
-      if (typeof console !== "undefined") {
-        console.warn(`[cms] ${path} unreachable, using mock data`, err);
+  const timeoutMs = path.includes("/public/downloads") ? 12_000 : 4_000;
+  let lastErr: unknown;
+  for (const base of cmsApiBases()) {
+    try {
+      const res = await fetch(`${base}${path}`, {
+        ...init,
+        signal: init?.signal ?? AbortSignal.timeout(timeoutMs),
+        headers: {
+          Accept: "application/json",
+          ...(init?.headers ?? {}),
+        },
+      });
+      if (!res.ok) {
+        throw new Error(`CMS ${path} failed: ${res.status}`);
       }
-      return mock as T;
+      return (await res.json()) as T;
+    } catch (err) {
+      lastErr = err;
     }
-    throw err;
   }
+  const { mockResponse } = await import("./cms-mock");
+  const mock = mockResponse(path);
+  if (mock !== null && mock !== undefined) {
+    if (typeof console !== "undefined") {
+      console.warn(`[cms] ${path} unreachable, using mock data`, lastErr);
+    }
+    return mock as T;
+  }
+  throw lastErr;
 }
 
 export async function fetchDisplayConfig(locale: Locale): Promise<SiteDisplayConfig> {

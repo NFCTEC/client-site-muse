@@ -447,13 +447,17 @@ export const t: Dict = {
   "dl.cat.cert": { en: "Certifications", zh: "认证" },
   "dl.download": { en: "Download", zh: "下载" },
   "dl.empty": {
-    en: "No downloads published yet. Contact us for SDK access or check back soon.",
-    zh: "暂无已发布的下载资源。如需 SDK 请联系我们的工程师，或稍后再来查看。",
+    en: "No files in this category yet. Refresh the page—published tools from the CMS should appear here.",
+    zh: "该分类下暂无文件。请刷新页面；后台已发布的工具会显示在本页。",
+  },
+  "dl.emptyPage": {
+    en: "The download list could not be loaded. Refresh once, or contact us if it stays empty.",
+    zh: "未能加载下载列表。请先刷新；若仍为空请联系我们。",
   },
   "dl.unavailable": { en: "Coming soon", zh: "即将提供" },
   "dl.files": { en: "files", zh: "个文件" },
   "dl.groupEmpty": { en: "No files in this category yet.", zh: "该分类下暂无文件。" },
-  "dl.contact": { en: "Request access", zh: "申请获取" },
+  "dl.contact": { en: "Contact us", zh: "联系我们" },
 
   // Blog page
   "blog.title": { en: "Blog & Insights", zh: "博客与洞察" },
