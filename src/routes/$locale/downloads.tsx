@@ -12,6 +12,7 @@ import { SectionHeader } from "@/components/SectionHeader";
 import { CtaBand } from "@/components/CtaBand";
 import { MobileAppStoreComingSoon } from "@/components/platform/MobileAppStoreComingSoon";
 import { PLATFORM_OVERVIEW_PDF } from "@/lib/platform-site";
+import { DownloadMacOsNotice, isMacDownloadGroup, isMacDownloadItem } from "@/components/DownloadMacOsNotice";
 
 const iconForGroup = (name: string) => {
   const n = name.toLowerCase();
@@ -156,6 +157,7 @@ function Downloads() {
           ) : (
             groups.map((g: CmsDownloadGroup) => {
               const Icon = iconForGroup(g.name);
+              const macGroup = isMacDownloadGroup(g.name);
               return (
                 <div key={g.id} className="rounded-2xl border border-border bg-card-gradient overflow-hidden">
                   <div className="flex items-center gap-3 px-7 py-5 border-b border-border bg-background/30">
@@ -169,6 +171,7 @@ function Downloads() {
                       </p>
                     </div>
                   </div>
+                  {macGroup ? <DownloadMacOsNotice /> : null}
                   <ul className="divide-y divide-border">
                     {g.items.length === 0 ? (
                       <li className="px-7 py-6 text-sm text-muted-foreground">{tr("dl.groupEmpty")}</li>
@@ -177,6 +180,8 @@ function Downloads() {
                         const kind = fileKind(it.fileUrl, it.name);
                         const metaParts = [it.version, it.fileSize].filter(Boolean);
                         const meta = metaParts.join(" · ");
+                        const macItem = isMacDownloadItem(it.name, it.fileUrl);
+                        const showMacHint = macItem && !macGroup;
                         return (
                           <li
                             key={it.id}
@@ -192,12 +197,16 @@ function Downloads() {
                               </div>
                             </div>
                             {it.fileUrl ? (
-                              <a
-                                href={getDownloadTrackUrl(it.id, locale as Locale)}
-                                className="shrink-0 inline-flex items-center gap-2 rounded-full border border-border-strong px-4 py-2 text-xs text-primary hover:bg-primary hover:text-primary-foreground transition-colors"
-                              >
-                                <Download size={14} /> {tr("dl.download")}
-                              </a>
+                              <div className="shrink-0 flex flex-col items-stretch sm:items-end gap-2">
+                                <a
+                                  href={getDownloadTrackUrl(it.id, locale as Locale)}
+                                  title={macItem || macGroup ? tr("dl.macosNotice.short") : undefined}
+                                  className="inline-flex items-center justify-center gap-2 rounded-full border border-border-strong px-4 py-2 text-xs text-primary hover:bg-primary hover:text-primary-foreground transition-colors"
+                                >
+                                  <Download size={14} /> {tr("dl.download")}
+                                </a>
+                                {showMacHint ? <DownloadMacOsNotice compact /> : null}
+                              </div>
                             ) : (
                               <span className="shrink-0 inline-flex items-center gap-2 rounded-full border border-dashed border-border px-4 py-2 text-xs text-muted-foreground">
                                 {tr("dl.unavailable")}

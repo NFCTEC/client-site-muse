@@ -458,6 +458,26 @@ export const t: Dict = {
   "dl.files": { en: "files", zh: "个文件" },
   "dl.groupEmpty": { en: "No files in this category yet.", zh: "该分类下暂无文件。" },
   "dl.contact": { en: "Contact us", zh: "联系我们" },
+  "dl.macosNotice.title": { en: "Before you open a macOS app", zh: "macOS 应用打开前请先看" },
+  "dl.macosNotice.body": {
+    en: "Downloads from the web are quarantined by Gatekeeper. If the app will not open or says it is damaged, clear the quarantine flag on the .app bundle after you unzip.",
+    zh: "浏览器下载的文件会被 macOS 隔离。若解压后无法打开或提示已损坏，需要先对 .app 清除隔离属性。",
+  },
+  "dl.macosNotice.step1": { en: "Download the ZIP and unzip it (for example into Downloads).", zh: "下载 ZIP 并解压（例如在「下载」文件夹）。" },
+  "dl.macosNotice.step2": {
+    en: "Open Terminal and run the command below with the path to your .app (adjust the name and folder).",
+    zh: "打开「终端」，执行下面命令，把路径改成你解压出来的 .app 实际位置。",
+  },
+  "dl.macosNotice.step3": { en: "Open the app again from Finder.", zh: "再在访达中双击打开应用。" },
+  "dl.macosNotice.cmdExample": { en: "xattr -cr ~/Downloads/YourApp.app", zh: "xattr -cr ~/Downloads/YourApp.app" },
+  "dl.macosNotice.alt": {
+    en: "Example: NFCTEC-NTAG424-Tool.app or NFCTEC-JavaCard-Tool.app in your Downloads folder. On first launch you can also use System Settings → Privacy & Security → Open Anyway.",
+    zh: "例如：Downloads 里的 NFCTEC-NTAG424-Tool.app 或 NFCTEC-JavaCard-Tool.app。首次打开也可在 系统设置 → 隐私与安全性 中使用「仍要打开」。",
+  },
+  "dl.macosNotice.short": {
+    en: "After unzip, run xattr -cr on the .app — see steps above.",
+    zh: "解压后对 .app 执行 xattr -cr，见上方说明。",
+  },
 
   // Blog page
   "blog.title": { en: "Blog & Insights", zh: "博客与洞察" },
