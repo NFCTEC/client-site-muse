@@ -42,8 +42,8 @@ export const t: Dict = {
   "home.why.title": { en: "One partner for the entire NFC stack.", zh: "NFC 全栈，一个合作伙伴。" },
   "home.why.1.title": { en: "Full-stack ownership", zh: "全栈自主" },
   "home.why.1.desc": {
-    en: "Hardware, firmware, SDKs and cloud API — designed together, not stitched from vendors.",
-    zh: "硬件、固件、SDK 与云端 API 一体设计，而非拼凑多家供应商。",
+    en: "Inlays to wristbands: chip pick, SUN/SDM encoding, antenna tuning, reader firmware and SDKs from one engineering team—not a trader reselling blanks.",
+    zh: "从 Inlay 到手环：选型、SUN/SDM 编码、天线匹配、读卡固件与 SDK 同一支工程团队完成，不是倒手空白标签。",
   },
   "home.why.2.title": { en: "Security & compliance", zh: "安全与合规" },
   "home.why.2.desc": {
@@ -90,19 +90,22 @@ export const t: Dict = {
 
   // Brand
   "brand.tagline": {
-    en: "NFC card factory: tags, cards and JavaCard",
-    zh: "NFC 卡厂：标签、卡与 JavaCard",
+    en: "NFC card factory — SUN/SDM, antennas, JavaCard",
+    zh: "NFC 卡厂 — SUN/SDM、天线、JavaCard",
   },
 
   // Hero
-  "hero.eyebrow": { en: "NFC card factory · NTAG 424 DNA · JavaCard", zh: "NFC 卡厂 · NTAG 424 DNA · JavaCard" },
+  "hero.eyebrow": {
+    en: "ISO 14443 card factory · NTAG 424 DNA · JavaCard",
+    zh: "ISO 14443 卡厂 · NTAG 424 DNA · JavaCard",
+  },
   "hero.title": {
-    en: "Custom NFC tags,\ncards & NTAG 424 DNA.",
-    zh: "定制 NFC 标签、\n卡与 NTAG 424 DNA。",
+    en: "Crypto NFC tags, cards\n& secure elements.",
+    zh: "密码学 NFC 标签、卡\n与安全元件。",
   },
   "hero.sub": {
-    en: "Factory PVC, die-cut labels and wristbands on NTAG213/215/216, NTAG 424 DNA (SUN/CMAC), DESFire EV2/EV3 and JCOP — plus issuance tools and cloud verify APIs.",
-    zh: "卡厂 PVC、异形标签与手环，芯片含 NTAG213/215/216、NTAG 424 DNA（SUN/CMAC）、DESFire EV2/EV3 与 JCOP，并提供发卡工具与云端校验 API。",
+    en: "Wet inlays, PVC and wristbands on NTAG 424 DNA (SUN, SDM, AES-CMAC), NTAG213/215/216, Ultralight EV1/C, DESFire EV2/EV3 and JCOP. We factory-encode NDEF/SUN, tune on-metal antennas, and run JavaCard SCP02/SCP03 bring-up—ship blank or line-ready. Engineering tools and cloud tap-verify when you need them.",
+    zh: "湿 Inlay、PVC 与手环：NTAG 424 DNA（SUN、SDM、AES-CMAC）、NTAG213/215/216、Ultralight EV1/C、DESFire EV2/EV3、JCOP。出厂 NDEF/SUN 编码、金属环境天线、JavaCard SCP02/SCP03 导入量产—可空白交付也可产线即用。需要时配套工程工具与云端贴卡验真。",
   },
   "hero.cta1": { en: "Explore Products", zh: "查看产品" },
   "hero.cta2": { en: "Talk to an engineer", zh: "联系工程师" },
