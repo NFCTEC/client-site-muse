@@ -134,17 +134,7 @@ export function Footer() {
         </div>
 
         <div className="mt-12 pt-6 border-t border-border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-          <p className="text-xs text-muted-foreground font-mono">
-            {tr("foot.rights")}
-            {!supportOnly && (
-              <>
-                <span className="mx-2 text-muted-foreground/40">·</span>
-                <Link to="/$locale/contact" params={{ locale }} search={{}} className="hover:text-foreground">
-                  {tr("contact.support")}
-                </Link>
-              </>
-            )}
-          </p>
+          <p className="text-xs text-muted-foreground font-mono">{tr("foot.rights")}</p>
         </div>
       </div>
     </footer>

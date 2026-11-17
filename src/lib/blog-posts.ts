@@ -609,7 +609,7 @@ export const posts: BlogPost[] = [
     body: [
       { text: "NDEF URI records are one of the most common payloads written to NFC tags. They are used for product links, support pages, pairing flows, business cards and marketing campaigns." },
       { heading: "Prefix code", text: "A URI record does not always store the full string. The first payload byte is a prefix code. For example, 0x04 means https://. The rest of the payload stores the remaining characters, saving tag memory." },
-      { heading: "Byte-level example", text: "For a URL such as https://www.nfctec.com/contact, the payload can use prefix code 0x04 followed by www.nfctec.com/contact in ASCII. The NDEF record header then describes TNF, type length, payload length and record type U." },
+      { heading: "Byte-level example", text: "For a URL such as https://www.nfctec.com/en/inquiry, the payload can use prefix code 0x04 followed by www.nfctec.com/en/inquiry in ASCII. The NDEF record header then describes TNF, type length, payload length and record type U." },
     ],
   },
   {

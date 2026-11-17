@@ -434,7 +434,7 @@ export const EN: Record<string, SolutionEnrichment> = {
     ],
     relatedLinks: [
       { title: "Access (doors + Wallet)", href: "/en/solutions/access" },
-      { title: "Contact", href: "/en/contact" },
+      { title: "Contact", href: "/en/inquiry" },
     ],
   },
   security: {
@@ -914,7 +914,7 @@ export const ZH: Record<string, SolutionEnrichment> = {
     ],
     relatedLinks: [
       { title: "门禁（门 + Wallet）", href: "/zh/solutions/access" },
-      { title: "联系", href: "/zh/contact" },
+      { title: "联系", href: "/zh/inquiry" },
     ],
   },
   security: {

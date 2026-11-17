@@ -675,7 +675,7 @@ function SolutionDetail() {
               </h2>
               <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
                 <Link
-                  to="/contact"
+                  to="/inquiry"
                   className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3 text-sm font-semibold hover:shadow-glow-strong transition-all"
                 >
                   {tr("cta.btn")} <ArrowRight size={16} />
