@@ -9,17 +9,19 @@ import { hreflangLinks } from "@/lib/seo";
 
 export const Route = createFileRoute("/$locale/about")({
   head: ({ params }) => {
-    const url = absLocaleUrl(params.locale as Locale, "/about");
+    const locale = params.locale as Locale;
+    const url = absLocaleUrl(locale, "/about");
+    const zh = locale === "zh";
+    const title = zh ? "关于我们 — NFCTEC" : "About — NFCTEC";
+    const description = zh
+      ? "NFCTEC 成立于 2010 年，与产品团队合作开发 NFC 软件、硬件与云服务。"
+      : "Founded in 2010, NFCTEC partners with product teams on NFC software, hardware and cloud services.";
     return {
       meta: [
-        { title: "About — NFCTEC" },
-        {
-          name: "description",
-          content:
-            "Founded in 2010, NFCTEC partners with product teams on NFC software, hardware and cloud services.",
-        },
-        { property: "og:title", content: "About NFCTEC" },
-        { property: "og:description", content: "15 years helping teams ship NFC products." },
+        { title },
+        { name: "description", content: description },
+        { property: "og:title", content: title },
+        { property: "og:description", content: description },
         { property: "og:url", content: url },
         { property: "og:type", content: "website" },
       ],

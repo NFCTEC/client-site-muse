@@ -286,13 +286,13 @@ export function productJsonLd(
       value: s.value,
     })),
     sameAs,
+    // B2B / RFQ products: do not invent a $0 price — that fails Google Product rich results.
     offers: {
       "@type": "Offer",
       url: offerUrl,
       availability: "https://schema.org/InStock",
       itemCondition: "https://schema.org/NewCondition",
       priceCurrency: "USD",
-      price: "0",
       seller: { "@type": "Organization", name: SITE_NAME, url: SITE_URL },
     },
   };

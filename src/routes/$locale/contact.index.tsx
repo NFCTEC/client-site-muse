@@ -5,7 +5,6 @@ import { SUPPORT_EMAIL } from "@/lib/contact";
 import { Mail, MapPin, CheckCircle2 } from "lucide-react";
 import { submitInquiry } from "@/lib/cms";
 import { absLocaleUrl, type Locale } from "@/lib/locale";
-import { hreflangLinks } from "@/lib/seo";
 import { PageHero } from "@/components/PageHero";
 import { PageSection } from "@/components/PageSection";
 import { FaqSection, faqJsonLd, type FaqItem } from "@/components/FaqSection";
@@ -73,15 +72,15 @@ export const Route = createFileRoute("/$locale/contact/")({
       meta: [
         { title },
         { name: "description", content: description },
+        // Keep Amazon printed-support URL out of organic results; B2B contact is /inquiry.
+        { name: "robots", content: "noindex, follow, noarchive, nosnippet" },
+        { name: "googlebot", content: "noindex, follow, noarchive, nosnippet" },
         { property: "og:title", content: title },
         { property: "og:description", content: description },
         { property: "og:url", content: absLocaleUrl(locale, "/contact") },
         { property: "og:type", content: "website" },
       ],
-      links: [
-        { rel: "canonical", href: absLocaleUrl(locale, "/contact") },
-        ...hreflangLinks("/contact"),
-      ],
+      links: [{ rel: "canonical", href: absLocaleUrl(locale, "/contact") }],
       scripts: [
         {
           type: "application/ld+json",
@@ -119,7 +118,7 @@ function Contact() {
       src && `Source: ${src}`,
       "",
       get("desc"),
-    ].filter((line) => line !== false && line !== "");
+    ].filter((line): line is string => typeof line === "string" && line.length > 0);
     try {
       await submitInquiry({
         name: get("name"),

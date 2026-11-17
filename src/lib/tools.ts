@@ -21,39 +21,54 @@ const toolPages: Record<Locale, ToolPage[]> = {
       slug: "ntag424-tool",
       name: "NFCTEC NTAG424 DNA Tool",
       category: "NTAG 424 DNA",
-      title: "NTAG424 DNA Tool for SUN URL, AES Keys and Secure NFC Verification",
+      title: "NTAG 424 DNA / NTAG424 Tool: SUN URL, AES Keys & CMAC Verification",
       description:
-        "A desktop engineering tool for NTAG 424 DNA personalization, SUN dynamic URL testing, AES key configuration and anti-counterfeit NFC label validation.",
-      keywords: ["NTAG 424 DNA tool", "NTAG424 SUN URL", "NTAG 424 DNA personalization", "SUN dynamic URL verification"],
+        "NTAG424 DNA engineering: Windows tool for SDM personalization, plus an in-browser SUN URL checker that decrypts PICC data and verifies AES-CMAC without uploading keys.",
+      keywords: [
+        "NTAG 424 DNA tool",
+        "NTAG424 tool",
+        "NTAG424 SUN URL",
+        "NTAG 424 DNA personalization",
+        "SUN CMAC verification",
+        "SDM NTAG 424",
+      ],
       downloadHint: "Available in the Download Center as NFCTEC NTAG424 DNA Tool.",
       sections: [
         {
           heading: "What it is built for",
-          text: "NTAG 424 DNA projects fail most often at the boundary between tag configuration, key diversification and backend verification. This tool gives engineers a repeatable workspace for testing SUN URLs, counters, CMAC values and tag settings before moving to production personalization.",
+          text: "NTAG 424 DNA (also searched as NTAG424) projects fail most often between SDM file settings, per-UID AES key diversification and server-side SUN verification. This tool gives engineers a repeatable workspace for testing SUN URLs, SDM read counters, AES-CMAC values and tag settings before production personalization.",
         },
         {
           heading: "Typical workflow",
-          text: "Start with a sample tag, configure files and access rights, verify AES keys, generate a SUN URL, then replay the same tap data against the verification API. The goal is to make every NFC label verifiable before it reaches the production line.",
+          text: "Start with a blank or sample NTAG 424 DNA tag, configure NDEF/SDM offsets and access rights, verify AES keys, generate a SUN URL, then paste that URL into the checker on this page with the same MetaRead and FileRead keys. Confirm UID, little-endian SDMReadCtr and truncated CMAC before you wire the same algorithm into a server. A copied URL must fail once the counter moves.",
         },
         {
           heading: "Where it fits",
-          text: "Use it for brand protection, product authentication, consumables, warranty activation, smart packaging and any project where a copied static NFC URL would be too easy to clone.",
+          text: "Use it for brand protection, product authentication, consumables, warranty activation, smart packaging and any NTAG424 project where a static NTAG215-style NFC URL would be too easy to photograph and clone.",
+        },
+        {
+          heading: "Factory tags and cloud verify",
+          text: "Pair the tool with NFCTEC NTAG 424 DNA wet inlays, stickers or PVC (blank or SUN-encoded) and the cloud issuance/verify API on the platform page. Retail packs are also listed on Amazon when you only need a small lab quantity.",
         },
       ],
       features: [
-        "SUN dynamic URL generation and verification test flow",
-        "AES key and access-right configuration checks",
+        "In-browser SUN URL decode: UID, SDMReadCtr, truncated AES-CMAC",
+        "Windows tool for SDM offsets, AES keys and write-card personalization",
         "Read-counter and CMAC troubleshooting",
-        "Useful for NTAG 424 DNA anti-counterfeit label pilots",
+        "Useful for NTAG 424 DNA / NTAG424 anti-counterfeit label pilots",
       ],
       faqs: [
         {
+          q: "Can I verify a SUN URL in the browser?",
+          a: "Yes. Paste the URL, enter the 16-byte SDM MetaRead and FileRead keys, and the page decrypts p (AES-128-CBC, IV=0) and checks m against the AN12196 truncated CMAC. Keys never leave the browser. Replay protection still needs a server that stores the last counter per UID.",
+        },
+        {
           q: "Can it replace a production personalization system?",
-          a: "No. It is an engineering and validation tool. For production, NFCTEC can provide batch personalization, key management and verification APIs.",
+          a: "No. The Windows app is an engineering and validation tool. For production, NFCTEC can provide batch personalization, key management and verification APIs.",
         },
         {
           q: "Does it require backend integration?",
-          a: "You can test tag data locally, but real SUN verification should be connected to a backend that protects keys and checks counters.",
+          a: "The browser checker is enough to prove the algorithm and offsets. Production SUN verification should run on a backend that protects keys and rejects reused counters.",
         },
       ],
     },
@@ -103,29 +118,49 @@ const toolPages: Record<Locale, ToolPage[]> = {
       slug: "ntag424-tool",
       name: "NFCTEC NTAG424 DNA Tool",
       category: "NTAG 424 DNA",
-      title: "NTAG424 DNA 工具：SUN 动态 URL、AES 密钥与安全 NFC 验证",
+      title: "NTAG 424 DNA / NTAG424 工具：SUN URL、AES 密钥与 CMAC 验证",
       description:
-        "面向 NTAG 424 DNA 个人化、SUN 动态 URL 测试、AES 密钥配置和防伪 NFC 标签验证的桌面工程工具。",
-      keywords: ["NTAG 424 DNA 工具", "NTAG424 SUN URL", "NTAG 424 DNA 个人化", "SUN 动态 URL 验证"],
+        "NTAG424 DNA 工程工具：Windows 端做 SDM 个人化，本页浏览器内粘贴 SUN URL、输入密钥即可解开 UID 并校验 AES-CMAC，密钥不上传。",
+      keywords: [
+        "NTAG 424 DNA 工具",
+        "NTAG424 工具",
+        "NTAG424 SUN URL",
+        "NTAG 424 DNA 个人化",
+        "SUN CMAC 验证",
+        "SDM NTAG 424",
+      ],
       downloadHint: "可在下载中心获取：NFCTEC NTAG424 DNA Tool。",
       sections: [
         {
           heading: "它解决什么问题",
-          text: "NTAG 424 DNA 项目最容易卡在标签配置、密钥分散和后端验证之间。这个工具让工程师在进入量产个人化之前，能反复测试 SUN URL、计数器、CMAC 和标签配置。",
+          text: "NTAG 424 DNA（也常搜 NTAG424）项目最容易卡在 SDM 文件设置、按 UID 分散的 AES 密钥和服务器端 SUN 验证之间。这个工具让工程师在进入量产个人化之前，能反复测试 SUN URL、读计数器、AES-CMAC 和标签配置。",
         },
         {
           heading: "典型流程",
-          text: "从样品标签开始，配置文件和访问权限，验证 AES 密钥，生成 SUN URL，再把同一份 tap 数据发送给验证 API。目标是让每一枚 NFC 标签在进入产线前都可以被验证。",
+          text: "从空白或样品 NTAG 424 DNA 开始，配置 NDEF/SDM 偏移和访问权限，验证 AES 密钥，生成 SUN URL，再把链接和同一套 MetaRead / FileRead 密钥贴进本页校验器。先确认 UID、小端 SDMReadCtr 和截断 CMAC，再把同一套算法接到服务器。计数器前进后，复制的链接必须失败。",
         },
         {
           heading: "适用场景",
-          text: "适合品牌防伪、产品认证、耗材验证、保修激活、智能包装，以及任何静态 NFC URL 容易被复制的项目。",
+          text: "适合品牌防伪、产品认证、耗材验证、保修激活、智能包装，以及任何静态 NTAG215 式 NFC URL 容易被拍照复制的 NTAG424 项目。",
+        },
+        {
+          heading: "卡厂标签与云端校验",
+          text: "可搭配 NFCTEC 的 NTAG 424 DNA 湿 Inlay、贴纸或 PVC（空白或 SUN 编码），以及平台页的云端发行/校验 API。只要实验室小批量，也可在亚马逊买零售装。",
         },
       ],
-      features: ["SUN 动态 URL 生成与验证测试", "AES 密钥和访问权限配置检查", "读计数器与 CMAC 排查", "适合 NTAG 424 DNA 防伪标签试点"],
+      features: [
+        "浏览器内解开 SUN URL：UID、SDMReadCtr、截断 AES-CMAC",
+        "Windows 工具配置 SDM 偏移、AES 密钥并写卡",
+        "读计数器与 CMAC 排查",
+        "适合 NTAG 424 DNA / NTAG424 防伪标签试点",
+      ],
       faqs: [
-        { q: "它能替代量产个人化系统吗？", a: "不能。它是工程验证工具。量产阶段 NFCTEC 可以提供批量个人化、密钥管理和验证 API。" },
-        { q: "必须接后端吗？", a: "本地可以测试标签数据，但真正的 SUN 验证应该连接到保护密钥并检查计数器的后端。" },
+        {
+          q: "能在浏览器里校验 SUN URL 吗？",
+          a: "可以。粘贴链接，输入 16 字节 SDM MetaRead 和 FileRead 密钥，页面会按 AES-128-CBC（IV=0）解密 p，并按 AN12196 核对截断 CMAC。密钥不离开浏览器。防重放仍需要服务器按 UID 保存上次的计数器。",
+        },
+        { q: "它能替代量产个人化系统吗？", a: "不能。Windows 程序是工程验证工具。量产阶段 NFCTEC 可以提供批量个人化、密钥管理和验证 API。" },
+        { q: "必须接后端吗？", a: "浏览器校验器足以证明算法和偏移。量产 SUN 验证应放在保护密钥并拒绝重复计数器的后端。" },
       ],
     },
     {

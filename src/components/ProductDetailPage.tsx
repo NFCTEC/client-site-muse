@@ -39,7 +39,12 @@ function CtaLink({
   if (url.startsWith("/")) {
     const path = url.replace(/^\/(en|zh)/, "") || "/";
     return (
-      <Link to={`/$locale${path}` as "/$locale/contact"} params={{ locale }} className={className}>
+      <Link
+        to={`/$locale${path}` as "/$locale/inquiry"}
+        params={{ locale }}
+        search={{}}
+        className={className}
+      >
         {label}
       </Link>
     );

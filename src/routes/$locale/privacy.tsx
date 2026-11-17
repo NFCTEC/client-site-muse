@@ -7,12 +7,19 @@ import { hreflangLinks } from "@/lib/seo";
 
 export const Route = createFileRoute("/$locale/privacy")({
   head: ({ params }) => {
-    const url = absLocaleUrl(params.locale as Locale, "/privacy");
+    const locale = params.locale as Locale;
+    const url = absLocaleUrl(locale, "/privacy");
+    const zh = locale === "zh";
+    const title = zh ? "隐私 — NFCTEC" : "Privacy — NFCTEC";
+    const description = zh
+      ? "NFCTEC 网站如何处理询盘与技术日志。"
+      : "How the NFCTEC website handles inquiries and technical logs.";
     return {
       meta: [
-        { title: "Privacy — NFCTEC" },
-        { name: "description", content: "How the NFCTEC website handles inquiries and technical logs." },
-        { property: "og:title", content: "Privacy — NFCTEC" },
+        { title },
+        { name: "description", content: description },
+        { name: "robots", content: "noindex, follow" },
+        { property: "og:title", content: title },
         { property: "og:url", content: url },
         { property: "og:type", content: "website" },
       ],

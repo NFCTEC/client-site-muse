@@ -95,14 +95,14 @@ export const t: Dict = {
   },
 
   // Hero
-  "hero.eyebrow": { en: "Product development · Firmware · Cloud", zh: "产品开发 · 固件 · 云服务" },
+  "hero.eyebrow": { en: "NFC card factory · NTAG 424 DNA · JavaCard", zh: "NFC 卡厂 · NTAG 424 DNA · JavaCard" },
   "hero.title": {
-    en: "We help you ship\nNFC-enabled products.",
-    zh: "助您交付\nNFC 智能产品。",
+    en: "Custom NFC tags,\ncards & NTAG 424 DNA.",
+    zh: "定制 NFC 标签、\n卡与 NTAG 424 DNA。",
   },
   "hero.sub": {
-    en: "Co-develop software, design hardware and connect cloud backends — from first prototype to certified mass production. You bring the product vision; we bring the NFC stack.",
-    zh: "联合开发软件、设计硬件、对接云端服务 — 从首版原型到认证量产。您负责产品方向，我们负责 NFC 全栈能力。",
+    en: "Factory PVC, die-cut labels and wristbands on NTAG213/215/216, NTAG 424 DNA (SUN/CMAC), DESFire EV2/EV3 and JCOP — plus issuance tools and cloud verify APIs.",
+    zh: "卡厂 PVC、异形标签与手环，芯片含 NTAG213/215/216、NTAG 424 DNA（SUN/CMAC）、DESFire EV2/EV3 与 JCOP，并提供发卡工具与云端校验 API。",
   },
   "hero.cta1": { en: "Explore Products", zh: "查看产品" },
   "hero.cta2": { en: "Talk to an engineer", zh: "联系工程师" },

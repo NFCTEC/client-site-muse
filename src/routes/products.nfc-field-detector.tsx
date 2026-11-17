@@ -6,6 +6,7 @@ export const Route = createFileRoute("/products/nfc-field-detector")({
     throw redirect({
       to: "/$locale/products/$slug",
       params: { locale: DEFAULT_LOCALE, slug: "nfc-field-detector" },
+      statusCode: 301,
     });
   },
 });

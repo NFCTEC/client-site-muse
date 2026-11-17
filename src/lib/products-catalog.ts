@@ -140,7 +140,7 @@ const CATALOG: CatalogDef[] = [
     slug: "ntag424-dna",
     category: "hardware",
     icon: "Shield",
-    sortOrder: 22,
+    sortOrder: 9,
     ctaUrl: AMAZON_NTAG424,
     secondaryCtaUrl: "/tools/ntag424-tool",
     en: {
@@ -189,9 +189,9 @@ const CATALOG: CatalogDef[] = [
         "UID-diversified AES keys and a server-side CMAC check",
       ],
       highlights: ["SUN CMAC URL, counter stops replay", "AES-128 Type 4, not NTAG21x", "Inlay, sticker, PVC, encoding or blank"],
-      seoTitle: "NTAG 424 DNA Tags with SUN CMAC URLs | NFCTEC",
+      seoTitle: "NTAG 424 DNA / NTAG424 Tags, Stickers & Wet Inlays | NFCTEC",
       seoDescription:
-        "NXP NTAG 424 DNA Type 4 tags. Each tap builds a SUN URL with UID, read counter and AES-CMAC so a copied link fails. Wet inlay, sticker, PVC. Quote from NFCTEC.",
+        "Buy NXP NTAG 424 DNA (NTAG424) Type 4 tags. Each tap builds a SUN URL with UID, read counter and AES-CMAC so a copied link fails. Wet inlay, sticker, PVC, custom encoding.",
       ctaLabel: "Buy on Amazon",
       secondaryCtaLabel: "SUN tool",
     },
@@ -234,9 +234,9 @@ const CATALOG: CatalogDef[] = [
       ],
       useCases: ["标签被拍照也不能重放的品牌防伪", "不需要消费者 App 的一次性或计数 HTTPS 链接", "按 UID 分散的 AES 与服务端 CMAC 校验"],
       highlights: ["SUN CMAC 链接，计数器挡住重放", "AES-128 Type 4，不是 NTAG21x", "Inlay、贴纸、PVC，可编码或空白"],
-      seoTitle: "NTAG 424 DNA 标签：SUN 动态 URL 与 CMAC | NFCTEC",
+      seoTitle: "NTAG 424 DNA / NTAG424 标签、贴纸与湿 Inlay | NFCTEC",
       seoDescription:
-        "NXP NTAG 424 DNA Type 4 标签。每次拍卡生成带 UID、读计数器和 AES-CMAC 的 SUN 链接，复制后再打开会失败。湿 Inlay、贴纸、PVC。询 NFCTEC。",
+        "采购 NXP NTAG 424 DNA（NTAG424）Type 4 标签。每次拍卡生成带 UID、读计数器和 AES-CMAC 的 SUN 链接。湿 Inlay、贴纸、PVC、可定制编码。询 NFCTEC。",
       ctaLabel: "Amazon 购买",
       secondaryCtaLabel: "SUN 工具",
     },
@@ -936,8 +936,19 @@ export function mergeCatalogProducts(
     .sort((a, b) => a.sortOrder - b.sortOrder || a.name.localeCompare(b.name));
 }
 
+const FEATURED_PRIORITY = [
+  "ntag424-dna",
+  "nfc-labels-and-cards",
+  "ntag213-215-216",
+  "mifare-desfire-ev3",
+];
+
 export function featuredSellableProducts(products: CmsProduct[], limit = 4): CmsProduct[] {
-  const hardware = products.filter((p) => p.category === "hardware");
-  const software = products.filter((p) => p.category !== "hardware");
-  return [...hardware, ...software].slice(0, limit);
+  const bySlug = new Map(products.map((p) => [p.slug, p]));
+  const prioritized = FEATURED_PRIORITY.map((slug) => bySlug.get(slug)).filter(
+    (p): p is CmsProduct => Boolean(p),
+  );
+  if (prioritized.length >= limit) return prioritized.slice(0, limit);
+  const rest = products.filter((p) => !FEATURED_PRIORITY.includes(p.slug));
+  return [...prioritized, ...rest].slice(0, limit);
 }

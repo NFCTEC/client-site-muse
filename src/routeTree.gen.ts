@@ -27,8 +27,10 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as SolutionsIndexRouteImport } from './routes/solutions.index'
 import { Route as ProductsIndexRouteImport } from './routes/products.index'
 import { Route as LocaleIndexRouteImport } from './routes/$locale/index'
+import { Route as ToolsSlugRouteImport } from './routes/tools.$slug'
 import { Route as SolutionsSlugRouteImport } from './routes/solutions.$slug'
 import { Route as ProductsNfcFieldDetectorRouteImport } from './routes/products.nfc-field-detector'
+import { Route as ProductsSlugRouteImport } from './routes/products.$slug'
 import { Route as ContactProjectRouteImport } from './routes/contact.project'
 import { Route as CloudServicesPlatformRouteImport } from './routes/cloud-services.platform'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
@@ -153,6 +155,11 @@ const LocaleIndexRoute = LocaleIndexRouteImport.update({
   path: '/',
   getParentRoute: () => LocaleRouteRoute,
 } as any)
+const ToolsSlugRoute = ToolsSlugRouteImport.update({
+  id: '/tools/$slug',
+  path: '/tools/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SolutionsSlugRoute = SolutionsSlugRouteImport.update({
   id: '/solutions/$slug',
   path: '/solutions/$slug',
@@ -164,6 +171,11 @@ const ProductsNfcFieldDetectorRoute =
     path: '/products/nfc-field-detector',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ProductsSlugRoute = ProductsSlugRouteImport.update({
+  id: '/products/$slug',
+  path: '/products/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ContactProjectRoute = ContactProjectRouteImport.update({
   id: '/project',
   path: '/project',
@@ -369,8 +381,10 @@ export interface FileRoutesByFullPath {
   '/blog/$slug': typeof BlogSlugRoute
   '/cloud-services/platform': typeof CloudServicesPlatformRoute
   '/contact/project': typeof ContactProjectRoute
+  '/products/$slug': typeof ProductsSlugRoute
   '/products/nfc-field-detector': typeof ProductsNfcFieldDetectorRoute
   '/solutions/$slug': typeof SolutionsSlugRoute
+  '/tools/$slug': typeof ToolsSlugRoute
   '/$locale/': typeof LocaleIndexRoute
   '/products/': typeof ProductsIndexRoute
   '/solutions/': typeof SolutionsIndexRoute
@@ -418,8 +432,10 @@ export interface FileRoutesByTo {
   '/blog/$slug': typeof BlogSlugRoute
   '/cloud-services/platform': typeof CloudServicesPlatformRoute
   '/contact/project': typeof ContactProjectRoute
+  '/products/$slug': typeof ProductsSlugRoute
   '/products/nfc-field-detector': typeof ProductsNfcFieldDetectorRoute
   '/solutions/$slug': typeof SolutionsSlugRoute
+  '/tools/$slug': typeof ToolsSlugRoute
   '/$locale': typeof LocaleIndexRoute
   '/products': typeof ProductsIndexRoute
   '/solutions': typeof SolutionsIndexRoute
@@ -474,8 +490,10 @@ export interface FileRoutesById {
   '/blog/$slug': typeof BlogSlugRoute
   '/cloud-services/platform': typeof CloudServicesPlatformRoute
   '/contact/project': typeof ContactProjectRoute
+  '/products/$slug': typeof ProductsSlugRoute
   '/products/nfc-field-detector': typeof ProductsNfcFieldDetectorRoute
   '/solutions/$slug': typeof SolutionsSlugRoute
+  '/tools/$slug': typeof ToolsSlugRoute
   '/$locale/': typeof LocaleIndexRoute
   '/products/': typeof ProductsIndexRoute
   '/solutions/': typeof SolutionsIndexRoute
@@ -530,8 +548,10 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/cloud-services/platform'
     | '/contact/project'
+    | '/products/$slug'
     | '/products/nfc-field-detector'
     | '/solutions/$slug'
+    | '/tools/$slug'
     | '/$locale/'
     | '/products/'
     | '/solutions/'
@@ -579,8 +599,10 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/cloud-services/platform'
     | '/contact/project'
+    | '/products/$slug'
     | '/products/nfc-field-detector'
     | '/solutions/$slug'
+    | '/tools/$slug'
     | '/$locale'
     | '/products'
     | '/solutions'
@@ -634,8 +656,10 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/cloud-services/platform'
     | '/contact/project'
+    | '/products/$slug'
     | '/products/nfc-field-detector'
     | '/solutions/$slug'
+    | '/tools/$slug'
     | '/$locale/'
     | '/products/'
     | '/solutions/'
@@ -676,8 +700,10 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TermsRoute: typeof TermsRoute
   CloudServicesPlatformRoute: typeof CloudServicesPlatformRoute
+  ProductsSlugRoute: typeof ProductsSlugRoute
   ProductsNfcFieldDetectorRoute: typeof ProductsNfcFieldDetectorRoute
   SolutionsSlugRoute: typeof SolutionsSlugRoute
+  ToolsSlugRoute: typeof ToolsSlugRoute
   ProductsIndexRoute: typeof ProductsIndexRoute
   SolutionsIndexRoute: typeof SolutionsIndexRoute
 }
@@ -810,6 +836,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LocaleIndexRouteImport
       parentRoute: typeof LocaleRouteRoute
     }
+    '/tools/$slug': {
+      id: '/tools/$slug'
+      path: '/tools/$slug'
+      fullPath: '/tools/$slug'
+      preLoaderRoute: typeof ToolsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/solutions/$slug': {
       id: '/solutions/$slug'
       path: '/solutions/$slug'
@@ -822,6 +855,13 @@ declare module '@tanstack/react-router' {
       path: '/products/nfc-field-detector'
       fullPath: '/products/nfc-field-detector'
       preLoaderRoute: typeof ProductsNfcFieldDetectorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/products/$slug': {
+      id: '/products/$slug'
+      path: '/products/$slug'
+      fullPath: '/products/$slug'
+      preLoaderRoute: typeof ProductsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact/project': {
@@ -1225,8 +1265,10 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TermsRoute: TermsRoute,
   CloudServicesPlatformRoute: CloudServicesPlatformRoute,
+  ProductsSlugRoute: ProductsSlugRoute,
   ProductsNfcFieldDetectorRoute: ProductsNfcFieldDetectorRoute,
   SolutionsSlugRoute: SolutionsSlugRoute,
+  ToolsSlugRoute: ToolsSlugRoute,
   ProductsIndexRoute: ProductsIndexRoute,
   SolutionsIndexRoute: SolutionsIndexRoute,
 }

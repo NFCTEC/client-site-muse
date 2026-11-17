@@ -139,7 +139,7 @@ export function Footer() {
             {!supportOnly && (
               <>
                 <span className="mx-2 text-muted-foreground/40">·</span>
-                <Link to="/$locale/contact" params={{ locale }} className="hover:text-foreground">
+                <Link to="/$locale/contact" params={{ locale }} search={{}} className="hover:text-foreground">
                   {tr("contact.support")}
                 </Link>
               </>

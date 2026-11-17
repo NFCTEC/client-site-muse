@@ -20,20 +20,28 @@ export const Route = createFileRoute("/$locale/blog/")({
     const posts = await fetchPosts(locale);
     return { posts: mergeLocalPosts(filterByDisplayConfig(posts, moduleConfig), locale).map(toBlogPost) };
   },
-  head: ({ params }) => ({
-    meta: [
-      { title: "Blog & Insights — NFCTEC" },
-      { name: "description", content: "Engineering notes on EMV, APDU, JavaCard, NTAG 424 DNA, FIDO2, hardware wallets and NFC readers." },
-      { property: "og:title", content: "Blog & Insights — NFCTEC" },
-      { property: "og:description", content: "NFC engineering deep-dives and case studies." },
-      { property: "og:url", content: absLocaleUrl(params.locale as Locale, "/blog") },
-      { property: "og:type", content: "website" },
-    ],
-    links: [
-      { rel: "canonical", href: absLocaleUrl(params.locale as Locale, "/blog") },
-      ...hreflangLinks("/blog"),
-    ],
-  }),
+  head: ({ params }) => {
+    const locale = params.locale as Locale;
+    const zh = locale === "zh";
+    const title = zh ? "博客与工程笔记 — NFCTEC" : "Blog & Insights — NFCTEC";
+    const description = zh
+      ? "EMV、APDU、JavaCard、NTAG 424 DNA、FIDO2、硬件钱包与 NFC 读卡器的工程笔记。"
+      : "Engineering notes on EMV, APDU, JavaCard, NTAG 424 DNA, FIDO2, hardware wallets and NFC readers.";
+    return {
+      meta: [
+        { title },
+        { name: "description", content: description },
+        { property: "og:title", content: title },
+        { property: "og:description", content: description },
+        { property: "og:url", content: absLocaleUrl(locale, "/blog") },
+        { property: "og:type", content: "website" },
+      ],
+      links: [
+        { rel: "canonical", href: absLocaleUrl(locale, "/blog") },
+        ...hreflangLinks("/blog"),
+      ],
+    };
+  },
   component: BlogIndex,
 });
 

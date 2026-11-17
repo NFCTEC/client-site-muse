@@ -77,11 +77,11 @@ export const Route = createFileRoute("/$locale/")({
     const url = absLocaleUrl(locale, "/");
     const zh = locale === "zh";
     const title = zh
-      ? "NFCTEC — NFC 卡厂：标签、卡、手环、JavaCard"
-      : "NFCTEC — NFC Card Factory: Tags, Cards, Wristbands, JavaCard";
+      ? "NFCTEC — NFC 卡厂：NTAG 424 DNA、标签、卡、手环"
+      : "NFCTEC — NFC Card Factory: NTAG 424 DNA, Tags, Cards, Wristbands";
     const description = zh
-      ? "卡厂定制 PVC、异形标签、手环。芯片含 NTAG213/215/216、Ultralight EV1/C、DESFire EV2/EV3 2K–8K、NTAG 424 DNA、JCOP。"
-      : "Card factory: custom PVC, die-cut tags, wristbands. ICs: NTAG213/215/216, Ultralight EV1/C, DESFire EV2/EV3 2K–8K, NTAG 424 DNA, JCOP.";
+      ? "卡厂定制 PVC、异形标签、手环。NTAG 424 DNA（NTAG424）SUN/CMAC、NTAG213/215/216、Ultralight EV1/C、DESFire EV2/EV3 2K–8K、JCOP。"
+      : "Card factory: custom PVC, die-cut tags, wristbands. NTAG 424 DNA (NTAG424) SUN/CMAC, NTAG213/215/216, Ultralight EV1/C, DESFire EV2/EV3 2K–8K, JCOP.";
     const products = loaderData?.products ?? [];
     return {
       meta: socialMeta({ title, description, url, locale }),

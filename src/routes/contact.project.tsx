@@ -3,6 +3,6 @@ import { DEFAULT_LOCALE } from "@/lib/locale";
 
 export const Route = createFileRoute("/contact/project")({
   beforeLoad: () => {
-    throw redirect({ to: "/$locale/inquiry", params: { locale: DEFAULT_LOCALE } });
+    throw redirect({ to: "/$locale/inquiry", params: { locale: DEFAULT_LOCALE }, statusCode: 301 });
   },
 });

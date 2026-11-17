@@ -6,6 +6,7 @@ export const Route = createFileRoute("/solutions/$slug")({
     throw redirect({
       to: "/$locale/solutions/$slug",
       params: { locale: DEFAULT_LOCALE, slug: params.slug },
+      statusCode: 301,
     });
   },
 });

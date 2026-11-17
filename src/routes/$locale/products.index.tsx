@@ -36,11 +36,11 @@ export const Route = createFileRoute("/$locale/products/")({
     const url = absLocaleUrl(locale, "/products");
     const zh = locale === "zh";
     const title = zh
-      ? "NFC 卡厂：标签、卡、手环 | NFCTEC"
-      : "NFC Card Factory: Tags, Cards, Wristbands | NFCTEC";
+      ? "NFC 卡厂：NTAG 424 DNA、标签、卡、手环 | NFCTEC"
+      : "NFC Card Factory: NTAG 424 DNA, Tags, Cards, Wristbands | NFCTEC";
     const description = zh
-      ? "NFCTEC 卡厂：NTAG213/215/216、Ultralight EV1/C、DESFire EV2/EV3（2K/4K/8K）、NTAG 424 DNA。白卡、彩印、异形标签、硅胶手环可定制。JavaCard 可询。"
-      : "NFCTEC card factory: NTAG213/215/216, Ultralight EV1/C, DESFire EV2/EV3 in 2K/4K/8K, NTAG 424 DNA. Custom PVC, die-cut tags, silicone wristbands. JavaCard on quote.";
+      ? "NFCTEC 卡厂：NTAG 424 DNA（NTAG424）、NTAG213/215/216、Ultralight EV1/C、DESFire EV2/EV3（2K/4K/8K）。白卡、彩印、异形标签、硅胶手环可定制。JavaCard 可询。"
+      : "NFCTEC card factory: NTAG 424 DNA (NTAG424), NTAG213/215/216, Ultralight EV1/C, DESFire EV2/EV3 in 2K/4K/8K. Custom PVC, die-cut tags, silicone wristbands. JavaCard on quote.";
     const listed = [...(loaderData?.hardware ?? []), ...(loaderData?.software ?? [])];
     return {
       meta: socialMeta({ title, description, url, locale }),
@@ -53,7 +53,7 @@ export const Route = createFileRoute("/$locale/products/")({
             url,
             listed.map((p) => ({
               name: p.name,
-              url: absLocaleUrl(locale, p.hasDetailPage ? `/products/${p.slug}` : "/contact"),
+              url: absLocaleUrl(locale, p.hasDetailPage ? `/products/${p.slug}` : "/inquiry"),
             })),
           ),
         ),

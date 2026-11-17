@@ -3,7 +3,12 @@ import { isNoIndexPath } from "./seo";
 import { mergeDisplayConfig, type SiteDisplayConfig } from "./display-config";
 import { mergeSolutionContent } from "./solutions-content";
 import { getCatalogProduct, HIDDEN_PRODUCT_SLUGS, mergeCatalogProducts } from "./products-catalog";
-import { posts as localBlogPosts, type BlogPost, type BlogSection } from "./blog-posts";
+import {
+  posts as localBlogPosts,
+  isExcludedBlogSlug,
+  type BlogPost,
+  type BlogSection,
+} from "./blog-posts";
 
 export type CmsPost = {
   id: string;
@@ -238,11 +243,26 @@ function localNoteReplacesCms(slug: string) {
 
 export function mergeLocalPosts(rows: CmsPost[], locale: Locale): CmsPost[] {
   const have = new Set(rows.map((row) => row.slug));
-  const kept = rows.filter((row) => !localNoteReplacesCms(row.slug));
+  const kept = rows.filter((row) => !localNoteReplacesCms(row.slug) && !isExcludedBlogSlug(row.slug));
   const extras = localBlogPosts
-    .filter((post) => !have.has(post.slug) || localNoteReplacesCms(post.slug))
+    .filter(
+      (post) =>
+        !isExcludedBlogSlug(post.slug) &&
+        (!have.has(post.slug) || localNoteReplacesCms(post.slug)) &&
+        // Do not invent zh pages for English-only drafts.
+        (locale !== "zh" || Boolean(post.zh) || localNoteReplacesCms(post.slug)),
+    )
     .map((post) => localPostToCms(post, locale));
-  return [...extras, ...kept].sort((a, b) => (b.publishedAt ?? "").localeCompare(a.publishedAt ?? ""));
+  return [...extras, ...kept]
+    .filter((row) => !isExcludedBlogSlug(row.slug))
+    .filter((row) => {
+      if (locale !== "zh") return true;
+      const local = localBlogPosts.find((p) => p.slug === row.slug);
+      // Keep CMS-only zh rows; drop English-only local drafts from zh listings.
+      if (!local) return true;
+      return Boolean(local.zh) || localNoteReplacesCms(row.slug);
+    })
+    .sort((a, b) => (b.publishedAt ?? "").localeCompare(a.publishedAt ?? ""));
 }
 
 export async function fetchPosts(locale: Locale): Promise<CmsPost[]> {

@@ -53,20 +53,28 @@ export const Route = createFileRoute("/$locale/downloads")({
       showPlatform: isModuleEnabled(config, "platform"),
     };
   },
-  head: ({ params }) => ({
-    meta: [
-      { title: "Download Center — NFCTEC" },
-      { name: "description", content: "SDKs, drivers, datasheets, sample code and certifications." },
-      { property: "og:title", content: "Download Center — NFCTEC" },
-      { property: "og:description", content: "NFC SDKs, drivers, datasheets and sample code." },
-      { property: "og:url", content: absLocaleUrl(params.locale as Locale, "/downloads") },
-      { property: "og:type", content: "website" },
-    ],
-    links: [
-      { rel: "canonical", href: absLocaleUrl(params.locale as Locale, "/downloads") },
-      ...hreflangLinks("/downloads"),
-    ],
-  }),
+  head: ({ params }) => {
+    const locale = params.locale as Locale;
+    const zh = locale === "zh";
+    const title = zh ? "下载中心 — NFCTEC" : "Download Center — NFCTEC";
+    const description = zh
+      ? "SDK、驱动、规格书、示例代码与认证文件。"
+      : "SDKs, drivers, datasheets, sample code and certifications.";
+    return {
+      meta: [
+        { title },
+        { name: "description", content: description },
+        { property: "og:title", content: title },
+        { property: "og:description", content: description },
+        { property: "og:url", content: absLocaleUrl(locale, "/downloads") },
+        { property: "og:type", content: "website" },
+      ],
+      links: [
+        { rel: "canonical", href: absLocaleUrl(locale, "/downloads") },
+        ...hreflangLinks("/downloads"),
+      ],
+    };
+  },
   component: Downloads,
 });
 

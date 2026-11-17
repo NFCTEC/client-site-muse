@@ -39,6 +39,19 @@ export type BlogPost = {
   zh?: BlogCopy;
 };
 
+/**
+ * Thin / incorrect NTAG 424 drafts that cannibalize the pillar guide.
+ * Loaders 301 these slugs; sitemap and index omit them.
+ */
+export const BLOG_CANONICAL_REDIRECTS: Record<string, string> = {
+  "sun-dynamic-url-anti-counterfeit": "encode-ntag424-dna-sun-keys-and-verification",
+  "ntag424-dna-sun-url-authentication-example": "encode-ntag424-dna-sun-keys-and-verification",
+};
+
+export function isExcludedBlogSlug(slug: string) {
+  return Boolean(BLOG_CANONICAL_REDIRECTS[slug]);
+}
+
 export const posts: BlogPost[] = [
   ...engineeringNotes,
   {

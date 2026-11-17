@@ -1,11 +1,12 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, CheckCircle2 } from "lucide-react";
 import { absLocaleUrl, type Locale } from "@/lib/locale";
-import { getToolPage, getToolPages } from "@/lib/tools";
+import { getToolPage, getToolPages, type ToolPage as ToolPageData } from "@/lib/tools";
 import { hreflangLinks } from "@/lib/seo";
 import { PageHero } from "@/components/PageHero";
 import { PageSection } from "@/components/PageSection";
 import { CtaBand } from "@/components/CtaBand";
+import { Ntag424SunVerifier } from "@/components/Ntag424SunVerifier";
 
 export const Route = createFileRoute("/$locale/tools/$slug")({
   loader: ({ params }) => {
@@ -44,8 +45,8 @@ export const Route = createFileRoute("/$locale/tools/$slug")({
                 name: tool.name,
                 description: tool.description,
                 applicationCategory: "DeveloperApplication",
-                operatingSystem: "Windows",
-                offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+                operatingSystem: tool.slug === "ntag424-tool" ? "Windows, Web" : "Windows",
+                offers: { "@type": "Offer", priceCurrency: "USD" },
                 publisher: { "@type": "Organization", name: "NFCTEC", url: "https://www.nfctec.com" },
               }),
             },
@@ -69,7 +70,10 @@ export const Route = createFileRoute("/$locale/tools/$slug")({
 });
 
 function ToolPage() {
-  const { tool, related } = Route.useLoaderData();
+  const { tool, related } = Route.useLoaderData() as {
+    tool: ToolPageData;
+    related: ToolPageData[];
+  };
   const { locale } = Route.useParams();
   const isZh = locale === "zh";
 
@@ -96,14 +100,23 @@ function ToolPage() {
               {isZh ? "咨询集成" : "Ask for integration"}
             </Link>
             {tool.slug === "ntag424-tool" && (
-              <a
-                href="https://www.amazon.com/dp/B0FRL6BTJK"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-border-strong bg-surface/60 px-6 py-3 text-sm font-medium hover:border-primary hover:text-primary transition-colors"
-              >
-                {isZh ? "Amazon 购买标签" : "Buy tags on Amazon"}
-              </a>
+              <>
+                <Link
+                  to="/$locale/products/$slug"
+                  params={{ locale, slug: "ntag424-dna" }}
+                  className="inline-flex items-center gap-2 rounded-full border border-border-strong bg-surface/60 px-6 py-3 text-sm font-medium hover:border-primary hover:text-primary transition-colors"
+                >
+                  {isZh ? "NTAG 424 DNA 标签" : "NTAG 424 DNA tags"}
+                </Link>
+                <a
+                  href="https://www.amazon.com/dp/B0FRL6BTJK"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full border border-border-strong bg-surface/60 px-6 py-3 text-sm font-medium hover:border-primary hover:text-primary transition-colors"
+                >
+                  {isZh ? "Amazon 购买标签" : "Buy tags on Amazon"}
+                </a>
+              </>
             )}
           </>
         }
@@ -112,6 +125,7 @@ function ToolPage() {
       <PageSection spacing="main" className="!pt-0">
         <div className="grid lg:grid-cols-[minmax(0,1fr)_340px] gap-10">
           <div className="space-y-10">
+            {tool.slug === "ntag424-tool" && <Ntag424SunVerifier locale={locale as Locale} />}
             {tool.sections.map((section) => (
               <section key={section.heading} className="rounded-2xl border border-border bg-card-gradient p-7">
                 <h2 className="font-display text-2xl mb-3">{section.heading}</h2>

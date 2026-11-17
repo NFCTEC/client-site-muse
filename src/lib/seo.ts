@@ -5,10 +5,17 @@ export const DEFAULT_OG_IMAGE = `${SITE_URL}/og-default.jpg`;
 
 export const absUrl = (path: string) => `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`;
 
-/** Login, dashboard, and other private paths — never sitemap, never index. */
+/** Paths that must never be indexed or listed in the sitemap. */
 export function isNoIndexPath(pathname: string) {
   const p = pathname.replace(/\/+$/, "") || "/";
-  return p === "/auth" || p.endsWith("/auth") || p === "/dashboard" || p.endsWith("/dashboard");
+  if (p === "/auth" || p.endsWith("/auth")) return true;
+  if (p === "/dashboard" || p.endsWith("/dashboard")) return true;
+  // SZLEJUN Amazon support — not the B2B contact page.
+  if (p === "/contact" || p === "/en/contact" || p === "/zh/contact") return true;
+  if (p === "/privacy" || p.endsWith("/privacy") || p === "/terms" || p.endsWith("/terms")) return true;
+  // PDF source HTML, not a public landing page.
+  if (p === "/nfctec-company-profile.html") return true;
+  return false;
 }
 
 /**

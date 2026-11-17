@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useI18n } from "@/lib/i18n";
 import { useTheme } from "@/lib/theme";
 import { useLocale } from "@/hooks/useLocale";
-import { localePath } from "@/lib/locale";
+import { localePath, swapLocalePath } from "@/lib/locale";
 import { getLocaleLoaderData, isModuleInNav, type ModuleKey } from "@/lib/display-config";
 import { Menu, X, ChevronDown, Sun, Moon } from "lucide-react";
 import { Logo } from "@/components/Logo";
@@ -19,7 +19,7 @@ const PATH_MODULE: Record<string, ModuleKey | undefined> = {
 };
 
 export function Header() {
-  const { tr, lang, setLang } = useI18n();
+  const { tr, lang } = useI18n();
   const { theme, toggle: toggleTheme } = useTheme();
   const locale = useLocale();
   const matches = useMatches();
@@ -102,7 +102,7 @@ export function Header() {
               return (
                 <div
                   key={l.path}
-                  className="relative"
+                  className="relative group/nav"
                   onMouseEnter={() => setProdOpen(true)}
                   onMouseLeave={() => setProdOpen(false)}
                 >
@@ -115,38 +115,41 @@ export function Header() {
                   >
                     {l.label} <ChevronDown size={14} />
                   </Link>
-                  {prodOpen && (
-                    <div className="absolute top-full left-0 pt-3">
-                      <div className="rounded-xl border border-border bg-popover shadow-float p-2 min-w-[260px] max-h-[70vh] overflow-y-auto">
-                        {navHardware.map((item) => (
-                          <Link
-                            key={item.slug}
-                            to="/$locale/products/$slug"
-                            params={{ locale, slug: item.slug }}
-                            onClick={() => setProdOpen(false)}
-                            className="block px-3 py-2 text-sm rounded-lg hover:bg-surface-elevated hover:text-primary"
-                          >
-                            {item.name}
-                          </Link>
-                        ))}
-                        {navSoftware.length > 0 && (
-                          <div className="mt-1 border-t border-border pt-1">
-                            {navSoftware.map((item) => (
-                              <Link
-                                key={item.slug}
-                                to="/$locale/products/$slug"
-                                params={{ locale, slug: item.slug }}
-                                onClick={() => setProdOpen(false)}
-                                className="block px-3 py-2 text-sm rounded-lg hover:bg-surface-elevated hover:text-primary"
-                              >
-                                {item.name}
-                              </Link>
-                            ))}
-                          </div>
-                        )}
-                      </div>
+                  {/* Always in DOM so crawlers see product detail links in SSR HTML. */}
+                  <div
+                    className={`absolute top-full left-0 pt-3 z-50 ${
+                      prodOpen ? "visible opacity-100" : "invisible opacity-0 pointer-events-none group-hover/nav:visible group-hover/nav:opacity-100 group-hover/nav:pointer-events-auto"
+                    }`}
+                  >
+                    <div className="rounded-xl border border-border bg-popover shadow-float p-2 min-w-[260px] max-h-[70vh] overflow-y-auto">
+                      {navHardware.map((item) => (
+                        <Link
+                          key={item.slug}
+                          to="/$locale/products/$slug"
+                          params={{ locale, slug: item.slug }}
+                          onClick={() => setProdOpen(false)}
+                          className="block px-3 py-2 text-sm rounded-lg hover:bg-surface-elevated hover:text-primary"
+                        >
+                          {item.name}
+                        </Link>
+                      ))}
+                      {navSoftware.length > 0 && (
+                        <div className="mt-1 border-t border-border pt-1">
+                          {navSoftware.map((item) => (
+                            <Link
+                              key={item.slug}
+                              to="/$locale/products/$slug"
+                              params={{ locale, slug: item.slug }}
+                              onClick={() => setProdOpen(false)}
+                              className="block px-3 py-2 text-sm rounded-lg hover:bg-surface-elevated hover:text-primary"
+                            >
+                              {item.name}
+                            </Link>
+                          ))}
+                        </div>
+                      )}
                     </div>
-                  )}
+                  </div>
                 </div>
               );
             }
@@ -195,7 +198,7 @@ export function Header() {
               return (
                 <div
                   key={l.path}
-                  className="relative"
+                  className="relative group/nav"
                   onMouseEnter={() => setSolOpen(true)}
                   onMouseLeave={() => setSolOpen(false)}
                 >
@@ -208,23 +211,25 @@ export function Header() {
                   >
                     {l.label} <ChevronDown size={14} />
                   </Link>
-                  {solOpen && (
-                    <div className="absolute top-full left-1/2 -translate-x-1/2 pt-3">
-                      <div className="rounded-xl border border-border bg-popover shadow-float p-3 grid grid-cols-2 gap-1 min-w-[420px]">
-                        {navSolutions.map((item) => (
-                          <Link
-                            key={item.slug}
-                            to="/$locale/solutions/$slug"
-                            params={{ locale, slug: item.slug }}
-                            onClick={() => setSolOpen(false)}
-                            className="block px-3 py-2 text-sm rounded-lg hover:bg-surface-elevated hover:text-primary"
-                          >
-                            {item.name}
-                          </Link>
-                        ))}
-                      </div>
+                  <div
+                    className={`absolute top-full left-1/2 -translate-x-1/2 pt-3 z-50 ${
+                      solOpen ? "visible opacity-100" : "invisible opacity-0 pointer-events-none group-hover/nav:visible group-hover/nav:opacity-100 group-hover/nav:pointer-events-auto"
+                    }`}
+                  >
+                    <div className="rounded-xl border border-border bg-popover shadow-float p-3 grid grid-cols-2 gap-1 min-w-[420px]">
+                      {navSolutions.map((item) => (
+                        <Link
+                          key={item.slug}
+                          to="/$locale/solutions/$slug"
+                          params={{ locale, slug: item.slug }}
+                          onClick={() => setSolOpen(false)}
+                          className="block px-3 py-2 text-sm rounded-lg hover:bg-surface-elevated hover:text-primary"
+                        >
+                          {item.name}
+                        </Link>
+                      ))}
                     </div>
-                  )}
+                  </div>
                 </div>
               );
             }
@@ -261,6 +266,7 @@ export function Header() {
             {(["en", "zh"] as const).map((code, index) => {
               const label = code === "en" ? "EN" : "中";
               const active = lang === code;
+              const href = swapLocalePath(path, code);
               return (
                 <span key={code} className="inline-flex items-center gap-1.5">
                   {index > 0 ? <span className="text-muted-foreground/70">/</span> : null}
@@ -269,13 +275,13 @@ export function Header() {
                       {label}
                     </span>
                   ) : (
-                    <button
-                      type="button"
-                      onClick={() => setLang(code)}
+                    <a
+                      href={href}
+                      hrefLang={code}
                       className="text-muted-foreground hover:text-primary transition-colors"
                     >
                       {label}
-                    </button>
+                    </a>
                   )}
                 </span>
               );

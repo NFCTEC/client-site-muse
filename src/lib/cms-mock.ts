@@ -378,8 +378,9 @@ function mockPosts(locale: Locale) {
 }
 
 function sitemapUrls() {
+  // Thin fallback only — production sitemap is built in routes/sitemap.xml.ts
   const base = "https://www.nfctec.com";
-  const staticPaths = ["", "/products", "/solutions", "/platform", "/downloads", "/blog", "/about", "/contact", "/privacy", "/terms", "/tools/ntag424-tool", "/tools/javacard-tool"];
+  const staticPaths = ["", "/products", "/solutions", "/platform", "/downloads", "/blog", "/about", "/inquiry", "/tools/ntag424-tool", "/tools/javacard-tool"];
   const locales: Locale[] = ["en", "zh"];
   const urls: { loc: string; lastmod?: string }[] = [];
 
@@ -389,14 +390,6 @@ function sitemapUrls() {
     }
     for (const solution of solutions(locale)) {
       urls.push({ loc: `${base}/${locale}/solutions/${solution.slug}`, lastmod: "2026-09-20" });
-    }
-    for (const product of products(locale)) {
-      if (product.hasDetailPage) {
-        urls.push({ loc: `${base}/${locale}/products/${product.slug}`, lastmod: "2026-09-20" });
-      }
-    }
-    for (const post of mockPosts(locale)) {
-      urls.push({ loc: `${base}/${locale}/blog/${post.slug}`, lastmod: post.publishedAt?.slice(0, 10) });
     }
   }
 

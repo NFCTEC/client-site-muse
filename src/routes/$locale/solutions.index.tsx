@@ -21,13 +21,21 @@ export const Route = createFileRoute("/$locale/solutions/")({
     return { solutions: filterByDisplayConfig(solutions, moduleConfig) };
   },
   head: ({ params }) => {
-    const url = absLocaleUrl(params.locale as Locale, "/solutions");
+    const locale = params.locale as Locale;
+    const url = absLocaleUrl(locale, "/solutions");
+    const zh = locale === "zh";
+    const title = zh
+      ? "行业方案 — EMV、AFC、DESFire、NTAG 424 | NFCTEC"
+      : "Industry solutions — EMV, AFC, DESFire, NTAG 424 | NFCTEC";
+    const description = zh
+      ? "发行方 EMV、公交票卡、DESFire/Seos 门禁、NTAG 424 DNA SUN、ICAO 9303、CCC 数字钥匙及相关 NFC 项目。"
+      : "Issuer EMV, transit fare media, DESFire/Seos access, NTAG 424 DNA SUN, ICAO 9303, CCC Digital Key and related NFC programmes.";
     return {
       meta: [
-        { title: "Industry solutions — EMV, AFC, DESFire, NTAG 424 | NFCTEC" },
-        { name: "description", content: "Issuer EMV, transit fare media, DESFire/Seos access, NTAG 424 DNA SUN, ICAO 9303, CCC Digital Key and related NFC programmes." },
-        { property: "og:title", content: "Industry solutions — NFCTEC" },
-        { property: "og:description", content: "EMV issuance, AFC, DESFire access, NTAG 424 DNA, ICAO 9303, CCC Digital Key." },
+        { title },
+        { name: "description", content: description },
+        { property: "og:title", content: title },
+        { property: "og:description", content: description },
         { property: "og:url", content: url },
         { property: "og:type", content: "website" },
       ],

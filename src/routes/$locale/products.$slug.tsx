@@ -32,7 +32,7 @@ export const Route = createFileRoute("/$locale/products/$slug")({
     const desc = product?.seoDescription ?? product?.description ?? "";
     const image = product ? resolveProductImage(product) : undefined;
     const offerPath =
-      product?.ctaUrl && product.ctaUrl.startsWith("/") ? product.ctaUrl : "/contact";
+      product?.ctaUrl && product.ctaUrl.startsWith("/") ? product.ctaUrl : "/inquiry";
     const offerUrl =
       product?.ctaUrl && /^https?:\/\//.test(product.ctaUrl)
         ? product.ctaUrl
