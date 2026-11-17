@@ -26,7 +26,8 @@ export const Route = createFileRoute("/$locale/platform")({
   },
   head: ({ params }) => {
     const locale = params.locale as Locale;
-    const url = absLocaleUrl(locale, "/platform");
+    const canonicalPath = "/cloud-services/platform";
+    const canonicalUrl = absLocaleUrl(locale, canonicalPath);
     const lang: Lang = locale === "zh" ? "zh" : "en";
     return {
       meta: [
@@ -57,12 +58,12 @@ export const Route = createFileRoute("/$locale/platform")({
               ? "编码、个人化、读写、认证—密钥留在云端。"
               : "Encoding, personalization, read/write, authentication—keys stay in the cloud.",
         },
-        { property: "og:url", content: url },
+        { property: "og:url", content: canonicalUrl },
         { property: "og:type", content: "website" },
       ],
       links: [
-        { rel: "canonical", href: url },
-        ...hreflangLinks("/platform"),
+        { rel: "canonical", href: canonicalUrl },
+        ...hreflangLinks(canonicalPath),
       ],
       scripts: [
         {

@@ -33,7 +33,6 @@ const CORE_PATHS = [
   "",
   "/products",
   "/solutions",
-  "/platform",
   "/downloads",
   "/blog",
   "/about",
