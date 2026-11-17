@@ -220,20 +220,20 @@ type PillarDef = {
 
 const pillarDefs: PillarDef[] = [
   {
-    icon: Code2,
-    titleKey: "pillar.sw.title",
-    descKey: "pillar.sw.desc",
-    module: "products",
-    to: "/$locale/products",
-    search: { tab: "sw" },
-  },
-  {
     icon: Cpu,
     titleKey: "pillar.hw.title",
     descKey: "pillar.hw.desc",
     module: "products",
     to: "/$locale/products",
     search: { tab: "hw" },
+  },
+  {
+    icon: Code2,
+    titleKey: "pillar.sw.title",
+    descKey: "pillar.sw.desc",
+    module: "products",
+    to: "/$locale/products",
+    search: { tab: "sw" },
   },
   {
     icon: Layers,

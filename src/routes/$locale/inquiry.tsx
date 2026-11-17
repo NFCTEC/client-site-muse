@@ -32,8 +32,8 @@ export const Route = createFileRoute("/$locale/inquiry")({
     const title = lang === "zh" ? "联系我们 — NFCTEC" : "Contact Us — NFCTEC";
     const description =
       lang === "zh"
-        ? "软件、硬件或云端项目询盘。工程师在一个工作日内用邮件回复。"
-        : "Software, hardware or cloud project inquiries. Engineers reply by email within one business day.";
+        ? "NFC 卡、标签、手环与 SUN/SDM 编码卡厂询价。工程师一个工作日内邮件回复。"
+        : "Factory RFQ for NFC cards, tags, wristbands and SUN/SDM encoding. Engineers reply by email within one business day.";
     return {
       meta: [
         { title },

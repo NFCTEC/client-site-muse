@@ -35,11 +35,14 @@ export const t: Dict = {
   },
   "home.featured.solutions": { en: "Industry playbooks", zh: "行业成熟方案" },
   "home.featured.solutions.sub": {
-    en: "Proven architectures for payment, transit, identity and IoT — from pilot to production.",
-    zh: "覆盖支付、交通、身份与物联网的成熟架构 — 从试点到量产。",
+    en: "DESFire, EMV, eID, NTAG 424 DNA SUN — how we pick the chip, encode the media and hand off line-ready cards or tags.",
+    zh: "DESFire、EMV、eID、NTAG 424 DNA SUN — 怎么选型、怎么编码、怎么把卡或标签交到产线。",
   },
   "home.why.eyebrow": { en: "Why NFCTEC", zh: "为什么选择我们" },
-  "home.why.title": { en: "One partner for the entire NFC stack.", zh: "NFC 全栈，一个合作伙伴。" },
+  "home.why.title": {
+    en: "An NFC card factory — laminate, encode, ship.",
+    zh: "NFC 卡厂 — 制卡、编码、出厂。",
+  },
   "home.why.1.title": { en: "Full-stack ownership", zh: "全栈自主" },
   "home.why.1.desc": {
     en: "Inlays to wristbands: chip pick, SUN/SDM encoding, antenna tuning, reader firmware and SDKs from one engineering team—not a trader reselling blanks.",
@@ -59,18 +62,18 @@ export const t: Dict = {
   "home.process.title": { en: "From first call to production.", zh: "从首次沟通到量产交付。" },
   "home.process.1.title": { en: "Discovery", zh: "需求梳理" },
   "home.process.1.desc": {
-    en: "Protocol, chip and compliance requirements mapped in a technical workshop.",
-    zh: "通过技术 workshop 明确协议、芯片与合规要求。",
+    en: "Chip (NTAG424, DESFire, JCOP), laminate, encode recipe and compliance — nailed in a technical workshop.",
+    zh: "芯片（NTAG424、DESFire、JCOP）、层压、编码配方与合规 — 技术 workshop 一次定清。",
   },
   "home.process.2.title": { en: "Prototype", zh: "原型验证" },
   "home.process.2.desc": {
-    en: "Samples, SDK integration and lab validation within weeks — not months.",
-    zh: "数周内完成样品、SDK 集成与实验室验证 — 而非数月。",
+    en: "Wet inlay or PVC samples, SUN/NDEF encode pull, antenna check on your metal mount — usually within weeks.",
+    zh: "湿 Inlay 或 PVC 样品、SUN/NDEF 编码样张、在你们金属件上测天线 — 通常数周内完成。",
   },
   "home.process.3.title": { en: "Production", zh: "量产交付" },
   "home.process.3.desc": {
-    en: "Certification support, manufacturing and ongoing firmware updates.",
-    zh: "认证辅导、量产支持及持续固件更新。",
+    en: "Laminate, personalise, QC and ship from Shenzhen — blank, encoded, or with JavaCard/DESFire keys loaded.",
+    zh: "层压、个人化、质检，深圳出厂 — 空白、已编码或已灌 JavaCard/DESFire 密钥。",
   },
   "home.viewAll.products": { en: "View all products", zh: "查看全部产品" },
   "home.viewAll.solutions": { en: "View all industries", zh: "查看全部行业" },
@@ -109,33 +112,39 @@ export const t: Dict = {
   },
   "hero.cta1": { en: "Explore Products", zh: "查看产品" },
   "hero.cta2": { en: "Talk to an engineer", zh: "联系工程师" },
-  "hero.ill.label": { en: "NFC Product Stack", zh: "NFC 产品全栈" },
-  "hero.ill.hw": { en: "Hardware", zh: "硬件" },
-  "hero.ill.sw": { en: "Software", zh: "软件" },
-  "hero.ill.cloud": { en: "Cloud API", zh: "云端 API" },
+  "hero.ill.label": { en: "Card factory · Encoding · Verify", zh: "卡厂 · 编码 · 验真" },
+  "hero.ill.hw": { en: "PVC & inlays", zh: "PVC 与 Inlay" },
+  "hero.ill.sw": { en: "SUN / SDM", zh: "SUN / SDM" },
+  "hero.ill.cloud": { en: "Tap verify", zh: "贴卡验真" },
 
   // Business pillars
-  "pillar.eyebrow": { en: "What We Do", zh: "我们做什么" },
-  "pillar.title": { en: "How we help you build", zh: "我们如何与您共建" },
-  "pillar.sw.title": { en: "Software", zh: "软件" },
-  "pillar.sw.desc": {
-    en: "Mobile wallet SDKs, issuance & reading software for ePassports, bank cards (EMV), NTAG 424 DNA, DESFire, MIFARE, FeliCa, JavaCard and more.",
-    zh: "手机钱包 SDK、面向电子护照、银行卡 (EMV)、NTAG 424 DNA、DESFire、MIFARE、FeliCa、JavaCard 等的发卡与读卡软件。",
+  "pillar.eyebrow": {
+    en: "Smart cards · NFC tags · ISO 14443",
+    zh: "智能卡 · NFC 标签 · ISO 14443",
   },
-  "pillar.hw.title": { en: "Hardware", zh: "硬件" },
+  "pillar.title": {
+    en: "We manufacture and encode the media",
+    zh: "我们制卡并出厂编码",
+  },
+  "pillar.sw.title": { en: "Encoding & tools", zh: "编码与工具" },
+  "pillar.sw.desc": {
+    en: "Factory NDEF/SUN, JavaCard SCP02/SCP03 load, issuance benches, NTAG424 & JavaCard tools, reader firmware and SDKs when your line needs them.",
+    zh: "产线 NDEF/SUN、JavaCard SCP02/SCP03 灌卡、发卡台、NTAG424 与 JavaCard 工具；产线需要时配套读卡固件与 SDK。",
+  },
+  "pillar.hw.title": { en: "Tags, cards & wristbands", zh: "标签、卡与手环" },
   "pillar.hw.desc": {
-    en: "USB / Serial / USB CCID readers, embedded modules, NFC signal detection cards, antennas and blank cards.",
-    zh: "USB / 串口 / USB CCID 读卡器、嵌入式模组、NFC 信号检测卡、天线与空白卡。",
+    en: "Wet inlays, die-cut stickers, CR80 PVC, wristbands and on-metal antennas on NTAG 424 DNA, NTAG21x, Ultralight, DESFire EV2/EV3 and JCOP.",
+    zh: "湿 Inlay、异形贴、CR80 PVC、手环与抗金属天线；芯片含 NTAG 424 DNA、NTAG21x、Ultralight、DESFire EV2/EV3、JCOP。",
   },
   "pillar.sol.title": { en: "Cloud Services", zh: "云服务" },
   "pillar.sol.desc": {
     en: "NTAG424 DNA issuance and verification on a SaaS console. AES keys stay on the server. DESFire is a card product, not this cloud API.",
     zh: "NTAG424 DNA 的发行与验真 SaaS。AES 密钥留在服务器。DESFire 是卡片产品，不是这套云接口。",
   },
-  "pillar.dev.title": { en: "Industry Solutions", zh: "行业方案" },
+  "pillar.dev.title": { en: "Card programmes", zh: "卡片项目" },
   "pillar.dev.desc": {
-    en: "Turn-key architectures for payment, transit, identity, access and IoT — tailored to your product requirements.",
-    zh: "面向支付、交通、身份、门禁与物联网的交钥匙架构 — 按您的产品需求定制。",
+    en: "EMV, transit, eID, access, brand SUN and wallet passes — chip pick, encode recipe and what ships on the pallet.",
+    zh: "EMV、交通、eID、门禁、品牌 SUN、钱包卡券 — 选型、编码配方、出厂形态。",
   },
 
   // Protocols, chips & security
@@ -235,10 +244,13 @@ export const t: Dict = {
   "tools.open": { en: "Open tool →", zh: "打开工具 →" },
 
   // CTA
-  "cta.title": { en: "Ready to Build Your NFC Solution?", zh: "准备好启动您的 NFC 项目了吗？" },
+  "cta.title": {
+    en: "Quote NTAG 424 DNA, DESFire or custom PVC?",
+    zh: "需要 NTAG 424 DNA、DESFire 或定制 PVC 报价？",
+  },
   "cta.sub": {
-    en: "Talk to our engineers — get samples, SDKs and a tailored quote within 24 hours.",
-    zh: "联系我们的工程师 — 24 小时内获取样品、SDK 与专属报价。",
+    en: "Send chip, quantity and encode spec (blank, NDEF, SUN/SDM, JavaCard) — factory engineers reply within one business day.",
+    zh: "写明芯片、数量与编码要求（空白、NDEF、SUN/SDM、JavaCard）— 卡厂工程师一个工作日内回复。",
   },
   "cta.btn": { en: "Talk to an engineer", zh: "联系工程师" },
   "cta.btn2": { en: "Browse Downloads", zh: "浏览下载" },
@@ -495,13 +507,13 @@ export const t: Dict = {
   "about.eyebrow": { en: "About NFCTEC", zh: "关于 NFCTEC" },
   "about.title": { en: "15 years\nat the edge of NFC.", zh: "15 年深耕\n站在 NFC 前沿。" },
   "about.intro": {
-    en: "Founded in 2010, NFCTEC partners with product teams worldwide — co-developing NFC software, designing hardware and building cloud backends, from early prototypes to certified mass production.",
-    zh: "NFCTEC 成立于 2010 年，与全球产品团队深度合作 — 联合开发 NFC 软件、设计硬件、搭建云服务，从早期原型到认证量产。",
+    en: "Founded in 2010 in Shenzhen, NFCTEC runs an ISO 14443 card factory: laminate PVC and inlays, factory-encode NTAG 424 DNA SUN/SDM and DESFire/JavaCard media, tune antennas, and ship line-ready tags, cards and wristbands. Software and NTAG424 tap-verify sit beside production — not instead of it.",
+    zh: "2010 年成立于深圳。NFCTEC 是 ISO 14443 卡厂：层压 PVC 与 Inlay、产线编码 NTAG 424 DNA SUN/SDM 与 DESFire/JavaCard 介质、天线调试，出厂即可上线的标签、卡与手环。软件与 NTAG424 贴卡验真是产线配套，不是倒手空白卡。",
   },
   "about.mission.t": { en: "Mission", zh: "使命" },
   "about.mission.d": {
-    en: "Help product teams ship secure, connected NFC experiences — faster, with less integration risk.",
-    zh: "帮助产品团队更快、更低风险地交付安全、互联的 NFC 体验。",
+    en: "Ship secure NFC cards and tags with the right chip, keys and encode recipe — at factory volume and auditability.",
+    zh: "以正确的芯片、密钥与编码配方，批量出厂可审计的安全 NFC 卡与标签。",
   },
   "about.values.t": { en: "Values", zh: "价值观" },
   "about.values.d": { en: "Open standards · Engineering rigor · Long-term partnerships.", zh: "开放标准 · 工程严谨 · 长期合作。" },
@@ -578,10 +590,10 @@ export const t: Dict = {
     zh: "已收到。我们在一个工作日内回复，周一至周日，北京时间（UTC+8）。订单变更仍在亚马逊处理。",
   },
   "form.projectType": { en: "Project type", zh: "项目类型" },
-  "form.type.sw": { en: "Software development", zh: "软件开发" },
-  "form.type.hw": { en: "Hardware / product design", zh: "硬件 / 产品设计" },
-  "form.type.cloud": { en: "Cloud / API integration", zh: "云服务 / API 集成" },
-  "form.type.full": { en: "Full-stack (SW + HW + Cloud)", zh: "全栈（软+硬+云）" },
+  "form.type.sw": { en: "Encoding software / JavaCard / SDK", zh: "编码软件 / JavaCard / SDK" },
+  "form.type.hw": { en: "Cards, tags & wristbands (factory)", zh: "卡、标签与手环（卡厂）" },
+  "form.type.cloud": { en: "NTAG424 DNA cloud verify", zh: "NTAG424 DNA 云端验真" },
+  "form.type.full": { en: "Card programme (media + encode + verify)", zh: "卡片项目（介质+编码+验真）" },
   "form.error": {
     en: "Failed to send. Please email us directly at support@nfctec.com.",
     zh: "发送失败，请直接发送邮件至 support@nfctec.com。",
@@ -603,11 +615,14 @@ export const t: Dict = {
     zh: "感谢提交！我们已收到您的需求，将在 1 个工作日内通过邮件回复。",
   },
   "form.mailto.hint": { en: "If nothing opened, email us directly at", zh: "如未自动打开，请直接发送邮件至" },
-  "project.eyebrow": { en: "Contact", zh: "联系" },
-  "project.title": { en: "Tell us what\nyou're building.", zh: "告诉我们\n您要做什么产品。" },
+  "project.eyebrow": { en: "Factory quote", zh: "卡厂询价" },
+  "project.title": {
+    en: "RFQ for NFC cards,\ntags or encoding.",
+    zh: "NFC 卡、标签\n或编码询价。",
+  },
   "project.sub": {
-    en: "Software, hardware or cloud — submit your project details and our engineers will reply by email within one business day.",
-    zh: "软件、硬件或云端项目，提交需求后工程师会在一个工作日内用邮件回复。",
+    en: "Chip (NTAG424, DESFire, JCOP…), form factor, quantity and encode level (blank / NDEF / SUN / keys). Engineers reply by email within one business day.",
+    zh: "芯片（NTAG424、DESFire、JCOP 等）、形态、数量与编码级别（空白 / NDEF / SUN / 密钥）。工程师一个工作日内邮件回复。",
   },
   "faq.in1.q": { en: "How fast will I get a reply?", zh: "多久能收到回复？" },
   "faq.in1.a": {

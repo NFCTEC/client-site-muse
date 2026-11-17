@@ -14,8 +14,8 @@ export const Route = createFileRoute("/$locale/about")({
     const zh = locale === "zh";
     const title = zh ? "关于我们 — NFCTEC" : "About — NFCTEC";
     const description = zh
-      ? "NFCTEC 成立于 2010 年，与产品团队合作开发 NFC 软件、硬件与云服务。"
-      : "Founded in 2010, NFCTEC partners with product teams on NFC software, hardware and cloud services.";
+      ? "2010 年深圳 NFC 卡厂：PVC、Inlay、NTAG 424 DNA SUN/SDM、DESFire、JavaCard 编码与量产。"
+      : "Shenzhen NFC card factory since 2010: PVC, inlays, NTAG 424 DNA SUN/SDM, DESFire and JavaCard encoding at volume.";
     return {
       meta: [
         { title },
