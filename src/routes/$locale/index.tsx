@@ -77,11 +77,11 @@ export const Route = createFileRoute("/$locale/")({
     const url = absLocaleUrl(locale, "/");
     const zh = locale === "zh";
     const title = zh
-      ? "NFCTEC — NFC 卡厂：NTAG 424 DNA、标签、卡、手环"
-      : "NFCTEC — NFC Card Factory: NTAG 424 DNA, Tags, Cards, Wristbands";
+      ? "NFCTEC — NFC 标签、智能卡与 OEM/ODM 定制制造商"
+      : "NFCTEC — Custom NFC Cards, Tags & Smart Card OEM/ODM Manufacturer";
     const description = zh
-      ? "卡厂定制 PVC、异形标签、手环。NTAG 424 DNA（NTAG424）SUN/CMAC、NTAG213/215/216、Ultralight EV1/C、DESFire EV2/EV3 2K–8K、JCOP。"
-      : "Card factory: custom PVC, die-cut tags, wristbands. NTAG 424 DNA (NTAG424) SUN/CMAC, NTAG213/215/216, Ultralight EV1/C, DESFire EV2/EV3 2K–8K, JCOP.";
+      ? "NFCTEC 专业制造定制 NFC 卡、标签、Inlay 与手环，提供 OEM/ODM 芯片选型、天线工程、安全编码及量产交付，支持 NTAG、DESFire 与 JavaCard 项目。"
+      : "NFCTEC manufactures custom NFC cards, tags, inlays and wristbands. OEM/ODM services include chip selection, antenna engineering, secure encoding and production-ready delivery for NTAG, DESFire and JavaCard projects.";
     const products = loaderData?.products ?? [];
     return {
       meta: socialMeta({ title, description, url, locale }),
