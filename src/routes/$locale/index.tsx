@@ -276,12 +276,12 @@ function Home() {
     : [];
 
   const heroPrimary =
-    modules.solutions
-      ? { to: "/$locale/solutions" as const, label: tr("home.viewAll.solutions"), params: { locale } }
+    modules.contact
+      ? { to: "/$locale/inquiry" as const, label: tr("nav.getQuote"), params: { locale } }
       : modules.products
         ? { to: "/$locale/products" as const, label: tr("hero.cta1"), params: { locale } }
-        : modules.contact
-          ? { to: "/$locale/inquiry" as const, label: tr("nav.getQuote"), params: { locale } }
+        : modules.solutions
+          ? { to: "/$locale/solutions" as const, label: tr("home.viewAll.solutions"), params: { locale } }
           : null;
 
   const pillarGridClass =
@@ -330,9 +330,9 @@ function Home() {
                     {heroPrimary.label} <ArrowRight size={16} />
                   </Link>
                 )}
-                {modules.contact && (
+                {modules.products && (
                   <Link
-                    to="/$locale/inquiry"
+                    to="/$locale/products"
                     params={{ locale }}
                     className="inline-flex items-center gap-2 rounded-full border border-border-strong bg-surface/60 backdrop-blur px-6 py-3 text-sm font-medium hover:border-primary hover:text-primary transition-colors"
                   >
