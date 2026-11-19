@@ -18,7 +18,7 @@ export const t: Dict = {
   "nav.about": { en: "About", zh: "关于" },
   "nav.privacy": { en: "Privacy", zh: "隐私" },
   "nav.terms": { en: "Terms", zh: "条款" },
-  "nav.contact": { en: "Contact Us", zh: "联系我们" },
+  "nav.contact": { en: "Request a Quote", zh: "获取项目报价" },
   "nav.home": { en: "Home", zh: "首页" },
   "nav.getQuote": { en: "Request a Quote", zh: "获取项目报价" },
 
@@ -111,7 +111,7 @@ export const t: Dict = {
     zh: "从 PVC 智能卡、定制 NFC 标签到手环与安全元件，NFCTEC 为 OEM/ODM 项目提供芯片选型、天线工程、安全编码、质量检验与量产交付。"（SUN、SDM、AES-CMAC）、NTAG213/215/216、Ultralight EV1/C、DESFire EV2/EV3、JCOP。出厂 NDEF/SUN 编码、金属环境天线、JavaCard SCP02/SCP03 导入量产—可空白交付也可产线即用。需要时配套工程工具与云端贴卡验真。",
   },
   "hero.cta1": { en: "Explore Products", zh: "查看产品" },
-  "hero.cta2": { en: "Explore Products", zh: "浏览产品" },
+  "hero.cta2": { en: "Request Samples", zh: "申请样品" },
   "hero.ill.label": { en: "Card factory · Encoding · Verify", zh: "卡厂 · 编码 · 验真" },
   "hero.ill.hw": { en: "PVC & inlays", zh: "PVC 与 Inlay" },
   "hero.ill.sw": { en: "SUN / SDM", zh: "SUN / SDM" },
