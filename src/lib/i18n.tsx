@@ -107,8 +107,8 @@ export const t: Dict = {
     zh: "定制 NFC 卡、标签\n与安全元件。",
   },
   "hero.sub": {
-    en: "From PVC smart cards and custom NFC labels to wristbands and secure elements, NFCTEC supports OEM/ODM projects with chip selection, antenna engineering, secure encoding, quality control and production-ready delivery." (SUN, SDM, AES-CMAC), NTAG213/215/216, Ultralight EV1/C, DESFire EV2/EV3 and JCOP. We factory-encode NDEF/SUN, tune on-metal antennas, and run JavaCard SCP02/SCP03 bring-up—ship blank or line-ready. Engineering tools and cloud tap-verify when you need them.",
-    zh: "从 PVC 智能卡、定制 NFC 标签到手环与安全元件，NFCTEC 为 OEM/ODM 项目提供芯片选型、天线工程、安全编码、质量检验与量产交付。"（SUN、SDM、AES-CMAC）、NTAG213/215/216、Ultralight EV1/C、DESFire EV2/EV3、JCOP。出厂 NDEF/SUN 编码、金属环境天线、JavaCard SCP02/SCP03 导入量产—可空白交付也可产线即用。需要时配套工程工具与云端贴卡验真。",
+    en: "From PVC smart cards and custom NFC labels to wristbands and secure elements, NFCTEC supports OEM/ODM projects with chip selection, antenna engineering, secure encoding, quality control and production-ready delivery.",
+    zh: "从 PVC 智能卡、定制 NFC 标签到手环与安全元件，NFCTEC 为 OEM/ODM 项目提供芯片选型、天线工程、安全编码、质量检验与量产交付。",
   },
   "hero.cta1": { en: "Explore Products", zh: "查看产品" },
   "hero.cta2": { en: "Request Samples", zh: "申请样品" },
