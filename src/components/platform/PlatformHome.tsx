@@ -6,8 +6,6 @@ import { PlatformHeroFlow } from "@/components/platform/PlatformHeroFlow";
 import { MobileAppStoreComingSoon } from "@/components/platform/MobileAppStoreComingSoon";
 import { PlatformProductDemo } from "@/components/platform/PlatformProductDemo";
 import { useLocale } from "@/hooks/useLocale";
-import { formatUsdFromCents, issuanceCents, orderTotalCents } from "@/lib/platform-pricing";
-import { API_PLANS } from "@/lib/platform-site";
 
 const DEMO_ID = "platform-demo";
 
@@ -172,47 +170,25 @@ export function PlatformHome() {
       </PageSection>
 
       <PageSection tone="muted" spacing="main">
-        <h2 className="font-display text-2xl lg:text-3xl tracking-tight">
-          {zh ? "先用小规模起步，再按需扩展" : "Start Small. Scale When You're Ready."}
-        </h2>
-        <div className="mt-10 grid gap-6 md:grid-cols-2">
-          <div className="rounded-2xl border border-border bg-card-gradient p-8">
-            <p className="section-label">{zh ? "NFC 发行" : "NFC Provisioning"}</p>
-            <p className="mt-2 font-display text-3xl tracking-tight">
-              {formatUsdFromCents(issuanceCents(1_000))}
-            </p>
-            <p className="mt-2 text-sm text-muted-foreground">
-              {zh
-                ? "1,000 张成功写卡 · 按张数曲线计价，一次性额度"
-                : "1,000 successful writes · continuous curve, one-time quota"}
-            </p>
-          </div>
-          <div className="rounded-2xl border border-border bg-card-gradient p-8">
-            <p className="section-label">{zh ? "验真 API" : "Authentication API"}</p>
-            <p className="mt-2 font-display text-3xl tracking-tight">
-              {zh ? "自 $" : "From $"}
-              {API_PLANS[0].monthlyUsd}
-              <span className="text-base text-muted-foreground">{zh ? "/月" : "/month"}</span>
-            </p>
-            <p className="mt-2 text-sm text-muted-foreground">
-              {API_PLANS[0].checks.toLocaleString()} {zh ? "次验真 / 月" : "verification checks per month"}
-            </p>
+        <div className="mx-auto max-w-3xl text-center">
+          <h2 className="font-display text-2xl lg:text-3xl tracking-tight">
+            {zh ? "为你的产品数字身份项目制定方案" : "Plan Your Product Digital Identity Program"}
+          </h2>
+          <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
+            {zh
+              ? "告诉我们标签规模、编码流程、验真需求与部署环境。我们的团队将协助评估技术方案、样品验证和量产路径。"
+              : "Tell us about your tag volume, encoding workflow, authentication needs and deployment environment. Our team can help scope the solution, sample validation and production rollout."}
+          </p>
+          <div className="mt-8 flex flex-wrap gap-3 justify-center">
+            <PlatformLink locale={locale} intent="sales">
+              {zh ? "联系销售 / 获取报价" : "Contact Sales / Request a Quote"}
+            </PlatformLink>
+            <PlatformLink locale={locale} intent="start">
+              {zh ? "免费开始" : "Start Free"}
+            </PlatformLink>
           </div>
         </div>
-        <p className="mt-6 text-sm text-muted-foreground">
-          {zh
-            ? `示例：1,000 张 + 标准 API 1 个月 = ${formatUsdFromCents(orderTotalCents(1_000, "standard", 1))}（一笔订单）。价格不含实体标签与读卡器。`
-            : `Example: 1,000 cards + Standard API 1 month = ${formatUsdFromCents(orderTotalCents(1_000, "standard", 1))} in one order. Tags and readers not included.`}
-        </p>
-        <div className="mt-8 flex flex-wrap gap-3">
-          <PlatformLink locale={locale} intent="start">
-            {zh ? "免费开始" : "Start Free"}
-          </PlatformLink>
-          <PlatformLink locale={locale} intent="pricing">
-            {zh ? "查看价格" : "View Pricing"}
-          </PlatformLink>
-        </div>
-      </PageSection>
+      </PageSection>ction>
     </PlatformFrame>
   );
 }
