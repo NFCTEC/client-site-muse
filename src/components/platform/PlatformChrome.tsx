@@ -20,7 +20,7 @@ export function PlatformLink({
   children,
 }: {
   locale: Locale;
-  intent: "start" | "pricing" | "features" | "sales" | "downloads";
+  intent: "start" | "features" | "sales" | "downloads";
   children: ReactNode;
 }) {
   const className =
@@ -52,7 +52,7 @@ export function PlatformLink({
     );
   }
 
-  const page: PlatformPageId = intent === "pricing" ? "pricing" : "features";
+  const page: PlatformPageId = "features";
 
   return (
     <Link to={platformRoute(page)} params={{ locale }} className={className}>
