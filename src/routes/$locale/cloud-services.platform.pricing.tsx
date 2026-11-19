@@ -1,10 +1,11 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { PlatformPricing } from "@/components/platform/PlatformPricing";
-import { loadPlatformPage, platformHead } from "@/lib/platform-route";
-import type { Locale } from "@/lib/locale";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/$locale/cloud-services/platform/pricing")({
-  loader: ({ params }) => loadPlatformPage(params.locale),
-  head: ({ params }) => platformHead(params.locale as Locale, "pricing"),
-  component: PlatformPricing,
+  beforeLoad: ({ params }) => {
+    throw redirect({
+      to: "/$locale/cloud-services/platform",
+      params: { locale: params.locale },
+      statusCode: 301,
+    });
+  },
 });
