@@ -20,14 +20,14 @@ export const t: Dict = {
   "nav.terms": { en: "Terms", zh: "条款" },
   "nav.contact": { en: "Contact Us", zh: "联系我们" },
   "nav.home": { en: "Home", zh: "首页" },
-  "nav.getQuote": { en: "Get a Quote", zh: "获取报价" },
+  "nav.getQuote": { en: "Request a Quote", zh: "获取项目报价" },
 
   "home.protocols": { en: "50+ protocols supported", zh: "支持 50+ 协议标准" },
   "home.stats.eyebrow": { en: "Trusted worldwide", zh: "全球客户信赖" },
   "home.featured.products": { en: "Featured products", zh: "精选产品" },
   "home.featured.products.sub": {
-    en: "NTAG tags, DESFire EV2/EV3, Ultralight, custom cards and wristbands — factory quote or Amazon.",
-    zh: "NTAG 标签、DESFire EV2/EV3、Ultralight、定制卡与手环 — 卡厂询价或 Amazon。",
+    en: "NTAG tags, DESFire EV2/EV3, Ultralight, custom cards and wristbands — manufactured to your project requirements.",
+    zh: "NTAG 标签、DESFire EV2/EV3、Ultralight、定制卡与手环，按项目需求定制生产。",
   },
   "home.partners.title": {
     en: "Silicon, standards & wallets we work with",
@@ -99,19 +99,19 @@ export const t: Dict = {
 
   // Hero
   "hero.eyebrow": {
-    en: "ISO 14443 card factory · NTAG 424 DNA · JavaCard",
-    zh: "ISO 14443 卡厂 · NTAG 424 DNA · JavaCard",
+    en: "NFC & smart card manufacturing · OEM / ODM · Secure encoding",
+    zh: "NFC 与智能卡制造 · OEM / ODM · 安全编码",
   },
   "hero.title": {
-    en: "Crypto NFC tags, cards\n& secure elements.",
-    zh: "密码学 NFC 标签、卡\n与安全元件。",
+    en: "Custom NFC cards, tags\n& secure elements.",
+    zh: "定制 NFC 卡、标签\n与安全元件。",
   },
   "hero.sub": {
-    en: "Wet inlays, PVC and wristbands on NTAG 424 DNA (SUN, SDM, AES-CMAC), NTAG213/215/216, Ultralight EV1/C, DESFire EV2/EV3 and JCOP. We factory-encode NDEF/SUN, tune on-metal antennas, and run JavaCard SCP02/SCP03 bring-up—ship blank or line-ready. Engineering tools and cloud tap-verify when you need them.",
-    zh: "湿 Inlay、PVC 与手环：NTAG 424 DNA（SUN、SDM、AES-CMAC）、NTAG213/215/216、Ultralight EV1/C、DESFire EV2/EV3、JCOP。出厂 NDEF/SUN 编码、金属环境天线、JavaCard SCP02/SCP03 导入量产—可空白交付也可产线即用。需要时配套工程工具与云端贴卡验真。",
+    en: "From PVC smart cards and custom NFC labels to wristbands and secure elements, NFCTEC supports OEM/ODM projects with chip selection, antenna engineering, secure encoding, quality control and production-ready delivery." (SUN, SDM, AES-CMAC), NTAG213/215/216, Ultralight EV1/C, DESFire EV2/EV3 and JCOP. We factory-encode NDEF/SUN, tune on-metal antennas, and run JavaCard SCP02/SCP03 bring-up—ship blank or line-ready. Engineering tools and cloud tap-verify when you need them.",
+    zh: "从 PVC 智能卡、定制 NFC 标签到手环与安全元件，NFCTEC 为 OEM/ODM 项目提供芯片选型、天线工程、安全编码、质量检验与量产交付。"（SUN、SDM、AES-CMAC）、NTAG213/215/216、Ultralight EV1/C、DESFire EV2/EV3、JCOP。出厂 NDEF/SUN 编码、金属环境天线、JavaCard SCP02/SCP03 导入量产—可空白交付也可产线即用。需要时配套工程工具与云端贴卡验真。",
   },
   "hero.cta1": { en: "Explore Products", zh: "查看产品" },
-  "hero.cta2": { en: "Talk to an engineer", zh: "联系工程师" },
+  "hero.cta2": { en: "Explore Products", zh: "浏览产品" },
   "hero.ill.label": { en: "Card factory · Encoding · Verify", zh: "卡厂 · 编码 · 验真" },
   "hero.ill.hw": { en: "PVC & inlays", zh: "PVC 与 Inlay" },
   "hero.ill.sw": { en: "SUN / SDM", zh: "SUN / SDM" },
