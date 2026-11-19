@@ -14,6 +14,8 @@ export function platformRoute(id: PlatformPageId) {
   switch (id) {
     case "home":
       return "/$locale/cloud-services/platform" as const;
+    case "pricing":
+      return "/$locale/cloud-services/platform/pricing" as const;
     case "features":
       return "/$locale/cloud-services/platform/features" as const;
     case "provisioning":
@@ -32,6 +34,7 @@ export type PlatformPageId =
   | "features"
   | "provisioning"
   | "authentication"
+  | "pricing"
   | "developers"
   | "faq";
 
