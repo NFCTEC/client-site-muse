@@ -188,7 +188,7 @@ export function PlatformHome() {
             </PlatformLink>
           </div>
         </div>
-      </PageSection>ction>
+      </PageSection>
     </PlatformFrame>
   );
 }
