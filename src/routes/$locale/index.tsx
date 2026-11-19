@@ -330,9 +330,9 @@ function Home() {
                     {heroPrimary.label} <ArrowRight size={16} />
                   </Link>
                 )}
-                {modules.products && (
+                {modules.contact && (
                   <Link
-                    to="/$locale/products"
+                    to="/$locale/inquiry"
                     params={{ locale }}
                     className="inline-flex items-center gap-2 rounded-full border border-border-strong bg-surface/60 backdrop-blur px-6 py-3 text-sm font-medium hover:border-primary hover:text-primary transition-colors"
                   >
