@@ -102,19 +102,6 @@ export const PLATFORM_PAGES: PlatformPageMeta[] = [
     },
   },
   {
-    id: "pricing",
-    path: "/cloud-services/platform/pricing",
-    nav: { en: "Pricing", zh: "价格" },
-    title: {
-      en: "NTAG424 DNA Encoding Pricing | Personalization Quota & Authentication API",
-      zh: "NTAG424 编码价格 | 个人化额度与认证 API",
-    },
-    description: {
-      en: "Pricing for NTAG424 DNA encoding volume and monthly authentication API—support anti-counterfeiting and product digital identity programs. One order, tax at checkout.",
-      zh: "NTAG424 编码发行量与认证 API 月费，支撑防伪与产品数字身份项目。一笔订单计价，税金在收银台处理。",
-    },
-  },
-  {
     id: "developers",
     path: "/cloud-services/platform/developers",
     nav: { en: "Developers", zh: "开发者" },
@@ -195,8 +182,8 @@ export const PLATFORM_FAQS: Record<Locale, FaqItem[]> = {
       a: "Windows and macOS Issuance Workbench installers are in the site download center under /en/downloads or /zh/downloads. The mobile provisioning app for iOS and Android is coming to the App Store and Google Play soon. The SaaS console is at platform.nfctec.com.",
     },
     {
-      q: "What is the difference between issuance quota and the API subscription?",
-      a: "Issuance quota is a one-time purchase, counted on successful writes only, and it does not expire. The verify API is prepaid months × monthly fee for bind, activate, revoke, and verify. You can buy either or both in one order. Issuance uses a continuous price curve (for example 1,000 cards for $69); API tiers are $39, $99, and $299 per month with no annual discount.",
+      q: "How can I get a quote for an NFC authentication project?",
+      a: "Share your expected tag volume, chip type, encoding workflow, verification traffic, and deployment requirements through the inquiry form. Our team will review the scope and recommend an appropriate solution.",
     },
     {
       q: "Can I integrate NFCTEC with ERP or MES?",
@@ -253,8 +240,8 @@ export const PLATFORM_FAQS: Record<Locale, FaqItem[]> = {
       a: "Windows、macOS 的 Issuance Workbench 安装包在网站下载中心（/zh/downloads 或 /en/downloads）。iOS / Android 写卡 App 即将上架 App Store 与 Google Play。云端控制台入口为 platform.nfctec.com。",
     },
     {
-      q: "发行额度和 API 订阅有什么区别？",
-      a: "发行额度一次购买，只计写卡成功，不会过期。验真 API 按预付月数 × 月费，用于 bind、activate、verify 等。一笔订单可以只买其一或一起买。发行按连续曲线计价（例如 1,000 张 $69）；API 三档月费 $39、$99、$299，没有年付折扣。",
+      q: "如何获取 NFC 验真项目报价？",
+      a: "请通过询价表单提供预计标签数量、芯片型号、编码流程、验真流量与部署要求。我们的团队会评估项目范围并推荐合适的方案。",
     },
     {
       q: "能对接 ERP 或 MES 吗？",
@@ -329,11 +316,6 @@ export function platformHead(locale: Locale, id: PlatformPageId) {
         operatingSystem: "Web",
         url,
         description,
-        offers: {
-          "@type": "Offer",
-          url: absLocaleUrl(locale, "/cloud-services/platform/pricing"),
-          priceCurrency: "USD",
-        },
       }),
     });
   }
