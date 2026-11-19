@@ -20,8 +20,6 @@ export function platformRoute(id: PlatformPageId) {
       return "/$locale/cloud-services/platform/provisioning" as const;
     case "authentication":
       return "/$locale/cloud-services/platform/authentication" as const;
-    case "pricing":
-      return "/$locale/cloud-services/platform/pricing" as const;
     case "developers":
       return "/$locale/cloud-services/platform/developers" as const;
     case "faq":
@@ -34,7 +32,6 @@ export type PlatformPageId =
   | "features"
   | "provisioning"
   | "authentication"
-  | "pricing"
   | "developers"
   | "faq";
 
@@ -123,8 +120,8 @@ export const PLATFORM_PAGES: PlatformPageMeta[] = [
       zh: "NTAG424 DNA 常见问题 | 编码、个人化、认证与防伪",
     },
     description: {
-      en: "FAQ on NTAG424 DNA encoding, personalization, secure read/write, authentication, product digital identity, anti-counterfeiting, pricing, and ERP integration.",
-      zh: "NTAG424 编码、个人化、读写、认证、产品数字身份、防伪、价格与 ERP 对接常见问题。",
+      en: "FAQ on NTAG424 DNA encoding, personalization, secure read/write, authentication, product digital identity, anti-counterfeiting, and ERP integration.",
+      zh: "NTAG424 编码、个人化、读写、认证、产品数字身份、防伪与 ERP 对接常见问题。",
     },
   },
 ];
