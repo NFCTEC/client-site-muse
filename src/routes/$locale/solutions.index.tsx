@@ -25,11 +25,11 @@ export const Route = createFileRoute("/$locale/solutions/")({
     const url = absLocaleUrl(locale, "/solutions");
     const zh = locale === "zh";
     const title = zh
-      ? "行业方案 — EMV、AFC、DESFire、NTAG 424 | NFCTEC"
-      : "Industry solutions — EMV, AFC, DESFire, NTAG 424 | NFCTEC";
+      ? "NFC 与智能卡行业应用方案 | NFCTEC"
+      : "NFC & Smart Card Solutions by Application | NFCTEC";
     const description = zh
-      ? "发行方 EMV、公交票卡、DESFire/Seos 门禁、NTAG 424 DNA SUN、ICAO 9303、CCC 数字钥匙及相关 NFC 项目。"
-      : "Issuer EMV, transit fare media, DESFire/Seos access, NTAG 424 DNA SUN, ICAO 9303, CCC Digital Key and related NFC programmes.";
+      ? "探索 NFC 与智能卡在品牌防伪、门禁、身份识别和智能产品中的应用，支持定制制造与安全编码。"
+      : "Explore NFC and smart-card applications for brand authentication, access control, identification and connected products, with custom manufacturing and encoding support.";
     return {
       meta: [
         { title },
@@ -82,7 +82,7 @@ function SolutionsIndex() {
                 key={ind.slug}
                 to="/$locale/solutions/$slug"
                 params={{ locale, slug: ind.slug }}
-                className="card-glow group flex flex-col rounded-2xl border border-border bg-card-gradient overflow-hidden min-h-[20rem]"
+                className="group flex flex-col rounded-xl border border-border bg-card overflow-hidden min-h-[20rem] hover:border-primary/40 transition-colors"
               >
                 <SolutionVisual slug={ind.slug} src={ind.heroImage} alt={`${ind.name} — NFC solution`} icon={ind.icon} />
                 <div className="p-8 flex flex-col flex-1">
