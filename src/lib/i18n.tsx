@@ -26,17 +26,17 @@ export const t: Dict = {
   "home.stats.eyebrow": { en: "Trusted worldwide", zh: "全球客户信赖" },
   "home.featured.products": { en: "Featured products", zh: "精选产品" },
   "home.featured.products.sub": {
-    en: "NTAG tags, DESFire EV2/EV3, Ultralight, custom cards and wristbands — manufactured to your project requirements.",
-    zh: "NTAG 标签、DESFire EV2/EV3、Ultralight、定制卡与手环，按项目需求定制生产。",
+    en: "Explore NFC labels, smart cards and custom formats designed around your application, branding and production needs.",
+    zh: "探索 NFC 标签、智能卡及多种定制形态，按您的应用、品牌设计和生产要求提供制造方案。",
   },
   "home.partners.title": {
     en: "Silicon, standards & wallets we work with",
     zh: "长期合作的芯片厂商、标准组织与钱包生态",
   },
-  "home.featured.solutions": { en: "Industry playbooks", zh: "行业成熟方案" },
+  "home.featured.solutions": { en: "Solutions for Real-World Applications", zh: "面向实际应用的定制方案" },
   "home.featured.solutions.sub": {
-    en: "DESFire, EMV, eID, NTAG 424 DNA SUN — how we pick the chip, encode the media and hand off line-ready cards or tags.",
-    zh: "DESFire、EMV、eID、NTAG 424 DNA SUN — 怎么选型、怎么编码、怎么把卡或标签交到产线。",
+    en: "Explore how NFC products and secure authentication can support product protection, access, identification and connected experiences.",
+    zh: "了解 NFC 产品与安全认证如何应用于产品防伪、门禁、身份识别及数字化交互。",
   },
   "home.why.eyebrow": { en: "Why NFCTEC", zh: "为什么选择我们" },
   "home.why.title": {
@@ -119,32 +119,32 @@ export const t: Dict = {
 
   // Business pillars
   "pillar.eyebrow": {
-    en: "Smart cards · NFC tags · ISO 14443",
-    zh: "智能卡 · NFC 标签 · ISO 14443",
+    en: "PRODUCTS & CAPABILITIES",
+    zh: "产品与服务能力",
   },
   "pillar.title": {
-    en: "We manufacture and encode the media",
-    zh: "我们制卡并出厂编码",
+    en: "Manufacturing, Personalization & Integration",
+    zh: "从定制制造到安全个人化与系统集成",
   },
   "pillar.sw.title": { en: "Encoding & tools", zh: "编码与工具" },
   "pillar.sw.desc": {
-    en: "Factory NDEF/SUN, JavaCard SCP02/SCP03 load, issuance benches, NTAG424 & JavaCard tools, reader firmware and SDKs when your line needs them.",
-    zh: "产线 NDEF/SUN、JavaCard SCP02/SCP03 灌卡、发卡台、NTAG424 与 JavaCard 工具；产线需要时配套读卡固件与 SDK。",
+    en: "Secure NFC personalization, encoding tools and integration support tailored to your production workflow.",
+    zh: "提供 NFC 安全个人化、编码工具及系统集成支持，适配您的生产流程。",
   },
   "pillar.hw.title": { en: "Tags, cards & wristbands", zh: "标签、卡与手环" },
   "pillar.hw.desc": {
-    en: "Wet inlays, die-cut stickers, CR80 PVC, wristbands and on-metal antennas on NTAG 424 DNA, NTAG21x, Ultralight, DESFire EV2/EV3 and JCOP.",
-    zh: "湿 Inlay、异形贴、CR80 PVC、手环与抗金属天线；芯片含 NTAG 424 DNA、NTAG21x、Ultralight、DESFire EV2/EV3、JCOP。",
+    en: "Custom NFC labels, PVC smart cards and wearable formats with options for materials, printing, chips and encoding.",
+    zh: "定制 NFC 标签、PVC 智能卡和可穿戴产品，支持材料、印刷、芯片与编码方案选择。",
   },
   "pillar.sol.title": { en: "Cloud Services", zh: "云服务" },
   "pillar.sol.desc": {
-    en: "NTAG424 DNA issuance and verification on a SaaS console. AES keys stay on the server. DESFire is a card product, not this cloud API.",
-    zh: "NTAG424 DNA 的发行与验真 SaaS。AES 密钥留在服务器。DESFire 是卡片产品，不是这套云接口。",
+    en: "Manage NTAG424 DNA personalization and authentication workflows with server-side key handling and verification services.",
+    zh: "通过云端服务管理 NTAG424 DNA 个人化与验真流程，支持服务端密钥处理和认证集成。",
   },
-  "pillar.dev.title": { en: "Card programmes", zh: "卡片项目" },
+  "pillar.dev.title": { en: "Application Engineering", zh: "应用方案开发" },
   "pillar.dev.desc": {
-    en: "EMV, transit, eID, access, brand SUN and wallet passes — chip pick, encode recipe and what ships on the pallet.",
-    zh: "EMV、交通、eID、门禁、品牌 SUN、钱包卡券 — 选型、编码配方、出厂形态。",
+    en: "Technical support for application-specific NFC and smart-card projects, from feasibility review to integration.",
+    zh: "面向不同应用的 NFC 与智能卡项目，提供可行性评估、技术选型和系统集成支持。",
   },
 
   // Protocols, chips & security
@@ -245,14 +245,14 @@ export const t: Dict = {
 
   // CTA
   "cta.title": {
-    en: "Quote NTAG 424 DNA, DESFire or custom PVC?",
-    zh: "需要 NTAG 424 DNA、DESFire 或定制 PVC 报价？",
+    en: "Have a Custom NFC Project in Mind?",
+    zh: "有 NFC 产品定制需求？",
   },
   "cta.sub": {
-    en: "Send chip, quantity and encode spec (blank, NDEF, SUN/SDM, JavaCard) — factory engineers reply within one business day.",
-    zh: "写明芯片、数量与编码要求（空白、NDEF、SUN/SDM、JavaCard）— 卡厂工程师一个工作日内回复。",
+    en: "Tell us what you're looking to build. From custom NFC tags and smart cards to secure personalization, we'll help you find the right solution for your application.",
+    zh: "告诉我们您的产品用途和定制要求。从 NFC 标签、智能卡到安全个人化，我们将协助您评估合适的制造与技术方案。",
   },
-  "cta.btn": { en: "Talk to an engineer", zh: "联系工程师" },
+  "cta.btn": { en: "Request a Quote", zh: "获取定制报价" },
   "cta.btn2": { en: "Browse Downloads", zh: "浏览下载" },
 
   // Footer
