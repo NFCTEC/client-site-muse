@@ -42,7 +42,7 @@
 }
 
 :root {
-  --radius: 0.875rem;
+  --radius: 0.625rem;
 
   /* Apple-style minimal — white canvas + tech blue accents */
   --background: oklch(1 0 0);                    /* pure white */
@@ -55,8 +55,8 @@
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.18 0.01 250);
 
-  --primary: oklch(0.58 0.18 255);               /* tech blue */
-  --primary-hover: oklch(0.52 0.20 255);
+  --primary: #087EA4;                           /* single restrained NFCTEC accent */
+  --primary-hover: #066783;
   --primary-foreground: oklch(1 0 0);
 
   --secondary: oklch(0.96 0.008 250);
@@ -74,16 +74,16 @@
   --border: oklch(0.92 0.005 250);
   --border-strong: oklch(0.85 0.01 250);
   --input: oklch(0.94 0.005 250);
-  --ring: oklch(0.58 0.18 255);
+  --ring: #087EA4;
 
-  --gradient-hero: radial-gradient(60% 50% at 50% 0%, oklch(0.58 0.18 255 / 0.10), transparent 70%);
-  --gradient-card: linear-gradient(180deg, oklch(1 0 0), oklch(0.985 0.003 250));
-  --gradient-blue: linear-gradient(135deg, oklch(0.62 0.18 250), oklch(0.55 0.20 270));
+  --gradient-hero: none;
+  --gradient-card: #FFFFFF;
+  --gradient-blue: #087EA4;
   --shadow-sm: 0 1px 2px oklch(0.20 0.02 250 / 0.04);
   --shadow-md: 0 8px 24px -10px oklch(0.20 0.02 250 / 0.10);
   --shadow-lg: 0 24px 60px -20px oklch(0.20 0.02 250 / 0.14);
-  --shadow-glow: 0 10px 40px -10px oklch(0.58 0.18 255 / 0.30);
-  --shadow-glow-strong: 0 20px 60px -10px oklch(0.58 0.18 255 / 0.45);
+  --shadow-glow: 0 2px 10px rgb(17 24 39 / 0.06);
+  --shadow-glow-strong: 0 4px 16px rgb(17 24 39 / 0.08);
 }
 
 .dark {
