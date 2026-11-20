@@ -115,13 +115,13 @@ export function ProductDetailPage({ product, locale }: { product: CmsProduct; lo
               {images.map((img) => (
                 <div
                   key={img.src}
-                  className="relative rounded-xl border border-border bg-surface overflow-hidden aspect-[4/5] grid place-items-center p-5 sm:p-7"
+                  className="relative rounded-xl border border-border bg-surface overflow-hidden aspect-[4/3] grid place-items-center p-4 sm:p-6"
                 >
                   <img
                     src={img.src}
                     alt={img.label ? `${product.name} — ${img.label}` : product.name}
                     width={800}
-                    height={1000}
+                    height={600}
                     loading={img.src === images[0]?.src ? "eager" : "lazy"}
                     fetchPriority={img.src === images[0]?.src ? "high" : "auto"}
                     decoding="async"
@@ -218,7 +218,7 @@ export function ProductDetailPage({ product, locale }: { product: CmsProduct; lo
               {product.features.map((f) => {
                 const Icon = getIcon(f.icon);
                 return (
-                  <div key={f.title} className="card-glow rounded-xl border border-border bg-card-gradient p-7">
+                  <div key={f.title} className="rounded-xl border border-border bg-card p-7">
                     <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/30 grid place-items-center mb-5">
                       <Icon size={20} className="text-primary" />
                     </div>
@@ -299,15 +299,15 @@ export function ProductDetailPage({ product, locale }: { product: CmsProduct; lo
       <section className="py-20 lg:py-28 border-t border-border">
         <div className="mx-auto max-w-4xl px-6 lg:px-10 text-center">
           <h2 className="font-display text-3xl lg:text-4xl tracking-tight text-balance">
-            {t("Questions about this product?", "对此产品有疑问？")}
+            {t("Need a Custom Version of This Product?", "需要定制这款产品？")}
           </h2>
           <div className="mt-8 flex justify-center gap-3 flex-wrap">
             <Link
               to="/$locale/inquiry"
               params={{ locale }}
-              className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3 text-sm font-medium shadow-glow hover:opacity-90 transition-opacity"
+              className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3 text-sm font-medium hover:opacity-90 transition-opacity"
             >
-              {t("Talk to Sales", "联系销售")} <ArrowRight size={14} />
+              {t("Request a Quote", "获取定制报价")} <ArrowRight size={14} />
             </Link>
             <Link
               to="/$locale/products"
