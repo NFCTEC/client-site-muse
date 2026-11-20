@@ -14,8 +14,8 @@ export const Route = createFileRoute("/$locale/about")({
     const zh = locale === "zh";
     const title = zh ? "关于我们 — NFCTEC" : "About — NFCTEC";
     const description = zh
-      ? "2010 年深圳 NFC 卡厂：PVC、Inlay、NTAG 424 DNA SUN/SDM、DESFire、JavaCard 编码与量产。"
-      : "Shenzhen NFC card factory since 2010: PVC, inlays, NTAG 424 DNA SUN/SDM, DESFire and JavaCard encoding at volume.";
+      ? "了解 NFCTEC 的 NFC 标签与智能卡定制制造、芯片选型、安全个人化和项目集成服务。"
+      : "Learn about NFCTEC's custom NFC tag and smart-card manufacturing, chip selection, secure personalization and project integration services.";
     return {
       meta: [
         { title },
@@ -67,7 +67,7 @@ function About() {
           ].map((b) => {
             const Icon = b.icon;
             return (
-              <div key={b.t} className="card-glow rounded-2xl bg-card-gradient border border-border p-8 lg:p-10">
+              <div key={b.t} className="rounded-xl bg-card border border-border p-8 lg:p-10">
                 <Icon size={22} className="text-primary mb-6" />
                 <h3 className="font-display text-2xl mb-3">{b.t}</h3>
                 <p className="text-muted-foreground leading-relaxed">{b.d}</p>
