@@ -24,8 +24,7 @@ export function PageHero({
   const alignClass = align === "center" ? "text-center mx-auto" : "text-left";
 
   return (
-    <section className={`relative page-hero overflow-hidden ${compact ? "page-hero--compact" : ""}`}>
-      <div className="absolute inset-0 bg-hero-glow pointer-events-none" />
+    <section className={`relative page-hero border-b border-border ${compact ? "page-hero--compact" : ""}`}>
       <div className={`relative mx-auto max-w-7xl px-6 lg:px-10 ${aside ? "grid items-center gap-10 lg:grid-cols-2" : alignClass}`}>
         <div className={aside ? alignClass : undefined}>
         {eyebrow && <p className="section-label">{eyebrow}</p>}
@@ -38,7 +37,7 @@ export function PageHero({
         </h1>
         {subtitle && (
           <p
-            className={`mt-5 text-lg text-muted-foreground leading-relaxed max-w-2xl ${
+            className={`mt-5 text-base sm:text-lg text-muted-foreground leading-relaxed max-w-2xl ${
               align === "center" ? "mx-auto" : ""
             }`}
           >
