@@ -14,8 +14,8 @@ export const Route = createFileRoute("/$locale/about")({
     const zh = locale === "zh";
     const title = zh ? "关于我们 — NFCTEC" : "About — NFCTEC";
     const description = zh
-      ? "了解 NFCTEC 的 NFC 标签与智能卡定制制造、芯片选型、安全个人化和项目集成服务。"
-      : "Learn about NFCTEC's custom NFC tag and smart-card manufacturing, chip selection, secure personalization and project integration services.";
+      ? "NFCTEC 核心团队拥有 20 余年 NFC、智能卡与安全技术行业经验，提供定制制造、芯片选型、安全个人化及项目集成服务。"
+      : "Backed by 20+ years of NFC, smart-card and security technology experience, NFCTEC supports custom manufacturing, chip selection, secure personalization and integration.";
     return {
       meta: [
         { title },
