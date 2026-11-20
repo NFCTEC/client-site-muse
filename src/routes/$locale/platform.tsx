@@ -107,15 +107,15 @@ function Platform() {
   const { showDownloads } = Route.useLoaderData();
   const faqItems = buildFaq(lang);
 
+  // Keep the self-service platform accessible, but lead enterprise visitors to a tailored quote.
   const platformLink = (
-    <a
-      href={PLATFORM_URL}
-      target="_blank"
-      rel="noopener noreferrer"
+    <Link
+      to="/$locale/inquiry"
+      params={{ locale }}
       className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3 text-sm font-semibold hover:opacity-90 transition-opacity"
     >
-      {tr("ntag.issue.cta")} <ArrowRight size={16} />
-    </a>
+      {locale === "zh" ? "咨询企业方案" : "Request an Enterprise Quote"} <ArrowRight size={16} />
+    </Link>
   );
 
   const engineerLink = (
@@ -148,7 +148,7 @@ function Platform() {
               params={{ locale }}
               className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:opacity-80"
             >
-              NFCTEC Platform <ArrowRight size={16} />
+              {locale === "zh" ? "查看平台功能" : "Explore Platform Features"} <ArrowRight size={16} />
             </Link>
           </div>
           <p className="mt-3 text-xs font-mono tracking-wide text-muted-foreground">{tr("ntag.issue.tagline")}</p>
@@ -237,7 +237,7 @@ function Platform() {
           <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">{tr("cloud.cta.sub")}</p>
           <div className="mt-8 flex flex-wrap gap-3 justify-center">
             {platformLink}
-            {engineerLink}
+            <a href={PLATFORM_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full border border-border-strong px-6 py-3 text-sm font-medium hover:border-primary hover:text-primary transition-colors">{locale === "zh" ? "访问发行平台" : "Open Issuance Platform"} <ArrowRight size={16} /></a>
           </div>
         </div>
       </section>
