@@ -77,11 +77,11 @@ export const Route = createFileRoute("/$locale/")({
     const url = absLocaleUrl(locale, "/");
     const zh = locale === "zh";
     const title = zh
-      ? "NFCTEC — NFC 标签、智能卡与 OEM/ODM 定制制造商"
-      : "NFCTEC — Custom NFC Cards, Tags & Smart Card OEM/ODM Manufacturer";
+      ? "NFCTEC｜NFC 标签与智能卡制造商 · 安全发行方案"
+      : "NFCTEC | Custom NFC Tag & Smart Card Manufacturer";
     const description = zh
-      ? "NFCTEC 专业制造定制 NFC 卡、标签、Inlay 与手环，提供 OEM/ODM 芯片选型、天线工程、安全编码及量产交付，支持 NTAG、DESFire 与 JavaCard 项目。"
-      : "NFCTEC manufactures custom NFC cards, tags, inlays and wristbands. OEM/ODM services include chip selection, antenna engineering, secure encoding and production-ready delivery for NTAG, DESFire and JavaCard projects.";
+      ? "NFCTEC 提供 NFC 标签、智能卡、防拆防伪标签 OEM/ODM 定制制造，以及 NTAG424 DNA 安全个人化、密钥管理和在线验真解决方案。欢迎询价。"
+      : "Custom NFC tags, smart cards and tamper-evident security labels from NFCTEC. OEM/ODM manufacturing, NTAG424 DNA secure personalization, key management and authentication solutions. Request a quote.";
     const products = loaderData?.products ?? [];
     return {
       meta: socialMeta({ title, description, url, locale }),
@@ -313,12 +313,12 @@ function Home() {
         <div className="relative mx-auto max-w-7xl px-6 lg:px-10 w-full">
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
             <div className="text-center lg:text-left">
-              <p className="section-label">{tr("hero.eyebrow")}</p>
+              <p className="section-label">{locale === "zh" ? "NFC 标签与智能卡 OEM/ODM 制造商" : "NFC TAG & SMART CARD OEM/ODM MANUFACTURER"}</p>
               <h1 className="mt-4 section-hero-title font-bold whitespace-pre-line">
-                {tr("hero.title")}
+                {locale === "zh" ? "定制 NFC 标签与智能卡\n从制造到安全发行" : "Custom NFC Tags & Smart Cards\nManufacturing to Secure Personalization"}
               </h1>
               <p className="mt-5 text-lg text-muted-foreground leading-relaxed max-w-xl mx-auto lg:mx-0">
-                {tr("hero.sub")}
+                {locale === "zh" ? "定制 NFC 标签、智能卡和防拆安全封条，提供芯片选型、印刷、NTAG424 DNA 安全个人化及在线验证方案。" : "Custom NFC labels, smart cards and tamper-evident security seals. OEM/ODM production, NTAG424 DNA secure personalization and authentication solutions."}
               </p>
               <div className="mt-8 flex flex-wrap gap-3 justify-center lg:justify-start">
                 {heroPrimary && (
@@ -349,7 +349,91 @@ function Home() {
         </div>
       </section>
 
-      {/* Featured solutions — industry first */}
+      {/* Procurement-first product discovery */}
+      {modules.products && (
+        <section className="section-main border-y border-border bg-surface/30">
+          <div className="mx-auto max-w-7xl px-6 lg:px-10">
+            <div className="mb-8 max-w-2xl">
+              <p className="section-label">{locale === "zh" ? "定制制造" : "CUSTOM MANUFACTURING"}</p>
+              <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight">
+                {locale === "zh" ? "按产品类型寻找您的 NFC 解决方案" : "Find the Right NFC Product for Your Project"}
+              </h2>
+              <p className="mt-3 text-muted-foreground">
+                {locale === "zh" ? "从标签、智能卡到防拆安全封条，支持尺寸、芯片、印刷和安全编码定制。" : "Custom sizes, chip selection, printing and secure encoding for labels, smart cards and security seals."}
+              </p>
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {[
+                { icon: Layers, en: "NFC Labels & Stickers", zh: "NFC 标签与贴纸", descEn: "Custom shapes, inlays and printed labels", descZh: "定制形状、Inlay 与印刷标签" },
+                { icon: Cpu, en: "Smart Cards & JavaCard", zh: "智能卡与 JavaCard", descEn: "PVC cards, dual-interface and secure chips", descZh: "PVC 卡、双界面卡与安全芯片" },
+                { icon: ShieldCheck, en: "Tamper-Evident Labels", zh: "防拆防伪标签", descEn: "NTAG424 DNA TagTamper security labels", descZh: "NTAG424 DNA TagTamper 安全标签" },
+                { icon: Fingerprint, en: "Secure Personalization", zh: "安全个人化编码", descEn: "Key management, SDM and authentication", descZh: "密钥管理、SDM 与在线验证" },
+              ].map((item) => {
+                const Icon = item.icon;
+                return (
+                  <Link key={item.en} to="/$locale/products" params={{ locale }} className="group rounded-2xl border border-border bg-card-gradient p-6 transition-colors hover:border-primary/60">
+                    <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary"><Icon size={22} /></div>
+                    <h3 className="font-display text-lg font-semibold group-hover:text-primary">{locale === "zh" ? item.zh : item.en}</h3>
+                    <p className="mt-2 min-h-12 text-sm leading-relaxed text-muted-foreground">{locale === "zh" ? item.descZh : item.descEn}</p>
+                    <span className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-primary">{locale === "zh" ? "浏览产品" : "Explore products"} <ArrowRight size={15} /></span>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Featured products */}
+      {modules.products && products.length > 0 && (
+        <section className="section-main bg-surface/40 border-y border-border">
+          <div className="mx-auto max-w-7xl px-6 lg:px-10">
+            <SectionHeader
+              eyebrow={tr("nav.products")}
+              title={tr("home.featured.products")}
+              sub={tr("home.featured.products.sub")}
+              action={
+                <Link
+                  to="/$locale/products"
+                  params={{ locale }}
+                  className="inline-flex items-center gap-1 text-sm text-primary hover:gap-2 transition-all shrink-0"
+                >
+                  {tr("home.viewAll.products")} <ArrowRight size={14} />
+                </Link>
+              }
+            />
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              {products.map((p: CmsProduct) => {
+                const Icon = getIcon(p.icon);
+                const linkProps = p.hasDetailPage
+                  ? { to: "/$locale/products/$slug" as const, params: { locale, slug: p.slug } }
+                  : modules.contact
+                    ? { to: "/$locale/inquiry" as const, params: { locale } }
+                    : { to: "/$locale/products" as const, params: { locale } };
+                return (
+                  <Link
+                    key={p.id}
+                    {...linkProps}
+                    className="card-glow card-equal rounded-2xl border border-border bg-card-gradient p-6 group"
+                  >
+                    <div className="w-11 h-11 rounded-xl bg-primary/10 border border-primary/30 grid place-items-center mb-4">
+                      <Icon size={18} className="text-primary" />
+                    </div>
+                    <h3 className="font-display font-semibold mb-2 group-hover:text-primary transition-colors">
+                      {p.name}
+                    </h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed flex-1 line-clamp-3">
+                      {p.description}
+                    </p>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Featured industry solutions follow product discovery */}
       {modules.solutions && solutions.length > 0 && (
         <section className="section-main bg-surface/40 border-y border-border">
           <div className="mx-auto max-w-7xl px-6 lg:px-10">
@@ -437,25 +521,6 @@ function Home() {
         </section>
       )}
 
-      {/* Technology partners strip — silicon vendors + standards bodies */}
-      <section aria-label="Technology partners and standards" className="py-10 border-y border-border bg-surface/20">
-        <div className="mx-auto max-w-7xl px-6 lg:px-10">
-          <p className="text-center text-[11px] font-mono uppercase tracking-[0.2em] text-muted-foreground mb-6">
-            {tr("home.partners.title")}
-          </p>
-          <ul className="flex flex-wrap justify-center gap-2.5">
-            {techPartners.map((name) => (
-              <li
-                key={name}
-                className="rounded-md border border-border bg-background/60 px-3.5 py-1.5 text-xs font-display font-semibold text-foreground/80"
-              >
-                {name}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
       {/* Pillars */}
       {visiblePillars.length > 0 && (
         <section className="section-main bg-surface/40 border-y border-border">
@@ -480,99 +545,6 @@ function Home() {
                     <span className="mt-5 inline-flex items-center gap-1 text-sm text-primary">
                       {tr("ind.learnMore")} <ArrowRight size={14} />
                     </span>
-                  </Link>
-                );
-              })}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Stats + protocols, chips & security — after industry */}
-      <section className="section-main">
-        <div className="mx-auto max-w-7xl px-6 lg:px-10">
-          <SectionHeader
-            eyebrow={tr("proto.eyebrow")}
-            title={tr("proto.title")}
-            sub={tr("proto.sub")}
-          />
-
-          <dl className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-10 pb-10 border-b border-border">
-            {stats.map((s) => (
-              <div
-                key={s.label}
-                className="text-center lg:text-left lg:pl-6 lg:border-l lg:border-border first:lg:pl-0 first:lg:border-l-0"
-              >
-                <dt className="font-display text-2xl lg:text-3xl font-semibold tracking-tight">{s.value}</dt>
-                <dd className="mt-1 text-sm text-muted-foreground">{tr(s.label)}</dd>
-              </div>
-            ))}
-          </dl>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {protocolGroups.map((group) => (
-              <div
-                key={group.label}
-                className="rounded-2xl border border-border bg-card-gradient p-5 lg:p-6"
-              >
-                <h3 className="font-display text-sm font-semibold mb-3">{tr(group.label)}</h3>
-                <div className="flex flex-wrap gap-1.5">
-                  {group.items.map((item) => (
-                    <span
-                      key={item}
-                      className="rounded-md border border-border bg-background/70 px-2 py-0.5 text-[11px] leading-relaxed text-muted-foreground"
-                    >
-                      {item}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Featured products */}
-      {modules.products && products.length > 0 && (
-        <section className="section-main bg-surface/40 border-y border-border">
-          <div className="mx-auto max-w-7xl px-6 lg:px-10">
-            <SectionHeader
-              eyebrow={tr("nav.products")}
-              title={tr("home.featured.products")}
-              sub={tr("home.featured.products.sub")}
-              action={
-                <Link
-                  to="/$locale/products"
-                  params={{ locale }}
-                  className="inline-flex items-center gap-1 text-sm text-primary hover:gap-2 transition-all shrink-0"
-                >
-                  {tr("home.viewAll.products")} <ArrowRight size={14} />
-                </Link>
-              }
-            />
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-              {products.map((p: CmsProduct) => {
-                const Icon = getIcon(p.icon);
-                const linkProps = p.hasDetailPage
-                  ? { to: "/$locale/products/$slug" as const, params: { locale, slug: p.slug } }
-                  : modules.contact
-                    ? { to: "/$locale/inquiry" as const, params: { locale } }
-                    : { to: "/$locale/products" as const, params: { locale } };
-                return (
-                  <Link
-                    key={p.id}
-                    {...linkProps}
-                    className="card-glow card-equal rounded-2xl border border-border bg-card-gradient p-6 group"
-                  >
-                    <div className="w-11 h-11 rounded-xl bg-primary/10 border border-primary/30 grid place-items-center mb-4">
-                      <Icon size={18} className="text-primary" />
-                    </div>
-                    <h3 className="font-display font-semibold mb-2 group-hover:text-primary transition-colors">
-                      {p.name}
-                    </h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed flex-1 line-clamp-3">
-                      {p.description}
-                    </p>
                   </Link>
                 );
               })}
