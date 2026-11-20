@@ -846,6 +846,13 @@ function isHiddenProductSlug(slug: string) {
   return HIDDEN_PRODUCT_SLUGS.has(slug);
 }
 
+/** Generic product-form illustrations only; do not imply that a pictured card has a particular IC. */
+const CATALOG_ILLUSTRATIONS: Record<string, string> = {
+  "ntag213-215-216": "/images/nfctec-nfc-tags-and-inlays.webp",
+  "ntag424-dna": "/images/nfctec-nfc-tags-and-inlays.webp",
+  "nfc-labels-and-cards": "/images/nfctec-custom-smart-cards.webp",
+};
+
 function toProduct(def: CatalogDef, locale: Locale): CmsProduct {
   const copy = locale === "zh" ? def.zh : def.en;
   return {
@@ -858,7 +865,7 @@ function toProduct(def: CatalogDef, locale: Locale): CmsProduct {
     intro: copy.intro,
     category: def.category,
     icon: def.icon,
-    heroImage: null,
+    heroImage: CATALOG_ILLUSTRATIONS[def.slug] ?? null,
     images: [],
     features: copy.features,
     specs: copy.specs,
@@ -909,6 +916,7 @@ function overlay(cms: CmsProduct, local: CmsProduct | null): CmsProduct {
     seoDescription: cms.seoDescription || local.seoDescription,
     sortOrder: local.sortOrder,
     icon: cms.icon || local.icon,
+    heroImage: cms.heroImage || local.heroImage,
   };
 }
 
