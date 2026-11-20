@@ -22,7 +22,7 @@ export const t: Dict = {
   "nav.home": { en: "Home", zh: "首页" },
   "nav.getQuote": { en: "Request a Quote", zh: "获取项目报价" },
 
-  "home.protocols": { en: "50+ protocols supported", zh: "支持 50+ 协议标准" },
+  "home.protocols": { en: "NFC & smart-card expertise", zh: "NFC 与智能卡技术经验" },
   "home.stats.eyebrow": { en: "Trusted worldwide", zh: "全球客户信赖" },
   "home.featured.products": { en: "Featured products", zh: "精选产品" },
   "home.featured.products.sub": {
@@ -30,8 +30,8 @@ export const t: Dict = {
     zh: "探索 NFC 标签、智能卡及多种定制形态，按您的应用、品牌设计和生产要求提供制造方案。",
   },
   "home.partners.title": {
-    en: "Silicon, standards & wallets we work with",
-    zh: "长期合作的芯片厂商、标准组织与钱包生态",
+    en: "Technology and Standards",
+    zh: "技术与行业标准",
   },
   "home.featured.solutions": { en: "Solutions for Real-World Applications", zh: "面向实际应用的定制方案" },
   "home.featured.solutions.sub": {
@@ -40,8 +40,8 @@ export const t: Dict = {
   },
   "home.why.eyebrow": { en: "Why NFCTEC", zh: "为什么选择我们" },
   "home.why.title": {
-    en: "An NFC card factory — laminate, encode, ship.",
-    zh: "NFC 卡厂 — 制卡、编码、出厂。",
+    en: "Custom NFC Manufacturing with Technical Support",
+    zh: "NFC 定制制造与技术支持",
   },
   "home.why.1.title": { en: "Full-stack ownership", zh: "全栈自主" },
   "home.why.1.desc": {
@@ -53,7 +53,7 @@ export const t: Dict = {
     en: "FIDO2, hardware wallets, secure elements and EMV / PCI certifications — security built in from chip to cloud.",
     zh: "FIDO2、硬件钱包、安全元件及 EMV / PCI 认证 — 从芯片到云端内置安全能力。",
   },
-  "home.why.3.title": { en: "Engineer to engineer", zh: "工程师直连" },
+  "home.why.3.title": { en: "Technical Support from the Start", zh: "从项目初期提供技术支持" },
   "home.why.3.desc": {
     en: "Talk directly to the team that builds the readers and writes the SDK — no sales hand-offs.",
     zh: "直接与开发读卡器、编写 SDK 的工程师沟通 — 无需层层转接。",
@@ -80,12 +80,12 @@ export const t: Dict = {
   "home.viewAll.blog": { en: "Read more insights", zh: "阅读更多文章" },
   "home.insights": { en: "Latest insights", zh: "最新洞察" },
   "home.insights.sub": {
-    en: "Engineering notes, protocol explainers and customer stories.",
-    zh: "工程笔记、协议解读与客户案例。",
+    en: "Practical guides to NFC products, secure encoding and smart-card integration.",
+    zh: "分享 NFC 产品选型、安全编码及智能卡集成的实用技术指南。",
   },
   "ind.sub": {
-    en: "EMV issuance, AFC, DESFire/Seos, NTAG 424 DNA, ICAO 9303, CCC Digital Key and related programmes.",
-    zh: "EMV 发卡、AFC、DESFire/Seos、NTAG 424 DNA、ICAO 9303、CCC 数字钥匙及相关项目。",
+    en: "Explore NFC and smart-card solutions for brand protection, access control, identification and connected products.",
+    zh: "探索 NFC 与智能卡在品牌防伪、门禁、身份识别及智能产品中的应用。",
   },
   "ind.capabilities": { en: "Key capabilities", zh: "核心能力" },
   "ind.learnMore": { en: "Learn more", zh: "了解更多" },
@@ -93,8 +93,8 @@ export const t: Dict = {
 
   // Brand
   "brand.tagline": {
-    en: "NFC card factory — SUN/SDM, antennas, JavaCard",
-    zh: "NFC 卡厂 — SUN/SDM、天线、JavaCard",
+    en: "Custom NFC Manufacturing & Secure Personalization",
+    zh: "NFC 定制制造与安全个人化",
   },
 
   // Hero
