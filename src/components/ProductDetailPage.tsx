@@ -115,19 +115,20 @@ export function ProductDetailPage({ product, locale }: { product: CmsProduct; lo
               {images.map((img) => (
                 <div
                   key={img.src}
-                  className="relative rounded-2xl border border-border bg-surface/40 overflow-hidden aspect-[4/5] grid place-items-center p-6"
+                  className="relative rounded-xl border border-border bg-surface overflow-hidden aspect-[4/5] grid place-items-center p-5 sm:p-7"
                 >
                   <img
                     src={img.src}
                     alt={img.label ? `${product.name} — ${img.label}` : product.name}
                     width={800}
                     height={1000}
-                    loading="lazy"
+                    loading={img.src === images[0]?.src ? "eager" : "lazy"}
+                    fetchPriority={img.src === images[0]?.src ? "high" : "auto"}
                     decoding="async"
-                    className="max-h-full max-w-full object-contain"
+                    className="h-full w-full object-contain"
                   />
                   {img.label && (
-                    <span className="absolute bottom-3 left-3 text-[10px] font-mono text-muted-foreground bg-background/80 backdrop-blur-sm border border-border rounded-full px-2.5 py-0.5">
+                    <span className="absolute bottom-3 left-3 text-[10px] font-mono text-muted-foreground bg-background border border-border rounded-md px-2.5 py-0.5">
                       {img.label}
                     </span>
                   )}
@@ -158,7 +159,7 @@ export function ProductDetailPage({ product, locale }: { product: CmsProduct; lo
             )}
 
             {isHardware && (
-              <div className="mt-7 rounded-2xl border border-primary/20 bg-primary/5 p-5">
+              <div className="mt-7 rounded-xl border border-border bg-surface p-5">
                 <h2 className="font-display text-base font-semibold">
                   {t("Custom manufacturing & secure personalization", "定制制造与安全个人化")}
                 </h2>
@@ -189,10 +190,10 @@ export function ProductDetailPage({ product, locale }: { product: CmsProduct; lo
                   </>
                 }
                 locale={locale}
-                className={`inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-opacity hover:opacity-90 ${
+                className={`inline-flex items-center gap-2 rounded-md px-6 py-3 text-sm font-medium transition-opacity hover:opacity-90 ${
                   isAmazon
                     ? "bg-[#FF9900] text-black font-semibold"
-                    : "bg-primary text-primary-foreground shadow-glow"
+                    : "bg-primary text-primary-foreground"
                 }`}
               />
               {secondaryCta && (
@@ -200,7 +201,7 @@ export function ProductDetailPage({ product, locale }: { product: CmsProduct; lo
                   url={secondaryCta.url}
                   label={secondaryCta.label}
                   locale={locale}
-                  className="inline-flex items-center gap-2 rounded-full border border-border bg-surface/60 px-6 py-3 text-sm font-medium hover:border-primary/40 transition-colors"
+                  className="inline-flex items-center gap-2 rounded-md border border-border bg-surface px-6 py-3 text-sm font-medium hover:border-primary/40 transition-colors"
                 />
               )}
             </div>
@@ -217,7 +218,7 @@ export function ProductDetailPage({ product, locale }: { product: CmsProduct; lo
               {product.features.map((f) => {
                 const Icon = getIcon(f.icon);
                 return (
-                  <div key={f.title} className="card-glow rounded-2xl border border-border bg-card-gradient p-7">
+                  <div key={f.title} className="card-glow rounded-xl border border-border bg-card-gradient p-7">
                     <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/30 grid place-items-center mb-5">
                       <Icon size={20} className="text-primary" />
                     </div>
@@ -277,7 +278,7 @@ export function ProductDetailPage({ product, locale }: { product: CmsProduct; lo
             </h2>
             <dl className="space-y-6">
               {faqs.map((item) => (
-                <div key={item.q} className="rounded-2xl border border-border bg-surface/40 p-6">
+                <div key={item.q} className="rounded-xl border border-border bg-surface/40 p-6">
                   <dt className="font-display text-lg font-semibold">{item.q}</dt>
                   <dd className="mt-2 text-sm text-muted-foreground leading-relaxed">{item.a}</dd>
                 </div>
