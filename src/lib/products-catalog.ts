@@ -850,8 +850,8 @@ function isHiddenProductSlug(slug: string) {
 const CATALOG_ILLUSTRATIONS: Record<string, string> = {
   "ntag213-215-216": "/images/nfctec-nfc-tags-and-inlays.webp",
   "ntag424-dna": "/images/nfctec-nfc-tags-and-inlays.webp",
-  "nfc-labels-and-cards": "/images/nfctec-custom-smart-cards.webp",
-  "mifare-desfire-ev3": "/images/nfctec-custom-smart-cards.webp",
+  "nfc-labels-and-cards": "/images/nfctec-nfc-manufacturing-applications.webp",
+  "mifare-desfire-ev3": "/images/nfctec-desfire-ev2-ev3-products.webp",
   "j3r452-javacard": "/images/nfctec-custom-smart-cards.webp",
   "j3r180-javacard": "/images/nfctec-custom-smart-cards.webp",
   "j2a040-javacard": "/images/nfctec-custom-smart-cards.webp",
