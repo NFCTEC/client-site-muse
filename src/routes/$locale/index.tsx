@@ -259,6 +259,7 @@ const pillarDefs: PillarDef[] = [
     descKey: "pillar.sol.desc",
     module: "platform",
     to: "/$locale/platform",
+    image: "/images/nfctec-secure-personalization.webp",
   },
   {
     icon: Wrench,
@@ -598,7 +599,7 @@ function Home() {
                           height={420}
                           loading="lazy"
                           decoding="async"
-                          className="aspect-[3/2] w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+                          className="aspect-[3/2] w-full object-contain bg-white p-2 transition-transform duration-300 group-hover:scale-[1.02]"
                         />
                       </div>
                     ) : (
