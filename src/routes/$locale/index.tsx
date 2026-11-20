@@ -77,11 +77,11 @@ export const Route = createFileRoute("/$locale/")({
     const url = absLocaleUrl(locale, "/");
     const zh = locale === "zh";
     const title = zh
-      ? "NFCTEC — NFC 标签、智能卡与 OEM/ODM 定制制造商"
-      : "NFCTEC — Custom NFC Cards, Tags & Smart Card OEM/ODM Manufacturer";
+      ? "NFCTEC｜NFC 标签与智能卡制造商 · 安全发行方案"
+      : "NFCTEC | Custom NFC Tag & Smart Card Manufacturer";
     const description = zh
-      ? "NFCTEC 专业制造定制 NFC 卡、标签、Inlay 与手环，提供 OEM/ODM 芯片选型、天线工程、安全编码及量产交付，支持 NTAG、DESFire 与 JavaCard 项目。"
-      : "NFCTEC manufactures custom NFC cards, tags, inlays and wristbands. OEM/ODM services include chip selection, antenna engineering, secure encoding and production-ready delivery for NTAG, DESFire and JavaCard projects.";
+      ? "NFCTEC 提供 NFC 标签、智能卡、防拆防伪标签 OEM/ODM 定制制造，以及 NTAG424 DNA 安全个人化、密钥管理和在线验真解决方案。欢迎询价。"
+      : "Custom NFC tags, smart cards and tamper-evident security labels from NFCTEC. OEM/ODM manufacturing, NTAG424 DNA secure personalization, key management and authentication solutions. Request a quote.";
     const products = loaderData?.products ?? [];
     return {
       meta: socialMeta({ title, description, url, locale }),
