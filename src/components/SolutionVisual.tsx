@@ -20,8 +20,8 @@ export function SolutionVisual({ slug, src, alt, className = "aspect-[16/9]" }: 
   const imageSrc = src && /^\/(?!\/)|^https:\/\//.test(src) ? src : SOLUTION_IMAGE_BY_SLUG[slug ?? ""];
   if (imageSrc) {
     return (
-      <div className={`relative w-full overflow-hidden border-b border-border bg-surface ${className}`}>
-        <img src={imageSrc} alt={alt} loading="lazy" decoding="async" className="h-full w-full object-contain p-3" />
+      <div className={`relative w-full overflow-hidden border-b border-border bg-white ${className}`}>
+        <img src={imageSrc} alt={alt} loading="lazy" decoding="async" className="h-full w-full object-contain p-2 sm:p-3" />
       </div>
     );
   }
