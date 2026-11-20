@@ -144,7 +144,7 @@ function Platform() {
             {platformLink}
             {engineerLink}
             <Link
-              to="/$locale/cloud-services/platform"
+              to="/$locale/platform"
               params={{ locale }}
               className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:opacity-80"
             >
