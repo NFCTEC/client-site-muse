@@ -324,7 +324,6 @@ function Home() {
     <>
       {/* Hero */}
       <section className="relative overflow-hidden section-hero">
-        <div className="absolute inset-0 bg-hero-glow pointer-events-none" />
         <div className="relative mx-auto max-w-7xl px-6 lg:px-10 w-full">
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
             <div className="text-center lg:text-left">
@@ -359,7 +358,7 @@ function Home() {
 
             {/* Quiet, product-led visual. No simulated factory photography or decorative AI graphics. */}
             <div className="w-full max-w-[540px] mx-auto lg:ml-auto" aria-label={locale === "zh" ? "智能卡、NFC 标签及透明天线的产品类型示意" : "Illustration of smart cards, NFC labels and an inlay"}>
-              <div className="rounded-2xl border border-border bg-surface/60 p-6 sm:p-9">
+              <div className="rounded-xl border border-border bg-surface p-6 sm:p-9">
                 <div className="flex items-center justify-between gap-4 border-b border-border pb-5">
                   <span className="text-xs font-medium tracking-[0.16em] uppercase text-muted-foreground">NFCTEC / OEM & ODM</span>
                   <span className="text-xs text-muted-foreground">13.56 MHz NFC</span>
@@ -415,7 +414,7 @@ function Home() {
               ].map((item) => {
                 const Icon = item.icon;
                 return (
-                  <Link key={item.en} to="/$locale/products" params={{ locale }} className="group rounded-2xl border border-border bg-card-gradient p-6 transition-colors hover:border-primary/60">
+                  <Link key={item.en} to="/$locale/products" params={{ locale }} className="group rounded-xl border border-border bg-card p-6 transition-colors hover:border-primary/60">
                     <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary"><Icon size={22} /></div>
                     <h3 className="font-display text-lg font-semibold group-hover:text-primary">{locale === "zh" ? item.zh : item.en}</h3>
                     <p className="mt-2 min-h-12 text-sm leading-relaxed text-muted-foreground">{locale === "zh" ? item.descZh : item.descEn}</p>
@@ -458,11 +457,17 @@ function Home() {
                   <Link
                     key={p.id}
                     {...linkProps}
-                    className="card-glow card-equal rounded-2xl border border-border bg-card-gradient p-6 group"
+                    className="card-glow card-equal rounded-xl border border-border bg-card p-5 group"
                   >
-                    <div className="w-11 h-11 rounded-xl bg-primary/10 border border-primary/30 grid place-items-center mb-4">
-                      <Icon size={18} className="text-primary" />
-                    </div>
+                    {p.heroImage ? (
+                       <div className="mb-4 aspect-[4/3] overflow-hidden rounded-lg border border-border bg-surface p-3">
+                         <img src={p.heroImage} alt={p.name} width={480} height={360} loading="lazy" decoding="async" className="h-full w-full object-contain" />
+                       </div>
+                     ) : (
+                       <div className="w-11 h-11 rounded-lg bg-surface border border-border grid place-items-center mb-4">
+                         <Icon size={18} className="text-primary" />
+                       </div>
+                     )}
                     <h3 className="font-display font-semibold mb-2 group-hover:text-primary transition-colors">
                       {p.name}
                     </h3>
