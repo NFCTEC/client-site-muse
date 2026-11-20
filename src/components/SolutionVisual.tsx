@@ -1,18 +1,18 @@
 import { SolutionArt } from "@/components/SolutionArt";
 
 const SOLUTION_IMAGE_BY_SLUG: Record<string, string> = {
-  brand: "/images/nfctec-nfc-security-labels.webp",
-  security: "/images/nfctec-nfc-security-labels.webp",
-  access: "/images/nfctec-custom-smart-cards.webp",
-  transit: "/images/nfctec-custom-smart-cards.webp",
-  banking: "/images/nfctec-custom-smart-cards.webp",
-  gov: "/images/nfctec-custom-smart-cards.webp",
-  edu: "/images/nfctec-custom-smart-cards.webp",
-  health: "/images/nfctec-nfc-tags-and-inlays.webp",
-  retail: "/images/nfctec-nfc-security-labels.webp",
-  auto: "/images/nfctec-nfc-tags-and-inlays.webp",
-  wallet: "/images/nfctec-secure-personalization.webp",
-  iot: "/images/nfctec-nfc-tags-and-inlays.webp",
+  brand: "/images/nfctec-brand-protection-authentication.webp",
+  security: "/images/nfctec-brand-protection-authentication.webp",
+  access: "/images/nfctec-access-control-transit.webp",
+  transit: "/images/nfctec-access-control-transit.webp",
+  banking: "/images/nfctec-desfire-ev2-ev3-products.webp",
+  gov: "/images/nfctec-desfire-ev2-ev3-products.webp",
+  edu: "/images/nfctec-access-control-transit.webp",
+  health: "/images/nfctec-healthcare-nfc-identification.webp",
+  retail: "/images/nfctec-brand-protection-authentication.webp",
+  auto: "/images/nfctec-nfc-manufacturing-applications.webp",
+  wallet: "/images/nfctec-cloud-services-security.webp",
+  iot: "/images/nfctec-nfc-manufacturing-applications.webp",
 };
 
 type SolutionVisualProps = {
