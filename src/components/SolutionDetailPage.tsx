@@ -26,7 +26,7 @@ export function SolutionDetailPage({
   return (
     <>
       <section className="relative pt-24 lg:pt-32 pb-14 border-b border-border">
-        <div className="absolute inset-0 bg-hero-glow pointer-events-none" />
+        
         <div className="relative mx-auto max-w-6xl px-6 lg:px-10">
           <Link
             to="/$locale/solutions"
@@ -46,7 +46,7 @@ export function SolutionDetailPage({
               </div>
             </div>
             <div className="lg:col-span-5">
-              <div className="relative rounded-2xl overflow-hidden border border-border bg-card-gradient shadow-glow">
+              <div className="relative rounded-xl overflow-hidden border border-border bg-surface">
                 <SolutionVisual slug={solution.slug} src={hero} alt={`${solution.name} NFC solution`} icon={solution.icon} />
               </div>
             </div>
@@ -81,11 +81,11 @@ export function SolutionDetailPage({
       <section className="py-16 lg:py-20">
         <div className="mx-auto max-w-6xl px-6 lg:px-10">
           <h2 className="font-display text-2xl lg:text-3xl tracking-tight mb-10">
-            {zh ? "工作范围" : "Work items"}
+            {zh ? "我们可以提供的支持" : "What We Can Support"}
           </h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {solution.capabilities.map((c) => (
-              <div key={c.title} className="rounded-2xl border border-border bg-card-gradient p-6 hover:border-primary/40 transition-colors">
+              <div key={c.title} className="rounded-2xl border border-border bg-card p-6 hover:border-primary/40 transition-colors">
                 <h3 className="font-display text-base font-semibold mb-2">{c.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{c.description}</p>
               </div>
@@ -98,11 +98,11 @@ export function SolutionDetailPage({
         <section className="py-16 lg:py-20 border-t border-border bg-surface/30">
           <div className="mx-auto max-w-6xl px-6 lg:px-10">
             <h2 className="font-display text-2xl lg:text-3xl tracking-tight mb-10">
-              {zh ? "实施顺序" : "Sequence"}
+              {zh ? "项目实施流程" : "Project Process"}
             </h2>
             <ol className="grid md:grid-cols-2 gap-4">
               {solution.workflow.map((step, i) => (
-                <li key={step.title} className="rounded-2xl border border-border bg-card-gradient p-6">
+                <li key={step.title} className="rounded-2xl border border-border bg-card p-6">
                   <div className="text-xs font-mono text-primary mb-2">{String(i + 1).padStart(2, "0")}</div>
                   <h3 className="font-display text-lg font-semibold mb-2">{step.title}</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">{step.description}</p>
@@ -158,7 +158,7 @@ export function SolutionDetailPage({
             <h2 className="font-display text-2xl lg:text-3xl tracking-tight mb-8">FAQ</h2>
             <div className="space-y-4 max-w-4xl">
               {solution.faqs.map((item) => (
-                <div key={item.q} className="rounded-2xl border border-border bg-card-gradient p-6">
+                <div key={item.q} className="rounded-2xl border border-border bg-card p-6">
                   <h3 className="font-display text-lg mb-2">{item.q}</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">{item.a}</p>
                 </div>
@@ -189,14 +189,14 @@ export function SolutionDetailPage({
 
       <section className="pb-24 pt-8">
         <div className="mx-auto max-w-5xl px-6 lg:px-10">
-          <div className="relative rounded-3xl border border-primary/30 bg-card-gradient p-10 lg:p-12 text-center overflow-hidden shadow-glow">
-            <h2 className="font-display text-2xl lg:text-3xl tracking-tight">{zh ? "技术对接" : "Technical enquiry"}</h2>
+          <div className="relative rounded-3xl border border-primary/30 bg-card p-10 lg:p-12 text-center overflow-hidden shadow-glow">
+            <h2 className="font-display text-2xl lg:text-3xl tracking-tight">{zh ? "讨论您的项目需求" : "Discuss Your Project"}</h2>
             <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-              <Link to="/$locale/inquiry" params={{ locale }} className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3 text-sm font-semibold hover:shadow-glow-strong transition-all">
+              <Link to="/$locale/inquiry" params={{ locale }} className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3 text-sm font-semibold hover:opacity-90 transition-opacity">
                 {tr("cta.btn")} <ArrowRight size={16} />
               </Link>
               <Link to="/$locale/solutions" params={{ locale }} className="inline-flex items-center gap-2 rounded-full border border-border-strong bg-background/60 backdrop-blur px-6 py-3 text-sm font-medium hover:border-primary hover:text-primary transition-colors">
-                {zh ? "其他方案" : "Other programmes"}
+                {zh ? "查看其他解决方案" : "Explore Other Solutions"}
               </Link>
             </div>
           </div>
