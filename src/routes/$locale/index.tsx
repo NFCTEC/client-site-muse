@@ -504,7 +504,7 @@ function Home() {
                   key={s.slug}
                   to="/$locale/solutions/$slug"
                   params={{ locale, slug: s.slug }}
-                  className="card-glow group flex flex-col rounded-2xl border border-border bg-card-gradient overflow-hidden min-h-[20rem]"
+                  className="group flex flex-col rounded-xl border border-border bg-card overflow-hidden min-h-[20rem] hover:border-primary/40 transition-colors"
                 >
                   <SolutionVisual slug={s.slug} src={s.heroImage} alt={s.name} icon={s.icon} className="h-44" />
                   <div className="p-6 flex flex-col flex-1">
@@ -552,7 +552,7 @@ function Home() {
                     key={ind.k}
                     to="/$locale/solutions/$slug"
                     params={{ locale, slug }}
-                    className="card-glow group flex flex-col items-center text-center gap-2.5 rounded-xl border border-border bg-card-gradient p-4 min-h-[7.5rem] justify-center"
+                    className="group flex flex-col items-center text-center gap-2.5 rounded-xl border border-border bg-card p-4 min-h-[7.5rem] justify-center hover:border-primary/40 transition-colors"
                   >
                     <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/30 grid place-items-center">
                       <Icon size={18} className="text-primary" />
@@ -582,7 +582,7 @@ function Home() {
                     to={p.to}
                     params={{ locale }}
                     search={p.search}
-                    className="card-glow card-equal group rounded-2xl border border-border bg-card-gradient p-7"
+                    className="group card-equal rounded-xl border border-border bg-card p-7 hover:border-primary/40 transition-colors"
                   >
                     <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/30 grid place-items-center mb-5">
                       <Icon size={20} className="text-primary" />
