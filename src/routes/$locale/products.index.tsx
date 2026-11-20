@@ -36,11 +36,11 @@ export const Route = createFileRoute("/$locale/products/")({
     const url = absLocaleUrl(locale, "/products");
     const zh = locale === "zh";
     const title = zh
-      ? "NFC 卡厂：NTAG 424 DNA、标签、卡、手环 | NFCTEC"
-      : "NFC Card Factory: NTAG 424 DNA, Tags, Cards, Wristbands | NFCTEC";
+      ? "NFC 标签与智能卡定制制造商 | NFCTEC"
+      : "Custom NFC Tags & Smart Cards Manufacturer | NFCTEC";
     const description = zh
-      ? "NFCTEC 卡厂：NTAG 424 DNA（NTAG424）、NTAG213/215/216、Ultralight EV1/C、DESFire EV2/EV3（2K/4K/8K）。白卡、彩印、异形标签、硅胶手环可定制。JavaCard 可询。"
-      : "NFCTEC card factory: NTAG 424 DNA (NTAG424), NTAG213/215/216, Ultralight EV1/C, DESFire EV2/EV3 in 2K/4K/8K. Custom PVC, die-cut tags, silicone wristbands. JavaCard on quote.";
+      ? "NFCTEC 提供 NFC 标签、彩印智能卡及手环 OEM/ODM 定制制造，支持 NTAG424 DNA、MIFARE DESFire 等芯片及安全个人化编码。"
+      : "Explore custom NFC tags, printed smart cards and wristbands. NFCTEC supports OEM/ODM manufacturing, NTAG424 DNA, MIFARE DESFire and secure personalization.";
     // Only list products with real, indexable detail URLs; RFQ-only entries are still visible in the catalog.
     const listed = [...(loaderData?.hardware ?? []), ...(loaderData?.software ?? [])].filter((p) => p.hasDetailPage);
     return {
