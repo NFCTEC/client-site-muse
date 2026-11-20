@@ -44,11 +44,11 @@
 :root {
   --radius: 0.625rem;
 
-  /* Apple-style minimal — white canvas + tech blue accents */
+  /* Minimal B2B palette: neutral surfaces and one centrally managed brand accent. */
   --background: oklch(1 0 0);                    /* pure white */
   --foreground: oklch(0.18 0.01 250);            /* near black w/ cool tint */
-  --surface: oklch(0.985 0.003 250);             /* #FAFBFC */
-  --surface-elevated: oklch(0.97 0.005 250);
+  --surface: #F7F8FA;             /* #FAFBFC */
+  --surface-elevated: #F1F3F5;
 
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.18 0.01 250);
@@ -62,17 +62,17 @@
   --secondary: oklch(0.96 0.008 250);
   --secondary-foreground: oklch(0.20 0.01 250);
 
-  --muted: oklch(0.97 0.005 250);
+  --muted: #F7F8FA;
   --muted-foreground: oklch(0.50 0.015 250);
 
-  --accent: oklch(0.95 0.02 255);
-  --accent-foreground: oklch(0.30 0.10 255);
+  --accent: color-mix(in srgb, var(--primary) 7%, white);
+  --accent-foreground: var(--primary-hover);
 
   --destructive: oklch(0.62 0.22 27);
   --destructive-foreground: oklch(1 0 0);
 
-  --border: oklch(0.92 0.005 250);
-  --border-strong: oklch(0.85 0.01 250);
+  --border: #E5E7EB;
+  --border-strong: #D1D5DB;
   --input: oklch(0.94 0.005 250);
   --ring: #087EA4;
 
