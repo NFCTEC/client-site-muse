@@ -5,6 +5,13 @@ const SOLUTION_IMAGE_BY_SLUG: Record<string, string> = {
   security: "/images/nfctec-nfc-security-labels.webp",
   access: "/images/nfctec-custom-smart-cards.webp",
   transit: "/images/nfctec-custom-smart-cards.webp",
+  banking: "/images/nfctec-custom-smart-cards.webp",
+  gov: "/images/nfctec-custom-smart-cards.webp",
+  edu: "/images/nfctec-custom-smart-cards.webp",
+  health: "/images/nfctec-nfc-tags-and-inlays.webp",
+  retail: "/images/nfctec-nfc-security-labels.webp",
+  auto: "/images/nfctec-nfc-tags-and-inlays.webp",
+  wallet: "/images/nfctec-secure-personalization.webp",
   iot: "/images/nfctec-nfc-tags-and-inlays.webp",
 };
 
