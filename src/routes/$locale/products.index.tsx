@@ -112,6 +112,32 @@ function Products() {
     <>
       <PageHero eyebrow={tr("nav.products")} title={tr("ppage.title")} subtitle={tr("ppage.sub")} />
 
+      <section className="border-b border-border bg-surface/30 py-8">
+        <div className="mx-auto max-w-7xl px-6 lg:px-10">
+          <h2 className="font-display text-xl font-semibold">
+            {locale === "zh" ? "按采购需求浏览" : "Find the Right NFC Product"}
+          </h2>
+          <p className="mt-2 max-w-3xl text-sm leading-relaxed text-muted-foreground">
+            {locale === "zh"
+              ? "浏览 NFC 标签、智能卡及安全个人化产品。批量采购、OEM/ODM 印刷与定制编码可直接咨询。"
+              : "Explore NFC labels, smart cards and secure personalization products. Ask us about bulk manufacturing, OEM/ODM printing and custom encoding."}
+          </p>
+          <nav aria-label={locale === "zh" ? "产品分类快捷导航" : "Product category shortcuts"} className="mt-5 flex flex-wrap gap-3">
+            <a href="#hardware" className="rounded-full border border-border bg-background px-5 py-2.5 text-sm font-medium hover:border-primary hover:text-primary transition-colors">
+              {locale === "zh" ? "NFC 标签与智能卡" : "NFC Tags & Smart Cards"}
+            </a>
+            {software.length > 0 && (
+              <a href="#software" className="rounded-full border border-border bg-background px-5 py-2.5 text-sm font-medium hover:border-primary hover:text-primary transition-colors">
+                {locale === "zh" ? "软件与开发工具" : "Software & Developer Tools"}
+              </a>
+            )}
+            <Link to="/$locale/inquiry" params={{ locale }} className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground hover:opacity-90">
+              {locale === "zh" ? "获取工厂报价" : "Request a Factory Quote"} <ArrowRight size={15} />
+            </Link>
+          </nav>
+        </div>
+      </section>
+
       <PageSection id="hardware" spacing="main">
         <SectionHeader title={tr("ppage.hw")} sub={tr("ppage.hw.sub")} />
         <div className="mt-10">
