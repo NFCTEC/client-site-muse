@@ -308,17 +308,29 @@ function Home() {
           ? "lg:grid-cols-2"
           : "lg:grid-cols-1";
 
-  const whyItems = [
-    { t: tr("home.why.1.title"), d: tr("home.why.1.desc") },
-    { t: tr("home.why.2.title"), d: tr("home.why.2.desc") },
-    { t: tr("home.why.3.title"), d: tr("home.why.3.desc") },
-  ];
+  const whyItems = locale === "zh"
+    ? [
+        { t: "按应用定制，而不是只能选现货", d: "根据包装、安装表面、尺寸和使用环境评估芯片、天线、材料及印刷工艺。" },
+        { t: "制造与安全编码衔接", d: "同一项目可协调标签或卡片生产、UID 数据交付、NTAG424 DNA 密钥配置与个人化测试。" },
+        { t: "从样品验证到批量交付", d: "先确认样品、读取效果和编码要求，再安排批量生产与质量检查。" },
+      ]
+    : [
+        { t: "Built Around Your Application", d: "Specify the packaging, mounting surface, size and environment. We help evaluate chip, antenna, material and print options." },
+        { t: "Manufacturing Meets Secure Encoding", d: "Coordinate card or label production with UID data export, NTAG424 DNA key configuration and personalization testing." },
+        { t: "Validate Before Scaling", d: "Review samples, NFC read performance and encoding requirements before bulk production and quality checks." },
+      ];
 
-  const processSteps = [
-    { step: "01", t: tr("home.process.1.title"), d: tr("home.process.1.desc") },
-    { step: "02", t: tr("home.process.2.title"), d: tr("home.process.2.desc") },
-    { step: "03", t: tr("home.process.3.title"), d: tr("home.process.3.desc") },
-  ];
+  const processSteps = locale === "zh"
+    ? [
+        { step: "01", t: "提交项目要求", d: "告诉我们产品类型、尺寸、数量、使用场景，以及印刷和编码需求。" },
+        { step: "02", t: "确认规格与样品", d: "共同确认芯片、材料、天线结构、设计文件及需要的测试。" },
+        { step: "03", t: "生产、编码与交付", d: "按确认的规格生产并检测；如需个人化编码，可同步安排数据交付。" },
+      ]
+    : [
+        { step: "01", t: "Share Your Requirements", d: "Tell us the product type, dimensions, quantity, application, artwork and encoding needs." },
+        { step: "02", t: "Confirm Specs & Samples", d: "Review chip selection, materials, antenna construction, artwork and required tests." },
+        { step: "03", t: "Produce, Encode & Deliver", d: "Manufacture and inspect to the agreed specification, with personalization and data export when requested." },
+      ];
 
   return (
     <>
@@ -591,12 +603,12 @@ function Home() {
       {/* Why NFCTEC */}
       <section className="section-main bg-surface/40 border-y border-border">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
-          <SectionHeader eyebrow={tr("home.why.eyebrow")} title={tr("home.why.title")} />
+          <SectionHeader eyebrow={locale === "zh" ? "为什么选择 NFCTEC" : "WHY NFCTEC"} title={locale === "zh" ? "不仅提供产品，更帮助您解决应用问题" : "More Than a Product Supplier"} sub={locale === "zh" ? "从选型到批量制造，减少您在材料、读卡性能与安全编码之间的协调成本。" : "Bring product design, manufacturing and secure encoding into one coordinated workflow."} />
           <div className="grid md:grid-cols-3 gap-5">
             {whyItems.map((item) => (
               <div
                 key={item.t}
-                className="rounded-2xl border border-border bg-card-gradient p-7 min-h-[14rem]"
+                className="rounded-xl border border-border bg-card p-7 min-h-[14rem]"
               >
                 <CheckCircle2 size={20} className="text-primary mb-4" />
                 <h3 className="font-display text-lg font-semibold mb-2">{item.t}</h3>
@@ -610,12 +622,12 @@ function Home() {
       {/* Process */}
       <section className="section-tight">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
-          <SectionHeader eyebrow={tr("home.process.eyebrow")} title={tr("home.process.title")} />
+          <SectionHeader eyebrow={locale === "zh" ? "合作流程" : "HOW WE WORK"} title={locale === "zh" ? "从需求到交付，流程清晰" : "From Requirements to Delivery"} />
           <div className="grid md:grid-cols-3 gap-5">
             {processSteps.map((step, i) => (
               <div
                 key={step.step}
-                className="relative rounded-2xl border border-border bg-card-gradient p-7 min-h-[11rem]"
+                className="relative rounded-xl border border-border bg-card p-7 min-h-[11rem]"
               >
                 <span className="font-display text-4xl font-bold text-primary/15">{step.step}</span>
                 <h3 className="mt-2 font-display text-lg font-semibold">{step.t}</h3>
