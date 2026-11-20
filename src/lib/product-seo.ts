@@ -275,9 +275,8 @@ export function productJsonLd(
     sku: product.slug,
     mpn,
     brand: mpn ? NXP : { "@type": "Brand", name: SITE_NAME },
-    manufacturer: mpn
-      ? { "@type": "Organization", name: "NXP Semiconductors" }
-      : { "@type": "Organization", name: SITE_NAME, url: SITE_URL },
+    // NFCTEC supplies the finished B2B product; chip brand does not imply that NXP manufactures the finished label/card.
+    manufacturer: { "@type": "Organization", name: SITE_NAME, url: SITE_URL },
     seller: { "@type": "Organization", name: SITE_NAME, url: SITE_URL },
     category: product.category === "hardware" ? "NFC hardware" : "NFC software",
     additionalProperty: product.specs.map((s) => ({
@@ -290,9 +289,8 @@ export function productJsonLd(
     offers: {
       "@type": "Offer",
       url: offerUrl,
-      availability: "https://schema.org/InStock",
+      // Inventory and pricing vary by chip, customization and quantity; do not claim universal in-stock availability.
       itemCondition: "https://schema.org/NewCondition",
-      priceCurrency: "USD",
       seller: { "@type": "Organization", name: SITE_NAME, url: SITE_URL },
     },
   };
