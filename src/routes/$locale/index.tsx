@@ -328,30 +328,30 @@ function Home() {
         <div className="relative mx-auto max-w-7xl px-6 lg:px-10 w-full">
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
             <div className="text-center lg:text-left">
-              <p className="section-label">{locale === "zh" ? "NFC 标签与智能卡 OEM/ODM 制造商" : "NFC TAG & SMART CARD OEM/ODM MANUFACTURER"}</p>
+              <p className="section-label">{locale === "zh" ? "NFC 标签与智能卡制造 · OEM/ODM 定制" : "NFC TAG & SMART CARD MANUFACTURING · OEM/ODM"}</p>
               <h1 className="mt-4 section-hero-title font-bold whitespace-pre-line">
-                {locale === "zh" ? "定制 NFC 标签与智能卡\n从制造到安全发行" : "Custom NFC Tags & Smart Cards\nManufacturing to Secure Personalization"}
+                {locale === "zh" ? "定制 NFC 标签与智能卡\n制造与安全发行一站式服务" : "Custom NFC Tags & Smart Cards\nBuilt for Your Application"}
               </h1>
               <p className="mt-5 text-lg text-muted-foreground leading-relaxed max-w-xl mx-auto lg:mx-0">
-                {locale === "zh" ? "定制 NFC 标签、智能卡和防拆安全封条，提供芯片选型、印刷、NTAG424 DNA 安全个人化及在线验证方案。" : "Custom NFC labels, smart cards and tamper-evident security seals. OEM/ODM production, NTAG424 DNA secure personalization and authentication solutions."}
+                {locale === "zh" ? "从 NFC 标签、智能卡到防拆安全封条，提供芯片选型、结构与印刷定制、批量生产及安全个人化服务，并支持 NTAG424 DNA SDM 配置与在线验真系统集成。" : "From custom NFC labels and smart cards to tamper-evident security seals, we help you choose the right chip, manufacture your product and securely personalize it. NTAG424 DNA SDM and authentication integration available."}
               </p>
               <div className="mt-8 flex flex-wrap gap-3 justify-center lg:justify-start">
                 {heroPrimary && (
                   <Link
                     to={heroPrimary.to}
                     params={heroPrimary.params}
-                    className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3 text-sm font-semibold hover:opacity-90 transition-opacity"
+                    className="inline-flex items-center gap-2 rounded-md bg-primary text-primary-foreground px-6 py-3 text-sm font-semibold hover:opacity-90 transition-opacity"
                   >
                     {heroPrimary.label} <ArrowRight size={16} />
                   </Link>
                 )}
-                {modules.contact && (
+                {modules.products && (
                   <Link
-                    to="/$locale/inquiry"
+                    to="/$locale/products"
                     params={{ locale }}
-                    className="inline-flex items-center gap-2 rounded-full border border-border-strong bg-surface/60 backdrop-blur px-6 py-3 text-sm font-medium hover:border-primary hover:text-primary transition-colors"
+                    className="inline-flex items-center gap-2 rounded-md border border-border-strong bg-background px-6 py-3 text-sm font-medium hover:border-primary hover:text-primary transition-colors"
                   >
-                    {tr("hero.cta2")}
+                    {locale === "zh" ? "浏览产品" : "Explore Products"} <ArrowRight size={16} />
                   </Link>
                 )}
               </div>
@@ -400,10 +400,10 @@ function Home() {
             <div className="mb-8 max-w-2xl">
               <p className="section-label">{locale === "zh" ? "定制制造" : "CUSTOM MANUFACTURING"}</p>
               <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight">
-                {locale === "zh" ? "按产品类型寻找您的 NFC 解决方案" : "Find the Right NFC Product for Your Project"}
+                {locale === "zh" ? "按需求定制 NFC 标签与智能卡" : "NFC Products Made to Your Specifications"}
               </h2>
               <p className="mt-3 text-muted-foreground">
-                {locale === "zh" ? "从标签、智能卡到防拆安全封条，支持尺寸、芯片、印刷和安全编码定制。" : "Custom sizes, chip selection, printing and secure encoding for labels, smart cards and security seals."}
+                {locale === "zh" ? "根据应用选择标签结构、芯片、印刷和编码方式。支持 NFC 标签、智能卡及防拆安全封条 OEM/ODM 定制。" : "Choose the form factor, chip, printing and encoding you need. We support custom NFC labels, smart cards and security seals for OEM/ODM orders."}
               </p>
             </div>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
