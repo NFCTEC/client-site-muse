@@ -66,7 +66,7 @@ export function ProductDetailPage({ product, locale }: { product: CmsProduct; lo
 
   const images =
     product.images.length > 0
-      ? product.images
+      ? product.images.filter((image) => image.src.trim().length > 0)
       : product.heroImage
         ? [{ src: product.heroImage, label: "" }]
         : [];
@@ -138,6 +138,11 @@ export function ProductDetailPage({ product, locale }: { product: CmsProduct; lo
           )}
 
           <div>
+            {isHardware && (
+              <p className="mb-4 text-xs text-muted-foreground">
+                {t("Images may illustrate available product formats. Chip, antenna, finish and dimensions are confirmed against your specifications.", "图片可能用于展示可选产品形态。具体芯片、天线、工艺与尺寸以确认的定制规格为准。")}
+              </p>
+            )}
             <div className="inline-flex items-center gap-2 text-[11px] font-mono text-primary border border-primary/30 rounded-full px-3 py-1 mb-5">
               <Radio size={12} /> {categoryLabel}
             </div>
