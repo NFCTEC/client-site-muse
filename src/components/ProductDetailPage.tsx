@@ -82,6 +82,7 @@ export function ProductDetailPage({ product, locale }: { product: CmsProduct; lo
 
   const faqs = PRODUCT_FAQS[product.slug]?.[lang === "zh" ? "zh" : "en"] ?? [];
   const isAmazon = primaryCta.url.includes("amazon.com");
+  const isHardware = product.category === "hardware";
 
   return (
     <>
@@ -118,7 +119,7 @@ export function ProductDetailPage({ product, locale }: { product: CmsProduct; lo
                 >
                   <img
                     src={img.src}
-                    alt={product.name}
+                    alt={img.label ? `${product.name} — ${img.label}` : product.name}
                     width={800}
                     height={1000}
                     loading="lazy"
@@ -154,6 +155,27 @@ export function ProductDetailPage({ product, locale }: { product: CmsProduct; lo
                   </li>
                 ))}
               </ul>
+            )}
+
+            {isHardware && (
+              <div className="mt-7 rounded-2xl border border-primary/20 bg-primary/5 p-5">
+                <h2 className="font-display text-base font-semibold">
+                  {t("Custom manufacturing & secure personalization", "定制制造与安全个人化")}
+                </h2>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                  {t(
+                    "Planning a bulk order? Tell us your chip type, dimensions, artwork, quantity and personalization needs. We can review OEM/ODM production, printing and encoding options.",
+                    "计划批量采购？请提供芯片型号、尺寸、印刷设计、数量及个人化要求。我们可以评估 OEM/ODM 制造、印刷与编码方案。",
+                  )}
+                </p>
+                <Link
+                  to="/$locale/inquiry"
+                  params={{ locale }}
+                  className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline"
+                >
+                  {t("Request a factory quotation", "获取工厂定制报价")} <ArrowRight size={15} />
+                </Link>
+              </div>
             )}
 
             <div className="mt-8 flex flex-wrap gap-3">
