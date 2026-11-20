@@ -505,10 +505,10 @@ export const t: Dict = {
 
   // About
   "about.eyebrow": { en: "About NFCTEC", zh: "关于 NFCTEC" },
-  "about.title": { en: "15 years\nat the edge of NFC.", zh: "15 年深耕\n站在 NFC 前沿。" },
+  "about.title": { en: "20+ Years of NFC &\nSmart Card Experience", zh: "20 余年 NFC 与\n智能卡行业经验" },
   "about.intro": {
-    en: "Founded in 2010 in Shenzhen, NFCTEC runs an ISO 14443 card factory: laminate PVC and inlays, factory-encode NTAG 424 DNA SUN/SDM and DESFire/JavaCard media, tune antennas, and ship line-ready tags, cards and wristbands. Software and NTAG424 tap-verify sit beside production — not instead of it.",
-    zh: "2010 年成立于深圳。NFCTEC 是 ISO 14443 卡厂：层压 PVC 与 Inlay、产线编码 NTAG 424 DNA SUN/SDM 与 DESFire/JavaCard 介质、天线调试，出厂即可上线的标签、卡与手环。软件与 NTAG424 贴卡验真是产线配套，不是倒手空白卡。",
+    en: "Founded in Shenzhen in 2010, NFCTEC brings over 20 years of team experience in NFC, smart cards and security technology. We support custom NFC labels, PVC smart cards and secure personalization, from chip and material selection to encoding, testing and delivery.",
+    zh: "NFCTEC 于 2010 年在深圳成立，核心团队拥有 20 余年 NFC、智能卡及安全技术行业经验。我们提供 NFC 标签、PVC 智能卡定制制造与安全个人化服务，覆盖芯片和材料选型、编码、测试及交付。",
   },
   "about.mission.t": { en: "Mission", zh: "使命" },
   "about.mission.d": {
@@ -517,7 +517,7 @@ export const t: Dict = {
   },
   "about.values.t": { en: "Values", zh: "价值观" },
   "about.values.d": { en: "Open standards · Engineering rigor · Long-term partnerships.", zh: "开放标准 · 工程严谨 · 长期合作。" },
-  "about.stats.founded": { en: "Founded 2010 · Shenzhen", zh: "2010 年成立于深圳" },
+  "about.stats.founded": { en: "Founded in Shenzhen · 2010", zh: "2010 年 · 深圳成立" },
   "about.stats.projects": { en: "500+ projects shipped", zh: "已交付 500+ 项目" },
   "about.stats.countries": { en: "60+ countries", zh: "覆盖 60+ 国家" },
   "about.stats.team": { en: "12+ engineers", zh: "12+ 工程师" },
