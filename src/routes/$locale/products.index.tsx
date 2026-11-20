@@ -84,11 +84,25 @@ function ProductGrid({ items, locale }: { items: CmsProduct[]; locale: string })
         return (
           <div
             key={p.id}
-            className="card-glow card-equal group rounded-2xl border border-border bg-card-gradient p-7"
+            className="card-glow card-equal group rounded-xl border border-border bg-card p-6"
           >
-            <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/30 grid place-items-center mb-6">
-              <Icon size={20} className="text-primary" />
-            </div>
+            {p.heroImage ? (
+              <div className="mb-5 aspect-[4/3] w-full overflow-hidden rounded-lg border border-border bg-surface p-4">
+                <img
+                  src={p.heroImage}
+                  alt={p.name}
+                  width={640}
+                  height={480}
+                  loading="lazy"
+                  decoding="async"
+                  className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-[1.02]"
+                />
+              </div>
+            ) : (
+              <div className="w-12 h-12 rounded-lg bg-surface border border-border grid place-items-center mb-6">
+                <Icon size={20} className="text-primary" />
+              </div>
+            )}
             <h3 className="font-display text-lg font-semibold mb-2">{p.name}</h3>
             <p className="text-sm text-muted-foreground leading-relaxed flex-1 mb-6">{p.description}</p>
             <Link
@@ -124,15 +138,15 @@ function Products() {
               : "Explore NFC labels, smart cards and secure personalization products. Ask us about bulk manufacturing, OEM/ODM printing and custom encoding."}
           </p>
           <nav aria-label={locale === "zh" ? "产品分类快捷导航" : "Product category shortcuts"} className="mt-5 flex flex-wrap gap-3">
-            <a href="#hardware" className="rounded-full border border-border bg-background px-5 py-2.5 text-sm font-medium hover:border-primary hover:text-primary transition-colors">
+            <a href="#hardware" className="rounded-md border border-border bg-background px-5 py-2.5 text-sm font-medium hover:border-primary hover:text-primary transition-colors">
               {locale === "zh" ? "NFC 标签与智能卡" : "NFC Tags & Smart Cards"}
             </a>
             {software.length > 0 && (
-              <a href="#software" className="rounded-full border border-border bg-background px-5 py-2.5 text-sm font-medium hover:border-primary hover:text-primary transition-colors">
+              <a href="#software" className="rounded-md border border-border bg-background px-5 py-2.5 text-sm font-medium hover:border-primary hover:text-primary transition-colors">
                 {locale === "zh" ? "软件与开发工具" : "Software & Developer Tools"}
               </a>
             )}
-            <Link to="/$locale/inquiry" params={{ locale }} className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground hover:opacity-90">
+            <Link to="/$locale/inquiry" params={{ locale }} className="inline-flex items-center gap-2 rounded-md bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground hover:opacity-90">
               {locale === "zh" ? "获取工厂报价" : "Request a Factory Quote"} <ArrowRight size={15} />
             </Link>
           </nav>
@@ -162,14 +176,14 @@ function Products() {
             <Link
               to="/$locale/platform"
               params={{ locale }}
-              className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3 text-sm font-semibold hover:opacity-90 transition-opacity"
+              className="inline-flex items-center gap-2 rounded-md bg-primary text-primary-foreground px-6 py-3 text-sm font-semibold hover:opacity-90 transition-opacity"
             >
               {tr("cloud.getStarted")} <ArrowRight size={16} />
             </Link>
             <Link
               to="/$locale/inquiry"
               params={{ locale }}
-              className="inline-flex items-center gap-2 rounded-full border border-border-strong bg-background/60 px-6 py-3 text-sm font-medium hover:border-primary hover:text-primary transition-colors"
+              className="inline-flex items-center gap-2 rounded-md border border-border-strong bg-background/60 px-6 py-3 text-sm font-medium hover:border-primary hover:text-primary transition-colors"
             >
               {tr("hero.cta2")}
             </Link>
