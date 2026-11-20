@@ -242,7 +242,7 @@ const pillarDefs: PillarDef[] = [
     module: "products",
     to: "/$locale/products",
     search: { tab: "hw" },
-    image: "/images/nfctec-homepage-2.webp",
+    image: "/images/nfctec-custom-smart-cards.webp",
   },
   {
     icon: Code2,
@@ -251,7 +251,7 @@ const pillarDefs: PillarDef[] = [
     module: "products",
     to: "/$locale/products",
     search: { tab: "sw" },
-    image: "/images/nfctec-homepage-3.webp",
+    image: "/images/nfctec-secure-personalization.webp",
   },
   {
     icon: Layers,
@@ -266,7 +266,7 @@ const pillarDefs: PillarDef[] = [
     descKey: "pillar.dev.desc",
     module: "solutions",
     to: "/$locale/solutions",
-    image: "/images/nfctec-homepage-1.webp",
+    image: "/images/nfctec-nfc-security-labels.webp",
   },
 ];
 
@@ -377,7 +377,7 @@ function Home() {
             <div className="w-full max-w-[560px] mx-auto lg:ml-auto">
               <div className="overflow-hidden rounded-xl border border-border bg-surface">
                 <img
-                  src="/images/nfctec-homepage-2.webp"
+                  src="/images/nfctec-nfc-tags-and-inlays.webp"
                   alt={locale === "zh" ? "NFC 智能卡、标签、天线及定制材料展示示意图" : "Illustrative selection of NFC smart cards, labels, antenna inlays and customization materials"}
                   width={1536}
                   height={1024}
@@ -460,7 +460,7 @@ function Home() {
                   <Link
                     key={p.id}
                     {...linkProps}
-                    className="card-glow card-equal rounded-xl border border-border bg-card p-5 group"
+                    className="card-equal rounded-xl border border-border bg-card p-5 group"
                   >
                     {p.heroImage ? (
                        <div className="mb-4 aspect-[4/3] overflow-hidden rounded-lg border border-border bg-surface p-3">
@@ -618,6 +618,40 @@ function Home() {
           </div>
         </section>
       )}
+
+      {/* Custom manufacturing capabilities: illustrative product imagery, not factory photographs. */}
+      <section className="section-main border-y border-border bg-background">
+        <div className="mx-auto max-w-7xl px-6 lg:px-10">
+          <div className="mb-8 max-w-3xl">
+            <p className="section-label">{locale === "zh" ? "定制产品与安全服务" : "CUSTOM PRODUCTS & SECURE SERVICES"}</p>
+            <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight">
+              {locale === "zh" ? "从产品制造到安全个人化" : "From Custom Manufacturing to Secure Personalization"}
+            </h2>
+            <p className="mt-3 text-muted-foreground leading-relaxed">
+              {locale === "zh" ? "选择适合项目的产品形式、印刷工艺与编码服务。我们根据您的应用需求评估可行方案。" : "Explore product formats, print options and secure encoding services tailored to your application."}
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {[
+              { src: "/images/nfctec-nfc-tags-and-inlays.webp", en: "NFC Tags & Inlays", zh: "NFC 标签与 Inlay", den: "Custom antenna formats, adhesive labels and chip selection.", dzh: "定制天线结构、背胶标签及芯片选型。", to: "/$locale/products" as const },
+              { src: "/images/nfctec-custom-smart-cards.webp", en: "Custom Smart Cards", zh: "定制智能卡", den: "Printed PVC cards, chip options and bulk production.", dzh: "PVC 卡片印刷、芯片选型与批量制造。", to: "/$locale/products" as const },
+              { src: "/images/nfctec-nfc-security-labels.webp", en: "Tamper-Evident Labels", zh: "防拆安全标签", den: "Custom die-cut shapes and holographic security finishes.", dzh: "定制模切形状与全息安全印刷效果。", to: "/$locale/solutions" as const },
+              { src: "/images/nfctec-secure-personalization.webp", en: "Secure Personalization", zh: "安全个人化编码", den: "NFC issuance, key workflows and authentication integration.", dzh: "NFC 发行、密钥流程与验真系统集成。", to: "/$locale/solutions" as const },
+            ].map((item) => (
+              <Link key={item.src} to={item.to} params={{ locale }} className="group overflow-hidden rounded-xl border border-border bg-card hover:border-primary/40 transition-colors">
+                <div className="aspect-[4/3] overflow-hidden bg-white">
+                  <img src={item.src} alt={locale === "zh" ? `${item.zh}产品展示示意图` : `${item.en} illustrative product photography`} width={640} height={480} loading="lazy" decoding="async" className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-[1.02]" />
+                </div>
+                <div className="p-5">
+                  <h3 className="font-display text-lg font-semibold group-hover:text-primary transition-colors">{locale === "zh" ? item.zh : item.en}</h3>
+                  <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{locale === "zh" ? item.dzh : item.den}</p>
+                  <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-primary">{locale === "zh" ? "了解更多" : "Explore options"} <ArrowRight size={14} /></span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* Why NFCTEC */}
       <section className="section-main bg-surface/40 border-y border-border">
