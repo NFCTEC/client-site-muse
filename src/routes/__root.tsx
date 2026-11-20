@@ -83,8 +83,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "NFCTEC — NFC Card Factory: Tags, Cards, Wristbands" },
-      { name: "description", content: "Custom NFC cards, die-cut tags and wristbands. NTAG, Ultralight EV1/C, DESFire EV2/EV3 2K–8K, NTAG 424 DNA, JCOP." },
+      { title: "NFCTEC | Custom NFC Tags & Smart Card Manufacturer" },
+      { name: "description", content: "NFC tag and smart card OEM/ODM manufacturer. Custom security labels, NTAG424 DNA personalization, JavaCard, and NFC authentication solutions." },
       { name: "author", content: "NFCTEC" },
       { name: "baidu-site-verification", content: "codeva-pSQwoIXzau" },
       { name: "theme-color", content: "#0a0e1a" },
