@@ -40,6 +40,21 @@ import { HeroIllustration } from "@/components/HeroIllustration";
 import { SolutionVisual } from "@/components/SolutionVisual";
 import * as LucideIcons from "lucide-react";
 
+const procurementFaq = {
+  en: [
+    { q: "Can NFCTEC manufacture custom NFC tags and smart cards?", a: "Yes. We support OEM/ODM NFC labels and smart cards with custom dimensions, artwork, chip selection and personalization requirements. Share your specifications for a tailored quotation." },
+    { q: "Do you support NTAG424 DNA secure personalization?", a: "Yes. NFCTEC provides NTAG424 DNA personalization, Secure Dynamic Messaging (SDM) configuration, key management workflows and server-side authentication integration." },
+    { q: "Can you make tamper-evident NFC security labels?", a: "We offer custom NFC security label projects, including NTAG424 DNA TagTamper options. Final construction, antenna design and tamper performance depend on the packaging and application." },
+    { q: "How can I request a quotation?", a: "Send your product type, dimensions, chip requirements, artwork, quantity and destination through the inquiry form. Our team will review your project requirements." },
+  ],
+  zh: [
+    { q: "NFCTEC 可以定制 NFC 标签和智能卡吗？", a: "可以。我们提供 NFC 标签与智能卡 OEM/ODM 定制，包括尺寸、印刷设计、芯片选型及个人化要求。请提供规格以获取针对性报价。" },
+    { q: "支持 NTAG424 DNA 安全个人化吗？", a: "支持。NFCTEC 提供 NTAG424 DNA 个人化、SDM 安全动态消息配置、密钥管理流程及服务端认证集成。" },
+    { q: "可以生产 NFC 防拆防伪标签吗？", a: "我们提供定制 NFC 安全标签方案，包括 NTAG424 DNA TagTamper 选项。最终结构、天线设计和防拆效果需要结合包装及应用场景确认。" },
+    { q: "如何获取定制报价？", a: "请通过询价表单提供产品类型、尺寸、芯片要求、设计文件、数量和收货国家，我们将评估您的项目需求。" },
+  ],
+} as const;
+
 export const Route = createFileRoute("/$locale/")({
   loader: async ({ params }) => {
     const locale = params.locale as Locale;
@@ -86,9 +101,9 @@ export const Route = createFileRoute("/$locale/")({
     return {
       meta: socialMeta({ title, description, url, locale }),
       links: [{ rel: "canonical", href: url }, ...hreflangLinks("/")],
-      scripts:
-        products.length > 0
-          ? [
+      scripts: [
+        jsonLdScript({ "@context": "https://schema.org", "@type": "FAQPage", mainEntity: procurementFaq[zh ? "zh" : "en"].map((item) => ({ "@type": "Question", name: item.q, acceptedAnswer: { "@type": "Answer", text: item.a } })) }),
+        ...(products.length > 0 ? [
               jsonLdScript(
                 itemListJsonLd(
                   title,
@@ -100,8 +115,8 @@ export const Route = createFileRoute("/$locale/")({
                   })),
                 ),
               ),
-            ]
-          : [],
+            ] : []),
+      ],
     };
   },
   component: Home,
@@ -677,6 +692,31 @@ function Home() {
           </div>
         </section>
       )}
+
+      {/* Buyer FAQ: visible answers match structured data and preserve existing pages. */}
+      <section className="section-main border-t border-border">
+        <div className="mx-auto max-w-5xl px-6 lg:px-10">
+          <div className="mb-8">
+            <p className="section-label">{locale === "zh" ? "采购常见问题" : "BUYER FAQ"}</p>
+            <h2 className="mt-3 font-display text-3xl font-semibold">{locale === "zh" ? "定制 NFC 产品常见问题" : "Custom NFC Manufacturing FAQs"}</h2>
+          </div>
+          <div className="grid gap-4 md:grid-cols-2">
+            {procurementFaq[locale === "zh" ? "zh" : "en"].map((item) => (
+              <article key={item.q} className="rounded-2xl border border-border bg-card-gradient p-6">
+                <h3 className="font-display text-base font-semibold">{item.q}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{item.a}</p>
+              </article>
+            ))}
+          </div>
+          {modules.contact && (
+            <div className="mt-8">
+              <Link to="/$locale/inquiry" params={{ locale }} className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90">
+                {locale === "zh" ? "提交定制需求" : "Request a Custom Quote"} <ArrowRight size={16} />
+              </Link>
+            </div>
+          )}
+        </div>
+      </section>
 
       <CtaBand />
     </>
