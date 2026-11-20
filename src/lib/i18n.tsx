@@ -267,10 +267,10 @@ export const t: Dict = {
   },
 
   // Products page
-  "ppage.title": { en: "NFC card factory: tags, cards, wristbands", zh: "NFC 卡厂：标签、卡、手环" },
+  "ppage.title": { en: "Custom NFC Tags, Smart Cards & More", zh: "NFC 标签、智能卡及更多定制产品" },
   "ppage.sub": {
-    en: "We laminate NTAG, Ultralight EV1/C, DESFire EV2/EV3 (2K–8K), NTAG 424 DNA and JCOP into the body you need — white PVC, print, die-cut tags, silicone wristbands. Send artwork and an IC.",
-    zh: "把 NTAG、Ultralight EV1/C、DESFire EV2/EV3（2K–8K）、NTAG 424 DNA、JCOP 做到你要的卡体上：白卡、彩印、异形标签、硅胶手环。给印刷文件和芯片型号即可询价。",
+    en: "Find the right NFC product for your application. Choose from custom printed tags, PVC smart cards, wristbands and secure chip options, with manufacturing and personalization support.",
+    zh: "根据您的应用选择合适的 NFC 产品。支持定制印刷标签、PVC 智能卡、手环和安全芯片，并提供制造与个人化编码支持。",
   },
   "ppage.empty": { en: "No products in this category yet.", zh: "该分类暂无产品。" },
   "ppage.sw": { en: "Software", zh: "软件方案" },
@@ -512,11 +512,11 @@ export const t: Dict = {
   },
   "about.mission.t": { en: "Mission", zh: "使命" },
   "about.mission.d": {
-    en: "Ship secure NFC cards and tags with the right chip, keys and encode recipe — at factory volume and auditability.",
-    zh: "以正确的芯片、密钥与编码配方，批量出厂可审计的安全 NFC 卡与标签。",
+    en: "Help customers turn NFC product requirements into manufacturable, testable solutions, with secure encoding when the application calls for it.",
+    zh: "帮助客户将 NFC 产品需求转化为可制造、可测试的解决方案，并按应用需要提供安全编码支持。",
   },
   "about.values.t": { en: "Values", zh: "价值观" },
-  "about.values.d": { en: "Open standards · Engineering rigor · Long-term partnerships.", zh: "开放标准 · 工程严谨 · 长期合作。" },
+  "about.values.d": { en: "Clear communication, practical engineering and consistent product quality.", zh: "沟通透明、工程务实、重视产品质量。" },
   "about.stats.founded": { en: "Founded in Shenzhen · 2010", zh: "2010 年 · 深圳成立" },
   "about.stats.projects": { en: "500+ projects shipped", zh: "已交付 500+ 项目" },
   "about.stats.countries": { en: "60+ countries", zh: "覆盖 60+ 国家" },
@@ -611,23 +611,23 @@ export const t: Dict = {
   "form.submit": { en: "Submit inquiry", zh: "提交需求" },
   "form.sending": { en: "Sending…", zh: "发送中…" },
   "form.success": {
-    en: "Thank you — your inquiry has been submitted. We'll respond by email within one business day.",
-    zh: "感谢提交！我们已收到您的需求，将在 1 个工作日内通过邮件回复。",
+    en: "Thank you. Your inquiry has been submitted. We'll review your requirements and follow up by email.",
+    zh: "感谢提交！您的需求已发送，我们将审核项目要求并通过邮件与您联系。",
   },
   "form.mailto.hint": { en: "If nothing opened, email us directly at", zh: "如未自动打开，请直接发送邮件至" },
-  "project.eyebrow": { en: "Factory quote", zh: "卡厂询价" },
+  "project.eyebrow": { en: "CUSTOM PROJECT INQUIRY", zh: "定制项目咨询" },
   "project.title": {
-    en: "RFQ for NFC cards,\ntags or encoding.",
-    zh: "NFC 卡、标签\n或编码询价。",
+    en: "Tell Us About Your\nCustom NFC Project",
+    zh: "告诉我们您的\nNFC 定制需求",
   },
   "project.sub": {
-    en: "Chip (NTAG424, DESFire, JCOP…), form factor, quantity and encode level (blank / NDEF / SUN / keys). Engineers reply by email within one business day.",
-    zh: "芯片（NTAG424、DESFire、JCOP 等）、形态、数量与编码级别（空白 / NDEF / SUN / 密钥）。工程师一个工作日内邮件回复。",
+    en: "Share your application, approximate quantity, size and any printing or encoding requirements. If you're unsure which chip to use, we can help you evaluate the options.",
+    zh: "告诉我们产品用途、预计数量、尺寸，以及印刷或编码要求。如果尚未确定芯片型号，我们也可以协助选型。",
   },
   "faq.in1.q": { en: "How fast will I get a reply?", zh: "多久能收到回复？" },
   "faq.in1.a": {
-    en: "Inquiries from this form are answered by email within one business day (China Standard Time).",
-    zh: "从这个表单提交的询盘，我们在一个工作日内用邮件回复（北京时间）。",
+    en: "We review incoming project requests and respond by email. Response times depend on the details and technical review required.",
+    zh: "我们会通过邮件回复项目咨询，具体时间取决于需求内容及所需的技术评估。",
   },
   "faq.in2.q": { en: "Can I request samples?", zh: "可以要样品吗？" },
   "faq.in2.a": {
