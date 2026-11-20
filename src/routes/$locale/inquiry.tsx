@@ -29,11 +29,11 @@ export const Route = createFileRoute("/$locale/inquiry")({
   head: ({ params }) => {
     const locale = params.locale as Locale;
     const lang: Lang = locale === "zh" ? "zh" : "en";
-    const title = lang === "zh" ? "联系我们 — NFCTEC" : "Contact Us — NFCTEC";
+    const title = lang === "zh" ? "NFC 定制产品询价 | NFCTEC" : "Custom NFC Tags & Smart Cards Quote | NFCTEC";
     const description =
       lang === "zh"
-        ? "NFC 卡、标签、手环与 SUN/SDM 编码卡厂询价。工程师一个工作日内邮件回复。"
-        : "Factory RFQ for NFC cards, tags, wristbands and SUN/SDM encoding. Engineers reply by email within one business day.";
+        ? "提交 NFC 标签、智能卡和安全个人化项目需求，获取定制制造、印刷及编码方案建议。"
+        : "Request a quote for custom NFC tags, smart cards and secure personalization. Share your application, quantity and specifications with NFCTEC.";
     return {
       meta: [
         { title },
@@ -98,7 +98,7 @@ function Inquiry() {
         <div className="grid lg:grid-cols-5 gap-8 lg:gap-12">
           <form
             onSubmit={handleSubmit}
-            className="lg:col-span-3 rounded-2xl border border-border bg-card-gradient p-6 sm:p-8 lg:p-10"
+            className="lg:col-span-3 rounded-xl border border-border bg-card p-6 sm:p-8 lg:p-10"
           >
             {done ? (
               <div className="py-16 text-center">
