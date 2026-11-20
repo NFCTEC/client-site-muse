@@ -41,7 +41,8 @@ export const Route = createFileRoute("/$locale/products/")({
     const description = zh
       ? "NFCTEC 卡厂：NTAG 424 DNA（NTAG424）、NTAG213/215/216、Ultralight EV1/C、DESFire EV2/EV3（2K/4K/8K）。白卡、彩印、异形标签、硅胶手环可定制。JavaCard 可询。"
       : "NFCTEC card factory: NTAG 424 DNA (NTAG424), NTAG213/215/216, Ultralight EV1/C, DESFire EV2/EV3 in 2K/4K/8K. Custom PVC, die-cut tags, silicone wristbands. JavaCard on quote.";
-    const listed = [...(loaderData?.hardware ?? []), ...(loaderData?.software ?? [])];
+    // Only list products with real, indexable detail URLs; RFQ-only entries are still visible in the catalog.
+    const listed = [...(loaderData?.hardware ?? []), ...(loaderData?.software ?? [])].filter((p) => p.hasDetailPage);
     return {
       meta: socialMeta({ title, description, url, locale }),
       links: [{ rel: "canonical", href: url }, ...hreflangLinks("/products")],
@@ -53,7 +54,7 @@ export const Route = createFileRoute("/$locale/products/")({
             url,
             listed.map((p) => ({
               name: p.name,
-              url: absLocaleUrl(locale, p.hasDetailPage ? `/products/${p.slug}` : "/inquiry"),
+              url: absLocaleUrl(locale, `/products/${p.slug}`),
             })),
           ),
         ),
