@@ -242,7 +242,7 @@ const pillarDefs: PillarDef[] = [
     module: "products",
     to: "/$locale/products",
     search: { tab: "hw" },
-    image: "/images/nfctec-custom-smart-cards.webp",
+    image: "/images/nfctec-nfc-manufacturing-applications.webp",
   },
   {
     icon: Code2,
@@ -251,7 +251,7 @@ const pillarDefs: PillarDef[] = [
     module: "products",
     to: "/$locale/products",
     search: { tab: "sw" },
-    image: "/images/nfctec-secure-personalization.webp",
+    image: "/images/nfctec-cloud-services-security.webp",
   },
   {
     icon: Layers,
@@ -259,7 +259,7 @@ const pillarDefs: PillarDef[] = [
     descKey: "pillar.sol.desc",
     module: "platform",
     to: "/$locale/platform",
-    image: "/images/nfctec-secure-personalization.webp",
+    image: "/images/nfctec-cloud-services-security.webp",
   },
   {
     icon: Wrench,
@@ -267,7 +267,7 @@ const pillarDefs: PillarDef[] = [
     descKey: "pillar.dev.desc",
     module: "solutions",
     to: "/$locale/solutions",
-    image: "/images/nfctec-nfc-security-labels.webp",
+    image: "/images/nfctec-brand-protection-authentication.webp",
   },
 ];
 
