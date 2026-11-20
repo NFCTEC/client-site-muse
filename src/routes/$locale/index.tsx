@@ -195,7 +195,7 @@ const industries = [
 ] as const;
 
 const stats = [
-  { value: "15+", label: "stat.years" },
+  { value: "20+", label: "stat.years" },
   { value: "50+", label: "stat.protocols" },
   { value: "500+", label: "stat.projects" },
   { value: "60+", label: "stat.countries" },
@@ -231,6 +231,7 @@ type PillarDef = {
   module: ModuleKey;
   to: "/$locale/products" | "/$locale/platform" | "/$locale/solutions";
   search?: { tab: "sw" | "hw" };
+  image?: string;
 };
 
 const pillarDefs: PillarDef[] = [
@@ -241,6 +242,7 @@ const pillarDefs: PillarDef[] = [
     module: "products",
     to: "/$locale/products",
     search: { tab: "hw" },
+    image: "/images/nfctec-homepage-2.webp",
   },
   {
     icon: Code2,
@@ -249,6 +251,7 @@ const pillarDefs: PillarDef[] = [
     module: "products",
     to: "/$locale/products",
     search: { tab: "sw" },
+    image: "/images/nfctec-homepage-3.webp",
   },
   {
     icon: Layers,
@@ -263,6 +266,7 @@ const pillarDefs: PillarDef[] = [
     descKey: "pillar.dev.desc",
     module: "solutions",
     to: "/$locale/solutions",
+    image: "/images/nfctec-homepage-1.webp",
   },
 ];
 
@@ -284,6 +288,7 @@ function Home() {
       d: tr(p.descKey),
       to: p.to,
       search: p.search,
+      image: p.image,
     }));
 
   const visibleIndustries = modules.solutions
@@ -584,9 +589,23 @@ function Home() {
                     search={p.search}
                     className="group card-equal rounded-xl border border-border bg-card p-7 hover:border-primary/40 transition-colors"
                   >
-                    <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/30 grid place-items-center mb-5">
-                      <Icon size={20} className="text-primary" />
-                    </div>
+                    {p.image ? (
+                      <div className="mb-5 overflow-hidden rounded-lg border border-border bg-surface">
+                        <img
+                          src={p.image}
+                          alt={locale === "zh" ? `${p.t}产品与应用示意图` : `${p.t} product and application illustration`}
+                          width={640}
+                          height={420}
+                          loading="lazy"
+                          decoding="async"
+                          className="aspect-[3/2] w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+                        />
+                      </div>
+                    ) : (
+                      <div className="w-12 h-12 rounded-xl bg-surface border border-border grid place-items-center mb-5">
+                        <Icon size={20} className="text-primary" />
+                      </div>
+                    )}
                     <h3 className="font-display text-xl font-semibold mb-2">{p.t}</h3>
                     <p className="text-sm text-muted-foreground leading-relaxed flex-1">{p.d}</p>
                     <span className="mt-5 inline-flex items-center gap-1 text-sm text-primary">
