@@ -36,7 +36,7 @@ import {
 } from "lucide-react";
 import { SectionHeader } from "@/components/SectionHeader";
 import { CtaBand } from "@/components/CtaBand";
-import { HeroIllustration } from "@/components/HeroIllustration";
+
 import { SolutionVisual } from "@/components/SolutionVisual";
 import * as LucideIcons from "lucide-react";
 
@@ -357,8 +357,37 @@ function Home() {
               </div>
             </div>
 
-            <div className="flex justify-center lg:justify-end px-4 lg:px-0">
-              <HeroIllustration className="w-full max-w-[520px] lg:max-w-[560px]" />
+            {/* Quiet, product-led visual. No simulated factory photography or decorative AI graphics. */}
+            <div className="w-full max-w-[540px] mx-auto lg:ml-auto" aria-label={locale === "zh" ? "智能卡、NFC 标签及透明天线的产品类型示意" : "Illustration of smart cards, NFC labels and an inlay"}>
+              <div className="rounded-2xl border border-border bg-surface/60 p-6 sm:p-9">
+                <div className="flex items-center justify-between gap-4 border-b border-border pb-5">
+                  <span className="text-xs font-medium tracking-[0.16em] uppercase text-muted-foreground">NFCTEC / OEM & ODM</span>
+                  <span className="text-xs text-muted-foreground">13.56 MHz NFC</span>
+                </div>
+                <div className="grid grid-cols-2 gap-5 py-9 sm:gap-8">
+                  <div className="aspect-[1.58] rounded-xl border border-border-strong bg-white shadow-sm flex items-end p-4">
+                    <span className="text-[11px] font-medium tracking-wide text-slate-600">PVC SMART CARD</span>
+                  </div>
+                  <div className="aspect-[1.58] rounded-xl border border-slate-600 bg-slate-900 shadow-sm flex items-end p-4">
+                    <span className="text-[11px] font-medium tracking-wide text-slate-200">CUSTOM PRINTING</span>
+                  </div>
+                  <div className="aspect-[1.58] flex items-center justify-center rounded-xl border border-border bg-background">
+                    <div className="h-24 w-24 max-w-[65%] max-h-[75%] rounded-full border-[9px] border-white bg-slate-100 shadow-sm ring-1 ring-slate-300" />
+                  </div>
+                  <div className="aspect-[1.58] rounded-xl border border-border bg-background p-4 flex items-center justify-center">
+                    <div className="w-full max-w-[125px] aspect-square rounded-lg border border-slate-400/60 p-2">
+                      <div className="w-full h-full rounded-md border-[3px] border-slate-400/70 p-2">
+                        <div className="w-full h-full rounded border-2 border-slate-400/70 flex items-center justify-center">
+                          <span className="h-3 w-4 rounded-[2px] bg-slate-500" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex flex-wrap gap-x-5 gap-y-2 border-t border-border pt-5 text-xs text-muted-foreground">
+                  <span>SMART CARDS</span><span>NFC LABELS</span><span>SECURE PERSONALIZATION</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
