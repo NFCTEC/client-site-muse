@@ -11,10 +11,9 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const stored = (typeof window !== "undefined" && localStorage.getItem("theme")) as Theme | null;
-    const prefers =
-      typeof window !== "undefined" &&
-      window.matchMedia?.("(prefers-color-scheme: dark)").matches;
-    const initial: Theme = stored ?? (prefers ? "dark" : "light");
+    // Light is the NFCTEC brand default, regardless of the visitor's OS setting.
+    // Respect an explicit theme choice made on this site.
+    const initial: Theme = stored === "dark" ? "dark" : "light";
     setTheme(initial);
   }, []);
 
