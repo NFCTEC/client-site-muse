@@ -8,13 +8,19 @@ type SolutionVisualProps = {
   className?: string;
 };
 
-export function SolutionVisual({ slug, alt, className = "aspect-[16/9]" }: SolutionVisualProps) {
+export function SolutionVisual({ slug, src, alt, className = "aspect-[16/9]" }: SolutionVisualProps) {
+  if (src && /^\/(?!\/)|^https:\/\//.test(src)) {
+    return (
+      <div className={`relative w-full overflow-hidden border-b border-border bg-surface ${className}`}>
+        <img src={src} alt={alt} loading="lazy" decoding="async" className="h-full w-full object-contain p-3" />
+      </div>
+    );
+  }
+
   return (
-    <div className={`relative w-full overflow-hidden bg-card-gradient ${className}`}>
+    <div className={`relative w-full overflow-hidden border-b border-border bg-surface ${className}`}>
       <SolutionArt slug={slug} className="absolute inset-0 h-full w-full" />
       <span className="sr-only">{alt}</span>
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/20 via-transparent to-white/[0.04]" />
-      <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-border/50 dark:ring-white/10" />
     </div>
   );
 }
