@@ -84,7 +84,7 @@ function ProductGrid({ items, locale }: { items: CmsProduct[]; locale: string })
         return (
           <div
             key={p.id}
-            className="card-glow card-equal group rounded-xl border border-border bg-card p-6"
+            className="card-equal group rounded-xl border border-border bg-card p-6"
           >
             {p.heroImage ? (
               <div className="mb-5 aspect-[4/3] w-full overflow-hidden rounded-lg border border-border bg-surface p-4">
