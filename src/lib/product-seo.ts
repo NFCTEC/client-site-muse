@@ -261,7 +261,6 @@ export function productJsonLd(
   locale: Locale,
   url: string,
   image: string | undefined,
-  offerUrl: string,
 ) {
   const mpn = MPN[product.slug];
   const sameAs = SAME_AS[product.slug];
@@ -277,7 +276,6 @@ export function productJsonLd(
     brand: mpn ? NXP : { "@type": "Brand", name: SITE_NAME },
     // NFCTEC supplies the finished B2B product; chip brand does not imply that NXP manufactures the finished label/card.
     manufacturer: { "@type": "Organization", name: SITE_NAME, url: SITE_URL },
-    seller: { "@type": "Organization", name: SITE_NAME, url: SITE_URL },
     category: product.category === "hardware" ? "NFC hardware" : "NFC software",
     additionalProperty: product.specs.map((s) => ({
       "@type": "PropertyValue",
@@ -285,14 +283,8 @@ export function productJsonLd(
       value: s.value,
     })),
     sameAs,
-    // B2B / RFQ products: do not invent a $0 price — that fails Google Product rich results.
-    offers: {
-      "@type": "Offer",
-      url: offerUrl,
-      // Inventory and pricing vary by chip, customization and quantity; do not claim universal in-stock availability.
-      itemCondition: "https://schema.org/NewCondition",
-      seller: { "@type": "Organization", name: SITE_NAME, url: SITE_URL },
-    },
+    // B2B / RFQ: no public price — omit `offers` so Google Merchant checks do not expect price & availability.
+    // Retail packs are linked via `sameAs` (e.g. Amazon); quotes go through /inquiry on the page.
   };
 }
 

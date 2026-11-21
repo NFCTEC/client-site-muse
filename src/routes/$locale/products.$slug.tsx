@@ -31,12 +31,6 @@ export const Route = createFileRoute("/$locale/products/$slug")({
     const title = product?.seoTitle ?? (product ? `${product.name} — NFCTEC` : "Product — NFCTEC");
     const desc = product?.seoDescription ?? product?.description ?? "";
     const image = product ? resolveProductImage(product) : undefined;
-    const offerPath =
-      product?.ctaUrl && product.ctaUrl.startsWith("/") ? product.ctaUrl : "/inquiry";
-    const offerUrl =
-      product?.ctaUrl && /^https?:\/\//.test(product.ctaUrl)
-        ? product.ctaUrl
-        : absLocaleUrl(locale, offerPath);
     const faq = product ? productFaqJsonLd(product.slug, locale) : null;
     return {
       meta: socialMeta({
@@ -50,7 +44,7 @@ export const Route = createFileRoute("/$locale/products/$slug")({
       links: [{ rel: "canonical", href: url }, ...hreflangLinks(`/products/${params.slug}`)],
       scripts: product
         ? [
-            jsonLdScript(productJsonLd(product, locale, url, image, offerUrl)),
+            jsonLdScript(productJsonLd(product, locale, url, image)),
             jsonLdScript(
               breadcrumbJsonLd(locale, [
                 { name: locale === "zh" ? "产品" : "Products", path: "/products" },
